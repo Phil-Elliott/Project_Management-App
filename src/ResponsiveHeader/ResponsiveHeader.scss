@@ -1,0 +1,44 @@
+@import "./../Shared.scss";
+
+.responsive-nav {
+  background: $header;
+  box-shadow: $box-shadow;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+
+.responsive-header-logo {
+  font-weight: 800;
+  font-size: 0.9rem;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+
+  h2 {
+    padding-right: 1.5rem;
+  }
+
+  div {
+    display: flex;
+  }
+
+  .hamburger-icon {
+    font-size: 1.1rem;
+  }
+}
+
+.responsive-header-links > * {
+  margin-left: 1rem;
+}
+
+@media only screen and (min-width: 1100px) {
+  .responsive-nav {
+    display: none;
+  }
+}

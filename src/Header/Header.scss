@@ -1,0 +1,87 @@
+@import "./../Shared.scss";
+
+.header {
+  background-color: $header;
+  color: $white;
+  @extend %flex-between-column;
+  max-height: 100vh;
+  transition: $transistion-ease;
+}
+
+.main-header-content {
+  overflow-y: auto;
+}
+
+.top-header-content {
+  padding-bottom: 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+  font-weight: 800;
+  font-size: 1.1rem;
+  font-style: italic;
+
+  h2 {
+    transition: $transistion-ease;
+    font-size: 0%;
+  }
+}
+
+.nav-icon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+
+  h2 {
+    transition: $transistion-ease;
+    font-size: 0%;
+  }
+}
+
+.expand-container {
+  justify-content: flex-start;
+  h2 {
+    transition: all 0.5s ease-in-out 0.15s;
+    display: inline;
+    font-size: 100%;
+    padding-left: 1rem;
+  }
+}
+
+.bottom-header-arrw {
+  display: flex;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 1100px) {
+  .header {
+    padding-top: 3.5rem;
+    transform: translateX(0px);
+    transition: $transistion-ease;
+    position: absolute;
+    height: 100%;
+  }
+  .top-header-content {
+    display: none;
+  }
+  .unactive-side-nav {
+    transform: translateX(-5rem);
+    transition: $transistion-ease;
+  }
+  .active-side-nav {
+    transform: translateX(0);
+  }
+}

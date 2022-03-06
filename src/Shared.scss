@@ -1,0 +1,44 @@
+// Colors
+//==================================================
+
+$background-color: #f2f8ff;
+$main: #0f4189;
+$secondary: #ff793f;
+$white: white;
+$header: #43464b;
+
+$box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+$transistion-ease: all 0.5s ease-in-out;
+
+//================================================
+// Placeholders
+//================================================
+
+%flex-align {
+  display: flex;
+  align-items: center;
+}
+
+%flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+%flex-between-column {
+  @extend %flex-between;
+  flex-direction: column;
+}
+
+%flex-center {
+  @extend %flex-between;
+  justify-content: center;
+}
+
+%flex-column {
+  @extend %flex-align;
+  flex-direction: column;
+}
+
+//================================================
+// Mixin
+//================================================
