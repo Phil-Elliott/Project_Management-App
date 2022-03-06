@@ -4,8 +4,7 @@
   background: $header;
   box-shadow: $box-shadow;
   color: $white;
-  display: flex;
-  align-items: center;
+  @extend %flex-align;
   justify-content: space-between;
   padding: 1rem 2rem;
   position: fixed;
@@ -17,8 +16,7 @@
   font-weight: 800;
   font-size: 0.9rem;
   font-style: italic;
-  display: flex;
-  align-items: center;
+  @extend %flex-align;
 
   h2 {
     padding-right: 1.5rem;
@@ -26,6 +24,7 @@
 
   div {
     display: flex;
+    cursor: pointer;
   }
 
   .hamburger-icon {
@@ -34,6 +33,7 @@
 }
 
 .responsive-header-links > * {
+  cursor: pointer;
   margin-left: 1rem;
 }
 
