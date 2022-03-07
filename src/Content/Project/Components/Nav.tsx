@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import "./Nav.scss"
 import {
   FaAngleDown,
-  FaAngleUp,
   FaTh,
   FaClipboard,
   FaUsers,
@@ -57,7 +56,10 @@ const Nav = () => {
         </div>
         <p className="project-name">Project Name</p>
         <div className="project-links-arrow">
-          <FaAngleDown onClick={() => setActiveNav(!activeNav)} />
+          <FaAngleDown
+            onClick={() => setActiveNav(!activeNav)}
+            className={activeNav ? "arrow-logo-down" : "arrow-logo-up"}
+          />
         </div>
       </div>
       <div

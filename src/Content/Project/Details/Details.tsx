@@ -6,3 +6,16 @@ const Details = () => {
 }
 
 export default Details
+
+/* 
+  include 
+    - long description 
+    - Graph to show progress (maybe)
+    - Milestones 
+    - Project features 
+    - Risks
+
+  could have diffirent teams and diffirent taks for diffirent teams 
+
+  use chart.js for all charts 
+*/

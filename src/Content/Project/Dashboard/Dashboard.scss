@@ -7,11 +7,8 @@
 
   div {
     div {
-      box-shadow: $box-shadow;
       background-color: white;
       border-radius: 3px;
-      cursor: pointer;
-      height: 100%;
       color: black;
     }
   }
@@ -21,12 +18,10 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: $grid-gap;
-  min-height: 50vh;
 }
 
 .dashboard-bottom-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: $grid-gap;
-  min-height: 50vh;
 }

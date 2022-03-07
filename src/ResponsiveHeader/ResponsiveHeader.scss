@@ -9,7 +9,7 @@
   padding: 1rem 2rem;
   position: fixed;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
 }
 
 .responsive-header-logo {
@@ -17,6 +17,16 @@
   font-size: 0.9rem;
   font-style: italic;
   @extend %flex-align;
+
+  .arrow-logo-left {
+    transition: $transistion-ease;
+    transform: rotateZ(180deg);
+  }
+
+  .arrow-logo-right {
+    transition: $transistion-ease;
+    transform: rotateZ(0deg);
+  }
 
   h2 {
     padding-right: 1.5rem;

@@ -8,6 +8,7 @@
   height: 100%;
   transition: $transistion-ease;
   position: fixed;
+  z-index: 2;
 }
 
 .main-header-content {
@@ -66,6 +67,26 @@
   display: flex;
   padding: 0.75rem 1rem;
   cursor: pointer;
+}
+
+.bottom-header-arrow-down-icon {
+  transition: $transistion-ease;
+  transform: rotateZ(-180deg);
+}
+
+.bottom-header-arrow-up-icon {
+  transition: $transistion-ease;
+  transform: rotateZ(0deg);
+}
+
+.bottom-header-arrow-left-icon {
+  transition: $transistion-ease;
+  transform: rotateZ(-180deg);
+}
+
+.bottom-header-arrow-right-icon {
+  transition: $transistion-ease;
+  transform: rotateZ(0deg);
 }
 
 @media only screen and (max-width: 1100px) {

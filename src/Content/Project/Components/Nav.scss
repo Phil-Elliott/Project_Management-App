@@ -71,7 +71,7 @@
   .nav-links-active {
     display: flex;
     flex-direction: column;
-    z-index: 10;
+    z-index: 1;
     background-color: white;
 
     div {
@@ -104,5 +104,15 @@
   .project-links-arrow {
     margin-right: 1rem;
     padding-top: 1rem;
+
+    .arrow-logo-down {
+      transition: $transistion-ease;
+      transform: rotateZ(180deg);
+    }
+
+    .arrow-logo-up {
+      transition: $transistion-ease;
+      transform: rotateZ(0deg);
+    }
   }
 }

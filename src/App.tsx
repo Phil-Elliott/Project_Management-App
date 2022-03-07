@@ -28,6 +28,14 @@ function App() {
 export default App
 
 /*
+
+Tonight
+  - fix other arrows 
+  - Maybe add slide down for other dropdown container 
+  - Add see more to about section of board 
+  - Make the overflow scrollable 
+  - Finish the rest of the dashboard and get rid of the team section  
+      - finance and tasks can be big sections 
   
 
   - Create layout for the project 

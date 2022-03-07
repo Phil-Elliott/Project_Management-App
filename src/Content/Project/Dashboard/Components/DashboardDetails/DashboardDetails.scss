@@ -1,0 +1,29 @@
+@import "./../../../../../Shared.scss";
+
+.dashboard-details-container {
+  min-height: 50vh;
+  height: 100%;
+  box-shadow: $box-shadow;
+  line-height: 30px;
+  h1 {
+    border-bottom: $border-color 2px solid;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+.dashboard-details-content {
+  padding: 0rem 1rem;
+  display: flex;
+  flex-direction: column;
+
+  .details-content-heading {
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding-block: 0.5rem 0rem;
+  }
+
+  ul {
+    list-style: none;
+  }
+}

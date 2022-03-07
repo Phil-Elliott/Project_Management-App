@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import "./Header.scss"
 import TopHeaderContent from "./Components/TopHeaderContent"
 import BottomHeaderContent from "./Components/BottomHeaderContent"
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
+import { FaAngleRight } from "react-icons/fa"
 
 const Header = ({ navClass }: { navClass: string }) => {
   const [expandMain, setExpandMain] = useState<boolean>(false)
@@ -50,16 +50,16 @@ const Header = ({ navClass }: { navClass: string }) => {
         className="bottom-header-arrw"
         onClick={expandNav}
       >
-        {!expandMain ? <FaAngleRight /> : <FaAngleLeft />}
+        <FaAngleRight
+          className={
+            !expandMain
+              ? "bottom-header-arrow-right-icon"
+              : "bottom-header-arrow-left-icon"
+          }
+        />
       </div>
     </header>
   )
 }
 
 export default Header
-
-/*
-  use position fixed inside of position relative (stops blank scrolling )
-
-
-*/

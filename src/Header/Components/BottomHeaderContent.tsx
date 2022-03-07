@@ -1,5 +1,5 @@
 import React from "react"
-import { FaAngleDown, FaAngleUp, FaTasks } from "react-icons/fa"
+import { FaAngleDown, FaTasks } from "react-icons/fa"
 import { Link } from "react-router-dom"
 
 const BottomHeaderContent = ({
@@ -65,7 +65,13 @@ const BottomHeaderContent = ({
         className={expandClass}
       >
         <h2 style={{ padding: "0" }}>Projects</h2>
-        {!expandContent ? <FaAngleDown /> : <FaAngleUp />}
+        <FaAngleDown
+          className={
+            expandContent
+              ? "bottom-header-arrow-down-icon"
+              : "bottom-header-arrow-up-icon"
+          }
+        />
       </div>
 
       {!expandContent
