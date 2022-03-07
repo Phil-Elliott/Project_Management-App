@@ -3,10 +3,13 @@
 .dashboard-main-container {
   display: grid;
   gap: $grid-gap;
+  padding: $content-padding;
 
   div {
     div {
+      box-shadow: $box-shadow;
       background-color: white;
+      border-radius: 3px;
       cursor: pointer;
       height: 100%;
       color: black;

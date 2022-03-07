@@ -1,5 +1,5 @@
 import React from "react"
-import { FaPlus, FaRegCircle, FaUser } from "react-icons/fa"
+import { FaPlus, FaRegCircle, FaUser, FaTasks } from "react-icons/fa"
 import { Link } from "react-router-dom"
 
 const TopHeaderContent = ({
@@ -22,9 +22,14 @@ const TopHeaderContent = ({
       route: "/",
     },
     {
-      icon: <FaUser />,
+      icon: <FaTasks />,
       name: "My tasks",
       route: "/tasks",
+    },
+    {
+      icon: <FaUser />,
+      name: "Account",
+      route: "/account",
     },
   ]
 

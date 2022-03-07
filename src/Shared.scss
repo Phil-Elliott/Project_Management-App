@@ -10,6 +10,7 @@ $header: #43464b;
 $box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 $transistion-ease: all 0.5s ease-in-out;
 $grid-gap: 1rem;
+$content-padding: 1rem;
 
 //================================================
 // Placeholders
@@ -31,6 +32,11 @@ $grid-gap: 1rem;
 
 %flex-center {
   @extend %flex-between;
+  justify-content: center;
+}
+
+%center {
+  @extend %flex-align;
   justify-content: center;
 }
 

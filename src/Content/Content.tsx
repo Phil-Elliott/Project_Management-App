@@ -4,6 +4,7 @@ import MyTasks from "./MyTasks/MyTasks"
 import NewProject from "./NewProject/NewProject"
 import Project from "./Project/Project"
 import ProjectHub from "./ProjectHub/ProjectHub"
+import Account from "./Account/Account"
 import { Route, Routes } from "react-router-dom"
 
 const Content = () => {
@@ -13,6 +14,7 @@ const Content = () => {
         <Route path="/" element={<ProjectHub />} />
         <Route path="/new" element={<NewProject />} />
         <Route path="/tasks" element={<MyTasks />} />
+        <Route path="/account" element={<Account />} />
         <Route path="/project/*" element={<Project />} />
       </Routes>
     </main>
