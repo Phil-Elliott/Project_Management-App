@@ -1,5 +1,6 @@
 import React from "react"
 import { FaPlus, FaRegCircle, FaUser } from "react-icons/fa"
+import { Link } from "react-router-dom"
 
 const TopHeaderContent = ({
   expandClass,
@@ -13,14 +14,17 @@ const TopHeaderContent = ({
     {
       icon: <FaPlus />,
       name: "New project",
+      route: "/new",
     },
     {
       icon: <FaRegCircle />,
       name: "Projects hub",
+      route: "/",
     },
     {
       icon: <FaUser />,
       name: "My tasks",
+      route: "/tasks",
     },
   ]
 
@@ -31,10 +35,15 @@ const TopHeaderContent = ({
       </div>
       {iconLinks.map((icon, i) => {
         return (
-          <div key={i} className={expandClass}>
-            {icon.icon}
-            <h2>{icon.name}</h2>
-          </div>
+          <Link
+            to={icon.route}
+            style={{ textDecoration: "none", color: "white", width: "100%" }}
+          >
+            <div key={i} className={expandClass}>
+              {icon.icon}
+              <h2>{icon.name}</h2>
+            </div>
+          </Link>
         )
       })}
     </div>

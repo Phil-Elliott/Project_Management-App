@@ -1,0 +1,29 @@
+@import "./../../../Shared.scss";
+
+.dashboard-main-container {
+  display: grid;
+  gap: $grid-gap;
+
+  div {
+    div {
+      background-color: white;
+      cursor: pointer;
+      height: 100%;
+      color: black;
+    }
+  }
+}
+
+.dashboard-top-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $grid-gap;
+  min-height: 50vh;
+}
+
+.dashboard-bottom-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $grid-gap;
+  min-height: 50vh;
+}

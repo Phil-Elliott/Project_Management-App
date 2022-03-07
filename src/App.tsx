@@ -30,25 +30,27 @@ export default App
 /*
   
 
-  Content Section 
-    1) Figure out diffirent sections 
-          - New Project
-          - Project Hub
-          - My Tasks
-          - Project Dashboard 
-            Items 
-              1) Project details (goals etc) (Maybe just do this when creating project then crud the rest on their pages)
-		          2) Team section (team tree) 
-	          	3) Tasks section (could have diffirent departments page before this) - subtasks within - coments section
-		          4) Finance Section 
-		          5) Time (on schedule, behind schedule) 
+  - Create layout for the project 
+  
+  - conect project layout to react router (grid boxes are clicked)
 
-    2) Create files
-    3) Connect to React Router 
-    4) Start working on first file 
+  - Start filling in the information for project page 
+      - NewProject section 
+
+  - Create newProject page 
+      - User fills in all of the details about the project 
+  
+  - Create the project hub page 
+      - have cards for each project created 
+
+  - connect newProject with project hub 
+    - transfer the array of information to this page 
+
+  - Create other boxes for project page 
 
 
 
-    can use modals to add throughout the app
+  - could use sublinks on projects 
+
 
 */

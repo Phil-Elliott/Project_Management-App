@@ -1,5 +1,6 @@
 import React from "react"
 import { FaAngleDown, FaAngleUp, FaTasks } from "react-icons/fa"
+import { Link } from "react-router-dom"
 
 const BottomHeaderContent = ({
   expandProjects,
@@ -71,10 +72,19 @@ const BottomHeaderContent = ({
         ? projectLinks.map((icon, i) => {
             if (i < 3) {
               return (
-                <div key={i} className={expandClass}>
-                  {icon.icon}
-                  <h2>{icon.name}</h2>
-                </div>
+                <Link
+                  to="/project"
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    width: "100%",
+                  }}
+                >
+                  <div key={i} className={expandClass}>
+                    {icon.icon}
+                    <h2>{icon.name}</h2>
+                  </div>
+                </Link>
               )
             }
           })

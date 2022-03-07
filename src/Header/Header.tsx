@@ -57,3 +57,9 @@ const Header = ({ navClass }: { navClass: string }) => {
 }
 
 export default Header
+
+/*
+  use position fixed inside of position relative (stops blank scrolling )
+
+
+*/

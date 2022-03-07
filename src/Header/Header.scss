@@ -5,7 +5,9 @@
   color: $white;
   @extend %flex-between-column;
   max-height: 100vh;
+  height: 100%;
   transition: $transistion-ease;
+  position: fixed;
 }
 
 .main-header-content {

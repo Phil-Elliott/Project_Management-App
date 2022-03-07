@@ -10,12 +10,13 @@
 
 /* width */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 7px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: lightgray;
+  background: darkgray;
+  border-radius: 50px;
 }
 
 .App {
