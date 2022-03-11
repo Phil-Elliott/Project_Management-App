@@ -1,103 +1,81 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "./Tasks.scss"
 import TaskSection from "./Components/TasksSection/TasksSection"
 import Modal from "./Components/Modal/Modal"
+import moment from "moment"
 
 const Tasks = () => {
   const [display, setDisplay] = useState(false)
-  const [taskData, setTaskData] = useState([
+  const [tasksData, setTasksData] = useState([
     {
-      due: "Late",
-      tasks: [
+      name: "Set project deadline",
+      department: "Marketing",
+      date: "2022-03-01",
+      assigned: "John Doe",
+      comments: [
         {
-          name: "Set project deadline",
-          department: "Marketing",
-          date: "11/27",
-          assigned: "John Doe",
-          comments: [
-            {
-              name: "Brian",
-              date: "11/18",
-              comment: "Blah Blah Blah",
-            },
-          ],
+          name: "Brian",
+          date: "11/18",
+          comment: "Blah Blah Blah",
         },
       ],
     },
     {
-      due: "This Week",
-      tasks: [
+      name: "Add something",
+      department: "Devops",
+      date: "2022-03-19",
+      assigned: "MArk Doe",
+      comments: [
         {
-          name: "Add something",
-          department: "Devops",
-          date: "11/11",
-          assigned: "MArk Doe",
-          comments: [
-            {
-              name: "Brian",
-              date: "11/18",
-              comment: "Blah Blah Blah",
-            },
-          ],
+          name: "Brian",
+          date: "11/18",
+          comment: "Blah Blah Blah",
         },
       ],
     },
     {
-      due: "Next Week",
-      tasks: [
+      name: "Delete everything",
+      department: "Events",
+      date: "2022-03-16",
+      assigned: "Bob Doe",
+      comments: [
         {
-          name: "Delete everything",
-          department: "Events",
-          date: "11/7",
-          assigned: "Bob Doe",
-          comments: [
-            {
-              name: "Brian",
-              date: "11/18",
-              comment: "Blah Blah Blah",
-            },
-          ],
+          name: "Brian",
+          date: "11/18",
+          comment: "Blah Blah Blah",
         },
       ],
     },
     {
-      due: "Future",
-      tasks: [
+      name: "Finish deadline",
+      department: "Marketing",
+      date: "2022-04-25",
+      assigned: "Marsha Doe",
+      comments: [
         {
-          name: "Finish deadline",
-          department: "Marketing",
-          date: "12/11",
-          assigned: "Marsha Doe",
-          comments: [
-            {
-              name: "Brian",
-              date: "11/18",
-              comment: "Blah Blah Blah",
-            },
-          ],
+          name: "Brian",
+          date: "12/18",
+          comment: "Blah Blah Blah",
         },
       ],
     },
   ])
+
+  const taskTime = ["Late", "This Week", "Next Week", "Future"]
 
   // displays the modal
   const changeDisplay = () => {
     setDisplay(!display)
   }
 
-  // Adds task to taskData
-  // const addTask = (id, answer) => {
-  //   badgeDetailsArr[id].answer = answer
-  // }
-
   return (
     <div className="tasks-main-container">
-      {taskData.map((section, i) => {
+      {taskTime.map((time, i) => {
         return (
           <TaskSection
             key={i}
-            due={section.due}
-            tasksData={section.tasks}
+            due={time}
+            tasksData={tasksData}
             changeDisplay={changeDisplay}
           />
         )
@@ -110,20 +88,7 @@ const Tasks = () => {
 export default Tasks
 
 /*
-  Needs to find correct part of array based off of date 
-    could do a switch statement 
-    might have to format the date and compare to today's date 
-
-    maybe wait for the entire object to finish and then send it over from the modal page and have a object sent to the task page 
-
-    console.log(the date area to make sure that part works)
-    then try to push to array 
-
-    still need to organize based off of the current date 
-
-    maybe dont have tasks under a specific date 
-    filter through each one to find the dates in the right area 
-    add tasks willy nilly 
+  How to find dates within the actual week 
 
 
       

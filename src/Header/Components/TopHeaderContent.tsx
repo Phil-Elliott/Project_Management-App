@@ -41,10 +41,11 @@ const TopHeaderContent = ({
       {iconLinks.map((icon, i) => {
         return (
           <Link
+            key={icon.name}
             to={icon.route}
             style={{ textDecoration: "none", color: "white", width: "100%" }}
           >
-            <div key={i} className={expandClass}>
+            <div className={expandClass}>
               {icon.icon}
               <h2>{icon.name}</h2>
             </div>

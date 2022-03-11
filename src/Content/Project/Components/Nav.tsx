@@ -72,6 +72,7 @@ const Nav = () => {
         {navLinksArr.map((link, i) => {
           return (
             <Link
+              key={link.name}
               to={link.route}
               style={{
                 textDecoration: "none",

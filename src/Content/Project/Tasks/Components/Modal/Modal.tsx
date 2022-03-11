@@ -62,6 +62,7 @@ const Modal = ({
           {inputQuestions.map((item, i) => {
             return (
               <ModalInput
+                key={i}
                 question={item.question}
                 type={item.type}
                 display={display}

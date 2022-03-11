@@ -79,6 +79,7 @@ const BottomHeaderContent = ({
             if (i < 3) {
               return (
                 <Link
+                  key={icon.name}
                   to="/project"
                   style={{
                     textDecoration: "none",
@@ -86,7 +87,7 @@ const BottomHeaderContent = ({
                     width: "100%",
                   }}
                 >
-                  <div key={i} className={expandClass}>
+                  <div className={expandClass}>
                     {icon.icon}
                     <h2>{icon.name}</h2>
                   </div>
