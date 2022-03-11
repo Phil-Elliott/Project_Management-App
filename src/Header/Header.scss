@@ -65,13 +65,14 @@
 
 .bottom-header-arrw {
   display: flex;
+  justify-content: center;
   padding: 0.75rem 1rem;
   cursor: pointer;
 }
 
 .bottom-header-arrow-down-icon {
   transition: $transistion-ease;
-  transform: rotateZ(-180deg);
+  transform: rotateZ(180deg);
 }
 
 .bottom-header-arrow-up-icon {

@@ -21,16 +21,16 @@ const TopHeaderContent = ({
       name: "Projects hub",
       route: "/",
     },
-    {
-      icon: <FaTasks />,
-      name: "My tasks",
-      route: "/tasks",
-    },
-    {
-      icon: <FaUser />,
-      name: "Account",
-      route: "/account",
-    },
+    // {
+    //   icon: <FaTasks />,
+    //   name: "My tasks",
+    //   route: "/tasks",
+    // },
+    // {
+    //   icon: <FaUser />,
+    //   name: "Account",
+    //   route: "/account",
+    // },
   ]
 
   return (

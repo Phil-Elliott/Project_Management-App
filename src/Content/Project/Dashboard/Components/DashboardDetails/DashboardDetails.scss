@@ -5,6 +5,9 @@
   box-shadow: $box-shadow;
   line-height: 30px;
   overflow: auto;
+  background-color: white;
+  border-radius: 3px;
+  color: black;
   h1 {
     border-bottom: $border-color 2px solid;
     font-size: 1.25rem;

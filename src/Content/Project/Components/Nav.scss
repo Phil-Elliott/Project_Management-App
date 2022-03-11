@@ -13,7 +13,7 @@
   @extend %flex-align;
 
   .nav-logo {
-    background-color: blue;
+    background-color: black;
     height: 100%;
     width: 3rem;
     @extend %center;
@@ -21,7 +21,7 @@
     font-weight: bold;
   }
   .project-name {
-    color: blue;
+    color: black;
     font-size: 1.1rem;
     font-weight: bold;
     margin-left: 1rem;
@@ -65,6 +65,14 @@
 }
 
 @media only screen and (max-width: 850px) {
+  .nav-links-container {
+    div {
+      &:hover {
+        border-bottom: none;
+      }
+    }
+  }
+
   .nav-links-unactive {
     display: none;
   }
@@ -102,6 +110,7 @@
     }
   }
   .project-links-arrow {
+    cursor: pointer;
     margin-right: 1rem;
     padding-top: 1rem;
 

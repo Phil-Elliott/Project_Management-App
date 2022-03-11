@@ -10,7 +10,7 @@ const DashboardDetails = () => {
   }
 
   const shortenDescription = () => {
-    let str = description.details.split("").slice(0, 130).join("")
+    let str = description.details.split("").slice(0, 90).join("")
     let shortStr = str
 
     if (showMore) {
@@ -32,8 +32,8 @@ const DashboardDetails = () => {
           </span>
         </p>
 
-        <p className="details-content-heading">Next milestone</p>
-        <p>Have project production ready</p>
+        <p className="details-content-heading">Product launch</p>
+        <p>The project will launch in 187 days.</p>
         <p className="details-content-heading">Key features</p>
         <ul className="dashboard-details-features">
           <li>- Simple to use</li>
@@ -48,6 +48,12 @@ const DashboardDetails = () => {
 export default DashboardDetails
 
 /* 
+
+  1) Take out team section 
+  2") Expand finance section 2nd 
+  3) Put schedule next to tasks
+
+
     1) Project Description 
     2) Goals (main and smaller ones)
     3) Features 

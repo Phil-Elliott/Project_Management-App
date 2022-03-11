@@ -1,0 +1,59 @@
+@import "./../../../Shared.scss";
+
+.tasks-main-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+  padding: $content-padding;
+}
+
+.tasks-section {
+  .tasks-section-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+  }
+
+  button {
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: $box-shadow;
+    cursor: pointer;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    @extend %flex-align;
+    border: none;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    .plus-icon {
+      font-weight: bolder;
+    }
+
+    p {
+      padding-left: 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .tasks-main-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    padding: $content-padding;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .tasks-main-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: $content-padding;
+  }
+}

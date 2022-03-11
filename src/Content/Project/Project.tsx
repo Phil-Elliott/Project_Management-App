@@ -15,10 +15,10 @@ const Project = () => {
       <Nav />
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/details" element={<Details />} />
-        <Route path="/finance" element={<Finance />} />
+        {/* <Route path="/details" element={<Details />} /> */}
+        {/* <Route path="/finance" element={<Finance />} /> */}
         <Route path="/tasks" element={<Tasks />} />
-        <Route path="/team" element={<Team />} />
+        {/* <Route path="/team" element={<Team />} /> */}
         <Route path="/time" element={<Time />} />
       </Routes>
     </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import "./Header.scss"
 import TopHeaderContent from "./Components/TopHeaderContent"
 import BottomHeaderContent from "./Components/BottomHeaderContent"
-import { FaAngleRight } from "react-icons/fa"
+import { FaAngleDoubleRight } from "react-icons/fa"
 
 const Header = ({ navClass }: { navClass: string }) => {
   const [expandMain, setExpandMain] = useState<boolean>(false)
@@ -41,16 +41,8 @@ const Header = ({ navClass }: { navClass: string }) => {
           expandMain={expandMain}
         />
       </div>
-      <div
-        style={
-          expandMain
-            ? { justifyContent: "flex-end" }
-            : { justifyContent: "center" }
-        }
-        className="bottom-header-arrw"
-        onClick={expandNav}
-      >
-        <FaAngleRight
+      <div className="bottom-header-arrw" onClick={expandNav}>
+        <FaAngleDoubleRight
           className={
             !expandMain
               ? "bottom-header-arrow-right-icon"

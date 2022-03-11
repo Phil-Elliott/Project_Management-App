@@ -29,12 +29,32 @@ export default App
 
 /*
 
-Tonight
+Today 
 
-  - Add see more to about section of board 
-  - Make the overflow scrollable 
-  - Finish the rest of the dashboard and get rid of the team section  
-      - finance and tasks can be big sections 
+  1) Finish dashboard page 
+      - Create a department card 
+      - Maybe just display the details for finance part 
+      - Create a table for the tasks and show recently completed tasks 
+            - can be similar to rainfocus chart
+      - Find the schedule example online and copy that design 
+
+  2) Create the project hub section and create the cards that will go inside of it 
+      Need to allow user to delete a project from this screen 
+
+  3) Create the add project section 
+    Have user creat the logo and name 
+    Add a description and team 
+  
+  4) Create the details section 
+
+  5) Create the team section 
+
+  6) Create the schedule section 
+
+  7) Create the Tasks section 
+
+  8) Create the finance section 
+
   
 
   - Create layout for the project 

@@ -21,16 +21,16 @@ const Nav = () => {
       name: "Board",
       route: "/project",
     },
-    {
-      logo: <FaClipboard />,
-      name: "Details",
-      route: "/project/details",
-    },
-    {
-      logo: <FaUsers />,
-      name: "Team",
-      route: "/project/team",
-    },
+    // {
+    //   logo: <FaClipboard />,
+    //   name: "Details",
+    //   route: "/project/details",
+    // },
+    // {
+    //   logo: <FaUsers />,
+    //   name: "Team",
+    //   route: "/project/team",
+    // },
     {
       logo: <FaCalendar />,
       name: "Schedule",
@@ -41,11 +41,11 @@ const Nav = () => {
       name: "Tasks",
       route: "/project/tasks",
     },
-    {
-      logo: <FaCoins />,
-      name: "Finance",
-      route: "/project/finance",
-    },
+    // {
+    //   logo: <FaCoins />,
+    //   name: "Finance",
+    //   route: "/project/finance",
+    // },
   ]
 
   return (

@@ -1,0 +1,49 @@
+@import "./../../../../../Shared.scss";
+
+.task-card {
+  background-color: white;
+  box-shadow: $box-shadow;
+  border-radius: 3px;
+  margin-block: 1rem;
+}
+
+.task-card-top,
+.task-card-bottom {
+  @extend %flex-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid lightgrey;
+
+  .task-icon {
+    cursor: pointer;
+  }
+}
+
+.task-card-top {
+  font-weight: 600;
+}
+
+.task-card-department {
+  padding: 0.75rem 0.75rem 0;
+  font-size: 0.9rem;
+}
+
+.task-card-bottom-date {
+  @extend %flex-align;
+  font-size: 0.9rem;
+
+  p {
+    padding-left: 0.5rem;
+  }
+}
+
+.task-card-assignedTo {
+  @extend %flex-align;
+  padding: 0.75rem;
+
+  p {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding-left: 1rem;
+  }
+}

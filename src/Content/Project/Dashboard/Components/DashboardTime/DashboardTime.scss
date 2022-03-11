@@ -1,0 +1,19 @@
+@import "./../../../../../Shared.scss";
+
+.dashboard-time-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.dashboard-time-left {
+  background-color: white;
+  border-radius: 3px;
+  color: black;
+}
+
+.dashboard-time-right {
+  background-color: white;
+  border-radius: 3px;
+  color: black;
+}
