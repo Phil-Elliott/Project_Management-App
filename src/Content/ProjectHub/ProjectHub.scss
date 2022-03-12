@@ -1,0 +1,71 @@
+@import "./../../Shared.scss";
+
+.project-hub-main-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  padding: $content-padding;
+}
+
+.project-hub-card-container {
+  border-radius: 3px;
+  padding: 1.5rem;
+  background-color: white;
+  // height: 70vh;
+}
+
+.project-hub-card-header {
+  display: flex;
+  align-items: center;
+  height: 10%;
+
+  h1 {
+    padding-left: 1rem;
+    font-size: 1.5rem;
+  }
+}
+
+.project-hub-card-graph {
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+  padding-block: 1.5rem;
+}
+
+.project-hub-card-days {
+  padding-bottom: 1.5rem;
+  display: flex;
+
+  p {
+    font-size: 1.15rem;
+    margin: 0 auto;
+  }
+}
+
+.project-hub-card-bottom {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+
+  .card-bottom-red {
+    border-top: red 5px solid;
+  }
+  .card-bottom-blue {
+    border-top: blue 5px solid;
+  }
+  .card-bottom-green {
+    border-top: green 5px solid;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 0.5rem;
+
+    p {
+      padding-top: 0.25rem;
+    }
+  }
+}

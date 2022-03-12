@@ -23,6 +23,7 @@ const TasksSection = ({
     return days
   }
 
+  // used to ste the taskArrByDate with the correct tasks for the section
   useEffect(() => {
     let newArr: Array<tasksData> = []
     tasksData.map((task, i) => {
@@ -43,9 +44,11 @@ const TasksSection = ({
         return newArr.push(task)
       }
     })
+
     setTaskArrByDate(newArr)
   }, [tasksData.length])
 
+  // Changes the view from three cards to all cards and back to three cards
   const showAllCards = () => {
     setShowAll(!showAll)
   }
@@ -58,21 +61,33 @@ const TasksSection = ({
         <p>Add Task</p>
       </button>
       <div className="task-cards">
-        {taskArrByDate.map((task, i) => {
-          return <TaskCard key={i} task={task} />
-        })}
+        {!showAll
+          ? taskArrByDate.map((task, i) => {
+              if (i < 2) {
+                return <TaskCard key={i} task={task} />
+              }
+            })
+          : taskArrByDate.map((task, i) => {
+              return <TaskCard key={i} task={task} />
+            })}
       </div>
-      <div className="cards-showAll">
+      <div className="cards-showAll" onClick={showAllCards}>
         <div className="cards-showAll-left">
           <p>Show All</p>
         </div>
-        <FaAngleDown onClick={showAllCards} />
+        <FaAngleDown
+          className={
+            showAll && taskArrByDate.length > 2
+              ? "bottom-header-arrow-down-icon"
+              : "bottom-header-arrow-up-icon"
+          }
+        />
       </div>
       <div className="cards-showAll">
         <div className="cards-showAll-left">
           <p>Show Completed</p>
         </div>
-        <FaAngleDown onClick={showAllCards} />
+        <FaAngleDown />
       </div>
     </div>
   )
@@ -81,24 +96,21 @@ const TasksSection = ({
 export default TasksSection
 
 /*
-    
 
 
+  
 
+  Organize cards by closest due 
 
+  have the dates line up with the week and nextweek sections 
 
-  show all 
-    can have a filter if unactive 
-    no filter if active 
+  make sure all input is put in before adding the card
 
 
 
   first get it to go by late future and then add in 7 days for weeks 
   then find a way to get exact weeks and seeing if that matches 
     maybe look at day of week and then judge off of day count from that 
-
-
-
 
 
     

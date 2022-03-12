@@ -1,7 +1,7 @@
 interface tasksData {
   name: string
   department: string
-  date: string
+  date: any
   assigned: string
   comments: Array<object>
 }

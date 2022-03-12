@@ -77,7 +77,6 @@ const BottomHeaderContent = ({
           }
         />
       </div>
-
       {!expandContent
         ? projectLinks.map((icon, i) => {
             if (i < 3) {

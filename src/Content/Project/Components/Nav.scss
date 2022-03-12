@@ -9,17 +9,18 @@
   box-shadow: $box-shadow;
 }
 
+.nav-logo {
+  background-color: black;
+  height: 100%;
+  width: 3rem;
+  @extend %center;
+  color: white;
+  font-weight: bold;
+}
+
 .nav-name-container {
   @extend %flex-align;
 
-  .nav-logo {
-    background-color: black;
-    height: 100%;
-    width: 3rem;
-    @extend %center;
-    color: white;
-    font-weight: bold;
-  }
   .project-name {
     color: black;
     font-size: 1.1rem;
