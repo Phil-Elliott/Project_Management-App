@@ -1,13 +1,17 @@
 import React from "react"
-import { FaPlus, FaRegCircle, FaUser, FaTasks } from "react-icons/fa"
+import { FaPlus, FaRegCircle } from "react-icons/fa"
 import { Link } from "react-router-dom"
 
 const TopHeaderContent = ({
   expandClass,
   expandMain,
+  activeTab,
+  changeActiveTab,
 }: {
   expandClass: any
   expandMain: boolean
+  activeTab: string
+  changeActiveTab: any
 }) => {
   // Links to the top part of the header
   const iconLinks = [
@@ -36,7 +40,7 @@ const TopHeaderContent = ({
   return (
     <div className="top-header-content">
       <div className={expandMain ? "logo expand-container" : "logo"}>
-        SP<h2>Simple Plan</h2>
+        SP<h2>SimplePlan</h2>
       </div>
       {iconLinks.map((icon, i) => {
         return (
@@ -45,7 +49,14 @@ const TopHeaderContent = ({
             to={icon.route}
             style={{ textDecoration: "none", color: "white", width: "100%" }}
           >
-            <div className={expandClass}>
+            <div
+              className={
+                activeTab === icon.name
+                  ? `activeTab ${expandClass}`
+                  : expandClass
+              }
+              onClick={() => changeActiveTab(icon.name)}
+            >
               {icon.icon}
               <h2>{icon.name}</h2>
             </div>

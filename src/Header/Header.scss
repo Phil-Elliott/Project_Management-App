@@ -53,6 +53,16 @@
   }
 }
 
+.activeTab {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.bottom-header-arrw-down-container {
+  &:hover {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
 .expand-container {
   justify-content: flex-start;
   h2 {

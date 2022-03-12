@@ -40,6 +40,19 @@
   }
 }
 
+.cards-showAll {
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .cards-showAll-left {
+    display: flex;
+  }
+}
+
 @media only screen and (max-width: 1300px) {
   .tasks-main-container {
     display: grid;

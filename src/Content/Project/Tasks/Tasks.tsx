@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react"
 import "./Tasks.scss"
 import TaskSection from "./Components/TasksSection/TasksSection"
 import Modal from "./Components/Modal/Modal"
-import moment from "moment"
 
 const Tasks = () => {
   const [display, setDisplay] = useState(false)
@@ -61,6 +60,13 @@ const Tasks = () => {
     },
   ])
 
+  const addTask = (task: any) => {
+    let newArr = tasksData
+    newArr.push(task)
+    setTasksData(newArr)
+    changeDisplay()
+  }
+
   const taskTime = ["Late", "This Week", "Next Week", "Future"]
 
   // displays the modal
@@ -80,23 +86,44 @@ const Tasks = () => {
           />
         )
       })}
-      <Modal display={display} changeDisplay={changeDisplay} />
+      <Modal
+        display={display}
+        changeDisplay={changeDisplay}
+        addTask={addTask}
+      />
     </div>
   )
 }
 
 export default Tasks
 
+/* 
+    
+
+
+
+      can probobly do show all
+        useEffect 
+          run the if statements and then splits the tasks into sections before running in map 
+*/
+
 /*
+come back to 
   How to find dates within the actual week 
 
 
       
     3) Create a modal 
-        - Click on + bttn and modal opens 
-        - design modal for input 
-        - have input alter the array of task by adding one 
         - connect same modal to edit bttn (do this later after creating elipsis options)
+
+        show all (number)                    down arrow 
+        show completed (number)              down arrow
+
+
+        arrows turn up when active 
+
+
+        make sure that the arrow origional filters out first three 
 
     4) Create options
         - show all tasks

@@ -4,21 +4,24 @@ const ModalInput = ({
   question,
   type,
   display,
+  part,
+  changeObjectData,
 }: {
   question: string
   type: string
   display: boolean
+  part: string
+  changeObjectData: any
 }) => {
   const [inputData, setInputData] = useState("")
 
   const change = (e: any) => {
     setInputData(e)
-    console.log(inputData)
   }
 
-  // useEffect(() => {
-  //   changeBadgeDetails(id, inputData)
-  // }, [inputData])
+  useEffect(() => {
+    changeObjectData(part, inputData)
+  }, [inputData])
 
   useEffect(() => {
     setInputData("")

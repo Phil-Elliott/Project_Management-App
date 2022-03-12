@@ -6,10 +6,38 @@ import ModalInput from "./ModalInput"
 const Modal = ({
   display,
   changeDisplay,
+  addTask,
 }: {
   display: boolean
   changeDisplay: any
+  addTask: any
 }) => {
+  const objectData = {
+    name: "",
+    department: "",
+    date: "",
+    assigned: "",
+    comments: [
+      {
+        name: "",
+        date: "",
+        comment: "",
+      },
+    ],
+  }
+
+  const changeObjectData = (part: any, input: string) => {
+    if (part === "name") {
+      objectData.name = input
+    } else if (part === "department") {
+      objectData.department = input
+    } else if (part === "date") {
+      objectData.date = input
+    } else if (part === "assigned") {
+      objectData.assigned = input
+    }
+  }
+
   // Allows ESC key to only be used to close
   const closeOnEscapeKeyDown = (e: any) => {
     if ((e.charCode || e.keyCode) === 27) {
@@ -37,18 +65,22 @@ const Modal = ({
     {
       question: "Task",
       type: "text",
+      part: "name",
     },
     {
       question: "Department",
       type: "text",
+      part: "department",
     },
     {
       question: "Date",
       type: "date",
+      part: "date",
     },
     {
       question: "Assigned to",
       type: "text",
+      part: "assigned",
     },
   ]
 
@@ -65,7 +97,9 @@ const Modal = ({
                 key={i}
                 question={item.question}
                 type={item.type}
+                part={item.part}
                 display={display}
+                changeObjectData={changeObjectData}
               />
             )
           })}
@@ -77,7 +111,7 @@ const Modal = ({
           <button
             className="modal-create-btn"
             type="submit"
-            onClick={changeDisplay}
+            onClick={() => addTask(objectData)}
           >
             Create
           </button>
@@ -91,6 +125,9 @@ export default Modal
 
 /*
 
- 1) Have input work 
+      - state for object 
+      - set part of that object when the input data changes
+      - pass the object to the function on create click 
+      - set everything to blank 
 
 */
