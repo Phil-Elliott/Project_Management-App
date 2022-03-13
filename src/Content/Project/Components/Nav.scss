@@ -35,14 +35,14 @@
   div {
     cursor: pointer;
     @extend %flex-align;
-    margin-left: 1.5rem;
+    padding-inline: 0.75rem;
     color: black;
     height: 100%;
-    font-weight: 600;
+    font-weight: 400;
 
     &:hover {
-      border-bottom: 2px solid #3742fa;
-      color: #3742fa;
+      border-bottom: 3px solid blue;
+      font-weight: 600;
     }
 
     p {
@@ -50,8 +50,8 @@
     }
   }
   .active-link {
-    border-bottom: 2px solid #3742fa;
-    color: #3742fa;
+    border-bottom: 3px solid blue;
+    font-weight: 600;
   }
 }
 

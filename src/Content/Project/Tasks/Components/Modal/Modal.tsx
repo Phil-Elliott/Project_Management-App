@@ -125,9 +125,11 @@ export default Modal
 
 /*
 
-      - state for object 
-      - set part of that object when the input data changes
-      - pass the object to the function on create click 
-      - set everything to blank 
+      - Have name change from add and edit 
+      - Have a new input container 
+      - Change button create to edit 
+      - can copy the function from the note cards app 
+
+      
 
 */

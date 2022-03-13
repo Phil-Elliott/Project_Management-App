@@ -26,8 +26,37 @@ function App() {
 }
 
 export default App
-
 /*
+
+    1) Board Page
+        - Details 
+            3) Connect to a modal that will edit the data 
+        - Upcoming deadlines 
+            1) Make a table 
+                dues date, border, task, assignedTo, status
+    
+    2) Tasks section 
+        - Make complete bttn work 
+        - Make edit bttn work 
+        - Connect complete to bottom tab
+        - Figure out comments section 
+            - maybe do one array with two object - be easier to update 
+    
+    3) Schedule 
+        - copy layout from ms planner
+    
+    4) Create Project section 
+        - create logo 
+        - Create project name 
+        - project description 
+        - milestones 
+        - features 
+
+          dashboard 
+            -  
+
+
+
 
 Today 
 

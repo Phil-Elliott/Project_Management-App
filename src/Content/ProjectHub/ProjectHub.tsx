@@ -83,6 +83,84 @@ const ProjectHub = () => {
           </div>
         </div>
       </div>
+      <div className="project-hub-card-container">
+        <div className="project-hub-card-header">
+          <div className="nav-logo">
+            <p>PN</p>
+          </div>
+          <h1>Office 365 for Exchange</h1>
+        </div>
+        <ChartMain />
+        <div className="project-hub-card-days">
+          <p>92 Days Left</p>
+        </div>
+        <div className="project-hub-card-bottom">
+          <div className="card-bottom-red">
+            <p>1</p>
+            <p>Late</p>
+          </div>
+          <div className="card-bottom-blue">
+            <p>22</p>
+            <p>In Progress</p>
+          </div>
+          <div className="card-bottom-green">
+            <p>83</p>
+            <p>Completed</p>
+          </div>
+        </div>
+      </div>
+      <div className="project-hub-card-container">
+        <div className="project-hub-card-header">
+          <div className="nav-logo">
+            <p>PN</p>
+          </div>
+          <h1>Office 365 for Exchange</h1>
+        </div>
+        <ChartMain />
+        <div className="project-hub-card-days">
+          <p>92 Days Left</p>
+        </div>
+        <div className="project-hub-card-bottom">
+          <div className="card-bottom-red">
+            <p>1</p>
+            <p>Late</p>
+          </div>
+          <div className="card-bottom-blue">
+            <p>22</p>
+            <p>In Progress</p>
+          </div>
+          <div className="card-bottom-green">
+            <p>83</p>
+            <p>Completed</p>
+          </div>
+        </div>
+      </div>
+      <div className="project-hub-card-container">
+        <div className="project-hub-card-header">
+          <div className="nav-logo">
+            <p>PN</p>
+          </div>
+          <h1>Office 365 for Exchange</h1>
+        </div>
+        <ChartMain />
+        <div className="project-hub-card-days">
+          <p>92 Days Left</p>
+        </div>
+        <div className="project-hub-card-bottom">
+          <div className="card-bottom-red">
+            <p>1</p>
+            <p>Late</p>
+          </div>
+          <div className="card-bottom-blue">
+            <p>22</p>
+            <p>In Progress</p>
+          </div>
+          <div className="card-bottom-green">
+            <p>83</p>
+            <p>Completed</p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import "./DashboardDetails.scss"
+import { FaPencilAlt } from "react-icons/fa"
 
 const DashboardDetails = () => {
   const [showMore, setShowMore] = useState<Boolean>(false)
@@ -22,7 +23,10 @@ const DashboardDetails = () => {
 
   return (
     <div className="dashboard-details-container">
-      <h1>Our Project</h1>
+      <div className="dashboard-details-header-container">
+        <h1>Our Project</h1>
+        <FaPencilAlt className="pencil-icon" />
+      </div>
       <div className="dashboard-details-content">
         <p className="details-content-heading">About</p>
         <p className="details-par">
@@ -32,8 +36,10 @@ const DashboardDetails = () => {
           </span>
         </p>
 
-        <p className="details-content-heading">Product launch</p>
-        <p>The project will launch in 187 days.</p>
+        <p className="details-content-heading">Milestones</p>
+        <p>- Finish design for project</p>
+        <p>- Finish completing basic features of app.</p>
+        <p>- Launch app and start getting feedback from client.</p>
         <p className="details-content-heading">Key features</p>
         <ul className="dashboard-details-features">
           <li>- Simple to use</li>

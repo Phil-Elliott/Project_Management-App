@@ -77,6 +77,9 @@ const Tasks = () => {
     )
   }
 
+  // Edits a task from the taskData array
+  const editCard = (name: string) => {}
+
   // Sections of the page
   const taskTime = ["Late", "This Week", "Next Week", "Future"]
 
@@ -116,6 +119,15 @@ export default Tasks
       values should come from card details 
       maybe find a way to use other modal 
       have a function that it runs back to
+
+      option 1
+        locate card to be edited 
+          use filter with name 
+            can pass back the card name 
+            can also pass back a new input with all of the data (simalar to other modal)
+                might have a problem with comments section 
+            filter out old and push in new on submit bttn 
+
     
 
 

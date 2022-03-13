@@ -1,20 +1,26 @@
 @import "./../../../../../Shared.scss";
 
 .dashboard-details-container {
-  height: 50vh;
+  max-height: 50vh;
   box-shadow: $box-shadow;
   line-height: 30px;
   overflow: auto;
   background-color: white;
   border-radius: 3px;
   color: black;
+}
+
+.dashboard-details-header-container {
+  border-bottom: $border-color 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
   h1 {
-    border-bottom: $border-color 2px solid;
     font-size: 1.25rem;
-    padding: 0.5rem 1rem;
-    // position: fixed;
-    // background-color: white;
-    // width: 100%;
+  }
+  .pencil-icon {
+    cursor: pointer;
   }
 }
 

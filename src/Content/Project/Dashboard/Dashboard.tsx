@@ -1,7 +1,7 @@
 import React from "react"
 import "./Dashboard.scss"
 import DashboardDetails from "./Components/DashboardDetails/DashboardDetails"
-import DashboardFinance from "./Components/DashboardFinance/DashboardFinance"
+import DashboardDeadlines from "./Components/DashboardDeadlines/DashboardDeadlines"
 import DashboardTasks from "./Components/DashboardTasks/DashboardTasks"
 import DashboardTime from "./Components/DashboardTime/DashboardTime"
 
@@ -10,7 +10,7 @@ const Dashboard = () => {
     <div className="dashboard-main-container">
       <div className="dashboard-top-container">
         <DashboardDetails />
-        <DashboardFinance />
+        <DashboardDeadlines />
       </div>
       <div className="dashboard-bottom-container">
         <DashboardTasks />

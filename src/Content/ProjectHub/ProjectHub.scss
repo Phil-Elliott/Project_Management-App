@@ -3,25 +3,24 @@
 .project-hub-main-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
-  padding: $content-padding;
+  gap: 2rem;
+  padding: 2rem;
 }
 
 .project-hub-card-container {
   border-radius: 3px;
   padding: 1.5rem;
   background-color: white;
-  // height: 70vh;
 }
 
 .project-hub-card-header {
   display: flex;
   align-items: center;
-  height: 10%;
+  height: 3rem;
 
   h1 {
     padding-left: 1rem;
-    font-size: 1.5rem;
+    font-size: 1.6vw;
   }
 }
 
@@ -29,11 +28,11 @@
   position: relative;
   width: 60%;
   margin: 0 auto;
-  padding-block: 1.5rem;
+  padding-block: 1.75rem;
 }
 
 .project-hub-card-days {
-  padding-bottom: 1.5rem;
+  padding-bottom: 1.75rem;
   display: flex;
 
   p {
@@ -45,7 +44,7 @@
 .project-hub-card-bottom {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 1rem;
 
   .card-bottom-red {
     border-top: red 5px solid;
@@ -62,10 +61,38 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 0.5rem;
 
     p {
       padding-top: 0.25rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .project-hub-main-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .project-hub-card-header {
+    h1 {
+      font-size: clamp(1rem, 2.3vw, 2.3vw);
+    }
+  }
+}
+
+@media only screen and (max-width: 825px) {
+  .project-hub-main-container {
+    grid-template-columns: 1fr;
+  }
+  .project-hub-card-header {
+    h1 {
+      font-size: clamp(1rem, 4vw, 10vw);
+    }
+  }
+  .project-hub-card-bottom {
+    div {
+      p {
+        font-size: clamp(0.7rem, 3vw, 1rem);
+      }
     }
   }
 }
