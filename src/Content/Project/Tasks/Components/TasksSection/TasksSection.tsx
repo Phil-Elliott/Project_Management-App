@@ -9,11 +9,13 @@ const TasksSection = ({
   tasksData,
   changeDisplay,
   deleteTask,
+  addTask,
 }: {
   due: string
   tasksData: Array<tasksData>
   changeDisplay: any
   deleteTask: any
+  addTask: any
 }) => {
   const [showAll, setShowAll] = useState<boolean>(false)
   const [taskArrByDate, setTaskArrByDate] = useState<Array<tasksData>>([])
@@ -48,7 +50,7 @@ const TasksSection = ({
     })
 
     setTaskArrByDate(newArr)
-  }, [tasksData.length])
+  }, [tasksData.length, tasksData])
 
   // Changes the view from three cards to all cards and back to three cards
   const showAllCards = () => {
@@ -65,12 +67,26 @@ const TasksSection = ({
       <div className="task-cards">
         {!showAll
           ? taskArrByDate.map((task, i) => {
-              if (i < 2) {
-                return <TaskCard deleteTask={deleteTask} key={i} task={task} />
+              if (i < 3) {
+                return (
+                  <TaskCard
+                    deleteTask={deleteTask}
+                    key={i}
+                    task={task}
+                    addTask={addTask}
+                  />
+                )
               }
             })
           : taskArrByDate.map((task, i) => {
-              return <TaskCard deleteTask={deleteTask} key={i} task={task} />
+              return (
+                <TaskCard
+                  deleteTask={deleteTask}
+                  key={i}
+                  task={task}
+                  addTask={addTask}
+                />
+              )
             })}
       </div>
       <div className="cards-showAll" onClick={showAllCards}>

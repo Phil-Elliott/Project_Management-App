@@ -65,7 +65,8 @@ const Tasks = () => {
     let newArr = tasksData
     newArr.push(task)
     setTasksData(newArr)
-    changeDisplay()
+    setDisplay(false)
+    console.log("add")
   }
 
   // Deletes a task from the taskData array - from taskCard component
@@ -75,10 +76,14 @@ const Tasks = () => {
         return task.name !== name
       })
     )
+    console.log("delete")
   }
 
   // Edits a task from the taskData array
-  const editCard = (name: string) => {}
+  // const editCard = (task: any, name: string) => {
+  //   console.log(task)
+  //   console.log(name)
+  // }
 
   // Sections of the page
   const taskTime = ["Late", "This Week", "Next Week", "Future"]
@@ -98,6 +103,7 @@ const Tasks = () => {
             tasksData={tasksData}
             changeDisplay={changeDisplay}
             deleteTask={deleteTask}
+            addTask={addTask}
           />
         )
       })}
@@ -112,8 +118,23 @@ const Tasks = () => {
 
 export default Tasks
 
-/* 
+/*  
 
+  come back to 
+      1) make a modal that for the delete bttn (just ask if they are sure)
+      2) How to find dates within the actual week
+      3) Need to make all inputs mandatory 
+    
+  need to do 
+      1) Have ability to edit the card 
+      2) Create comment section (modal can see comments and make comments)
+      3) Add ability to finish the task 
+          figure out how to do that in the array 
+          have them shown on the completed tab only when clicked 
+
+
+
+    Just make a separate modal for now (can fix this later)
     edit the card 
       need to have a modal popup on click 
       values should come from card details 
@@ -129,82 +150,6 @@ export default Tasks
             filter out old and push in new on submit bttn 
 
     
-
-
-
-      can probobly do show all
-        useEffect 
-          run the if statements and then splits the tasks into sections before running in map 
-*/
-
-/*
-come back to 
-  How to find dates within the actual week 
-
-
-      
-    3) Create a modal 
-        - connect same modal to edit bttn (do this later after creating elipsis options)
-
-        show all (number)                    down arrow 
-        show completed (number)              down arrow
-
-
-        arrows turn up when active 
-
-
-        make sure that the arrow origional filters out first three 
-
-    4) Create options
-        - show all tasks
-            - only show top two or three by date closest
-            - then show all when clicked 
-            - show origional when clicked again (show less)
-
-        - completed (wait until after next section)
-            - show all tasks that have been completed 
-
-    5) Have the elipsis bttn use modal to edit 
-        - also allow for delete and finish 
-        - need to update array to include finished tasks 
-
-    6) Make the comment bttn open a modal 
-      - need to use a diffirent modal for this 
-        - copy one online 
-          - add comment on top
-          - previous comments on bottom 
-
-
-          can click on card and all details pop up in a modal (save this for another time )
-
-
-
-
-
-    Have 4 collumns 
-      late 
-      Next Week 
-      Future 
-      No dates 
-    Have add button on top of each
-    Show first three cards in array 
-    Have show all button 
-    Have show completed button 
-
-    cards
-      Name                   three dots(update, delete)
-      Department             
-      Date due               comments button 
-      Assigned person or (not assigned)
-
-
-      will need a modal for filling out and for comments 
-
-
-
-      
-
-
 
 
 */

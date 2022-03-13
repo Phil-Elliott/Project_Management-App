@@ -31,11 +31,11 @@ const Nav = () => {
     //   name: "Team",
     //   route: "/project/team",
     // },
-    {
-      logo: <FaCalendar />,
-      name: "Schedule",
-      route: "/project/time",
-    },
+    // {
+    //   logo: <FaCalendar />,
+    //   name: "Schedule",
+    //   route: "/project/time",
+    // },
     {
       logo: <FaTasks />,
       name: "Tasks",

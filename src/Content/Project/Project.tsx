@@ -19,7 +19,7 @@ const Project = () => {
         {/* <Route path="/finance" element={<Finance />} /> */}
         <Route path="/tasks" element={<Tasks />} />
         {/* <Route path="/team" element={<Team />} /> */}
-        <Route path="/time" element={<Time />} />
+        {/* <Route path="/time" element={<Time />} /> */}
       </Routes>
     </div>
   )

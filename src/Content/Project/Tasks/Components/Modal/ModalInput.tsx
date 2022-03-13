@@ -6,12 +6,14 @@ const ModalInput = ({
   display,
   part,
   changeObjectData,
+  value,
 }: {
   question: string
   type: string
   display: boolean
   part: string
   changeObjectData: any
+  value?: any
 }) => {
   const [inputData, setInputData] = useState("")
 
@@ -24,7 +26,7 @@ const ModalInput = ({
   }, [inputData])
 
   useEffect(() => {
-    setInputData("")
+    value ? setInputData(value) : setInputData("")
   }, [display])
 
   return (
@@ -33,7 +35,7 @@ const ModalInput = ({
         <h2>{question}</h2>
         <input
           type={type}
-          placeholder="answer"
+          placeholder=""
           value={inputData}
           onChange={(e) => change(e.target.value)}
         />

@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from "react"
-import "./Modal.scss"
-import ModalInput from "./ModalInput"
+import "./../../Modal/Modal.scss"
+import ModalInput from "../../Modal/ModalInput"
 
-const Modal = ({
-  display,
-  changeDisplay,
+const EditModal = ({
+  displayEditModal,
+  changeEditDisplay,
   addTask,
+  task,
+  deleteTask,
 }: {
-  display: boolean
-  changeDisplay: any
+  displayEditModal: boolean
+  changeEditDisplay: any
   addTask: any
+  task: any
+  deleteTask: any
 }) => {
+  // const objectData = task
+
   const objectData = {
-    name: "",
-    department: "",
-    date: "",
-    assigned: "",
+    name: task.name,
+    department: task.department,
+    date: task.date,
+    assigned: task.assigned,
     comments: [
       {
         name: "",
@@ -23,6 +29,12 @@ const Modal = ({
         comment: "",
       },
     ],
+  }
+
+  const changeCard = () => {
+    addTask(objectData)
+    deleteTask(task.name)
+    changeEditDisplay()
   }
 
   const changeObjectData = (part: any, input: string) => {
@@ -37,57 +49,42 @@ const Modal = ({
     }
   }
 
-  // Allows ESC key to only be used to close
-  const closeOnEscapeKeyDown = (e: any) => {
-    if ((e.charCode || e.keyCode) === 27) {
-      changeDisplay()
-    }
-  }
-
-  // Allows for enter key to save details
-  const saveOnEnterKeyDown = (e: any) => {
-    if (e.code === "Enter" || e.code === "NumpadEnter") {
-      // saveChanges()
-    }
-  }
-
-  // Allows access to use keys only when modal is displayed
-  useEffect(() => {
-    if (display === true) {
-      document.body.addEventListener("keydown", closeOnEscapeKeyDown)
-      document.body.addEventListener("keydown", saveOnEnterKeyDown)
-    }
-  }, [display])
-
   // Array for input questions
   const inputQuestions = [
     {
       question: "Task",
       type: "text",
       part: "name",
+      value: task.name,
     },
     {
       question: "Department",
       type: "text",
       part: "department",
+      value: task.department,
     },
     {
       question: "Date",
       type: "date",
       part: "date",
+      value: task.date,
     },
     {
       question: "Assigned to",
       type: "text",
       part: "assigned",
+      value: task.assigned,
     },
   ]
 
   return (
-    <div className={`modal ${display ? "show" : ""}`} onClick={changeDisplay}>
+    <div
+      className={`modal ${displayEditModal ? "show" : ""}`}
+      onClick={changeEditDisplay}
+    >
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h1 className="modal-title">Add Task</h1>
+          <h1 className="modal-title">Edit Task</h1>
         </div>
         <div className="modal-body">
           {inputQuestions.map((item, i) => {
@@ -97,22 +94,23 @@ const Modal = ({
                 question={item.question}
                 type={item.type}
                 part={item.part}
-                display={display}
+                value={item.value}
+                display={displayEditModal}
                 changeObjectData={changeObjectData}
               />
             )
           })}
         </div>
         <div className="modal-footer">
-          <button className="modal-close-btn" onClick={changeDisplay}>
+          <button className="modal-close-btn" onClick={changeEditDisplay}>
             Close
           </button>
           <button
             className="modal-create-btn"
             type="submit"
-            onClick={() => addTask(objectData)}
+            onClick={() => changeCard()}
           >
-            Create
+            Edit
           </button>
         </div>
       </div>
@@ -120,14 +118,21 @@ const Modal = ({
   )
 }
 
-export default Modal
+export default EditModal
 
 /*
+    - need to get original values put into it 
+    - fix the bttns (must be some div style i put in before)
 
-      - Have name change from add and edit 
-      - Have a new input container 
-      - Change button create to edit 
-      - can copy the function from the note cards app 
+    
+      
+      could put value in input question 
+      pass as a prop 
+      fill the value or even input to = that from the getco 
+
+
+
+    next make sure there is input 
 
       
 

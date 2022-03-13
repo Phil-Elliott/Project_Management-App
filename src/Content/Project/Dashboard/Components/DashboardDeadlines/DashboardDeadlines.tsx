@@ -25,38 +25,6 @@ const DashboardDeadlines = () => {
 export default DashboardDeadlines
 
 /*
-      use moment js to get current date 
-      maybe remove department and put a pencil and a trash can (use all of the same stuff as on the other page)
-      make responsive 
-        do the same as with the other one 
-          might need to break work or something 
-
-
-
-
-
-
-
-
-  - Upcoming deadlines 
-            1) Make a table 
-                dues date, border, task, assignedTo, status
-
-
-
-
-  - Can do a grid 
-      - header +6 so repeat 7 frs
-
-  - div
-    p(date) - border right 
-    p(task name)
-    p(department)
-    p(person)
-
-  responsive 
-    make scrollable after certian screen size 
-
-
-    could throw a date on the top right box
+      Make color change from blue (if not late) or red (if late)
+      Make sure it will still work without many tasks coming up 
 */
