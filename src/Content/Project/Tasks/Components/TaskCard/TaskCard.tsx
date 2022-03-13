@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import EditModal from "./Components/EditModal"
 import "./TaskCard.scss"
+import { FaPencilAlt, FaTrash } from "react-icons/fa"
 import tasksData from "../../../../../Interfaces"
 import {
   FaRegComment,
@@ -41,7 +42,7 @@ const TaskCard = ({
         task={task}
         deleteTask={deleteTask}
       />
-      <div
+      {/* <div
         className={
           dropDownActive ? "ellipsisDropDown" : "ellipsisDropDownUnActive"
         }
@@ -49,13 +50,23 @@ const TaskCard = ({
         <p onClick={() => changeEditDisplay()}>Edit</p>
         <p onClick={() => deleteCard()}>Delete</p>
         <p style={{ border: "none" }}>Finished</p>
-      </div>
+      </div> */}
       <div className="task-card-top">
         <p>{task.name}</p>
-        <FaEllipsisH
+        <div>
+          <FaPencilAlt
+            onClick={() => changeEditDisplay()}
+            className="task-card-top-icon"
+          />
+          <FaTrash
+            onClick={() => deleteCard()}
+            className="task-card-top-icon"
+          />
+        </div>
+        {/* <FaEllipsisH
           className="task-icon"
           onClick={() => setDropDownActive(!dropDownActive)}
-        />
+        /> */}
       </div>
       <p className="task-card-department">{task.department}</p>
       <div className="task-card-bottom">

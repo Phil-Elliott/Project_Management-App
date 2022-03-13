@@ -7,33 +7,33 @@
   border-radius: 3px;
   margin-block: 1rem;
 
-  .ellipsisDropDown {
-    box-shadow: $box-shadow;
-    border-radius: 3px;
-    font-weight: 500;
-    position: absolute;
-    background-color: white;
-    z-index: 2;
-    right: 0.5rem;
-    top: 2rem;
-    width: 40%;
-    height: 70%;
-    display: flex;
-    flex-direction: column;
+  // .ellipsisDropDown {
+  //   box-shadow: $box-shadow;
+  //   border-radius: 3px;
+  //   font-weight: 500;
+  //   position: absolute;
+  //   background-color: white;
+  //   z-index: 2;
+  //   right: 0.5rem;
+  //   top: 2rem;
+  //   width: 40%;
+  //   height: 70%;
+  //   display: flex;
+  //   flex-direction: column;
 
-    p {
-      border-bottom: 1px solid lightgray;
-      cursor: pointer;
-      padding: 0.5rem 0rem 0.5rem 1rem;
+  //   p {
+  //     border-bottom: 1px solid lightgray;
+  //     cursor: pointer;
+  //     padding: 0.5rem 0rem 0.5rem 1rem;
 
-      &:hover {
-        background-color: lightgray;
-      }
-    }
-  }
-  .ellipsisDropDownUnActive {
-    display: none;
-  }
+  //     &:hover {
+  //       background-color: lightgray;
+  //     }
+  //   }
+  // }
+  // .ellipsisDropDownUnActive {
+  //   display: none;
+  // }
 }
 
 .task-card-top,
@@ -50,6 +50,12 @@
 
 .task-card-top {
   font-weight: 600;
+
+  .task-card-top-icon {
+    font-size: 0.9rem;
+    margin-left: 1rem;
+    cursor: pointer;
+  }
 }
 
 .task-card-department {
