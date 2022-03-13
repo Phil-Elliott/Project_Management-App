@@ -8,10 +8,12 @@ const TasksSection = ({
   due,
   tasksData,
   changeDisplay,
+  deleteTask,
 }: {
   due: string
   tasksData: Array<tasksData>
   changeDisplay: any
+  deleteTask: any
 }) => {
   const [showAll, setShowAll] = useState<boolean>(false)
   const [taskArrByDate, setTaskArrByDate] = useState<Array<tasksData>>([])
@@ -64,16 +66,17 @@ const TasksSection = ({
         {!showAll
           ? taskArrByDate.map((task, i) => {
               if (i < 2) {
-                return <TaskCard key={i} task={task} />
+                return <TaskCard deleteTask={deleteTask} key={i} task={task} />
               }
             })
           : taskArrByDate.map((task, i) => {
-              return <TaskCard key={i} task={task} />
+              return <TaskCard deleteTask={deleteTask} key={i} task={task} />
             })}
       </div>
       <div className="cards-showAll" onClick={showAllCards}>
         <div className="cards-showAll-left">
           <p>Show All</p>
+          <p>({taskArrByDate.length})</p>
         </div>
         <FaAngleDown
           className={

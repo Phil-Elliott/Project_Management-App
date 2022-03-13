@@ -60,6 +60,7 @@ const Tasks = () => {
     },
   ])
 
+  // Adds a task to the taskData array from Modal
   const addTask = (task: any) => {
     let newArr = tasksData
     newArr.push(task)
@@ -67,6 +68,16 @@ const Tasks = () => {
     changeDisplay()
   }
 
+  // Deletes a task from the taskData array - from taskCard component
+  const deleteTask = (name: string) => {
+    setTasksData(
+      tasksData.filter((task) => {
+        return task.name !== name
+      })
+    )
+  }
+
+  // Sections of the page
   const taskTime = ["Late", "This Week", "Next Week", "Future"]
 
   // displays the modal
@@ -83,6 +94,7 @@ const Tasks = () => {
             due={time}
             tasksData={tasksData}
             changeDisplay={changeDisplay}
+            deleteTask={deleteTask}
           />
         )
       })}
@@ -98,6 +110,12 @@ const Tasks = () => {
 export default Tasks
 
 /* 
+
+    edit the card 
+      need to have a modal popup on click 
+      values should come from card details 
+      maybe find a way to use other modal 
+      have a function that it runs back to
     
 
 
@@ -175,53 +193,6 @@ come back to
       
 
 
-<div className="tasks-section">
-        <p className="tasks-section-heading">Late</p>
-        <button>
-          <FaPlus className="plus-icon" />
-          <p>Add Task</p>
-        </button>
-        <div className="task-cards">
-          <div className="task-card">
-            <div className="task-card-top">
-              <p>Set project deadline</p>
-              <FaEllipsisH className="task-icon" />
-            </div>
-            <p className="task-card-department">Marketing</p>
-            <div className="task-card-bottom">
-              <div className="task-card-bottom-date">
-                <FaRegCalendar />
-                <p>11/27</p>
-              </div>
-              <FaRegComment className="task-icon" />
-            </div>
-            <div className="task-card-assignedTo">
-              <FaRegUser />
-              <p>John Doe</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="tasks-section">
-        <p className="tasks-section-heading">This Week</p>
-        <button>
-          <FaPlus />
-          <p>Add Task</p>
-        </button>
-      </div>
-      <div className="tasks-section">
-        <p className="tasks-section-heading">Next Week</p>
-        <button>
-          <FaPlus />
-          <p>Add Task</p>
-        </button>
-      </div>
-      <div className="tasks-section">
-        <p className="tasks-section-heading">Future</p>
-        <button>
-          <FaPlus />
-          <p>Add Task</p>
-        </button>
-      </div>
+
 
 */

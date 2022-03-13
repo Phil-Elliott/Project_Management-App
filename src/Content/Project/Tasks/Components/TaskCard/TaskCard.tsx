@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import "./TaskCard.scss"
 import tasksData from "../../../../../Interfaces"
 import {
@@ -8,12 +8,37 @@ import {
   FaRegUser,
 } from "react-icons/fa"
 
-const TaskCard = ({ task }: { task: tasksData }) => {
+const TaskCard = ({
+  task,
+  deleteTask,
+}: {
+  task: tasksData
+  deleteTask: any
+}) => {
+  const [dropDownActive, setDropDownActive] = useState<boolean>(false)
+
+  const deleteCard = () => {
+    setDropDownActive(false)
+    deleteTask(task.name)
+  }
+
   return (
     <div className="task-card">
+      <div
+        className={
+          dropDownActive ? "ellipsisDropDown" : "ellipsisDropDownUnActive"
+        }
+      >
+        <p>Edit</p>
+        <p onClick={() => deleteCard()}>Delete</p>
+        <p style={{ border: "none" }}>Finished</p>
+      </div>
       <div className="task-card-top">
         <p>{task.name}</p>
-        <FaEllipsisH className="task-icon" />
+        <FaEllipsisH
+          className="task-icon"
+          onClick={() => setDropDownActive(!dropDownActive)}
+        />
       </div>
       <p className="task-card-department">{task.department}</p>
       <div className="task-card-bottom">
@@ -32,3 +57,9 @@ const TaskCard = ({ task }: { task: tasksData }) => {
 }
 
 export default TaskCard
+
+/*
+    
+
+
+*/
