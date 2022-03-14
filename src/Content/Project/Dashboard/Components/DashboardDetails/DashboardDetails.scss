@@ -11,16 +11,20 @@
 }
 
 .dashboard-details-header-container {
-  border-bottom: $border-color 2px solid;
+  border-bottom: $secondary 2px solid;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   h1 {
     font-size: 1.25rem;
   }
   .pencil-icon {
     cursor: pointer;
+
+    &:hover {
+      color: $secondary;
+    }
   }
 }
 

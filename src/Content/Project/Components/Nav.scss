@@ -22,7 +22,7 @@
   @extend %flex-align;
 
   .project-name {
-    color: black;
+    color: $secondary;
     font-size: 1.1rem;
     font-weight: bold;
     margin-left: 1rem;
@@ -33,15 +33,17 @@
   display: flex;
 
   div {
+    border-bottom: 3px solid white;
     cursor: pointer;
     @extend %flex-align;
     padding-inline: 0.75rem;
-    color: black;
+    padding-top: 3px;
+    color: $secondary;
     height: 100%;
-    font-weight: 400;
+    font-weight: 600;
 
     &:hover {
-      border-bottom: 3px solid blue;
+      border-bottom: 3px solid $primary;
       font-weight: 600;
     }
 
@@ -50,8 +52,7 @@
     }
   }
   .active-link {
-    border-bottom: 3px solid blue;
-    font-weight: 600;
+    border-bottom: 3px solid $primary;
   }
 }
 
@@ -84,7 +85,7 @@
     background-color: white;
 
     div {
-      padding: 0.5rem 0;
+      padding: 1rem 0 1rem 1rem;
     }
   }
   .active-link {

@@ -1,8 +1,8 @@
 @import "./../Shared.scss";
 
 .responsive-nav {
-  background: $header;
-  box-shadow: $box-shadow;
+  background: linear-gradient(to right, $primary, $secondary);
+  box-shadow: $box-shadow-light;
   color: $white;
   @extend %flex-align;
   justify-content: space-between;

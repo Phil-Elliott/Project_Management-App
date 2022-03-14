@@ -1,7 +1,8 @@
 @import "./../Shared.scss";
 
 .header {
-  background-color: $header;
+  background: linear-gradient($primary, $secondary);
+  box-shadow: $box-shadow-light;
   color: $white;
   @extend %flex-between-column;
   max-height: 100vh;

@@ -41,10 +41,14 @@
   @extend %flex-between;
   align-items: center;
   padding: 0.75rem;
-  border-bottom: 1px solid lightgrey;
+  border-bottom: 1px solid $border-color;
 
   .task-icon {
     cursor: pointer;
+
+    &:hover {
+      color: $secondary;
+    }
   }
 }
 
@@ -55,6 +59,10 @@
     font-size: 0.9rem;
     margin-left: 1rem;
     cursor: pointer;
+
+    &:hover {
+      color: $secondary;
+    }
   }
 }
 
