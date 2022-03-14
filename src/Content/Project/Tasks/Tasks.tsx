@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react"
 import "./Tasks.scss"
 import TaskSection from "./Components/TasksSection/TasksSection"
 import Modal from "./Components/Modal/Modal"
+import tasksData from "../../../Interfaces"
 
 const Tasks = () => {
   const [display, setDisplay] = useState(false)
-  const [tasksData, setTasksData] = useState([
+  const [tasksData, setTasksData] = useState<Array<tasksData>>([
     {
       name: "Set project deadline",
       department: "Marketing",
@@ -59,6 +60,9 @@ const Tasks = () => {
       ],
     },
   ])
+  const [completedTasksData, setCompletedTasksData] = useState<
+    Array<tasksData>
+  >([])
 
   // Adds a task to the taskData array from Modal
   const addTask = (task: any) => {
@@ -66,7 +70,6 @@ const Tasks = () => {
     newArr.push(task)
     setTasksData(newArr)
     setDisplay(false)
-    console.log("add")
   }
 
   // Deletes a task from the taskData array - from taskCard component
@@ -76,14 +79,31 @@ const Tasks = () => {
         return task.name !== name
       })
     )
-    console.log("delete")
   }
 
-  // Edits a task from the taskData array
-  // const editCard = (task: any, name: string) => {
-  //   console.log(task)
-  //   console.log(name)
-  // }
+  // Deletes a task from the completed tasks data array
+  const deleteComlpletedTask = (name: string) => {
+    setCompletedTasksData(
+      completedTasksData.filter((task) => {
+        return task.name !== name
+      })
+    )
+  }
+
+  // Moves a task to the completed array
+  const completeTask = (task: any, name: string, complete: boolean) => {
+    if (!complete) {
+      let newTasks = completedTasksData
+      newTasks.push(task)
+      setCompletedTasksData(newTasks)
+      deleteTask(name)
+    } else {
+      let newArr = tasksData
+      newArr.push(task)
+      setTasksData(newArr)
+      deleteComlpletedTask(name)
+    }
+  }
 
   // Sections of the page
   const taskTime = ["Late", "This Week", "Next Week", "Future"]
@@ -104,6 +124,9 @@ const Tasks = () => {
             changeDisplay={changeDisplay}
             deleteTask={deleteTask}
             addTask={addTask}
+            completeTask={completeTask}
+            completedTasksData={completedTasksData}
+            deleteComlpletedTask={deleteComlpletedTask}
           />
         )
       })}

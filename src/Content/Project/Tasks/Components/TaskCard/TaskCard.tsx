@@ -5,32 +5,35 @@ import { FaPencilAlt, FaTrash } from "react-icons/fa"
 import tasksData from "../../../../../Interfaces"
 import {
   FaRegComment,
-  FaEllipsisH,
   FaRegCalendar,
   FaRegUser,
+  FaCheckCircle,
 } from "react-icons/fa"
 
 const TaskCard = ({
   task,
   deleteTask,
   addTask,
+  completeTask,
+  complete,
+  deleteComlpletedTask,
 }: {
   task: tasksData
   deleteTask: any
   addTask: any
+  completeTask: any
+  complete?: any
+  deleteComlpletedTask?: any
 }) => {
-  const [dropDownActive, setDropDownActive] = useState<boolean>(false)
   const [displayEditModal, setDisplayEditModal] = useState(false)
 
   const deleteCard = () => {
-    setDropDownActive(false)
     deleteTask(task.name)
   }
 
   // displays the modal
   const changeEditDisplay = () => {
     setDisplayEditModal(!displayEditModal)
-    setDropDownActive(false)
   }
 
   return (
@@ -42,31 +45,28 @@ const TaskCard = ({
         task={task}
         deleteTask={deleteTask}
       />
-      {/* <div
-        className={
-          dropDownActive ? "ellipsisDropDown" : "ellipsisDropDownUnActive"
-        }
-      >
-        <p onClick={() => changeEditDisplay()}>Edit</p>
-        <p onClick={() => deleteCard()}>Delete</p>
-        <p style={{ border: "none" }}>Finished</p>
-      </div> */}
+
       <div className="task-card-top">
         <p>{task.name}</p>
-        <div>
-          <FaPencilAlt
-            onClick={() => changeEditDisplay()}
-            className="task-card-top-icon"
-          />
-          <FaTrash
-            onClick={() => deleteCard()}
-            className="task-card-top-icon"
-          />
-        </div>
-        {/* <FaEllipsisH
-          className="task-icon"
-          onClick={() => setDropDownActive(!dropDownActive)}
-        /> */}
+        {!complete ? (
+          <div>
+            <FaPencilAlt
+              onClick={() => changeEditDisplay()}
+              className="task-card-top-icon-left"
+            />
+            <FaTrash
+              onClick={() => deleteCard()}
+              className="task-card-top-icon-right"
+            />
+          </div>
+        ) : (
+          <div>
+            <FaTrash
+              onClick={() => deleteComlpletedTask(task.name)}
+              className="task-card-top-icon"
+            />
+          </div>
+        )}
       </div>
       <p className="task-card-department">{task.department}</p>
       <div className="task-card-bottom">
@@ -76,9 +76,22 @@ const TaskCard = ({
         </div>
         <FaRegComment className="task-icon" />
       </div>
-      <div className="task-card-assignedTo">
-        <FaRegUser />
-        <p>{task.assigned}</p>
+      <div className="asignedTo-container">
+        <div className="task-card-assignedTo">
+          <FaRegUser />
+          <p>{task.assigned}</p>
+        </div>
+        {!complete ? (
+          <FaCheckCircle
+            className="check-icon"
+            onClick={() => completeTask(task, task.name, false)}
+          />
+        ) : (
+          <FaCheckCircle
+            className="active-check-icon"
+            onClick={() => completeTask(task, task.name, true)}
+          />
+        )}
       </div>
     </div>
   )
@@ -87,18 +100,14 @@ const TaskCard = ({
 export default TaskCard
 
 /*
-    edit 
-      edit bttn clicked 
-      modal come up with edit details 
-        copy a lot of the other one 
-      modal edit bttn clicked
-        function is kicked off
-          sends new object back 
-          resets all inputs 
-      function is kicked off on tasks main page 
-        needs the origioal task name 
-        removes that 
-        pushs in the new one 
+    - Have a function on main page
+
+      - filter and find the one clicked 
+          - use filter and name 
+      - move this into new section called completed 
+      - have it deleted from old array 
+
+      Use a diffirent function and click for completed ones 
 
 
 */

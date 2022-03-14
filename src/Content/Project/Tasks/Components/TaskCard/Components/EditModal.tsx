@@ -15,7 +15,26 @@ const EditModal = ({
   task: any
   deleteTask: any
 }) => {
-  // const objectData = task
+  // Allows ESC key to only be used to close
+  const closeOnEscapeKeyDown = (e: any) => {
+    if ((e.charCode || e.keyCode) === 27) {
+      changeEditDisplay()
+    }
+  }
+
+  // Allows for enter key to save details
+  const saveOnEnterKeyDown = (e: any) => {
+    if (e.code === "Enter" || e.code === "NumpadEnter") {
+    }
+  }
+
+  // Allows access to use keys only when modal is displayed
+  useEffect(() => {
+    if (displayEditModal === true) {
+      document.body.addEventListener("keydown", closeOnEscapeKeyDown)
+      document.body.addEventListener("keydown", saveOnEnterKeyDown)
+    }
+  }, [displayEditModal])
 
   const objectData = {
     name: task.name,

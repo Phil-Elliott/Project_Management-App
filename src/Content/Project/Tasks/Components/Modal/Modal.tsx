@@ -62,7 +62,7 @@ const Modal = ({
   // Array for input questions
   const inputQuestions = [
     {
-      question: "Task",
+      question: "Task name",
       type: "text",
       part: "name",
     },
@@ -72,7 +72,7 @@ const Modal = ({
       part: "department",
     },
     {
-      question: "Date",
+      question: "Date due",
       type: "date",
       part: "date",
     },
@@ -87,7 +87,7 @@ const Modal = ({
     <div className={`modal ${display ? "show" : ""}`} onClick={changeDisplay}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h1 className="modal-title">Add Task</h1>
+          <h1 className="modal-title">Add a task</h1>
         </div>
         <div className="modal-body">
           {inputQuestions.map((item, i) => {

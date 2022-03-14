@@ -28,7 +28,11 @@
   transition: $transistion-ease;
 
   .modal-header {
-    padding: 0.5rem 1rem;
+    // background-color: $primary;
+    background: linear-gradient(to right, $primary, $secondary);
+    color: white;
+    text-align: center;
+    padding: 1rem 1rem;
     font-size: 0.75rem;
   }
 }
@@ -42,24 +46,25 @@
   padding: 0.5rem 1rem;
 
   div {
-    padding-bottom: 0.25rem;
+    padding-bottom: 0.4rem;
 
     h2 {
       font-size: clamp(0.8rem, 1.1vw, 1.1vw);
-      font-weight: 500;
+      font-weight: 600;
       margin-right: 1rem;
       padding-bottom: 0.5rem;
     }
     input {
       background-color: $background-color;
       font-size: clamp(0.8rem, 1.1vw, 1.1vw);
+      font-weight: 500;
       border: none;
       border-radius: 3px;
-      padding: 0.25rem 0.5rem;
+      padding: 0.5rem 0.5rem;
       width: 100%;
 
       &:focus {
-        box-shadow: 0 0 5px #719ece;
+        box-shadow: $box-shadow-light;
         outline: none;
       }
     }
@@ -68,16 +73,25 @@
 
 .modal-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 0.75rem 1rem;
 
   button {
-    background-color: $white;
+    background-color: $secondary;
     border-radius: 3px;
-    color: black;
+    color: white;
     cursor: pointer;
     font-size: clamp(0.8rem, 1.1vw, 1.1vw);
     font-weight: 600;
     padding: 0.25rem 0.5rem;
+    min-width: 6rem;
+    margin-left: 1rem;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  .modal-close-btn {
+    background-color: $primary;
   }
 }

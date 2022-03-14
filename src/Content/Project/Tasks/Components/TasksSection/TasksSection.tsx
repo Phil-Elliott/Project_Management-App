@@ -10,15 +10,25 @@ const TasksSection = ({
   changeDisplay,
   deleteTask,
   addTask,
+  completeTask,
+  completedTasksData,
+  deleteComlpletedTask,
 }: {
   due: string
   tasksData: Array<tasksData>
   changeDisplay: any
   deleteTask: any
   addTask: any
+  completeTask: any
+  completedTasksData: Array<tasksData>
+  deleteComlpletedTask: any
 }) => {
   const [showAll, setShowAll] = useState<boolean>(false)
+  const [showCompleted, setShowCompleted] = useState<boolean>(false)
   const [taskArrByDate, setTaskArrByDate] = useState<Array<tasksData>>([])
+  const [completedTaskArrByDate, setCompletedTaskArrByDate] = useState<
+    Array<tasksData>
+  >([])
 
   // Finds the difference between due date and current date in days
   const getTimeDiff = (date: string) => {
@@ -27,7 +37,7 @@ const TasksSection = ({
     return days
   }
 
-  // used to ste the taskArrByDate with the correct tasks for the section
+  // used to set the taskArrByDate with the correct tasks for the section
   useEffect(() => {
     let newArr: Array<tasksData> = []
     tasksData.map((task, i) => {
@@ -52,6 +62,31 @@ const TasksSection = ({
     setTaskArrByDate(newArr)
   }, [tasksData.length, tasksData])
 
+  // used to set the taskArrByDate with the correct tasks for the section
+  useEffect(() => {
+    let newArr: Array<tasksData> = []
+    completedTasksData.map((task, i) => {
+      let timeDiff = getTimeDiff(task.date)
+      if (timeDiff < 0) {
+        if (due === "Late") {
+          return newArr.push(task)
+        }
+      } else if (timeDiff <= 7) {
+        if (due === "This Week") {
+          return newArr.push(task)
+        }
+      } else if (timeDiff <= 14) {
+        if (due === "Next Week") {
+          return newArr.push(task)
+        }
+      } else if (timeDiff > 14 && due === "Future") {
+        return newArr.push(task)
+      }
+    })
+
+    setCompletedTaskArrByDate(newArr)
+  }, [completedTasksData.length, tasksData])
+
   // Changes the view from three cards to all cards and back to three cards
   const showAllCards = () => {
     setShowAll(!showAll)
@@ -60,7 +95,7 @@ const TasksSection = ({
   return (
     <div className="tasks-section">
       <p className="tasks-section-heading">{due}</p>
-      <button onClick={changeDisplay}>
+      <button className="tasks-section-heading-button" onClick={changeDisplay}>
         <FaPlus className="plus-icon" />
         <p>Add Task</p>
       </button>
@@ -74,6 +109,7 @@ const TasksSection = ({
                     key={i}
                     task={task}
                     addTask={addTask}
+                    completeTask={completeTask}
                   />
                 )
               }
@@ -85,6 +121,7 @@ const TasksSection = ({
                   key={i}
                   task={task}
                   addTask={addTask}
+                  completeTask={completeTask}
                 />
               )
             })}
@@ -102,12 +139,36 @@ const TasksSection = ({
           }
         />
       </div>
-      <div className="cards-showAll">
+      <div
+        className="cards-showAll"
+        onClick={() => setShowCompleted(!showCompleted)}
+      >
         <div className="cards-showAll-left">
           <p>Show Completed</p>
+          <p>({completedTaskArrByDate.length})</p>
         </div>
-        <FaAngleDown />
+        <FaAngleDown
+          className={
+            showCompleted && completedTaskArrByDate.length
+              ? "bottom-header-arrow-down-icon"
+              : "bottom-header-arrow-up-icon"
+          }
+        />
       </div>
+      {showCompleted &&
+        completedTaskArrByDate.map((task, i) => {
+          return (
+            <TaskCard
+              deleteTask={deleteTask}
+              key={i}
+              task={task}
+              addTask={addTask}
+              completeTask={completeTask}
+              complete={true}
+              deleteComlpletedTask={deleteComlpletedTask}
+            />
+          )
+        })}
     </div>
   )
 }
@@ -115,9 +176,6 @@ const TasksSection = ({
 export default TasksSection
 
 /*
-
-
-  
 
   Organize cards by closest due 
 
@@ -131,7 +189,5 @@ export default TasksSection
   then find a way to get exact weeks and seeing if that matches 
     maybe look at day of week and then judge off of day count from that 
 
-
-    
 
 */

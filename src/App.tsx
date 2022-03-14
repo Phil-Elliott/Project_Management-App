@@ -27,6 +27,16 @@ function App() {
 
 export default App
 /*
+    finish the dashboard with a graph 
+      https://www.freepik.com/premium-vector/dashboard-fitness-progress-template_6134536.htm
+
+      show tasks that were completed by date 
+
+      show departments 
+        maybe how many each departemnt has 
+        could do a bar chart 
+
+
 
     1) Board Page
         - Details 
