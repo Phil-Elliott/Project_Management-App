@@ -6,11 +6,11 @@ import {
   FaUser,
   FaBars,
   FaArrowLeft,
-  FaArrowRight,
 } from "react-icons/fa"
 
 const ResponsiveHeader = ({ changeClass }: { changeClass: any }) => {
-  const [navLogo, setNavLogo] = useState("ham")
+  const [navLogo, setNavLogo] = useState<string>("ham")
+  const [activeLogo, setActiveLogo] = useState<boolean>(false)
 
   const changeLogo = (logo: string) => {
     setNavLogo(logo)
@@ -26,15 +26,10 @@ const ResponsiveHeader = ({ changeClass }: { changeClass: any }) => {
               className="hamburger-icon"
               onClick={() => changeLogo("left")}
             />
-          ) : navLogo === "left" ? (
-            <FaArrowLeft
-              className="arrow-logo"
-              onClick={() => changeLogo("right")}
-            />
           ) : (
-            <FaArrowRight
-              className="arrow-logo"
-              onClick={() => changeLogo("left")}
+            <FaArrowLeft
+              className={activeLogo ? "arrow-logo-left" : "arrow-logo-right"}
+              onClick={() => setActiveLogo(!activeLogo)}
             />
           )}
         </div>

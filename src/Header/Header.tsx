@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react"
 import "./Header.scss"
 import TopHeaderContent from "./Components/TopHeaderContent"
 import BottomHeaderContent from "./Components/BottomHeaderContent"
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
+import { FaAngleDoubleRight } from "react-icons/fa"
 
 const Header = ({ navClass }: { navClass: string }) => {
   const [expandMain, setExpandMain] = useState<boolean>(false)
   const [expandContent, setExpandContent] = useState<boolean>(false)
+  const [activeTab, setActiveTab] = useState<string>("Big project")
 
   // Expands the nav when the bottom arrow is clicked
   const expandNav = () => {
@@ -22,10 +23,14 @@ const Header = ({ navClass }: { navClass: string }) => {
   const expandClass = expandMain ? "nav-icon expand-container" : "nav-icon"
 
   // Makes sure that the entire header goes away when responsive and top icon is clicked
-
   useEffect(() => {
     setExpandMain(false)
   }, [navClass])
+
+  // Changes the active tab when item is clicked on header
+  const changeActiveTab = (name: string) => {
+    setActiveTab(name)
+  }
 
   return (
     <header
@@ -33,24 +38,29 @@ const Header = ({ navClass }: { navClass: string }) => {
       style={expandMain ? { width: "15rem" } : { width: "4.5rem" }}
     >
       <div className="main-header-content">
-        <TopHeaderContent expandClass={expandClass} expandMain={expandMain} />
+        <TopHeaderContent
+          expandClass={expandClass}
+          expandMain={expandMain}
+          activeTab={activeTab}
+          changeActiveTab={changeActiveTab}
+        />
         <BottomHeaderContent
           expandProjects={expandProjects}
           expandClass={expandClass}
           expandContent={expandContent}
           expandMain={expandMain}
+          activeTab={activeTab}
+          changeActiveTab={changeActiveTab}
         />
       </div>
-      <div
-        style={
-          expandMain
-            ? { justifyContent: "flex-end" }
-            : { justifyContent: "center" }
-        }
-        className="bottom-header-arrw"
-        onClick={expandNav}
-      >
-        {!expandMain ? <FaAngleRight /> : <FaAngleLeft />}
+      <div className="bottom-header-arrw" onClick={expandNav}>
+        <FaAngleDoubleRight
+          className={
+            !expandMain
+              ? "bottom-header-arrow-right-icon"
+              : "bottom-header-arrow-left-icon"
+          }
+        />
       </div>
     </header>
   )

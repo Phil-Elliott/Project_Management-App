@@ -1,0 +1,25 @@
+@import "./../../../../../Shared.scss";
+
+.dashboard-tasks-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.dashboard-tasks-content-container {
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: $box-shadow;
+  color: black;
+  padding: 0.5rem 1rem;
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  .dashboard-tasks-number {
+    font-size: 1.75rem;
+    font-weight: 700;
+    padding-block: 1rem;
+  }
+}

@@ -1,19 +1,22 @@
 // Colors
 //==================================================
 
-$background-color: #f2f8ff;
-$main: #0f4189;
-$secondary: #ff793f;
+$background-color: #dadada;
+$border-color: lightgrey;
 $white: white;
-$header: #43464b;
+$header: rgb(248, 68, 68);
+$primary: rgb(248, 68, 68);
+$secondary: purple;
 
-$box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+$box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+$box-shadow-light: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 $transistion-ease: all 0.5s ease-in-out;
+$grid-gap: 1rem;
+$content-padding: 1.25rem;
 
 //================================================
 // Placeholders
 //================================================
-
 %flex-align {
   display: flex;
   align-items: center;
@@ -31,6 +34,11 @@ $transistion-ease: all 0.5s ease-in-out;
 
 %flex-center {
   @extend %flex-between;
+  justify-content: center;
+}
+
+%center {
+  @extend %flex-align;
   justify-content: center;
 }
 

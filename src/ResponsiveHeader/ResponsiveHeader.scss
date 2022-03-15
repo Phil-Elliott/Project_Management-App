@@ -1,24 +1,32 @@
 @import "./../Shared.scss";
 
 .responsive-nav {
-  background: $header;
-  box-shadow: $box-shadow;
+  background: linear-gradient(to right, $primary, $secondary);
+  box-shadow: $box-shadow-light;
   color: $white;
-  display: flex;
-  align-items: center;
+  @extend %flex-align;
   justify-content: space-between;
   padding: 1rem 2rem;
   position: fixed;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
 }
 
 .responsive-header-logo {
   font-weight: 800;
   font-size: 0.9rem;
   font-style: italic;
-  display: flex;
-  align-items: center;
+  @extend %flex-align;
+
+  .arrow-logo-left {
+    transition: $transistion-ease;
+    transform: rotateZ(180deg);
+  }
+
+  .arrow-logo-right {
+    transition: $transistion-ease;
+    transform: rotateZ(0deg);
+  }
 
   h2 {
     padding-right: 1.5rem;
@@ -26,6 +34,7 @@
 
   div {
     display: flex;
+    cursor: pointer;
   }
 
   .hamburger-icon {
@@ -34,6 +43,7 @@
 }
 
 .responsive-header-links > * {
+  cursor: pointer;
   margin-left: 1rem;
 }
 

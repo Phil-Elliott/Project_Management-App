@@ -1,0 +1,54 @@
+@import "./../../../../../Shared.scss";
+
+.dashboard-details-container {
+  max-height: 50vh;
+  box-shadow: $box-shadow;
+  line-height: 30px;
+  overflow: auto;
+  background-color: white;
+  border-radius: 3px;
+  color: black;
+}
+
+.dashboard-details-header-container {
+  border-bottom: $secondary 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  h1 {
+    font-size: 1.25rem;
+  }
+  .pencil-icon {
+    cursor: pointer;
+
+    &:hover {
+      color: $secondary;
+    }
+  }
+}
+
+.dashboard-details-content {
+  padding: 0rem 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+
+  .details-content-heading {
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding-block: 0.5rem 0rem;
+  }
+
+  p {
+    span {
+      cursor: pointer;
+      font-style: italic;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+  }
+
+  ul {
+    list-style: none;
+  }
+}

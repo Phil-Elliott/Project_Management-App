@@ -1,16 +1,21 @@
 import React from "react"
-import { FaAngleDown, FaAngleUp, FaTasks } from "react-icons/fa"
+import { FaAngleDown, FaTasks } from "react-icons/fa"
+import { Link } from "react-router-dom"
 
 const BottomHeaderContent = ({
   expandProjects,
   expandClass,
   expandContent,
   expandMain,
+  activeTab,
+  changeActiveTab,
 }: {
   expandProjects: any
   expandClass: any
   expandContent: boolean
   expandMain: boolean
+  activeTab: string
+  changeActiveTab: any
 }) => {
   // Links to the top part of the header
   const projectLinks = [
@@ -28,31 +33,31 @@ const BottomHeaderContent = ({
     },
     {
       icon: <FaTasks />,
-      name: "Big project",
+      name: "Big proj",
     },
     {
       icon: <FaTasks />,
-      name: "Medium hub",
+      name: "Medium h",
     },
     {
       icon: <FaTasks />,
-      name: "Easy Project",
+      name: "Easy P",
     },
     {
       icon: <FaTasks />,
-      name: "Easy Project",
+      name: "Eas",
     },
     {
       icon: <FaTasks />,
-      name: "Big project",
+      name: "Bi",
     },
     {
       icon: <FaTasks />,
-      name: "Medium hub",
+      name: "Me",
     },
     {
       icon: <FaTasks />,
-      name: "Easy Project",
+      name: "Easy Pro",
     },
   ]
 
@@ -61,29 +66,68 @@ const BottomHeaderContent = ({
       <div
         style={expandMain ? { justifyContent: "space-between" } : {}}
         onClick={expandProjects}
-        className={expandClass}
+        className={`${expandClass} bottom-header-arrw-down-container`}
       >
         <h2 style={{ padding: "0" }}>Projects</h2>
-        {!expandContent ? <FaAngleDown /> : <FaAngleUp />}
+        <FaAngleDown
+          className={
+            expandContent
+              ? "bottom-header-arrow-down-icon"
+              : "bottom-header-arrow-up-icon"
+          }
+        />
       </div>
-
       {!expandContent
         ? projectLinks.map((icon, i) => {
             if (i < 3) {
               return (
-                <div key={i} className={expandClass}>
-                  {icon.icon}
-                  <h2>{icon.name}</h2>
-                </div>
+                <Link
+                  key={icon.name}
+                  to="/project"
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    width: "100%",
+                  }}
+                >
+                  <div
+                    className={
+                      activeTab === icon.name
+                        ? `activeTab ${expandClass}`
+                        : expandClass
+                    }
+                    onClick={() => changeActiveTab(icon.name)}
+                  >
+                    {icon.icon}
+                    <h2>{icon.name}</h2>
+                  </div>
+                </Link>
               )
             }
           })
         : projectLinks.map((icon, i) => {
             return (
-              <div key={i} className={expandClass}>
-                {icon.icon}
-                <h2>{icon.name}</h2>
-              </div>
+              <Link
+                key={icon.name}
+                to="/project"
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  width: "100%",
+                }}
+              >
+                <div
+                  className={
+                    activeTab === icon.name
+                      ? `activeTab ${expandClass}`
+                      : expandClass
+                  }
+                  onClick={() => changeActiveTab(icon.name)}
+                >
+                  {icon.icon}
+                  <h2>{icon.name}</h2>
+                </div>
+              </Link>
             )
           })}
     </div>
