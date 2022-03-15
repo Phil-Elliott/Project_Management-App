@@ -1,18 +1,18 @@
 import React from "react"
 import "./DashboardTime.scss"
-import DashboardDeadlines from "../DashboardDeadlines/DashboardDeadlines"
+import Departments from "../Departments/Departments"
 import { FaFlagCheckered } from "react-icons/fa"
 
 const DashboardTime = () => {
   return (
     <div className="dashboard-time-container">
-      <DashboardDeadlines />
+      <Departments />
       <div className="dashboard-time-right">
         <h1>Projected Launch Date</h1>
         <div className="dashboard-time-content">
           <FaFlagCheckered className="flag-icon" />
           <div>
-            <p>182 Days</p>
+            <p className="dashboard-time-content-top">182 Days</p>
             <p>Friday, December 15</p>
           </div>
         </div>

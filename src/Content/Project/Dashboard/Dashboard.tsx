@@ -4,7 +4,6 @@ import DashboardDetails from "./Components/DashboardDetails/DashboardDetails"
 import DashboardDeadlines from "./Components/DashboardDeadlines/DashboardDeadlines"
 import DashboardTasks from "./Components/DashboardTasks/DashboardTasks"
 import DashboardTime from "./Components/DashboardTime/DashboardTime"
-
 const Dashboard = () => {
   return (
     <div className="dashboard-main-container">
