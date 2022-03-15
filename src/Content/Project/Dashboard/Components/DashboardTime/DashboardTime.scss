@@ -2,7 +2,7 @@
 
 .dashboard-time-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr;
   gap: 1rem;
 }
 
@@ -14,8 +14,37 @@
 }
 
 .dashboard-time-right {
-  background-color: white;
+  background: linear-gradient(to bottom right, $primary, $secondary);
   border-radius: 3px;
   box-shadow: $box-shadow;
-  color: black;
+  color: white;
+  padding: 1rem;
+
+  h1 {
+    font-size: 1.75rem;
+    text-align: center;
+    padding-inline: 3rem;
+  }
+
+  .dashboard-time-content {
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 3rem;
+    padding-inline: 2rem;
+
+    .flag-icon {
+      font-size: 3rem;
+      transform: rotateZ(-20deg);
+    }
+
+    div {
+      padding-left: 1.5rem;
+
+      p {
+        text-align: center;
+      }
+    }
+  }
 }
