@@ -18,6 +18,7 @@ const ModalAddProject = ({
     description: "",
     launch: "",
     tasks: [],
+    completed: [],
   })
 
   const change = (e: any) => {
@@ -32,6 +33,7 @@ const ModalAddProject = ({
       description: "",
       launch: "",
       tasks: [],
+      completed: [],
     })
   }, [displayAddProjectModal])
 

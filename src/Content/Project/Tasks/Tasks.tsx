@@ -4,7 +4,7 @@ import TaskSection from "./Components/TasksSection/TasksSection"
 import Modal from "./Components/Modal/Modal"
 import { tasksData } from "../../../Interfaces"
 
-const Tasks = () => {
+const Tasks = ({ projectsData }: { projectsData: any }) => {
   const [display, setDisplay] = useState(false)
   const [tasksData, setTasksData] = useState<Array<tasksData>>([
     {

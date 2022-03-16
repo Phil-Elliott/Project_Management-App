@@ -8,10 +8,10 @@ import { Route, Routes } from "react-router-dom"
 const Project = ({ projectsData }: { projectsData: any }) => {
   return (
     <div className="main-project-container">
-      <Nav />
+      <Nav projectsData={projectsData} />
       <Routes>
         <Route path="/" element={<Dashboard projectsData={projectsData} />} />
-        <Route path="/tasks" element={<Tasks />} />
+        <Route path="/tasks" element={<Tasks projectsData={projectsData} />} />
       </Routes>
     </div>
   )

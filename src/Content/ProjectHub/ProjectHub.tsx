@@ -32,6 +32,7 @@ const ProjectHub = ({
             description={project.description}
             launch={project.launch}
             tasks={project.tasks}
+            completed={project.completed}
           />
         )
       })}

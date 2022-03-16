@@ -10,8 +10,9 @@ import {
   FaCoins,
 } from "react-icons/fa"
 import { Link } from "react-router-dom"
+import { projectData } from "../../../Interfaces"
 
-const Nav = () => {
+const Nav = ({ projectsData }: { projectsData: projectData }) => {
   const [active, setActive] = useState<string>("Board")
   const [activeNav, setActiveNav] = useState<boolean>(false)
 
@@ -51,10 +52,13 @@ const Nav = () => {
   return (
     <div className="mian-nav-container">
       <div className="nav-name-container">
-        <div className="nav-logo">
-          <p>PN</p>
+        <div
+          className="nav-logo"
+          style={{ backgroundColor: projectsData.color }}
+        >
+          <p>{projectsData.initials}</p>
         </div>
-        <p className="project-name">Project Name</p>
+        <p className="project-name">{projectsData.name}</p>
         <div className="project-links-arrow">
           <FaAngleDown
             onClick={() => setActiveNav(!activeNav)}

@@ -20,6 +20,7 @@ function App() {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente tempora saepe laborum reprehenderit, autem debitis totam facere accusamus odit minus ipsum dolores itaque laudantium nihil enim quibusdam eaque tenetur omnis.",
       launch: "2022-04-16",
       tasks: [],
+      completed: [],
     },
   ])
   const [activeProject, setActiveProject] = useState<projectData>({
@@ -30,6 +31,7 @@ function App() {
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente tempora saepe laborum reprehenderit, autem debitis totam facere accusamus odit minus ipsum dolores itaque laudantium nihil enim quibusdam eaque tenetur omnis.",
     launch: "2022-04-16",
     tasks: [],
+    completed: [],
   })
 
   // Used to display the responsive nav
@@ -98,14 +100,17 @@ export default App
     {
       ... details 
       tasks: [
-        [
-          {
-            ... task details
-          }, 
-          {
-            ... task comments
-          }
-        ]
+                {
+                  ... task details
+                  taskCommnets []
+                }, 
+             ]
+      completed tasks: [                         
+                        {
+                          completed tasks
+                          task comments []
+                        }
+                      ]
       ]
     }
   ]

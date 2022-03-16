@@ -4,7 +4,8 @@ export interface projectData {
   color: any
   description: string
   launch: string
-  tasks: Array<object>
+  tasks: Array<tasksData>
+  completed: Array<tasksData>
 }
 
 export interface tasksData {
