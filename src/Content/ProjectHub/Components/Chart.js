@@ -3,7 +3,7 @@ import { Doughnut } from "react-chartjs-2"
 import { Chart, registerables } from "chart.js"
 Chart.register(...registerables)
 
-const ChartMain = () => {
+const ChartMain = ({ tasks }) => {
   const state = {
     labels: ["Late", "In Progress", "Completed"],
 
@@ -28,7 +28,7 @@ const ChartMain = () => {
         var fontSize = (height / 104).toFixed(2)
         ctx.font = fontSize + "em sans-serif"
         ctx.textBaseline = "top"
-        var text = "23",
+        var text = tasks.length,
           textX = Math.round((width - ctx.measureText(text).width) / 2),
           textY = height / 2.9
         ctx.fillText(text, textX, textY)

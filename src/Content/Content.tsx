@@ -8,10 +8,12 @@ const Content = ({
   displayAddProjectModal,
   displayProjectModal,
   addProject,
+  projectsData,
 }: {
   displayAddProjectModal: boolean
   displayProjectModal: any
   addProject: any
+  projectsData: any
 }) => {
   return (
     <main className="content">
@@ -23,6 +25,7 @@ const Content = ({
               displayAddProjectModal={displayAddProjectModal}
               displayProjectModal={displayProjectModal}
               addProject={addProject}
+              projectsData={projectsData}
             />
           }
         />

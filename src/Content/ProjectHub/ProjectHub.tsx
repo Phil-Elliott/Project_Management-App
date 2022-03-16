@@ -1,16 +1,19 @@
 import React from "react"
 import "./ProjectHub.scss"
-import ChartMain from "./Components/Chart"
+import ProjectCard from "./Components/ProjectCard"
+import { projectData } from "../../Interfaces"
 import ModalAddProject from "./Components/ModalAddProject/ModalAddProject"
 
 const ProjectHub = ({
   displayAddProjectModal,
   displayProjectModal,
   addProject,
+  projectsData,
 }: {
   displayAddProjectModal: boolean
   displayProjectModal: any
   addProject: any
+  projectsData: Array<projectData>
 }) => {
   return (
     <div className="project-hub-main-container">
@@ -19,162 +22,19 @@ const ProjectHub = ({
         displayProjectModal={displayProjectModal}
         addProject={addProject}
       />
-      <div className="project-hub-card-container">
-        <div className="project-hub-card-header">
-          <div className="nav-logo">
-            <p>PN</p>
-          </div>
-          <h1>Office 365 for Exchange</h1>
-        </div>
-        <ChartMain />
-        <div className="project-hub-card-days">
-          <p>92 Days Left</p>
-        </div>
-        <div className="project-hub-card-bottom">
-          <div className="card-bottom-red">
-            <p>1</p>
-            <p>Late</p>
-          </div>
-          <div className="card-bottom-blue">
-            <p>22</p>
-            <p>In Progress</p>
-          </div>
-          <div className="card-bottom-green">
-            <p>83</p>
-            <p>Completed</p>
-          </div>
-        </div>
-      </div>
-      <div className="project-hub-card-container">
-        <div className="project-hub-card-header">
-          <div className="nav-logo">
-            <p>PN</p>
-          </div>
-          <h1>Office 365 for Exchange</h1>
-        </div>
-        <ChartMain />
-        <div className="project-hub-card-days">
-          <p>92 Days Left</p>
-        </div>
-        <div className="project-hub-card-bottom">
-          <div className="card-bottom-red">
-            <p>1</p>
-            <p>Late</p>
-          </div>
-          <div className="card-bottom-blue">
-            <p>22</p>
-            <p>In Progress</p>
-          </div>
-          <div className="card-bottom-green">
-            <p>83</p>
-            <p>Completed</p>
-          </div>
-        </div>
-      </div>
-      <div className="project-hub-card-container">
-        <div className="project-hub-card-header">
-          <div className="nav-logo">
-            <p>PN</p>
-          </div>
-          <h1>Office 365 for Exchange</h1>
-        </div>
-        <ChartMain />
-        <div className="project-hub-card-days">
-          <p>92 Days Left</p>
-        </div>
-        <div className="project-hub-card-bottom">
-          <div className="card-bottom-red">
-            <p>1</p>
-            <p>Late</p>
-          </div>
-          <div className="card-bottom-blue">
-            <p>22</p>
-            <p>In Progress</p>
-          </div>
-          <div className="card-bottom-green">
-            <p>83</p>
-            <p>Completed</p>
-          </div>
-        </div>
-      </div>
-      <div className="project-hub-card-container">
-        <div className="project-hub-card-header">
-          <div className="nav-logo">
-            <p>PN</p>
-          </div>
-          <h1>Office 365 for Exchange</h1>
-        </div>
-        <ChartMain />
-        <div className="project-hub-card-days">
-          <p>92 Days Left</p>
-        </div>
-        <div className="project-hub-card-bottom">
-          <div className="card-bottom-red">
-            <p>1</p>
-            <p>Late</p>
-          </div>
-          <div className="card-bottom-blue">
-            <p>22</p>
-            <p>In Progress</p>
-          </div>
-          <div className="card-bottom-green">
-            <p>83</p>
-            <p>Completed</p>
-          </div>
-        </div>
-      </div>
-      <div className="project-hub-card-container">
-        <div className="project-hub-card-header">
-          <div className="nav-logo">
-            <p>PN</p>
-          </div>
-          <h1>Office 365 for Exchange</h1>
-        </div>
-        <ChartMain />
-        <div className="project-hub-card-days">
-          <p>92 Days Left</p>
-        </div>
-        <div className="project-hub-card-bottom">
-          <div className="card-bottom-red">
-            <p>1</p>
-            <p>Late</p>
-          </div>
-          <div className="card-bottom-blue">
-            <p>22</p>
-            <p>In Progress</p>
-          </div>
-          <div className="card-bottom-green">
-            <p>83</p>
-            <p>Completed</p>
-          </div>
-        </div>
-      </div>
-      <div className="project-hub-card-container">
-        <div className="project-hub-card-header">
-          <div className="nav-logo">
-            <p>PN</p>
-          </div>
-          <h1>Office 365 for Exchange</h1>
-        </div>
-        <ChartMain />
-        <div className="project-hub-card-days">
-          <p>92 Days Left</p>
-        </div>
-        <div className="project-hub-card-bottom">
-          <div className="card-bottom-red">
-            <p>1</p>
-            <p>Late</p>
-          </div>
-          <div className="card-bottom-blue">
-            <p>22</p>
-            <p>In Progress</p>
-          </div>
-          <div className="card-bottom-green">
-            <p>83</p>
-            <p>Completed</p>
-          </div>
-        </div>
-      </div>
+      {projectsData.map((project, i) => {
+        return (
+          <ProjectCard
+            key={i}
+            name={project.name}
+            initials={project.initials}
+            color={project.color}
+            description={project.description}
+            launch={project.launch}
+            tasks={project.tasks}
+          />
+        )
+      })}
     </div>
   )
 }
@@ -182,6 +42,15 @@ const ProjectHub = ({
 export default ProjectHub
 
 /*
+
+  name: "",
+    initials: "",
+    color: "green",
+    description: "",
+    launch: "",
+    tasks: [],
+
+
     cards for every project 
       will pass an array with the correct details 
 

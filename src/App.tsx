@@ -10,7 +10,17 @@ function App() {
   const [navClass, setNavClass] = useState("header unactive-side-nav")
   const [displayAddProjectModal, setDisplayAddProjectModal] =
     useState<boolean>(false)
-  const [projectsData, setProjectsData] = useState<Array<projectData>>([])
+  const [projectsData, setProjectsData] = useState<Array<projectData>>([
+    {
+      name: "Super Cool Project",
+      initials: "OE",
+      color: "blue",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente tempora saepe laborum reprehenderit, autem debitis totam facere accusamus odit minus ipsum dolores itaque laudantium nihil enim quibusdam eaque tenetur omnis.",
+      launch: "2022-04-16",
+      tasks: [],
+    },
+  ])
 
   const changeClass = () => {
     navClass === "header unactive-side-nav"
@@ -40,6 +50,7 @@ function App() {
           displayAddProjectModal={displayAddProjectModal}
           displayProjectModal={displayProjectModal}
           addProject={addProject}
+          projectsData={projectsData}
         />
       </Router>
     </div>
