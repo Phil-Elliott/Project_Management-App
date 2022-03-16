@@ -5,12 +5,12 @@ import Dashboard from "./Dashboard/Dashboard"
 import Tasks from "./Tasks/Tasks"
 import { Route, Routes } from "react-router-dom"
 
-const Project = () => {
+const Project = ({ projectsData }: { projectsData: any }) => {
   return (
     <div className="main-project-container">
       <Nav />
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Dashboard projectsData={projectsData} />} />
         <Route path="/tasks" element={<Tasks />} />
       </Routes>
     </div>

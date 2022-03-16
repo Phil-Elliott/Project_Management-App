@@ -9,11 +9,13 @@ const Content = ({
   displayProjectModal,
   addProject,
   projectsData,
+  activeProject,
 }: {
   displayAddProjectModal: boolean
   displayProjectModal: any
   addProject: any
   projectsData: any
+  activeProject: any
 }) => {
   return (
     <main className="content">
@@ -29,7 +31,10 @@ const Content = ({
             />
           }
         />
-        <Route path="/project/*" element={<Project />} />
+        <Route
+          path="/project/*"
+          element={<Project projectsData={activeProject} />}
+        />
       </Routes>
     </main>
   )

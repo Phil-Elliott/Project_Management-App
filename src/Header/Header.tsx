@@ -7,13 +7,19 @@ import { FaAngleDoubleRight } from "react-icons/fa"
 const Header = ({
   navClass,
   displayProjectModal,
+  projectsData,
+  activeTab,
+  changeActiveTab,
 }: {
   navClass: string
   displayProjectModal: any
+  projectsData: any
+  activeTab: string
+  changeActiveTab: any
 }) => {
   const [expandMain, setExpandMain] = useState<boolean>(false)
   const [expandContent, setExpandContent] = useState<boolean>(false)
-  const [activeTab, setActiveTab] = useState<string>("Big project")
+  // const [activeTab, setActiveTab] = useState<string>("Big project")
 
   // Expands the nav when the bottom arrow is clicked
   const expandNav = () => {
@@ -34,9 +40,9 @@ const Header = ({
   }, [navClass])
 
   // Changes the active tab when item is clicked on header
-  const changeActiveTab = (name: string) => {
-    setActiveTab(name)
-  }
+  // const changeActiveTab = (name: string) => {
+  //   setActiveTab(name)
+  // }
 
   return (
     <header
@@ -58,6 +64,7 @@ const Header = ({
           expandMain={expandMain}
           activeTab={activeTab}
           changeActiveTab={changeActiveTab}
+          projectsData={projectsData}
         />
       </div>
       <div className="bottom-header-arrw" onClick={expandNav}>

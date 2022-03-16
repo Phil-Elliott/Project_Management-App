@@ -1,6 +1,7 @@
 import React from "react"
 import { FaAngleDown, FaTasks } from "react-icons/fa"
 import { Link } from "react-router-dom"
+import { projectData } from "../../Interfaces"
 
 const BottomHeaderContent = ({
   expandProjects,
@@ -9,6 +10,7 @@ const BottomHeaderContent = ({
   expandMain,
   activeTab,
   changeActiveTab,
+  projectsData,
 }: {
   expandProjects: any
   expandClass: any
@@ -16,6 +18,7 @@ const BottomHeaderContent = ({
   expandMain: boolean
   activeTab: string
   changeActiveTab: any
+  projectsData: Array<projectData>
 }) => {
   // Links to the top part of the header
   const projectLinks = [
@@ -78,11 +81,11 @@ const BottomHeaderContent = ({
         />
       </div>
       {!expandContent
-        ? projectLinks.map((icon, i) => {
+        ? projectsData.map((project, i) => {
             if (i < 3) {
               return (
                 <Link
-                  key={icon.name}
+                  key={project.name}
                   to="/project"
                   style={{
                     textDecoration: "none",
@@ -92,23 +95,28 @@ const BottomHeaderContent = ({
                 >
                   <div
                     className={
-                      activeTab === icon.name
+                      activeTab === project.name
                         ? `activeTab ${expandClass}`
                         : expandClass
                     }
-                    onClick={() => changeActiveTab(icon.name)}
+                    onClick={() => changeActiveTab(project.name)}
                   >
-                    {icon.icon}
-                    <h2>{icon.name}</h2>
+                    <div
+                      className="bottom-header-logo"
+                      style={{ background: project.color }}
+                    >
+                      <p>{project.initials}</p>
+                    </div>
+                    <h2>{project.name}</h2>
                   </div>
                 </Link>
               )
             }
           })
-        : projectLinks.map((icon, i) => {
+        : projectsData.map((project, i) => {
             return (
               <Link
-                key={icon.name}
+                key={project.name}
                 to="/project"
                 style={{
                   textDecoration: "none",
@@ -118,14 +126,19 @@ const BottomHeaderContent = ({
               >
                 <div
                   className={
-                    activeTab === icon.name
+                    activeTab === project.name
                       ? `activeTab ${expandClass}`
                       : expandClass
                   }
-                  onClick={() => changeActiveTab(icon.name)}
+                  onClick={() => changeActiveTab(project.name)}
                 >
-                  {icon.icon}
-                  <h2>{icon.name}</h2>
+                  <div
+                    className="bottom-header-logo"
+                    style={{ background: project.color }}
+                  >
+                    <p>{project.initials}</p>
+                  </div>
+                  <h2>{project.name}</h2>
                 </div>
               </Link>
             )

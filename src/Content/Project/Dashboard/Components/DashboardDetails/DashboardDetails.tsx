@@ -2,24 +2,24 @@ import React, { useState } from "react"
 import "./DashboardDetails.scss"
 import { FaPencilAlt } from "react-icons/fa"
 
-const DashboardDetails = () => {
+const DashboardDetails = ({ description }: { description: string }) => {
   const [showMore, setShowMore] = useState<Boolean>(true)
 
-  const description = {
-    details:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, aperiam, sit autem, error velit quaerat blanditiis ipsa sint totam ratione corrupti impedit alias corporis temporibus enim harum expedita beatae a. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores voluptatem libero minima rem eaque quidem quae sunt nihil nisi dolorem suscipit ipsam quos repudiandae, molestiae modi atque laboriosam assumenda facilis!",
-  }
+  // const description = {
+  //   details:
+  //     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, aperiam, sit autem, error velit quaerat blanditiis ipsa sint totam ratione corrupti impedit alias corporis temporibus enim harum expedita beatae a. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores voluptatem libero minima rem eaque quidem quae sunt nihil nisi dolorem suscipit ipsam quos repudiandae, molestiae modi atque laboriosam assumenda facilis!",
+  // }
 
-  const shortenDescription = () => {
-    let str = description.details.split("").slice(0, 90).join("")
-    let shortStr = str
+  // const shortenDescription = () => {
+  //   let str = description.details.split("").slice(0, 90).join("")
+  //   let shortStr = str
 
-    if (showMore) {
-      return description.details
-    } else {
-      return shortStr
-    }
-  }
+  //   if (showMore) {
+  //     return description.details
+  //   } else {
+  //     return shortStr
+  //   }
+  // }
 
   return (
     <div className="dashboard-details-container">
@@ -30,7 +30,7 @@ const DashboardDetails = () => {
       <div className="dashboard-details-content">
         <p className="details-content-heading">About</p>
         <p className="details-par">
-          {shortenDescription()}
+          {description}
           {/* <span onClick={() => setShowMore(!showMore)}>
             {showMore === false ? " ... Show More" : " Show Less"}
           </span> */}

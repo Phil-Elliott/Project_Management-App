@@ -2,8 +2,18 @@ import React from "react"
 import "./DashboardTime.scss"
 import Departments from "../Departments/Departments"
 import { FaFlagCheckered } from "react-icons/fa"
+import moment from "moment"
 
-const DashboardTime = () => {
+const DashboardTime = ({ launch }: { launch: string }) => {
+  // Finds the difference between launch date and current date in days
+  const getTimeDiff = (date: string) => {
+    let launch = moment(date).format("L")
+    let days = moment(launch, "MM/DD/YYYY").diff(moment().endOf("day"), "days")
+    return days
+  }
+
+  let launchDate = moment(launch).format("LL")
+
   return (
     <div className="dashboard-time-container">
       <Departments />
@@ -12,8 +22,10 @@ const DashboardTime = () => {
         <div className="dashboard-time-content">
           <FaFlagCheckered className="flag-icon" />
           <div>
-            <p className="dashboard-time-content-top">182 Days</p>
-            <p>Friday, December 15</p>
+            <p className="dashboard-time-content-top">
+              {getTimeDiff(launch)} Days
+            </p>
+            <p>{launchDate}</p>
           </div>
         </div>
       </div>
