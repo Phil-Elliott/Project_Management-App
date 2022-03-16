@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import EditModal from "./Components/EditModal"
 import "./TaskCard.scss"
 import { FaPencilAlt, FaTrash } from "react-icons/fa"
-import tasksData from "../../../../../Interfaces"
+import { tasksData } from "../../../../../Interfaces"
 import {
   FaRegComment,
   FaRegCalendar,
@@ -74,7 +74,7 @@ const TaskCard = ({
           <FaRegCalendar />
           <p>{task.date}</p>
         </div>
-        <FaRegComment className="task-icon" />
+        {/* <FaRegComment className="task-icon" /> */}
       </div>
       <div className="asignedTo-container">
         <div className="task-card-assignedTo">

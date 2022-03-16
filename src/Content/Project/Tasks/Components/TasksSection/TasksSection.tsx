@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import TaskCard from "../TaskCard/TaskCard"
-import tasksData from "../../../../../Interfaces"
+import { tasksData } from "../../../../../Interfaces"
 import { FaPlus, FaAngleDown } from "react-icons/fa"
 import moment from "moment"
 

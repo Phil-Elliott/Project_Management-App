@@ -3,7 +3,7 @@ import "./DashboardDetails.scss"
 import { FaPencilAlt } from "react-icons/fa"
 
 const DashboardDetails = () => {
-  const [showMore, setShowMore] = useState<Boolean>(false)
+  const [showMore, setShowMore] = useState<Boolean>(true)
 
   const description = {
     details:
@@ -31,12 +31,12 @@ const DashboardDetails = () => {
         <p className="details-content-heading">About</p>
         <p className="details-par">
           {shortenDescription()}
-          <span onClick={() => setShowMore(!showMore)}>
+          {/* <span onClick={() => setShowMore(!showMore)}>
             {showMore === false ? " ... Show More" : " Show Less"}
-          </span>
+          </span> */}
         </p>
 
-        <p className="details-content-heading">Milestones</p>
+        {/* <p className="details-content-heading">Milestones</p>
         <p>- Finish design for project</p>
         <p>- Finish completing basic features of app.</p>
         <p>- Launch app and start getting feedback from client.</p>
@@ -45,7 +45,7 @@ const DashboardDetails = () => {
           <li>- Simple to use</li>
           <li>- Covers many aspects of a project</li>
           <li>- Can communicate with coworkers</li>
-        </ul>
+        </ul> */}
       </div>
     </div>
   )

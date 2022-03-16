@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import "./Tasks.scss"
 import TaskSection from "./Components/TasksSection/TasksSection"
 import Modal from "./Components/Modal/Modal"
-import tasksData from "../../../Interfaces"
+import { tasksData } from "../../../Interfaces"
 
 const Tasks = () => {
   const [display, setDisplay] = useState(false)

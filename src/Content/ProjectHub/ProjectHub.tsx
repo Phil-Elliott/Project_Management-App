@@ -1,10 +1,24 @@
 import React from "react"
 import "./ProjectHub.scss"
 import ChartMain from "./Components/Chart"
+import ModalAddProject from "./Components/ModalAddProject/ModalAddProject"
 
-const ProjectHub = () => {
+const ProjectHub = ({
+  displayAddProjectModal,
+  displayProjectModal,
+  addProject,
+}: {
+  displayAddProjectModal: boolean
+  displayProjectModal: any
+  addProject: any
+}) => {
   return (
     <div className="project-hub-main-container">
+      <ModalAddProject
+        displayAddProjectModal={displayAddProjectModal}
+        displayProjectModal={displayProjectModal}
+        addProject={addProject}
+      />
       <div className="project-hub-card-container">
         <div className="project-hub-card-header">
           <div className="nav-logo">

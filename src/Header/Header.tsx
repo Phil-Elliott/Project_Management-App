@@ -4,7 +4,13 @@ import TopHeaderContent from "./Components/TopHeaderContent"
 import BottomHeaderContent from "./Components/BottomHeaderContent"
 import { FaAngleDoubleRight } from "react-icons/fa"
 
-const Header = ({ navClass }: { navClass: string }) => {
+const Header = ({
+  navClass,
+  displayProjectModal,
+}: {
+  navClass: string
+  displayProjectModal: any
+}) => {
   const [expandMain, setExpandMain] = useState<boolean>(false)
   const [expandContent, setExpandContent] = useState<boolean>(false)
   const [activeTab, setActiveTab] = useState<string>("Big project")
@@ -43,6 +49,7 @@ const Header = ({ navClass }: { navClass: string }) => {
           expandMain={expandMain}
           activeTab={activeTab}
           changeActiveTab={changeActiveTab}
+          displayProjectModal={displayProjectModal}
         />
         <BottomHeaderContent
           expandProjects={expandProjects}

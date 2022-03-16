@@ -47,7 +47,7 @@ const Modal = ({
   // Allows for enter key to save details
   const saveOnEnterKeyDown = (e: any) => {
     if (e.code === "Enter" || e.code === "NumpadEnter") {
-      // saveChanges()
+      addTask(objectData)
     }
   }
 
