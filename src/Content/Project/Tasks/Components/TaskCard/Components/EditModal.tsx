@@ -5,15 +5,13 @@ import ModalInput from "../../Modal/ModalInput"
 const EditModal = ({
   displayEditModal,
   changeEditDisplay,
-  addTask,
   task,
-  deleteTask,
+  editTask,
 }: {
   displayEditModal: boolean
   changeEditDisplay: any
-  addTask: any
   task: any
-  deleteTask: any
+  editTask: any
 }) => {
   // Allows ESC key to only be used to close
   const closeOnEscapeKeyDown = (e: any) => {
@@ -51,8 +49,7 @@ const EditModal = ({
   }
 
   const changeCard = () => {
-    addTask(objectData)
-    deleteTask(task.name)
+    editTask(objectData, task.name)
     changeEditDisplay()
   }
 

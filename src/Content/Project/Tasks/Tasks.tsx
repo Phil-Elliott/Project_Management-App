@@ -4,106 +4,79 @@ import TaskSection from "./Components/TasksSection/TasksSection"
 import Modal from "./Components/Modal/Modal"
 import { tasksData } from "../../../Interfaces"
 
-const Tasks = ({ projectsData }: { projectsData: any }) => {
+const Tasks = ({
+  projectsData,
+  addTask,
+  deleteTask,
+  deleteComlpletedTask,
+  completeTask,
+  editTask,
+}: {
+  projectsData: any
+  addTask: any
+  deleteTask: any
+  deleteComlpletedTask: any
+  completeTask: any
+  editTask: any
+}) => {
   const [display, setDisplay] = useState(false)
-  const [tasksData, setTasksData] = useState<Array<tasksData>>([
-    {
-      name: "Set project deadline",
-      department: "Marketing",
-      date: "2022-03-01",
-      assigned: "John Doe",
-      comments: [
-        {
-          name: "Brian",
-          date: "11/18",
-          comment: "Blah Blah Blah",
-        },
-      ],
-    },
-    {
-      name: "Add something",
-      department: "Devops",
-      date: "2022-03-19",
-      assigned: "MArk Doe",
-      comments: [
-        {
-          name: "Brian",
-          date: "11/18",
-          comment: "Blah Blah Blah",
-        },
-      ],
-    },
-    {
-      name: "Delete everything",
-      department: "Events",
-      date: "2022-03-16",
-      assigned: "Bob Doe",
-      comments: [
-        {
-          name: "Brian",
-          date: "11/18",
-          comment: "Blah Blah Blah",
-        },
-      ],
-    },
-    {
-      name: "Finish deadline",
-      department: "Marketing",
-      date: "2022-04-25",
-      assigned: "Marsha Doe",
-      comments: [
-        {
-          name: "Brian",
-          date: "12/18",
-          comment: "Blah Blah Blah",
-        },
-      ],
-    },
-  ])
-  const [completedTasksData, setCompletedTasksData] = useState<
-    Array<tasksData>
-  >([])
-
-  // Adds a task to the taskData array from Modal
-  const addTask = (task: any) => {
-    let newArr = tasksData
-    newArr.push(task)
-    setTasksData(newArr)
-    setDisplay(false)
-  }
-
-  // Deletes a task from the taskData array - from taskCard component
-  const deleteTask = (name: string) => {
-    setTasksData(
-      tasksData.filter((task) => {
-        return task.name !== name
-      })
-    )
-  }
-
-  // Deletes a task from the completed tasks data array
-  const deleteComlpletedTask = (name: string) => {
-    setCompletedTasksData(
-      completedTasksData.filter((task) => {
-        return task.name !== name
-      })
-    )
-  }
-
-  // Moves a task to the completed array
-  const completeTask = (task: any, name: string, complete: boolean) => {
-    if (!complete) {
-      let newTasks = completedTasksData
-      newTasks.push(task)
-      setCompletedTasksData(newTasks)
-      deleteTask(name)
-    } else {
-      let newArr = tasksData
-      newArr.push(task)
-      setTasksData(newArr)
-      deleteComlpletedTask(name)
-    }
-  }
+  // const [tasksData, setTasksData] = useState<Array<tasksData>>([
+  //   {
+  //     name: "Set project deadline",
+  //     department: "Marketing",
+  //     date: "2022-03-01",
+  //     assigned: "John Doe",
+  //     comments: [
+  //       {
+  //         name: "Brian",
+  //         date: "11/18",
+  //         comment: "Blah Blah Blah",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "Add something",
+  //     department: "Devops",
+  //     date: "2022-03-19",
+  //     assigned: "MArk Doe",
+  //     comments: [
+  //       {
+  //         name: "Brian",
+  //         date: "11/18",
+  //         comment: "Blah Blah Blah",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "Delete everything",
+  //     department: "Events",
+  //     date: "2022-03-16",
+  //     assigned: "Bob Doe",
+  //     comments: [
+  //       {
+  //         name: "Brian",
+  //         date: "11/18",
+  //         comment: "Blah Blah Blah",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "Finish deadline",
+  //     department: "Marketing",
+  //     date: "2022-04-25",
+  //     assigned: "Marsha Doe",
+  //     comments: [
+  //       {
+  //         name: "Brian",
+  //         date: "12/18",
+  //         comment: "Blah Blah Blah",
+  //       },
+  //     ],
+  //   },
+  // ])
+  // const [completedTasksData, setCompletedTasksData] = useState<
+  //   Array<tasksData>
+  // >([])
 
   // Sections of the page
   const taskTime = ["Late", "This Week", "Next Week", "Future"]
@@ -120,13 +93,14 @@ const Tasks = ({ projectsData }: { projectsData: any }) => {
           <TaskSection
             key={i}
             due={time}
-            tasksData={tasksData}
+            tasksData={projectsData.tasks}
             changeDisplay={changeDisplay}
             deleteTask={deleteTask}
             addTask={addTask}
             completeTask={completeTask}
-            completedTasksData={completedTasksData}
+            completedTasksData={projectsData.completed}
             deleteComlpletedTask={deleteComlpletedTask}
+            editTask={editTask}
           />
         )
       })}

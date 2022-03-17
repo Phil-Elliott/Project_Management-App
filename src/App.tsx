@@ -1,14 +1,14 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "./App.scss"
 import ResponsiveHeader from "./ResponsiveHeader/ResponsiveHeader"
 import Header from "./Header/Header"
 import Content from "./Content/Content"
-import { projectData } from "./Interfaces"
+import { projectData, tasksData } from "./Interfaces"
 import { BrowserRouter as Router } from "react-router-dom"
 
 function App() {
   const [navClass, setNavClass] = useState("header unactive-side-nav")
-  const [activeTab, setActiveTab] = useState<string>("Big project")
+  const [activeTab, setActiveTab] = useState<string>("Super Cool Project")
   const [displayAddProjectModal, setDisplayAddProjectModal] =
     useState<boolean>(false)
   const [projectsData, setProjectsData] = useState<Array<projectData>>([
@@ -67,7 +67,92 @@ function App() {
   const changeActiveTab = (name: string) => {
     setActiveTab(name)
     changeActiveProject(name)
-    console.log(activeProject)
+  }
+
+  useEffect(() => {
+    setProjectsData([
+      ...projectsData.map((project) => {
+        if (project.name === activeTab) {
+          return (project = activeProject)
+        } else {
+          return project
+        }
+      }),
+    ])
+  }, [activeProject])
+
+  // Adds a task to the taskData array from Modal
+  const addTask = (task: tasksData) => {
+    setActiveProject({
+      ...activeProject,
+      tasks: [...activeProject.tasks, task],
+    })
+  }
+
+  // Deletes a task from the taskData array - from taskCard component
+  const deleteTask = (name: string) => {
+    setActiveProject({
+      ...activeProject,
+      tasks: [
+        ...activeProject.tasks.filter((task) => {
+          return task.name !== name
+        }),
+      ],
+    })
+  }
+
+  // Edits a task
+  const editTask = (taskData: tasksData, name: string) => {
+    setActiveProject({
+      ...activeProject,
+      tasks: [
+        ...activeProject.tasks.map((task) => {
+          if (task.name === name) {
+            return (task = taskData)
+          } else {
+            return task
+          }
+        }),
+      ],
+    })
+    console.log("edit", taskData)
+  }
+
+  // Deletes a task from the completed tasks data array
+  const deleteComlpletedTask = (name: string) => {
+    setActiveProject({
+      ...activeProject,
+      completed: [
+        ...activeProject.completed.filter((task) => {
+          return task.name !== name
+        }),
+      ],
+    })
+  }
+
+  // Moves a task to the completed array
+  const completeTask = (task: any, name: string, complete: boolean) => {
+    if (!complete) {
+      setActiveProject({
+        ...activeProject,
+        tasks: [
+          ...activeProject.tasks.filter((task) => {
+            return task.name !== name
+          }),
+        ],
+        completed: [...activeProject.completed, task],
+      })
+    } else {
+      setActiveProject({
+        ...activeProject,
+        tasks: [...activeProject.tasks, task],
+        completed: [
+          ...activeProject.completed.filter((task) => {
+            return task.name !== name
+          }),
+        ],
+      })
+    }
   }
 
   return (
@@ -87,6 +172,11 @@ function App() {
           addProject={addProject}
           projectsData={projectsData}
           activeProject={activeProject}
+          addTask={addTask}
+          deleteTask={deleteTask}
+          deleteComlpletedTask={deleteComlpletedTask}
+          completeTask={completeTask}
+          editTask={editTask}
         />
       </Router>
     </div>
@@ -95,64 +185,19 @@ function App() {
 
 export default App
 /*
-    
-  [
-    {
-      ... details 
-      tasks: [
-                {
-                  ... task details
-                  taskCommnets []
-                }, 
-             ]
-      completed tasks: [                         
-                        {
-                          completed tasks
-                          task comments []
-                        }
-                      ]
-      ]
-    }
-  ]
-
-  Have name pass to a function on the app page 
-    
-
-    - can use the same function when I click on one of the projects from the project hub page 
-
-    - have tasks get added to array somehow 
-      - could have everything go all the way back to the app page 
-
-    - plug in the tasks data to populate in project 
-    - use this data to finish off dashboard 
-    - also use this data to finish off project hub page 
-
-
-      Fix top right responsive header links 
-        copy stuff from other header 
-        connect modal for add to it 
-
-    Need to fixup input areas to only take a certain amount of characters 
-    also need to make sure they are filled in 
-
-
-
     Finish first phase of project 
-      1)  
-          
-          - Display to dashboard 
-      
-
-
-
-
-      2) Connect to project hub 
-      3) Connect project hub to dashboard 
-      4) Have project display on header and project hub 
-      5) Allow details to be edited on project hub 
-      6) Have tasks add to project data 
+      1) Fix links (highlight appropriate ones on start and refresh)
+      2) Change color of scrollbars 
+      3) Fix top links when responsive 
+      4) Make inputs mandatory 
+      5) Could have error messages 
+      6) Add Redux 
       7) Make tasks display info on dashboard 
-      8) Create comments section 
-      9) Fix up ui and add favicon 
+      8) Allow projects to open from projecthub
+    
+    Phase 2 
+      1) Add comments 
+      2) Do testing 
+      3) Fix dashboard top 
 
 */

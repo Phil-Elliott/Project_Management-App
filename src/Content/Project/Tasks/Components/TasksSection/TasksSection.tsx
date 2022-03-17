@@ -13,6 +13,7 @@ const TasksSection = ({
   completeTask,
   completedTasksData,
   deleteComlpletedTask,
+  editTask,
 }: {
   due: string
   tasksData: Array<tasksData>
@@ -22,6 +23,7 @@ const TasksSection = ({
   completeTask: any
   completedTasksData: Array<tasksData>
   deleteComlpletedTask: any
+  editTask: any
 }) => {
   const [showAll, setShowAll] = useState<boolean>(false)
   const [showCompleted, setShowCompleted] = useState<boolean>(false)
@@ -110,6 +112,7 @@ const TasksSection = ({
                     task={task}
                     addTask={addTask}
                     completeTask={completeTask}
+                    editTask={editTask}
                   />
                 )
               }
@@ -122,6 +125,7 @@ const TasksSection = ({
                   task={task}
                   addTask={addTask}
                   completeTask={completeTask}
+                  editTask={editTask}
                 />
               )
             })}
@@ -166,6 +170,7 @@ const TasksSection = ({
               completeTask={completeTask}
               complete={true}
               deleteComlpletedTask={deleteComlpletedTask}
+              editTask={editTask}
             />
           )
         })}

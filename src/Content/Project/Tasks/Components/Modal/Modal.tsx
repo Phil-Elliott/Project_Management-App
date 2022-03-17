@@ -25,6 +25,11 @@ const Modal = ({
     ],
   }
 
+  const addProjectTask = () => {
+    addTask(objectData)
+    changeDisplay()
+  }
+
   const changeObjectData = (part: any, input: string) => {
     if (part === "name") {
       objectData.name = input
@@ -48,6 +53,7 @@ const Modal = ({
   const saveOnEnterKeyDown = (e: any) => {
     if (e.code === "Enter" || e.code === "NumpadEnter") {
       addTask(objectData)
+      changeDisplay()
     }
   }
 
@@ -110,7 +116,7 @@ const Modal = ({
           <button
             className="modal-create-btn"
             type="submit"
-            onClick={() => addTask(objectData)}
+            onClick={() => addProjectTask()}
           >
             Create
           </button>

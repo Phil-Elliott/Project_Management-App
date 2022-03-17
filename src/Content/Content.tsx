@@ -10,12 +10,22 @@ const Content = ({
   addProject,
   projectsData,
   activeProject,
+  addTask,
+  deleteTask,
+  deleteComlpletedTask,
+  completeTask,
+  editTask,
 }: {
   displayAddProjectModal: boolean
   displayProjectModal: any
   addProject: any
   projectsData: any
   activeProject: any
+  addTask: any
+  deleteTask: any
+  deleteComlpletedTask: any
+  completeTask: any
+  editTask: any
 }) => {
   return (
     <main className="content">
@@ -33,7 +43,16 @@ const Content = ({
         />
         <Route
           path="/project/*"
-          element={<Project projectsData={activeProject} />}
+          element={
+            <Project
+              projectsData={activeProject}
+              addTask={addTask}
+              deleteTask={deleteTask}
+              deleteComlpletedTask={deleteComlpletedTask}
+              completeTask={completeTask}
+              editTask={editTask}
+            />
+          }
         />
       </Routes>
     </main>

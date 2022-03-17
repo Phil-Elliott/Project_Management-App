@@ -17,6 +17,7 @@ const TaskCard = ({
   completeTask,
   complete,
   deleteComlpletedTask,
+  editTask,
 }: {
   task: tasksData
   deleteTask: any
@@ -24,6 +25,7 @@ const TaskCard = ({
   completeTask: any
   complete?: any
   deleteComlpletedTask?: any
+  editTask: any
 }) => {
   const [displayEditModal, setDisplayEditModal] = useState(false)
 
@@ -41,9 +43,8 @@ const TaskCard = ({
       <EditModal
         displayEditModal={displayEditModal}
         changeEditDisplay={changeEditDisplay}
-        addTask={addTask}
         task={task}
-        deleteTask={deleteTask}
+        editTask={editTask}
       />
 
       <div className="task-card-top">
@@ -63,7 +64,7 @@ const TaskCard = ({
           <div>
             <FaTrash
               onClick={() => deleteComlpletedTask(task.name)}
-              className="task-card-top-icon"
+              className="task-card-top-icon-right"
             />
           </div>
         )}
