@@ -182,7 +182,7 @@ export default TasksSection
 
 /*
 
-  Organize cards by closest due 
+  Organize cards by closest due date
 
   have the dates line up with the week and nextweek sections 
 

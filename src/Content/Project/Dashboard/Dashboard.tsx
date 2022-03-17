@@ -14,7 +14,7 @@ const Dashboard = ({ projectsData }: { projectsData: projectData }) => {
         <DashboardDeadlines />
       </div>
       <div className="dashboard-bottom-container">
-        <DashboardTasks />
+        <DashboardTasks projectsData={projectsData} />
         <DashboardTime launch={projectsData.launch} />
       </div>
     </div>
