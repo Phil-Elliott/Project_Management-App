@@ -21,48 +21,6 @@ const BottomHeaderContent = ({
   projectsData: Array<projectData>
 }) => {
   // Links to the top part of the header
-  const projectLinks = [
-    {
-      icon: <FaTasks />,
-      name: "Big project",
-    },
-    {
-      icon: <FaTasks />,
-      name: "Medium hub",
-    },
-    {
-      icon: <FaTasks />,
-      name: "Easy Project",
-    },
-    {
-      icon: <FaTasks />,
-      name: "Big proj",
-    },
-    {
-      icon: <FaTasks />,
-      name: "Medium h",
-    },
-    {
-      icon: <FaTasks />,
-      name: "Easy P",
-    },
-    {
-      icon: <FaTasks />,
-      name: "Eas",
-    },
-    {
-      icon: <FaTasks />,
-      name: "Bi",
-    },
-    {
-      icon: <FaTasks />,
-      name: "Me",
-    },
-    {
-      icon: <FaTasks />,
-      name: "Easy Pro",
-    },
-  ]
 
   return (
     <div className="bottom-header-content">

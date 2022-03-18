@@ -45,7 +45,7 @@ const DashboardTasks = ({ projectsData }: { projectsData: projectData }) => {
     <div className="dashboard-tasks-container">
       {tasksNumArr.map((item, i) => {
         return (
-          <div className="dashboard-tasks-content-container">
+          <div key={i} className="dashboard-tasks-content-container">
             <h1>{item.title}</h1>
             <p style={{ color: item.color }} className="dashboard-tasks-number">
               {item.number}

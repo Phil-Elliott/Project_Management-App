@@ -1,6 +1,6 @@
 import React from "react"
 import { FaPlus, FaRegCircle } from "react-icons/fa"
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
 const TopHeaderContent = ({
   expandClass,
@@ -49,7 +49,7 @@ const TopHeaderContent = ({
       <div className={expandMain ? "logo expand-container" : "logo"}>
         SP<h2>SimplePlan</h2>
       </div>
-      <Link
+      <NavLink
         to="/"
         style={{ textDecoration: "none", color: "white", width: "100%" }}
       >
@@ -57,26 +57,21 @@ const TopHeaderContent = ({
           <FaPlus />
           <h2>New project</h2>
         </div>
-      </Link>
+      </NavLink>
       {iconLinks.map((icon, i) => {
         return (
-          <Link
+          <NavLink
             key={icon.name}
             to={icon.route}
             style={{ textDecoration: "none", color: "white", width: "100%" }}
+            className={({ isActive }) =>
+              isActive ? `activeTab ${expandClass}` : expandClass
+            }
+            onClick={() => changeActiveTab(icon.name)}
           >
-            <div
-              className={
-                activeTab === icon.name
-                  ? `activeTab ${expandClass}`
-                  : expandClass
-              }
-              onClick={() => changeActiveTab(icon.name)}
-            >
-              {icon.icon}
-              <h2>{icon.name}</h2>
-            </div>
-          </Link>
+            {icon.icon}
+            <h2>{icon.name}</h2>
+          </NavLink>
         )
       })}
     </div>

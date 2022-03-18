@@ -26,6 +26,10 @@ const Project = ({
       <Routes>
         <Route path="/" element={<Dashboard projectsData={projectsData} />} />
         <Route
+          path="/board"
+          element={<Dashboard projectsData={projectsData} />}
+        />
+        <Route
           path="/tasks"
           element={
             <Tasks

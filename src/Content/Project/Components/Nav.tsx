@@ -1,52 +1,23 @@
 import React, { useState } from "react"
 import "./Nav.scss"
-import {
-  FaAngleDown,
-  FaTh,
-  FaClipboard,
-  FaUsers,
-  FaCalendar,
-  FaTasks,
-  FaCoins,
-} from "react-icons/fa"
-import { Link } from "react-router-dom"
+import { FaAngleDown, FaTh, FaTasks } from "react-icons/fa"
+import { Link, NavLink } from "react-router-dom"
 import { projectData } from "../../../Interfaces"
 
 const Nav = ({ projectsData }: { projectsData: projectData }) => {
-  const [active, setActive] = useState<string>("Board")
   const [activeNav, setActiveNav] = useState<boolean>(false)
 
   const navLinksArr = [
     {
       logo: <FaTh />,
       name: "Board",
-      route: "/project",
+      route: "/project/board",
     },
-    // {
-    //   logo: <FaClipboard />,
-    //   name: "Details",
-    //   route: "/project/details",
-    // },
-    // {
-    //   logo: <FaUsers />,
-    //   name: "Team",
-    //   route: "/project/team",
-    // },
-    // {
-    //   logo: <FaCalendar />,
-    //   name: "Schedule",
-    //   route: "/project/time",
-    // },
     {
       logo: <FaTasks />,
       name: "Tasks",
       route: "/project/tasks",
     },
-    // {
-    //   logo: <FaCoins />,
-    //   name: "Finance",
-    //   route: "/project/finance",
-    // },
   ]
 
   return (
@@ -75,23 +46,19 @@ const Nav = ({ projectsData }: { projectsData: projectData }) => {
       >
         {navLinksArr.map((link, i) => {
           return (
-            <Link
+            <NavLink
               key={link.name}
               to={link.route}
               style={{
                 textDecoration: "none",
               }}
+              className={({ isActive }) =>
+                isActive ? "active-link nav-link" : "nav-link"
+              }
             >
-              <div
-                className={
-                  active === link.name ? "nav-link active-link" : "nav-link "
-                }
-                onClick={() => setActive(link.name)}
-              >
-                {link.logo}
-                <p>{link.name}</p>
-              </div>
-            </Link>
+              {link.logo}
+              <p>{link.name}</p>
+            </NavLink>
           )
         })}
       </div>

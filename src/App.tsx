@@ -8,7 +8,7 @@ import { BrowserRouter as Router } from "react-router-dom"
 
 function App() {
   const [navClass, setNavClass] = useState("header unactive-side-nav")
-  const [activeTab, setActiveTab] = useState<string>("Super Cool Project")
+  const [activeTab, setActiveTab] = useState<string>("")
   const [displayAddProjectModal, setDisplayAddProjectModal] =
     useState<boolean>(false)
   const [projectsData, setProjectsData] = useState<Array<projectData>>([
@@ -18,8 +18,16 @@ function App() {
       color: "blue",
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente tempora saepe laborum reprehenderit, autem debitis totam facere accusamus odit minus ipsum dolores itaque laudantium nihil enim quibusdam eaque tenetur omnis.",
-      launch: "2022-04-16",
-      tasks: [],
+      launch: "2022-04-15",
+      tasks: [
+        {
+          name: "Fix Header",
+          department: "Marketing",
+          date: "2022-03-18",
+          assigned: "Josh Peck",
+          comments: [],
+        },
+      ],
       completed: [],
     },
   ])
@@ -30,7 +38,15 @@ function App() {
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente tempora saepe laborum reprehenderit, autem debitis totam facere accusamus odit minus ipsum dolores itaque laudantium nihil enim quibusdam eaque tenetur omnis.",
     launch: "2022-04-16",
-    tasks: [],
+    tasks: [
+      {
+        name: "Fix Header",
+        department: "Marketing",
+        date: "2022-03-18",
+        assigned: "Josh",
+        comments: [],
+      },
+    ],
     completed: [],
   })
 
@@ -69,6 +85,10 @@ function App() {
   }
 
   useEffect(() => {
+    changeActiveProject(activeTab)
+  }, [])
+
+  useEffect(() => {
     setProjectsData([
       ...projectsData.map((project) => {
         if (project.name === activeTab) {
@@ -86,6 +106,7 @@ function App() {
       ...activeProject,
       tasks: [...activeProject.tasks, task],
     })
+    console.log(projectsData)
   }
 
   // Deletes a task from the taskData array - from taskCard component
@@ -156,7 +177,10 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <ResponsiveHeader changeClass={changeClass} />
+        <ResponsiveHeader
+          changeClass={changeClass}
+          displayProjectModal={displayProjectModal}
+        />
         <Header
           navClass={navClass}
           displayProjectModal={displayProjectModal}
@@ -183,29 +207,20 @@ function App() {
 
 export default App
 /*
-    need to figure out how to put array in order by dates 
-      can first do this on app page 
-          maybe use sort ...blah.tasks.sort
-
-
-
-
-
     fix dates on task page 
       somehow decide when the last monday was and add 7 days to that 
 
 
     Finish first phase of project 
-      1) Fix links (highlight appropriate ones on start and refresh)
-            use useeffect to set it on render 
-      2) Change color of scrollbars 
-      3) Fix top links when responsive 
-      4) Make inputs mandatory 
-      5) Could have error messages 
+      
+      5) fix dates of tasks 
       6) Add Redux 
-      7) Make tasks display info on dashboard 
       8) Allow projects to open from projecthub
-      9) Need to make edit bttn for projecthub cards 
+      9) Need to make edit bttn for projecthub cards (edit, delete, move - difficult but cool )
+      10) dashboard 
+            - have modal for description 
+            - have buttons work for details 
+            - have chart display correct info 
     
     Phase 2 
       1) Add comments 

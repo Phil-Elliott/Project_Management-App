@@ -32,7 +32,7 @@
 .nav-links-container {
   display: flex;
 
-  div {
+  .nav-link {
     border-bottom: 3px solid white;
     cursor: pointer;
     @extend %flex-align;

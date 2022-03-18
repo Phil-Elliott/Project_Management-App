@@ -115,14 +115,13 @@ const ModalAddProject = ({
             <div className="logo-color">
               <p>Color</p>
               <select
+                defaultValue="green"
                 name="logo color"
                 onChange={(e) =>
                   change({ ...inputData, color: e.target.value })
                 }
               >
-                <option selected value="green">
-                  Green
-                </option>
+                <option value="green">Green</option>
                 <option value="orange">Orange</option>
                 <option value="blue">Blue</option>
                 <option value="purple">Purple</option>
