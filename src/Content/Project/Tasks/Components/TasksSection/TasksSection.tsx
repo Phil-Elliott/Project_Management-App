@@ -32,6 +32,18 @@ const TasksSection = ({
     Array<tasksData>
   >([])
 
+  let newTasksData = tasksData.sort((a, b) => {
+    var dateA: any = new Date(a.date)
+    var dateB: any = new Date(b.date)
+    return dateA - dateB
+  })
+
+  let newCompletedTasksData = completedTasksData.sort((a, b) => {
+    var dateA: any = new Date(a.date)
+    var dateB: any = new Date(b.date)
+    return dateA - dateB
+  })
+
   // Finds the difference between due date and current date in days
   const getTimeDiff = (date: string) => {
     let dueDate = moment(date).format("L")
@@ -42,7 +54,7 @@ const TasksSection = ({
   // used to set the taskArrByDate with the correct tasks for the section
   useEffect(() => {
     let newArr: Array<tasksData> = []
-    tasksData.map((task, i) => {
+    newTasksData.map((task, i) => {
       let timeDiff = getTimeDiff(task.date)
       if (timeDiff < 0) {
         if (due === "Late") {
@@ -67,7 +79,7 @@ const TasksSection = ({
   // used to set the taskArrByDate with the correct tasks for the section
   useEffect(() => {
     let newArr: Array<tasksData> = []
-    completedTasksData.map((task, i) => {
+    newCompletedTasksData.map((task, i) => {
       let timeDiff = getTimeDiff(task.date)
       if (timeDiff < 0) {
         if (due === "Late") {

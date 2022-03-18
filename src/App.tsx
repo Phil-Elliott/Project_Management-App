@@ -51,7 +51,6 @@ function App() {
     let newArr = projectsData
     newArr.push(project)
     setProjectsData(newArr)
-    console.log(projectsData)
     displayProjectModal()
   }
 
@@ -115,7 +114,6 @@ function App() {
         }),
       ],
     })
-    console.log("edit", taskData)
   }
 
   // Deletes a task from the completed tasks data array
@@ -185,8 +183,21 @@ function App() {
 
 export default App
 /*
+    need to figure out how to put array in order by dates 
+      can first do this on app page 
+          maybe use sort ...blah.tasks.sort
+
+
+
+
+
+    fix dates on task page 
+      somehow decide when the last monday was and add 7 days to that 
+
+
     Finish first phase of project 
       1) Fix links (highlight appropriate ones on start and refresh)
+            use useeffect to set it on render 
       2) Change color of scrollbars 
       3) Fix top links when responsive 
       4) Make inputs mandatory 
@@ -194,6 +205,7 @@ export default App
       6) Add Redux 
       7) Make tasks display info on dashboard 
       8) Allow projects to open from projecthub
+      9) Need to make edit bttn for projecthub cards 
     
     Phase 2 
       1) Add comments 

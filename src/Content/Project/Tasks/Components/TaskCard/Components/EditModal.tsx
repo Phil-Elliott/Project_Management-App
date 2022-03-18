@@ -23,6 +23,7 @@ const EditModal = ({
   // Allows for enter key to save details
   const saveOnEnterKeyDown = (e: any) => {
     if (e.code === "Enter" || e.code === "NumpadEnter") {
+      changeCard()
     }
   }
 
@@ -49,8 +50,17 @@ const EditModal = ({
   }
 
   const changeCard = () => {
-    editTask(objectData, task.name)
-    changeEditDisplay()
+    if (
+      objectData.name &&
+      objectData.department &&
+      objectData.date &&
+      objectData.assigned
+    ) {
+      editTask(objectData, task.name)
+      changeEditDisplay()
+    } else {
+      alert("Please fill out all fields")
+    }
   }
 
   const changeObjectData = (part: any, input: string) => {

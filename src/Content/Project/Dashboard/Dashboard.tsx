@@ -11,7 +11,7 @@ const Dashboard = ({ projectsData }: { projectsData: projectData }) => {
     <div className="dashboard-main-container">
       <div className="dashboard-top-container">
         <DashboardDetails description={projectsData.description} />
-        <DashboardDeadlines />
+        <DashboardDeadlines projectsData={projectsData} />
       </div>
       <div className="dashboard-bottom-container">
         <DashboardTasks projectsData={projectsData} />

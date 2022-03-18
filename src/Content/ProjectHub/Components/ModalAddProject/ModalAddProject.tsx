@@ -21,6 +21,20 @@ const ModalAddProject = ({
     completed: [],
   })
 
+  const addTheProject = () => {
+    if (
+      inputData.name &&
+      inputData.initials &&
+      inputData.color &&
+      inputData.description &&
+      inputData.launch
+    ) {
+      addProject(inputData)
+    } else {
+      alert("Please fill out all fields")
+    }
+  }
+
   const change = (e: any) => {
     setInputData(e)
   }
@@ -47,7 +61,7 @@ const ModalAddProject = ({
   // Allows for enter key to save details
   const saveOnEnterKeyDown = (e: any) => {
     if (e.code === "Enter" || e.code === "NumpadEnter") {
-      addProject(inputData)
+      addTheProject()
     }
   }
 
@@ -146,7 +160,7 @@ const ModalAddProject = ({
           <button
             className="modal-create-btn"
             type="submit"
-            onClick={() => addProject(inputData)}
+            onClick={() => addTheProject()}
           >
             Create
           </button>

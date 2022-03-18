@@ -26,8 +26,17 @@ const Modal = ({
   }
 
   const addProjectTask = () => {
-    addTask(objectData)
-    changeDisplay()
+    if (
+      objectData.name &&
+      objectData.department &&
+      objectData.date &&
+      objectData.assigned
+    ) {
+      addTask(objectData)
+      changeDisplay()
+    } else {
+      alert("Please fill out all fields")
+    }
   }
 
   const changeObjectData = (part: any, input: string) => {
@@ -52,8 +61,7 @@ const Modal = ({
   // Allows for enter key to save details
   const saveOnEnterKeyDown = (e: any) => {
     if (e.code === "Enter" || e.code === "NumpadEnter") {
-      addTask(objectData)
-      changeDisplay()
+      addProjectTask()
     }
   }
 
