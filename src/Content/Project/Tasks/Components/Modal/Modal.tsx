@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react"
 import "./Modal.scss"
 import ModalInput from "./ModalInput"
+import { useSelector, useDispatch } from "react-redux"
+import { addTask } from "../../../../../ProjectDataSlice"
 
 const Modal = ({
   display,
   changeDisplay,
-  addTask,
 }: {
   display: boolean
   changeDisplay: any
-  addTask: any
 }) => {
   const objectData = {
     name: "",
@@ -25,6 +25,8 @@ const Modal = ({
     ],
   }
 
+  const dispatch = useDispatch()
+
   const addProjectTask = () => {
     if (
       objectData.name &&
@@ -32,7 +34,7 @@ const Modal = ({
       objectData.date &&
       objectData.assigned
     ) {
-      addTask(objectData)
+      dispatch(addTask(objectData))
       changeDisplay()
     } else {
       alert("Please fill out all fields")

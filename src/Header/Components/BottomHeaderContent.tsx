@@ -1,7 +1,8 @@
 import React from "react"
 import { FaAngleDown, FaTasks } from "react-icons/fa"
 import { Link } from "react-router-dom"
-import { projectData } from "../../Interfaces"
+import { RootState } from "../../Store"
+import { useSelector } from "react-redux"
 
 const BottomHeaderContent = ({
   expandProjects,
@@ -10,7 +11,6 @@ const BottomHeaderContent = ({
   expandMain,
   activeTab,
   changeActiveTab,
-  projectsData,
 }: {
   expandProjects: any
   expandClass: any
@@ -18,9 +18,10 @@ const BottomHeaderContent = ({
   expandMain: boolean
   activeTab: string
   changeActiveTab: any
-  projectsData: Array<projectData>
 }) => {
-  // Links to the top part of the header
+  const projectsData = useSelector(
+    (state: RootState) => state.projectsData.projects
+  )
 
   return (
     <div className="bottom-header-content">

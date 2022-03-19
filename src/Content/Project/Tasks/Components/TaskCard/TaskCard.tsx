@@ -9,28 +9,28 @@ import {
   FaRegUser,
   FaCheckCircle,
 } from "react-icons/fa"
+import {
+  deleteTask,
+  deleteComlpletedTask,
+  completeTask,
+} from "../../../../../ProjectDataSlice"
+import { useDispatch } from "react-redux"
 
 const TaskCard = ({
   task,
-  deleteTask,
-  addTask,
-  completeTask,
+
   complete,
-  deleteComlpletedTask,
-  editTask,
 }: {
   task: tasksData
-  deleteTask: any
-  addTask: any
-  completeTask: any
+
   complete?: any
-  deleteComlpletedTask?: any
-  editTask: any
 }) => {
   const [displayEditModal, setDisplayEditModal] = useState(false)
 
+  const dispatch = useDispatch()
+
   const deleteCard = () => {
-    deleteTask(task.name)
+    dispatch(deleteTask(task.name))
   }
 
   // displays the modal
@@ -44,7 +44,6 @@ const TaskCard = ({
         displayEditModal={displayEditModal}
         changeEditDisplay={changeEditDisplay}
         task={task}
-        editTask={editTask}
       />
 
       <div className="task-card-top">
@@ -63,7 +62,7 @@ const TaskCard = ({
         ) : (
           <div>
             <FaTrash
-              onClick={() => deleteComlpletedTask(task.name)}
+              onClick={() => dispatch(deleteComlpletedTask(task.name))}
               className="task-card-top-icon-right"
             />
           </div>
@@ -85,12 +84,28 @@ const TaskCard = ({
         {!complete ? (
           <FaCheckCircle
             className="check-icon"
-            onClick={() => completeTask(task, task.name, false)}
+            onClick={() =>
+              dispatch(
+                completeTask({
+                  taskObj: task,
+                  name: task.name,
+                  complete: false,
+                })
+              )
+            }
           />
         ) : (
           <FaCheckCircle
             className="active-check-icon"
-            onClick={() => completeTask(task, task.name, true)}
+            onClick={() =>
+              dispatch(
+                completeTask({
+                  taskObj: task,
+                  name: task.name,
+                  complete: true,
+                })
+              )
+            }
           />
         )}
       </div>

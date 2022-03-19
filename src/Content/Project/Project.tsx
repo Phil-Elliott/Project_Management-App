@@ -5,43 +5,14 @@ import Dashboard from "./Dashboard/Dashboard"
 import Tasks from "./Tasks/Tasks"
 import { Route, Routes } from "react-router-dom"
 
-const Project = ({
-  projectsData,
-  addTask,
-  deleteTask,
-  deleteComlpletedTask,
-  completeTask,
-  editTask,
-}: {
-  projectsData: any
-  addTask: any
-  deleteTask: any
-  deleteComlpletedTask: any
-  completeTask: any
-  editTask: any
-}) => {
+const Project = () => {
   return (
     <div className="main-project-container">
-      <Nav projectsData={projectsData} />
+      <Nav />
       <Routes>
-        <Route path="/" element={<Dashboard projectsData={projectsData} />} />
-        <Route
-          path="/board"
-          element={<Dashboard projectsData={projectsData} />}
-        />
-        <Route
-          path="/tasks"
-          element={
-            <Tasks
-              projectsData={projectsData}
-              addTask={addTask}
-              deleteTask={deleteTask}
-              deleteComlpletedTask={deleteComlpletedTask}
-              completeTask={completeTask}
-              editTask={editTask}
-            />
-          }
-        />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/board" element={<Dashboard />} />
+        <Route path="/tasks" element={<Tasks />} />
       </Routes>
     </div>
   )

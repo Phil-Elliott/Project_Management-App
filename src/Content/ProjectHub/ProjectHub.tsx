@@ -1,20 +1,23 @@
 import React from "react"
 import "./ProjectHub.scss"
 import ProjectCard from "./Components/ProjectCard"
-import { projectData } from "../../Interfaces"
 import ModalAddProject from "./Components/ModalAddProject/ModalAddProject"
+import { RootState } from "../../Store"
+import { useSelector } from "react-redux"
 
 const ProjectHub = ({
   displayAddProjectModal,
   displayProjectModal,
   addProject,
-  projectsData,
 }: {
   displayAddProjectModal: boolean
   displayProjectModal: any
   addProject: any
-  projectsData: Array<projectData>
 }) => {
+  const projectsData = useSelector(
+    (state: RootState) => state.projectsData.projects
+  )
+
   return (
     <div className="project-hub-main-container">
       <ModalAddProject

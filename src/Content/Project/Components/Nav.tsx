@@ -1,11 +1,16 @@
 import React, { useState } from "react"
 import "./Nav.scss"
 import { FaAngleDown, FaTh, FaTasks } from "react-icons/fa"
-import { Link, NavLink } from "react-router-dom"
-import { projectData } from "../../../Interfaces"
+import { NavLink } from "react-router-dom"
+import { RootState } from "../../../Store"
+import { useSelector } from "react-redux"
 
-const Nav = ({ projectsData }: { projectsData: projectData }) => {
+const Nav = () => {
   const [activeNav, setActiveNav] = useState<boolean>(false)
+
+  const projectsData = useSelector(
+    (state: RootState) => state.projectsData.activeProject
+  )
 
   const navLinksArr = [
     {

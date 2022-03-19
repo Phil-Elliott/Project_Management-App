@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react"
 import "./../../Modal/Modal.scss"
 import ModalInput from "../../Modal/ModalInput"
+import { useDispatch } from "react-redux"
+import { editTask } from "../../../../../../ProjectDataSlice"
 
 const EditModal = ({
   displayEditModal,
   changeEditDisplay,
   task,
-  editTask,
 }: {
   displayEditModal: boolean
   changeEditDisplay: any
   task: any
-  editTask: any
 }) => {
+  const dispatch = useDispatch()
+
   // Allows ESC key to only be used to close
   const closeOnEscapeKeyDown = (e: any) => {
     if ((e.charCode || e.keyCode) === 27) {
@@ -56,7 +58,7 @@ const EditModal = ({
       objectData.date &&
       objectData.assigned
     ) {
-      editTask(objectData, task.name)
+      dispatch(editTask({ taskObj: objectData, name: task.name }))
       changeEditDisplay()
     } else {
       alert("Please fill out all fields")

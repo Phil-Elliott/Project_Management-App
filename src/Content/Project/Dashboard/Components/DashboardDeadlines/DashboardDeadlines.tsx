@@ -13,6 +13,8 @@ const DashboardDeadlines = ({
 
   let countoff = [1, 2, 3, 4, 5, 6]
 
+  // console.log(projectsData)
+
   return (
     <div className="dashboard-deadlines-container">
       <div className="dashboard-deadlines-header">

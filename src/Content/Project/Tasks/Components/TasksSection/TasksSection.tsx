@@ -8,22 +8,14 @@ const TasksSection = ({
   due,
   tasksData,
   changeDisplay,
-  deleteTask,
-  addTask,
-  completeTask,
+
   completedTasksData,
-  deleteComlpletedTask,
-  editTask,
 }: {
   due: string
   tasksData: Array<tasksData>
   changeDisplay: any
-  deleteTask: any
-  addTask: any
-  completeTask: any
+
   completedTasksData: Array<tasksData>
-  deleteComlpletedTask: any
-  editTask: any
 }) => {
   const [showAll, setShowAll] = useState<boolean>(false)
   const [showCompleted, setShowCompleted] = useState<boolean>(false)
@@ -32,17 +24,39 @@ const TasksSection = ({
     Array<tasksData>
   >([])
 
-  let newTasksData = tasksData.sort((a, b) => {
+  // if (tasksData.length > 1) {
+  //   let newTasksData = tasksData.sort((a, b) => {
+  //     var dateA: any = new Date(a.date)
+  //     var dateB: any = new Date(b.date)
+  //     return dateA - dateB
+  //   })
+  // } else {
+  //   let newTasksData = tasksData
+  // }
+  let newTasksData = tasksData
+
+  // tasksData.length > 2 &&
+  //   (newTasksData = tasksData.sort((a, b) => {
+  //     var dateA: any = new Date(a.date)
+  //     var dateB: any = new Date(b.date)
+  //     return dateA - dateB
+  //   }))
+
+  /*
+
+
+  */
+
+  let newCompletedTasksData = completedTasksData
+
+  /*
+.sort((a, b) => {
     var dateA: any = new Date(a.date)
     var dateB: any = new Date(b.date)
     return dateA - dateB
   })
 
-  let newCompletedTasksData = completedTasksData.sort((a, b) => {
-    var dateA: any = new Date(a.date)
-    var dateB: any = new Date(b.date)
-    return dateA - dateB
-  })
+  */
 
   // Finds the difference between due date and current date in days
   const getTimeDiff = (date: string) => {
@@ -117,29 +131,11 @@ const TasksSection = ({
         {!showAll
           ? taskArrByDate.map((task, i) => {
               if (i < 3) {
-                return (
-                  <TaskCard
-                    deleteTask={deleteTask}
-                    key={i}
-                    task={task}
-                    addTask={addTask}
-                    completeTask={completeTask}
-                    editTask={editTask}
-                  />
-                )
+                return <TaskCard key={i} task={task} />
               }
             })
           : taskArrByDate.map((task, i) => {
-              return (
-                <TaskCard
-                  deleteTask={deleteTask}
-                  key={i}
-                  task={task}
-                  addTask={addTask}
-                  completeTask={completeTask}
-                  editTask={editTask}
-                />
-              )
+              return <TaskCard key={i} task={task} />
             })}
       </div>
       <div className="cards-showAll" onClick={showAllCards}>
@@ -173,18 +169,7 @@ const TasksSection = ({
       </div>
       {showCompleted &&
         completedTaskArrByDate.map((task, i) => {
-          return (
-            <TaskCard
-              deleteTask={deleteTask}
-              key={i}
-              task={task}
-              addTask={addTask}
-              completeTask={completeTask}
-              complete={true}
-              deleteComlpletedTask={deleteComlpletedTask}
-              editTask={editTask}
-            />
-          )
+          return <TaskCard key={i} task={task} complete={true} />
         })}
     </div>
   )

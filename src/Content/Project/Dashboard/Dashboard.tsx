@@ -4,9 +4,14 @@ import DashboardDetails from "./Components/DashboardDetails/DashboardDetails"
 import DashboardDeadlines from "./Components/DashboardDeadlines/DashboardDeadlines"
 import DashboardTasks from "./Components/DashboardTasks/DashboardTasks"
 import DashboardTime from "./Components/DashboardTime/DashboardTime"
-import { projectData } from "../../../Interfaces"
+import { RootState } from "../../../Store"
+import { useSelector } from "react-redux"
 
-const Dashboard = ({ projectsData }: { projectsData: projectData }) => {
+const Dashboard = () => {
+  const projectsData = useSelector(
+    (state: RootState) => state.projectsData.activeProject
+  )
+
   return (
     <div className="dashboard-main-container">
       <div className="dashboard-top-container">
@@ -22,8 +27,3 @@ const Dashboard = ({ projectsData }: { projectsData: projectData }) => {
 }
 
 export default Dashboard
-
-/*
-
- 
-*/

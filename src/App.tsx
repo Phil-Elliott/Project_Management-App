@@ -3,52 +3,47 @@ import "./App.scss"
 import ResponsiveHeader from "./ResponsiveHeader/ResponsiveHeader"
 import Header from "./Header/Header"
 import Content from "./Content/Content"
-import { projectData, tasksData } from "./Interfaces"
+import { projectData } from "./Interfaces"
 import { BrowserRouter as Router } from "react-router-dom"
+
+import { RootState } from "./Store"
+import { useSelector, useDispatch } from "react-redux"
+import {
+  addNewProject,
+  changeActiveProject,
+  updateProjectData,
+} from "./ProjectDataSlice"
 
 function App() {
   const [navClass, setNavClass] = useState("header unactive-side-nav")
   const [activeTab, setActiveTab] = useState<string>("")
   const [displayAddProjectModal, setDisplayAddProjectModal] =
     useState<boolean>(false)
-  const [projectsData, setProjectsData] = useState<Array<projectData>>([
-    {
-      name: "Super Cool Project",
-      initials: "OE",
-      color: "blue",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente tempora saepe laborum reprehenderit, autem debitis totam facere accusamus odit minus ipsum dolores itaque laudantium nihil enim quibusdam eaque tenetur omnis.",
-      launch: "2022-04-15",
-      tasks: [
-        {
-          name: "Fix Header",
-          department: "Marketing",
-          date: "2022-03-18",
-          assigned: "Josh Peck",
-          comments: [],
-        },
-      ],
-      completed: [],
-    },
-  ])
-  const [activeProject, setActiveProject] = useState<projectData>({
-    name: "Super Cool Project",
-    initials: "OE",
-    color: "blue",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente tempora saepe laborum reprehenderit, autem debitis totam facere accusamus odit minus ipsum dolores itaque laudantium nihil enim quibusdam eaque tenetur omnis.",
-    launch: "2022-04-16",
-    tasks: [
-      {
-        name: "Fix Header",
-        department: "Marketing",
-        date: "2022-03-18",
-        assigned: "Josh",
-        comments: [],
-      },
-    ],
-    completed: [],
-  })
+
+  const activeProject = useSelector(
+    (state: RootState) => state.projectsData.activeProject
+  )
+  const dispatch = useDispatch()
+
+  // Adds a project to the projectsData array from addProjectModal
+  const addProject = (project: projectData) => {
+    dispatch(addNewProject(project))
+    displayProjectModal()
+  }
+
+  // Changes the active tab when item is clicked on header
+  const changeActiveTab = (name: string) => {
+    setActiveTab(name)
+    dispatch(changeActiveProject(name))
+  }
+
+  useEffect(() => {
+    dispatch(changeActiveProject(activeTab))
+  }, [])
+
+  useEffect(() => {
+    dispatch(updateProjectData(activeTab))
+  }, [activeProject])
 
   // Used to display the responsive nav
   const changeClass = () => {
@@ -62,118 +57,6 @@ function App() {
     setDisplayAddProjectModal(!displayAddProjectModal)
   }
 
-  // Adds a project to the projectsData array from addProjectModal
-  const addProject = (project: any) => {
-    let newArr = projectsData
-    newArr.push(project)
-    setProjectsData(newArr)
-    displayProjectModal()
-  }
-
-  // Change active project when new project is selected
-  const changeActiveProject = (name: string) => {
-    let newObj = projectsData.find((project) => {
-      return project.name === name
-    })
-    newObj && setActiveProject(newObj)
-  }
-
-  // Changes the active tab when item is clicked on header
-  const changeActiveTab = (name: string) => {
-    setActiveTab(name)
-    changeActiveProject(name)
-  }
-
-  useEffect(() => {
-    changeActiveProject(activeTab)
-  }, [])
-
-  useEffect(() => {
-    setProjectsData([
-      ...projectsData.map((project) => {
-        if (project.name === activeTab) {
-          return (project = activeProject)
-        } else {
-          return project
-        }
-      }),
-    ])
-  }, [activeProject])
-
-  // Adds a task to the taskData array from Modal
-  const addTask = (task: tasksData) => {
-    setActiveProject({
-      ...activeProject,
-      tasks: [...activeProject.tasks, task],
-    })
-    console.log(projectsData)
-  }
-
-  // Deletes a task from the taskData array - from taskCard component
-  const deleteTask = (name: string) => {
-    setActiveProject({
-      ...activeProject,
-      tasks: [
-        ...activeProject.tasks.filter((task) => {
-          return task.name !== name
-        }),
-      ],
-    })
-  }
-
-  // Edits a task
-  const editTask = (taskData: tasksData, name: string) => {
-    setActiveProject({
-      ...activeProject,
-      tasks: [
-        ...activeProject.tasks.map((task) => {
-          if (task.name === name) {
-            return (task = taskData)
-          } else {
-            return task
-          }
-        }),
-      ],
-    })
-  }
-
-  // Deletes a task from the completed tasks data array
-  const deleteComlpletedTask = (name: string) => {
-    setActiveProject({
-      ...activeProject,
-      completed: [
-        ...activeProject.completed.filter((task) => {
-          return task.name !== name
-        }),
-      ],
-    })
-  }
-
-  // Moves a task to the completed array
-  const completeTask = (task: any, name: string, complete: boolean) => {
-    if (!complete) {
-      setActiveProject({
-        ...activeProject,
-        tasks: [
-          ...activeProject.tasks.filter((task) => {
-            return task.name !== name
-          }),
-        ],
-        completed: [...activeProject.completed, task],
-      })
-    } else {
-      setActiveProject({
-        ...activeProject,
-        tasks: [...activeProject.tasks, task],
-        completed: [
-          ...activeProject.completed.filter((task) => {
-            return task.name !== name
-          }),
-        ],
-      })
-    }
-  }
-
   return (
     <div className="App">
       <Router>
@@ -184,7 +67,6 @@ function App() {
         <Header
           navClass={navClass}
           displayProjectModal={displayProjectModal}
-          projectsData={projectsData}
           activeTab={activeTab}
           changeActiveTab={changeActiveTab}
         />
@@ -192,13 +74,6 @@ function App() {
           displayAddProjectModal={displayAddProjectModal}
           displayProjectModal={displayProjectModal}
           addProject={addProject}
-          projectsData={projectsData}
-          activeProject={activeProject}
-          addTask={addTask}
-          deleteTask={deleteTask}
-          deleteComlpletedTask={deleteComlpletedTask}
-          completeTask={completeTask}
-          editTask={editTask}
         />
       </Router>
     </div>

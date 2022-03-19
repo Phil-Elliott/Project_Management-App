@@ -7,13 +7,11 @@ import { FaAngleDoubleRight } from "react-icons/fa"
 const Header = ({
   navClass,
   displayProjectModal,
-  projectsData,
   activeTab,
   changeActiveTab,
 }: {
   navClass: string
   displayProjectModal: any
-  projectsData: any
   activeTab: string
   changeActiveTab: any
 }) => {
@@ -64,7 +62,6 @@ const Header = ({
           expandMain={expandMain}
           activeTab={activeTab}
           changeActiveTab={changeActiveTab}
-          projectsData={projectsData}
         />
       </div>
       <div className="bottom-header-arrw" onClick={expandNav}>
