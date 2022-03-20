@@ -8,13 +8,11 @@ const TasksSection = ({
   due,
   tasksData,
   changeDisplay,
-
   completedTasksData,
 }: {
   due: string
   tasksData: Array<tasksData>
   changeDisplay: any
-
   completedTasksData: Array<tasksData>
 }) => {
   const [showAll, setShowAll] = useState<boolean>(false)
@@ -24,39 +22,24 @@ const TasksSection = ({
     Array<tasksData>
   >([])
 
-  // if (tasksData.length > 1) {
-  //   let newTasksData = tasksData.sort((a, b) => {
-  //     var dateA: any = new Date(a.date)
-  //     var dateB: any = new Date(b.date)
-  //     return dateA - dateB
-  //   })
-  // } else {
-  //   let newTasksData = tasksData
-  // }
-  let newTasksData = tasksData
+  // finds the next monday
+  let nextMon = moment().startOf("isoWeek").add(1, "week")
 
-  // tasksData.length > 2 &&
-  //   (newTasksData = tasksData.sort((a, b) => {
-  //     var dateA: any = new Date(a.date)
-  //     var dateB: any = new Date(b.date)
-  //     return dateA - dateB
-  //   }))
+  let arrayForSort = [...tasksData]
 
-  /*
-
-
-  */
-
-  let newCompletedTasksData = completedTasksData
-
-  /*
-.sort((a, b) => {
+  let newTasksData = arrayForSort.sort((a, b) => {
     var dateA: any = new Date(a.date)
     var dateB: any = new Date(b.date)
     return dateA - dateB
   })
 
-  */
+  let completedArrayForSort = [...completedTasksData]
+
+  let newCompletedTasksData = completedArrayForSort.sort((a, b) => {
+    var dateA: any = new Date(a.date)
+    var dateB: any = new Date(b.date)
+    return dateA - dateB
+  })
 
   // Finds the difference between due date and current date in days
   const getTimeDiff = (date: string) => {

@@ -88,14 +88,23 @@ export default App
 
     Finish first phase of project 
       
-      5) fix dates of tasks 
-      6) Add Redux 
+      5) fix dates of tasks (need to maybe make new conditional with mon date)
+
+
       8) Allow projects to open from projecthub
+            - need to figure out active tab 
+            - could use link as well to go there
       9) Need to make edit bttn for projecthub cards (edit, delete, move - difficult but cool )
+        - could use elipsis for this
       10) dashboard 
             - have modal for description 
             - have buttons work for details 
             - have chart display correct info 
+
+      11) Organize projects based off of due date 
+          try to use the sort function again 
+      12) Fix amount of characters going into inputs  
+      14) add modal with features and milestones 
     
     Phase 2 
       1) Add comments 

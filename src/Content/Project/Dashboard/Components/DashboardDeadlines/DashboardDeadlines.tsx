@@ -13,8 +13,6 @@ const DashboardDeadlines = ({
 
   let countoff = [1, 2, 3, 4, 5, 6]
 
-  // console.log(projectsData)
-
   return (
     <div className="dashboard-deadlines-container">
       <div className="dashboard-deadlines-header">
@@ -26,8 +24,9 @@ const DashboardDeadlines = ({
           return (
             <DeadlinesItem
               key={i}
-              name={projectsData.tasks[i].name}
               date={projectsData.tasks[i].date}
+              name={projectsData.tasks[i].name}
+              task={projectsData.tasks[i]}
             />
           )
         } else {

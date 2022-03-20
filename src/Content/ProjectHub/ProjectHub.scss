@@ -2,7 +2,7 @@
 
 .project-hub-main-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   padding: 2rem;
 }
@@ -10,7 +10,7 @@
 .project-hub-card-container {
   border-radius: 3px;
   box-shadow: $box-shadow;
-  padding: 1.5rem;
+  padding: 1rem;
   background-color: white;
   transition: all 0.5s ease-in-out;
 
@@ -26,7 +26,7 @@
 
   h1 {
     padding-left: 1rem;
-    font-size: 1.6vw;
+    font-size: 1.4vw;
   }
 }
 
