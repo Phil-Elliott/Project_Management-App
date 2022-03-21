@@ -1,34 +1,37 @@
 import React, { useState } from "react"
 import EditModal from "./Components/EditModal"
 import "./TaskCard.scss"
-import { FaPencilAlt, FaTrash } from "react-icons/fa"
-import tasksData from "../../../../../Interfaces"
+import { tasksData } from "../../../../../Interfaces"
 import {
   FaRegComment,
   FaRegCalendar,
   FaRegUser,
   FaCheckCircle,
+  FaPencilAlt,
+  FaTrash,
 } from "react-icons/fa"
+import {
+  deleteTask,
+  deleteComlpletedTask,
+  completeTask,
+} from "../../../../../ProjectDataSlice"
+import { useDispatch } from "react-redux"
 
 const TaskCard = ({
   task,
-  deleteTask,
-  addTask,
-  completeTask,
+
   complete,
-  deleteComlpletedTask,
 }: {
   task: tasksData
-  deleteTask: any
-  addTask: any
-  completeTask: any
+
   complete?: any
-  deleteComlpletedTask?: any
 }) => {
   const [displayEditModal, setDisplayEditModal] = useState(false)
 
+  const dispatch = useDispatch()
+
   const deleteCard = () => {
-    deleteTask(task.name)
+    dispatch(deleteTask(task.name))
   }
 
   // displays the modal
@@ -41,9 +44,7 @@ const TaskCard = ({
       <EditModal
         displayEditModal={displayEditModal}
         changeEditDisplay={changeEditDisplay}
-        addTask={addTask}
         task={task}
-        deleteTask={deleteTask}
       />
 
       <div className="task-card-top">
@@ -62,8 +63,8 @@ const TaskCard = ({
         ) : (
           <div>
             <FaTrash
-              onClick={() => deleteComlpletedTask(task.name)}
-              className="task-card-top-icon"
+              onClick={() => dispatch(deleteComlpletedTask(task.name))}
+              className="task-card-top-icon-right"
             />
           </div>
         )}
@@ -84,12 +85,28 @@ const TaskCard = ({
         {!complete ? (
           <FaCheckCircle
             className="check-icon"
-            onClick={() => completeTask(task, task.name, false)}
+            onClick={() =>
+              dispatch(
+                completeTask({
+                  taskObj: task,
+                  name: task.name,
+                  complete: false,
+                })
+              )
+            }
           />
         ) : (
           <FaCheckCircle
             className="active-check-icon"
-            onClick={() => completeTask(task, task.name, true)}
+            onClick={() =>
+              dispatch(
+                completeTask({
+                  taskObj: task,
+                  name: task.name,
+                  complete: true,
+                })
+              )
+            }
           />
         )}
       </div>

@@ -101,6 +101,21 @@
   transform: rotateZ(0deg);
 }
 
+.bottom-header-logo {
+  border-radius: 3px;
+  box-shadow: $box-shadow-light;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}
+
 @media only screen and (max-width: 1100px) {
   .header {
     padding-top: 3.5rem;

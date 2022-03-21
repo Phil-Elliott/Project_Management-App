@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react"
 import "./Modal.scss"
 import ModalInput from "./ModalInput"
+import { useSelector, useDispatch } from "react-redux"
+import { addTask } from "../../../../../ProjectDataSlice"
 
 const Modal = ({
   display,
   changeDisplay,
-  addTask,
 }: {
   display: boolean
   changeDisplay: any
-  addTask: any
 }) => {
   const objectData = {
     name: "",
@@ -23,6 +23,22 @@ const Modal = ({
         comment: "",
       },
     ],
+  }
+
+  const dispatch = useDispatch()
+
+  const addProjectTask = () => {
+    if (
+      objectData.name &&
+      objectData.department &&
+      objectData.date &&
+      objectData.assigned
+    ) {
+      dispatch(addTask(objectData))
+      changeDisplay()
+    } else {
+      alert("Please fill out all fields")
+    }
   }
 
   const changeObjectData = (part: any, input: string) => {
@@ -47,7 +63,7 @@ const Modal = ({
   // Allows for enter key to save details
   const saveOnEnterKeyDown = (e: any) => {
     if (e.code === "Enter" || e.code === "NumpadEnter") {
-      // saveChanges()
+      addProjectTask()
     }
   }
 
@@ -110,7 +126,7 @@ const Modal = ({
           <button
             className="modal-create-btn"
             type="submit"
-            onClick={() => addTask(objectData)}
+            onClick={() => addProjectTask()}
           >
             Create
           </button>

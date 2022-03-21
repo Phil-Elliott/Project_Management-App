@@ -10,7 +10,6 @@
 }
 
 .nav-logo {
-  background-color: black;
   height: 100%;
   width: 3rem;
   @extend %center;
@@ -32,7 +31,7 @@
 .nav-links-container {
   display: flex;
 
-  div {
+  .nav-link {
     border-bottom: 3px solid white;
     cursor: pointer;
     @extend %flex-align;

@@ -4,10 +4,20 @@ import TopHeaderContent from "./Components/TopHeaderContent"
 import BottomHeaderContent from "./Components/BottomHeaderContent"
 import { FaAngleDoubleRight } from "react-icons/fa"
 
-const Header = ({ navClass }: { navClass: string }) => {
+const Header = ({
+  navClass,
+  displayProjectModal,
+  activeTab,
+  changeActiveTab,
+}: {
+  navClass: string
+  displayProjectModal: any
+  activeTab: string
+  changeActiveTab: any
+}) => {
   const [expandMain, setExpandMain] = useState<boolean>(false)
   const [expandContent, setExpandContent] = useState<boolean>(false)
-  const [activeTab, setActiveTab] = useState<string>("Big project")
+  // const [activeTab, setActiveTab] = useState<string>("Big project")
 
   // Expands the nav when the bottom arrow is clicked
   const expandNav = () => {
@@ -28,9 +38,9 @@ const Header = ({ navClass }: { navClass: string }) => {
   }, [navClass])
 
   // Changes the active tab when item is clicked on header
-  const changeActiveTab = (name: string) => {
-    setActiveTab(name)
-  }
+  // const changeActiveTab = (name: string) => {
+  //   setActiveTab(name)
+  // }
 
   return (
     <header
@@ -43,6 +53,7 @@ const Header = ({ navClass }: { navClass: string }) => {
           expandMain={expandMain}
           activeTab={activeTab}
           changeActiveTab={changeActiveTab}
+          displayProjectModal={displayProjectModal}
         />
         <BottomHeaderContent
           expandProjects={expandProjects}

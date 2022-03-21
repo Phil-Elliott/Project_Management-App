@@ -1,14 +1,15 @@
 import React, { useState } from "react"
 import "./ResponsiveHeader.scss"
-import {
-  FaPlus,
-  FaRegCircle,
-  FaUser,
-  FaBars,
-  FaArrowLeft,
-} from "react-icons/fa"
+import { FaPlus, FaRegCircle, FaBars, FaArrowLeft } from "react-icons/fa"
+import { NavLink } from "react-router-dom"
 
-const ResponsiveHeader = ({ changeClass }: { changeClass: any }) => {
+const ResponsiveHeader = ({
+  changeClass,
+  displayProjectModal,
+}: {
+  changeClass: any
+  displayProjectModal: any
+}) => {
   const [navLogo, setNavLogo] = useState<string>("ham")
   const [activeLogo, setActiveLogo] = useState<boolean>(false)
 
@@ -35,9 +36,19 @@ const ResponsiveHeader = ({ changeClass }: { changeClass: any }) => {
         </div>
       </div>
       <div className="responsive-header-links">
-        <FaPlus />
-        <FaRegCircle />
-        <FaUser />
+        <NavLink
+          to="/"
+          style={{ textDecoration: "none", color: "white", width: "100%" }}
+          onClick={() => displayProjectModal()}
+        >
+          <FaPlus />
+        </NavLink>
+        <NavLink
+          to="/"
+          style={{ textDecoration: "none", color: "white", width: "100%" }}
+        >
+          <FaRegCircle />
+        </NavLink>
       </div>
     </div>
   )

@@ -5,7 +5,7 @@
   border-radius: 3px;
   box-shadow: $box-shadow;
   color: black;
-  max-height: 50vh;
+  height: 45vh;
   display: grid;
   overflow: auto;
 
@@ -16,15 +16,14 @@
 
 .dashboard-deadlines-header {
   border-bottom: $secondary 2px solid;
+  font-size: 1.25rem;
   padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   h1 {
     font-size: 1.25rem;
-  }
-  p {
-    padding-left: 1rem;
   }
 }
 
@@ -33,7 +32,7 @@
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  // align-items: center;
   font-weight: 600;
 }
 
@@ -57,11 +56,28 @@
   align-items: center;
   .deadlines-right-icon {
     cursor: pointer;
-    margin-left: 2rem;
-
+    margin-left: 1.25rem;
+  }
+  .deadlines-right-icon-trash {
+    &:hover {
+      color: $primary;
+    }
+  }
+  .deadlines-right-icon-edit {
     &:hover {
       color: $secondary;
     }
+  }
+  .deadlines-right-icon-check {
+    &:hover {
+      color: green;
+    }
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .dashboard-deadlines-content {
+    align-items: center;
   }
 }
 

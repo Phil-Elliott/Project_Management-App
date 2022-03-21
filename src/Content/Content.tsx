@@ -1,20 +1,31 @@
 import React from "react"
 import "./Content.scss"
-// import MyTasks from "./MyTasks/MyTasks"
-import NewProject from "./NewProject/NewProject"
 import Project from "./Project/Project"
 import ProjectHub from "./ProjectHub/ProjectHub"
-// import Account from "./Account/Account"
 import { Route, Routes } from "react-router-dom"
 
-const Content = () => {
+const Content = ({
+  displayAddProjectModal,
+  displayProjectModal,
+  addProject,
+}: {
+  displayAddProjectModal: boolean
+  displayProjectModal: any
+  addProject: any
+}) => {
   return (
     <main className="content">
       <Routes>
-        <Route path="/" element={<ProjectHub />} />
-        <Route path="/new" element={<NewProject />} />
-        {/* <Route path="/tasks" element={<MyTasks />} />
-        <Route path="/account" element={<Account />} /> */}
+        <Route
+          path="/"
+          element={
+            <ProjectHub
+              displayAddProjectModal={displayAddProjectModal}
+              displayProjectModal={displayProjectModal}
+              addProject={addProject}
+            />
+          }
+        />
         <Route path="/project/*" element={<Project />} />
       </Routes>
     </main>

@@ -1,25 +1,80 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "./App.scss"
 import ResponsiveHeader from "./ResponsiveHeader/ResponsiveHeader"
 import Header from "./Header/Header"
 import Content from "./Content/Content"
+import { projectData } from "./Interfaces"
 import { BrowserRouter as Router } from "react-router-dom"
+
+import { RootState } from "./Store"
+import { useSelector, useDispatch } from "react-redux"
+import {
+  addNewProject,
+  changeActiveProject,
+  updateProjectData,
+} from "./ProjectDataSlice"
 
 function App() {
   const [navClass, setNavClass] = useState("header unactive-side-nav")
+  const [activeTab, setActiveTab] = useState<string>("")
+  const [displayAddProjectModal, setDisplayAddProjectModal] =
+    useState<boolean>(false)
 
+  const activeProject = useSelector(
+    (state: RootState) => state.projectsData.activeProject
+  )
+  const dispatch = useDispatch()
+
+  // Adds a project to the projectsData array from addProjectModal
+  const addProject = (project: projectData) => {
+    dispatch(addNewProject(project))
+    displayProjectModal()
+  }
+
+  // Changes the active tab when item is clicked on header
+  const changeActiveTab = (name: string) => {
+    setActiveTab(name)
+    dispatch(changeActiveProject(name))
+  }
+
+  useEffect(() => {
+    dispatch(changeActiveProject(activeTab))
+  }, [])
+
+  useEffect(() => {
+    dispatch(updateProjectData(activeTab))
+  }, [activeProject])
+
+  // Used to display the responsive nav
   const changeClass = () => {
     navClass === "header unactive-side-nav"
       ? setNavClass("header active-side-nav")
       : setNavClass("header unactive-side-nav")
   }
 
+  // Displays the add project modal
+  const displayProjectModal = () => {
+    setDisplayAddProjectModal(!displayAddProjectModal)
+  }
+
   return (
     <div className="App">
       <Router>
-        <ResponsiveHeader changeClass={changeClass} />
-        <Header navClass={navClass} />
-        <Content />
+        <ResponsiveHeader
+          changeClass={changeClass}
+          displayProjectModal={displayProjectModal}
+        />
+        <Header
+          navClass={navClass}
+          displayProjectModal={displayProjectModal}
+          activeTab={activeTab}
+          changeActiveTab={changeActiveTab}
+        />
+        <Content
+          displayAddProjectModal={displayAddProjectModal}
+          displayProjectModal={displayProjectModal}
+          addProject={addProject}
+        />
       </Router>
     </div>
   )
@@ -27,96 +82,33 @@ function App() {
 
 export default App
 /*
-    finish the dashboard with a graph 
-      https://www.freepik.com/premium-vector/dashboard-fitness-progress-template_6134536.htm
-
-      show tasks that were completed by date 
-
-      show departments 
-        maybe how many each departemnt has 
-        could do a bar chart 
+    fix dates on task page 
+      somehow decide when the last monday was and add 7 days to that 
 
 
+    Finish first phase of project 
+      
+      5) fix dates of tasks (need to maybe make new conditional with mon date)
 
-    1) Board Page
-        - Details 
-            3) Connect to a modal that will edit the data 
-        - Upcoming deadlines 
-            1) Make a table 
-                dues date, border, task, assignedTo, status
+
+      8) Allow projects to open from projecthub
+            - need to figure out active tab 
+            - could use link as well to go there
+      9) Need to make edit bttn for projecthub cards (edit, delete, move - difficult but cool )
+        - could use elipsis for this
+      10) dashboard 
+            - have modal for description 
+            - have buttons work for details 
+            - have chart display correct info 
+
+      11) Organize projects based off of due date 
+          try to use the sort function again 
+      12) Fix amount of characters going into inputs  
+      14) add modal with features and milestones 
     
-    2) Tasks section 
-        - Make complete bttn work 
-        - Make edit bttn work 
-        - Connect complete to bottom tab
-        - Figure out comments section 
-            - maybe do one array with two object - be easier to update 
-    
-    3) Schedule 
-        - copy layout from ms planner
-    
-    4) Create Project section 
-        - create logo 
-        - Create project name 
-        - project description 
-        - milestones 
-        - features 
-
-          dashboard 
-            -  
-
-
-
-
-Today 
-
-  1) Finish dashboard page 
-      - Create a department card 
-      - Maybe just display the details for finance part 
-      - Create a table for the tasks and show recently completed tasks 
-            - can be similar to rainfocus chart
-      - Find the schedule example online and copy that design 
-
-  2) Create the project hub section and create the cards that will go inside of it 
-      Need to allow user to delete a project from this screen 
-
-  3) Create the add project section 
-    Have user creat the logo and name 
-    Add a description and team 
-  
-  4) Create the details section 
-
-  5) Create the team section 
-
-  6) Create the schedule section 
-
-  7) Create the Tasks section 
-
-  8) Create the finance section 
-
-  
-
-  - Create layout for the project 
-  
-  - conect project layout to react router (grid boxes are clicked)
-
-  - Start filling in the information for project page 
-      - NewProject section 
-
-  - Create newProject page 
-      - User fills in all of the details about the project 
-  
-  - Create the project hub page 
-      - have cards for each project created 
-
-  - connect newProject with project hub 
-    - transfer the array of information to this page 
-
-  - Create other boxes for project page 
-
-
-
-  - could use sublinks on projects 
-
+    Phase 2 
+      1) Add comments 
+      2) Do testing 
+      3) Fix dashboard top 
 
 */

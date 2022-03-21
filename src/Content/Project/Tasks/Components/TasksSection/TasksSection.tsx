@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import TaskCard from "../TaskCard/TaskCard"
-import tasksData from "../../../../../Interfaces"
+import { tasksData } from "../../../../../Interfaces"
 import { FaPlus, FaAngleDown } from "react-icons/fa"
 import moment from "moment"
 
@@ -8,20 +8,12 @@ const TasksSection = ({
   due,
   tasksData,
   changeDisplay,
-  deleteTask,
-  addTask,
-  completeTask,
   completedTasksData,
-  deleteComlpletedTask,
 }: {
   due: string
   tasksData: Array<tasksData>
   changeDisplay: any
-  deleteTask: any
-  addTask: any
-  completeTask: any
   completedTasksData: Array<tasksData>
-  deleteComlpletedTask: any
 }) => {
   const [showAll, setShowAll] = useState<boolean>(false)
   const [showCompleted, setShowCompleted] = useState<boolean>(false)
@@ -29,6 +21,25 @@ const TasksSection = ({
   const [completedTaskArrByDate, setCompletedTaskArrByDate] = useState<
     Array<tasksData>
   >([])
+
+  // finds the next monday
+  let nextMon = moment().startOf("isoWeek").add(1, "week")
+
+  let arrayForSort = [...tasksData]
+
+  let newTasksData = arrayForSort.sort((a, b) => {
+    var dateA: any = new Date(a.date)
+    var dateB: any = new Date(b.date)
+    return dateA - dateB
+  })
+
+  let completedArrayForSort = [...completedTasksData]
+
+  let newCompletedTasksData = completedArrayForSort.sort((a, b) => {
+    var dateA: any = new Date(a.date)
+    var dateB: any = new Date(b.date)
+    return dateA - dateB
+  })
 
   // Finds the difference between due date and current date in days
   const getTimeDiff = (date: string) => {
@@ -40,7 +51,7 @@ const TasksSection = ({
   // used to set the taskArrByDate with the correct tasks for the section
   useEffect(() => {
     let newArr: Array<tasksData> = []
-    tasksData.map((task, i) => {
+    newTasksData.map((task, i) => {
       let timeDiff = getTimeDiff(task.date)
       if (timeDiff < 0) {
         if (due === "Late") {
@@ -65,7 +76,7 @@ const TasksSection = ({
   // used to set the taskArrByDate with the correct tasks for the section
   useEffect(() => {
     let newArr: Array<tasksData> = []
-    completedTasksData.map((task, i) => {
+    newCompletedTasksData.map((task, i) => {
       let timeDiff = getTimeDiff(task.date)
       if (timeDiff < 0) {
         if (due === "Late") {
@@ -103,27 +114,11 @@ const TasksSection = ({
         {!showAll
           ? taskArrByDate.map((task, i) => {
               if (i < 3) {
-                return (
-                  <TaskCard
-                    deleteTask={deleteTask}
-                    key={i}
-                    task={task}
-                    addTask={addTask}
-                    completeTask={completeTask}
-                  />
-                )
+                return <TaskCard key={i} task={task} />
               }
             })
           : taskArrByDate.map((task, i) => {
-              return (
-                <TaskCard
-                  deleteTask={deleteTask}
-                  key={i}
-                  task={task}
-                  addTask={addTask}
-                  completeTask={completeTask}
-                />
-              )
+              return <TaskCard key={i} task={task} />
             })}
       </div>
       <div className="cards-showAll" onClick={showAllCards}>
@@ -157,17 +152,7 @@ const TasksSection = ({
       </div>
       {showCompleted &&
         completedTaskArrByDate.map((task, i) => {
-          return (
-            <TaskCard
-              deleteTask={deleteTask}
-              key={i}
-              task={task}
-              addTask={addTask}
-              completeTask={completeTask}
-              complete={true}
-              deleteComlpletedTask={deleteComlpletedTask}
-            />
-          )
+          return <TaskCard key={i} task={task} complete={true} />
         })}
     </div>
   )
@@ -177,7 +162,7 @@ export default TasksSection
 
 /*
 
-  Organize cards by closest due 
+  Organize cards by closest due date
 
   have the dates line up with the week and nextweek sections 
 

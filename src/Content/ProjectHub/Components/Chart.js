@@ -3,7 +3,7 @@ import { Doughnut } from "react-chartjs-2"
 import { Chart, registerables } from "chart.js"
 Chart.register(...registerables)
 
-const ChartMain = () => {
+const ChartMain = ({ tasks, late, progress, completed }) => {
   const state = {
     labels: ["Late", "In Progress", "Completed"],
 
@@ -11,9 +11,9 @@ const ChartMain = () => {
       {
         cutout: "65%",
         label: "Tasks",
-        backgroundColor: ["#B21F00", "blue", "#2FDE00"],
+        backgroundColor: ["red", "blue", "green"],
         hoverBackgroundColor: ["#501800", "#003350", "#175000"],
-        data: [1, 22, 83],
+        data: [late, progress, completed],
       },
     ],
   }
@@ -28,7 +28,7 @@ const ChartMain = () => {
         var fontSize = (height / 104).toFixed(2)
         ctx.font = fontSize + "em sans-serif"
         ctx.textBaseline = "top"
-        var text = "23",
+        var text = tasks.length,
           textX = Math.round((width - ctx.measureText(text).width) / 2),
           textY = height / 2.9
         ctx.fillText(text, textX, textY)

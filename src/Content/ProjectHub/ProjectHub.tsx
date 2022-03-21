@@ -1,166 +1,44 @@
 import React from "react"
 import "./ProjectHub.scss"
-import ChartMain from "./Components/Chart"
+import ProjectCard from "./Components/ProjectCard"
+import ModalAddProject from "./Components/ModalAddProject/ModalAddProject"
+import { RootState } from "../../Store"
+import { useSelector } from "react-redux"
 
-const ProjectHub = () => {
+const ProjectHub = ({
+  displayAddProjectModal,
+  displayProjectModal,
+  addProject,
+}: {
+  displayAddProjectModal: boolean
+  displayProjectModal: any
+  addProject: any
+}) => {
+  const projectsData = useSelector(
+    (state: RootState) => state.projectsData.projects
+  )
+
   return (
     <div className="project-hub-main-container">
-      <div className="project-hub-card-container">
-        <div className="project-hub-card-header">
-          <div className="nav-logo">
-            <p>PN</p>
-          </div>
-          <h1>Office 365 for Exchange</h1>
-        </div>
-        <ChartMain />
-        <div className="project-hub-card-days">
-          <p>92 Days Left</p>
-        </div>
-        <div className="project-hub-card-bottom">
-          <div className="card-bottom-red">
-            <p>1</p>
-            <p>Late</p>
-          </div>
-          <div className="card-bottom-blue">
-            <p>22</p>
-            <p>In Progress</p>
-          </div>
-          <div className="card-bottom-green">
-            <p>83</p>
-            <p>Completed</p>
-          </div>
-        </div>
-      </div>
-      <div className="project-hub-card-container">
-        <div className="project-hub-card-header">
-          <div className="nav-logo">
-            <p>PN</p>
-          </div>
-          <h1>Office 365 for Exchange</h1>
-        </div>
-        <ChartMain />
-        <div className="project-hub-card-days">
-          <p>92 Days Left</p>
-        </div>
-        <div className="project-hub-card-bottom">
-          <div className="card-bottom-red">
-            <p>1</p>
-            <p>Late</p>
-          </div>
-          <div className="card-bottom-blue">
-            <p>22</p>
-            <p>In Progress</p>
-          </div>
-          <div className="card-bottom-green">
-            <p>83</p>
-            <p>Completed</p>
-          </div>
-        </div>
-      </div>
-      <div className="project-hub-card-container">
-        <div className="project-hub-card-header">
-          <div className="nav-logo">
-            <p>PN</p>
-          </div>
-          <h1>Office 365 for Exchange</h1>
-        </div>
-        <ChartMain />
-        <div className="project-hub-card-days">
-          <p>92 Days Left</p>
-        </div>
-        <div className="project-hub-card-bottom">
-          <div className="card-bottom-red">
-            <p>1</p>
-            <p>Late</p>
-          </div>
-          <div className="card-bottom-blue">
-            <p>22</p>
-            <p>In Progress</p>
-          </div>
-          <div className="card-bottom-green">
-            <p>83</p>
-            <p>Completed</p>
-          </div>
-        </div>
-      </div>
-      <div className="project-hub-card-container">
-        <div className="project-hub-card-header">
-          <div className="nav-logo">
-            <p>PN</p>
-          </div>
-          <h1>Office 365 for Exchange</h1>
-        </div>
-        <ChartMain />
-        <div className="project-hub-card-days">
-          <p>92 Days Left</p>
-        </div>
-        <div className="project-hub-card-bottom">
-          <div className="card-bottom-red">
-            <p>1</p>
-            <p>Late</p>
-          </div>
-          <div className="card-bottom-blue">
-            <p>22</p>
-            <p>In Progress</p>
-          </div>
-          <div className="card-bottom-green">
-            <p>83</p>
-            <p>Completed</p>
-          </div>
-        </div>
-      </div>
-      <div className="project-hub-card-container">
-        <div className="project-hub-card-header">
-          <div className="nav-logo">
-            <p>PN</p>
-          </div>
-          <h1>Office 365 for Exchange</h1>
-        </div>
-        <ChartMain />
-        <div className="project-hub-card-days">
-          <p>92 Days Left</p>
-        </div>
-        <div className="project-hub-card-bottom">
-          <div className="card-bottom-red">
-            <p>1</p>
-            <p>Late</p>
-          </div>
-          <div className="card-bottom-blue">
-            <p>22</p>
-            <p>In Progress</p>
-          </div>
-          <div className="card-bottom-green">
-            <p>83</p>
-            <p>Completed</p>
-          </div>
-        </div>
-      </div>
-      <div className="project-hub-card-container">
-        <div className="project-hub-card-header">
-          <div className="nav-logo">
-            <p>PN</p>
-          </div>
-          <h1>Office 365 for Exchange</h1>
-        </div>
-        <ChartMain />
-        <div className="project-hub-card-days">
-          <p>92 Days Left</p>
-        </div>
-        <div className="project-hub-card-bottom">
-          <div className="card-bottom-red">
-            <p>1</p>
-            <p>Late</p>
-          </div>
-          <div className="card-bottom-blue">
-            <p>22</p>
-            <p>In Progress</p>
-          </div>
-          <div className="card-bottom-green">
-            <p>83</p>
-            <p>Completed</p>
-          </div>
-        </div>
-      </div>
+      <ModalAddProject
+        displayAddProjectModal={displayAddProjectModal}
+        displayProjectModal={displayProjectModal}
+        addProject={addProject}
+      />
+      {projectsData.map((project, i) => {
+        return (
+          <ProjectCard
+            key={i}
+            name={project.name}
+            initials={project.initials}
+            color={project.color}
+            description={project.description}
+            launch={project.launch}
+            tasks={project.tasks}
+            completed={project.completed}
+          />
+        )
+      })}
     </div>
   )
 }
@@ -168,6 +46,15 @@ const ProjectHub = () => {
 export default ProjectHub
 
 /*
+
+  name: "",
+    initials: "",
+    color: "green",
+    description: "",
+    launch: "",
+    tasks: [],
+
+
     cards for every project 
       will pass an array with the correct details 
 
