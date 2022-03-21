@@ -51,7 +51,11 @@ const TopHeaderContent = ({
       </div>
       <NavLink
         to="/"
-        style={{ textDecoration: "none", color: "white", width: "100%" }}
+        style={{
+          textDecoration: "none",
+          color: "white",
+          width: "100%",
+        }}
       >
         <div className={expandClass} onClick={() => addProject()}>
           <FaPlus />

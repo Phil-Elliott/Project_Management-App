@@ -47,9 +47,10 @@
     background: $background-color;
     border-radius: 5px;
     padding: 0.5rem 0.75rem;
-    max-height: 15vh;
-    min-width: 23.9vw;
-    max-width: 23.9vw;
+    max-height: 20vh;
+    max-width: 100%;
+    min-width: 100%;
+    // resize: none;
     margin-bottom: 0.75rem;
 
     &:focus {

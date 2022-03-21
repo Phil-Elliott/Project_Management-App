@@ -74,6 +74,7 @@ function App() {
           displayAddProjectModal={displayAddProjectModal}
           displayProjectModal={displayProjectModal}
           addProject={addProject}
+          changeActiveTab={changeActiveTab}
         />
       </Router>
     </div>
@@ -82,33 +83,25 @@ function App() {
 
 export default App
 /*
-    fix dates on task page 
-      somehow decide when the last monday was and add 7 days to that 
-
-
     Finish first phase of project 
-      
-      5) fix dates of tasks (need to maybe make new conditional with mon date)
-
-
-      8) Allow projects to open from projecthub
-            - need to figure out active tab 
-            - could use link as well to go there
-      9) Need to make edit bttn for projecthub cards (edit, delete, move - difficult but cool )
-        - could use elipsis for this
-      10) dashboard 
+     
+      3) Need to make edit bttn for projecthub cards (edit, delete)
+        - could use elipsis for this or have edit take care of it on dash
+        - could just do on the side 
+      4) dashboard 
             - have modal for description 
-            - have buttons work for details 
-            - have chart display correct info 
-
-      11) Organize projects based off of due date 
-          try to use the sort function again 
-      12) Fix amount of characters going into inputs  
-      14) add modal with features and milestones 
+            - have edit button work for details 
+            - have chart display correct info   
+      5) Fix amount of characters going into inputs  
+      6) Play around with UI
+      
     
     Phase 2 
       1) Add comments 
-      2) Do testing 
-      3) Fix dashboard top 
+      2) Do testing
+      3) Allow project hub to edit projects 
+      4) Fix performance 
+      5) Hook up to a backend
+      
 
 */

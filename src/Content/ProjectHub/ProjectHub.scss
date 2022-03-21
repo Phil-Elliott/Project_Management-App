@@ -20,13 +20,13 @@
 }
 
 .project-hub-card-header {
-  display: flex;
-  align-items: center;
+  @extend %flex-align;
   height: 3rem;
 
   h1 {
     padding-left: 1rem;
     font-size: 1.4vw;
+    font-size: clamp(1rem, 1.4vw, 1.4vw);
   }
 }
 
@@ -70,35 +70,25 @@
 
     p {
       padding-top: 0.25rem;
+      font-size: clamp(0.75rem, 1vw, 1vw);
     }
   }
 }
 
 @media only screen and (max-width: 1300px) {
   .project-hub-main-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .project-hub-card-header {
-    h1 {
-      font-size: clamp(1rem, 2.3vw, 2.3vw);
-    }
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media only screen and (max-width: 825px) {
   .project-hub-main-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .project-hub-main-container {
     grid-template-columns: 1fr;
-  }
-  .project-hub-card-header {
-    h1 {
-      font-size: clamp(1rem, 4vw, 10vw);
-    }
-  }
-  .project-hub-card-bottom {
-    div {
-      p {
-        font-size: clamp(0.7rem, 3vw, 1rem);
-      }
-    }
   }
 }

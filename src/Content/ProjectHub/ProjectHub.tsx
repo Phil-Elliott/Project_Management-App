@@ -4,19 +4,30 @@ import ProjectCard from "./Components/ProjectCard"
 import ModalAddProject from "./Components/ModalAddProject/ModalAddProject"
 import { RootState } from "../../Store"
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 
 const ProjectHub = ({
   displayAddProjectModal,
   displayProjectModal,
   addProject,
+  changeActiveTab,
 }: {
   displayAddProjectModal: boolean
   displayProjectModal: any
   addProject: any
+  changeActiveTab: any
 }) => {
   const projectsData = useSelector(
     (state: RootState) => state.projectsData.projects
   )
+
+  let arrayForSort = [...projectsData]
+
+  let newProjectsData = arrayForSort.sort((a, b) => {
+    var dateA: any = new Date(a.launch)
+    var dateB: any = new Date(b.launch)
+    return dateA - dateB
+  })
 
   return (
     <div className="project-hub-main-container">
@@ -25,18 +36,28 @@ const ProjectHub = ({
         displayProjectModal={displayProjectModal}
         addProject={addProject}
       />
-      {projectsData.map((project, i) => {
+      {newProjectsData.map((project, i) => {
         return (
-          <ProjectCard
-            key={i}
-            name={project.name}
-            initials={project.initials}
-            color={project.color}
-            description={project.description}
-            launch={project.launch}
-            tasks={project.tasks}
-            completed={project.completed}
-          />
+          <Link
+            onClick={() => changeActiveTab(project.name)}
+            to="/project"
+            style={{
+              textDecoration: "none",
+              color: "black",
+              width: "100%",
+            }}
+          >
+            <ProjectCard
+              key={i}
+              name={project.name}
+              initials={project.initials}
+              color={project.color}
+              description={project.description}
+              launch={project.launch}
+              tasks={project.tasks}
+              completed={project.completed}
+            />
+          </Link>
         )
       })}
     </div>

@@ -13,6 +13,14 @@ const DashboardDeadlines = ({
 
   let countoff = [1, 2, 3, 4, 5, 6]
 
+  let arrayForSort = [...projectsData.tasks]
+
+  let newTasksData = arrayForSort.sort((a, b) => {
+    var dateA: any = new Date(a.date)
+    var dateB: any = new Date(b.date)
+    return dateA - dateB
+  })
+
   return (
     <div className="dashboard-deadlines-container">
       <div className="dashboard-deadlines-header">
@@ -24,9 +32,9 @@ const DashboardDeadlines = ({
           return (
             <DeadlinesItem
               key={i}
-              date={projectsData.tasks[i].date}
-              name={projectsData.tasks[i].name}
-              task={projectsData.tasks[i]}
+              date={newTasksData[i].date}
+              name={newTasksData[i].name}
+              task={newTasksData[i]}
             />
           )
         } else {
