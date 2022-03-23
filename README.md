@@ -15,6 +15,10 @@ The user then can click on the project in the project hub or on the navigation. 
 The user will then have the option to click on the tasks section, where they will be able to create, edit, and delete tasks. Once the task is finished, the user then can mark them as complete. 
 
 ![tasks](https://user-images.githubusercontent.com/89685937/159799159-3822d749-6a4a-4243-aec5-018bc29a8092.gif)
+
+The application is completely responsive and works on all devices. 
+
+![responsive](https://user-images.githubusercontent.com/89685937/159803774-a996bfd8-0191-41c6-9477-4dcc569937a2.gif)
  
 ## Software Used
  
