@@ -83,9 +83,7 @@ function App() {
 
 export default App
 /*
-  Have board underline when project opens 
-  Make more responsive and fix deadlines 
-  take out pencil from our project details 
+  
 
 
 

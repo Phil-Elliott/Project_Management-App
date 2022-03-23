@@ -1,6 +1,6 @@
 This favicon was generated using the following font:
 
-- Font Title: Fira Sans
-- Font Author: Digitized data copyright 2012-2016, The Mozilla Foundation and Telefonica S.A.
-- Font Source: http://fonts.gstatic.com/s/firasans/v15/va9B4kDNxMZdWfMOD5VnFK_uQR37fF3Wlg.ttf
-- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
+- Font Title: Ubuntu
+- Font Author: Copyright 2011 Canonical Ltd. Licensed under the Ubuntu Font Licence 1.0
+- Font Source: http://fonts.gstatic.com/s/ubuntu/v19/4iCp6KVjbNBYlgoKejZPsmyIPYBvgpUI.ttf
+- Font License: Ubuntu Font License, 1.0 (http://font.ubuntu.com/ufl/))

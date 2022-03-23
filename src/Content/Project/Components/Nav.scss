@@ -82,10 +82,14 @@
     flex-direction: column;
     z-index: 1;
     background-color: white;
+    padding: 1rem 0 0 0;
 
     div {
-      padding: 1rem 0 1rem 1rem;
+      padding: 0rem 0 0rem 1rem;
     }
+  }
+  .nav-link {
+    padding: 1rem 0 1rem 1rem;
   }
   .active-link {
     border: none !important;
