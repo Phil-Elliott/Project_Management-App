@@ -7,6 +7,7 @@
   color: black;
   height: 45vh;
   display: grid;
+  grid-template-rows: 1.25fr 1fr 1fr 1fr 1fr 1fr 1fr;
   overflow: auto;
 
   div {
@@ -40,7 +41,7 @@
     display: flex;
     flex-direction: column;
     .deadlines-date {
-      border-right: 4px solid $primary;
+      border-right: 4px solid red;
       padding: 0 1rem 0 0;
     }
   }
@@ -59,12 +60,12 @@
   }
   .deadlines-right-icon-trash {
     &:hover {
-      color: $primary;
+      color: red;
     }
   }
   .deadlines-right-icon-edit {
     &:hover {
-      color: $secondary;
+      color: red;
     }
   }
   .deadlines-right-icon-check {

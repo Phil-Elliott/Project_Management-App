@@ -3,7 +3,7 @@
 .project-hub-main-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  gap: 1rem;
   padding: 2rem;
 }
 
@@ -21,12 +21,16 @@
 
 .project-hub-card-header {
   @extend %flex-align;
-  height: 3rem;
+  height: 2.5rem;
+}
 
+.project-hub-card-header-right {
+  @extend %flex-align;
+  justify-content: space-between;
+  width: 100%;
   h1 {
     padding-left: 1rem;
-    font-size: 1.4vw;
-    font-size: clamp(1rem, 1.4vw, 1.4vw);
+    font-size: clamp(1rem, 1.3vw, 1.3vw);
   }
 }
 

@@ -12,8 +12,8 @@ const BarChart = ({ departmentData }) => {
     datasets: [
       {
         label: "Tasks",
-        backgroundColor: "rgb(248, 68, 68)",
-        hoverBackgroundColor: "rgba(248, 68, 68,.9)",
+        backgroundColor: "#00006f",
+        hoverBackgroundColor: "#00006f",
         data: dataTasks,
       },
     ],

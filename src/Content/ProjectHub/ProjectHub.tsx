@@ -46,9 +46,9 @@ const ProjectHub = ({
               color: "black",
               width: "100%",
             }}
+            key={i}
           >
             <ProjectCard
-              key={i}
               name={project.name}
               initials={project.initials}
               color={project.color}

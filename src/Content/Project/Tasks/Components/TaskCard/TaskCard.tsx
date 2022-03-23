@@ -75,7 +75,7 @@ const TaskCard = ({
           <FaRegCalendar />
           <p>{task.date}</p>
         </div>
-        <FaRegComment className="task-icon" />
+        {/* <FaRegComment className="task-icon" /> */}
       </div>
       <div className="asignedTo-container">
         <div className="task-card-assignedTo">
