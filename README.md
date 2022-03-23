@@ -5,6 +5,8 @@ A React application used to track tasks within a project. The user has the abili
 ## How it works
  
 The user can first create a project by clicking the + icon on the navigation. The user will then need to fill out all of the details for the project. 
+
+![project-hub](https://user-images.githubusercontent.com/89685937/159796690-d696d8a6-f8f0-4889-916f-f8d1066b5f7d.gif)
  
 The user then can click on the project in the project hub or on the navigation. This will open up the dashboard with different details for the projects. 
  
