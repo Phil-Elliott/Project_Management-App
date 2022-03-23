@@ -2,6 +2,7 @@ import React from "react"
 import ChartMain from "./Chart"
 import { projectData } from "../../../Interfaces"
 import moment from "moment"
+import { FaEllipsisV } from "react-icons/fa"
 
 const ProjectCard = ({
   name,
@@ -30,10 +31,16 @@ const ProjectCard = ({
   return (
     <div className="project-hub-card-container">
       <div className="project-hub-card-header">
-        <div className="nav-logo" style={{ backgroundColor: color }}>
+        <div
+          className="nav-logo"
+          style={{ backgroundColor: color, borderRadius: "3px" }}
+        >
           <p>{initials}</p>
         </div>
-        <h1>{name}</h1>
+        <div className="project-hub-card-header-right">
+          <h1>{name}</h1>
+          {/* <FaEllipsisV onClick={() => console.log("fuck")} /> */}
+        </div>
       </div>
       <ChartMain
         tasks={tasks}

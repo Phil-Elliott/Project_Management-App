@@ -35,8 +35,15 @@ const ModalAddProject = ({
     }
   }
 
-  const change = (e: any) => {
-    setInputData(e)
+  const change = (e: any, init?: boolean) => {
+    if (init) {
+      console.log(e.length)
+      if (e.initials.length < 3) {
+        setInputData(e)
+      }
+    } else {
+      setInputData(e)
+    }
   }
 
   useEffect(() => {
@@ -108,7 +115,7 @@ const ModalAddProject = ({
                 placeholder="Logo Initials"
                 value={inputData.initials}
                 onChange={(e) =>
-                  change({ ...inputData, initials: e.target.value })
+                  change({ ...inputData, initials: e.target.value }, true)
                 }
               />
             </div>

@@ -22,9 +22,6 @@ const TasksSection = ({
     Array<tasksData>
   >([])
 
-  // finds the next monday
-  let nextMon = moment().startOf("isoWeek").add(1, "week")
-
   let arrayForSort = [...tasksData]
 
   let newTasksData = arrayForSort.sort((a, b) => {
@@ -41,12 +38,33 @@ const TasksSection = ({
     return dateA - dateB
   })
 
+  /*
+    - You have the next monday 
+    - Could get time diff from monday to today 
+    
+    conditional
+      late if less than today 
+      this week if not late and less than mon diff
+      next week if less than mon diff + 7 
+      future if greater than that
+
+  */
+
+  // finds the next monday
+
   // Finds the difference between due date and current date in days
   const getTimeDiff = (date: string) => {
     let dueDate = moment(date).format("L")
     let days = moment(dueDate, "MM/DD/YYYY").diff(moment().endOf("day"), "days")
     return days
   }
+
+  let nextMon = moment().startOf("isoWeek").add(1, "week").format("L")
+  let nextMonDiff = moment(nextMon, "MM/DD/YYYY").diff(
+    moment().endOf("day"),
+    "days"
+  )
+  console.log(nextMonDiff)
 
   // used to set the taskArrByDate with the correct tasks for the section
   useEffect(() => {
@@ -57,15 +75,15 @@ const TasksSection = ({
         if (due === "Late") {
           return newArr.push(task)
         }
-      } else if (timeDiff <= 7) {
+      } else if (timeDiff <= nextMonDiff) {
         if (due === "This Week") {
           return newArr.push(task)
         }
-      } else if (timeDiff <= 14) {
+      } else if (timeDiff <= nextMonDiff + 6) {
         if (due === "Next Week") {
           return newArr.push(task)
         }
-      } else if (timeDiff > 14 && due === "Future") {
+      } else if (timeDiff > nextMonDiff + 6 && due === "Future") {
         return newArr.push(task)
       }
     })
@@ -82,15 +100,15 @@ const TasksSection = ({
         if (due === "Late") {
           return newArr.push(task)
         }
-      } else if (timeDiff <= 7) {
+      } else if (timeDiff <= nextMonDiff) {
         if (due === "This Week") {
           return newArr.push(task)
         }
-      } else if (timeDiff <= 14) {
+      } else if (timeDiff <= nextMonDiff + 6) {
         if (due === "Next Week") {
           return newArr.push(task)
         }
-      } else if (timeDiff > 14 && due === "Future") {
+      } else if (timeDiff > nextMonDiff + 6 && due === "Future") {
         return newArr.push(task)
       }
     })
