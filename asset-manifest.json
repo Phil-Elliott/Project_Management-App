@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Project_Management-App/static/css/main.df642919.css",
+    "main.js": "/Project_Management-App/static/js/main.d74e7ea4.js",
+    "index.html": "/Project_Management-App/index.html",
+    "main.df642919.css.map": "/Project_Management-App/static/css/main.df642919.css.map",
+    "main.d74e7ea4.js.map": "/Project_Management-App/static/js/main.d74e7ea4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.df642919.css",
+    "static/js/main.d74e7ea4.js"
+  ]
+}
