@@ -9,6 +9,8 @@ The user can first create a project by clicking the + icon on the navigation. Th
 ![project-hub](https://user-images.githubusercontent.com/89685937/159796690-d696d8a6-f8f0-4889-916f-f8d1066b5f7d.gif)
  
 The user then can click on the project in the project hub or on the navigation. This will open up the dashboard with different details for the projects. 
+
+![dashboard](https://user-images.githubusercontent.com/89685937/159798046-cbf29a4a-f3a4-449f-8354-6cb42ce7d1ce.gif)
  
 The user will then have the option to click on the tasks section, where they will be able to create, edit, and delete tasks. Once the task is finished, the user then can mark them as complete. 
  
