@@ -13,6 +13,8 @@ The user then can click on the project in the project hub or on the navigation. 
 ![dashboard](https://user-images.githubusercontent.com/89685937/159798046-cbf29a4a-f3a4-449f-8354-6cb42ce7d1ce.gif)
  
 The user will then have the option to click on the tasks section, where they will be able to create, edit, and delete tasks. Once the task is finished, the user then can mark them as complete. 
+
+![tasks](https://user-images.githubusercontent.com/89685937/159799159-3822d749-6a4a-4243-aec5-018bc29a8092.gif)
  
 ## Software Used
  
