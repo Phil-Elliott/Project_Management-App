@@ -10,6 +10,8 @@ import { RootState } from "./Store"
 import { useSelector, useDispatch } from "react-redux"
 import {
   addNewProject,
+  editProject,
+  deleteProject,
   changeActiveProject,
   updateProjectData,
 } from "./ProjectDataSlice"
@@ -18,6 +20,8 @@ function App() {
   const [navClass, setNavClass] = useState("header unactive-side-nav")
   const [activeTab, setActiveTab] = useState<string>("")
   const [displayAddProjectModal, setDisplayAddProjectModal] =
+    useState<boolean>(false)
+  const [displayEditProjectModal, setDisplayEditProjectModal] =
     useState<boolean>(false)
 
   const activeProject = useSelector(
@@ -29,6 +33,18 @@ function App() {
   const addProject = (project: projectData) => {
     dispatch(addNewProject(project))
     displayProjectModal()
+  }
+
+  // Edits a project to the projectsData array from editProjectModal
+  const editTheProject = (project: projectData, name: string) => {
+    dispatch(editProject({ project, name }))
+    changeDisplayEditProjectModal()
+  }
+
+  // Deletes a project from the projectsData array
+  const deleteTheProject = (name: string) => {
+    dispatch(deleteProject(name))
+    changeDisplayEditProjectModal()
   }
 
   // Changes the active tab when item is clicked on header
@@ -56,10 +72,13 @@ function App() {
   const displayProjectModal = () => {
     setDisplayAddProjectModal(!displayAddProjectModal)
   }
+  const changeDisplayEditProjectModal = () => {
+    setDisplayEditProjectModal(!displayEditProjectModal)
+  }
 
   return (
     <div className="App">
-      <Router>
+      <Router basename="/Project_Management-App">
         <ResponsiveHeader
           changeClass={changeClass}
           displayProjectModal={displayProjectModal}
@@ -73,7 +92,11 @@ function App() {
         <Content
           displayAddProjectModal={displayAddProjectModal}
           displayProjectModal={displayProjectModal}
+          displayEditProjectModal={displayEditProjectModal}
+          changeDisplayEditProjectModal={changeDisplayEditProjectModal}
           addProject={addProject}
+          editProject={editTheProject}
+          deleteProject={deleteTheProject}
           changeActiveTab={changeActiveTab}
         />
       </Router>
@@ -83,7 +106,16 @@ function App() {
 
 export default App
 /*
-  
+  Monday 
+    - add more data 
+    - make elipsis work 
+
+  Tuesday 
+    - Make a comment section for the tasks 
+
+  Wednesday 
+    - Create a login page 
+    - connect to firebase 
 
 
 

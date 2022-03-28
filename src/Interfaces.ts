@@ -6,6 +6,9 @@ export interface projectData {
   launch: string
   tasks: Array<tasksData>
   completed: Array<tasksData>
+  changeActiveTab?: any
+  changeDisplayEditProjectModal?: any
+  i?: any
 }
 
 export interface tasksData {

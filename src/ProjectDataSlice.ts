@@ -6,6 +6,11 @@ export interface ProjectsState {
   activeProject: projectData
 }
 
+export interface editProjectsData {
+  project: projectData
+  name: string
+}
+
 export interface edit {
   taskObj: tasksData
   name: string
@@ -460,6 +465,24 @@ export const ProjectDataSlice = createSlice({
       newArr.push(action.payload)
       state.projects = newArr
     },
+    editProject: (state, action: PayloadAction<editProjectsData>) => {
+      state.projects = [
+        ...state.projects.map((project) => {
+          if (project.name === action.payload.name) {
+            return (project = action.payload.project)
+          } else {
+            return project
+          }
+        }),
+      ]
+    },
+    deleteProject: (state, action: PayloadAction<string>) => {
+      state.projects = [
+        ...state.projects.filter((project) => {
+          return project.name !== action.payload
+        }),
+      ]
+    },
     changeActiveProject: (state, action: PayloadAction<string>) => {
       state.projects.find((project) => {
         if (project.name === action.payload) {
@@ -551,6 +574,8 @@ export const ProjectDataSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
   addNewProject,
+  editProject,
+  deleteProject,
   changeActiveProject,
   updateProjectData,
   addTask,
