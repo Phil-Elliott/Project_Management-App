@@ -38,20 +38,6 @@ const TasksSection = ({
     return dateA - dateB
   })
 
-  /*
-    - You have the next monday 
-    - Could get time diff from monday to today 
-    
-    conditional
-      late if less than today 
-      this week if not late and less than mon diff
-      next week if less than mon diff + 7 
-      future if greater than that
-
-  */
-
-  // finds the next monday
-
   // Finds the difference between due date and current date in days
   const getTimeDiff = (date: string) => {
     let dueDate = moment(date).format("L")
@@ -64,7 +50,6 @@ const TasksSection = ({
     moment().endOf("day"),
     "days"
   )
-  console.log(nextMonDiff)
 
   // used to set the taskArrByDate with the correct tasks for the section
   useEffect(() => {

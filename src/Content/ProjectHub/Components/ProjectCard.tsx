@@ -3,6 +3,7 @@ import ChartMain from "./Chart"
 import { projectData } from "../../../Interfaces"
 import moment from "moment"
 import { FaEllipsisV } from "react-icons/fa"
+import { Link } from "react-router-dom"
 
 const ProjectCard = ({
   name,
@@ -12,6 +13,9 @@ const ProjectCard = ({
   launch,
   tasks,
   completed,
+  changeActiveTab,
+  changeDisplayEditProjectModal,
+  i,
 }: projectData) => {
   // Finds the difference between launch date and current date in days
   const getTimeDiff = (date: string) => {
@@ -28,6 +32,10 @@ const ProjectCard = ({
     }
   })
 
+  const openEditModal = () => {
+    changeDisplayEditProjectModal()
+  }
+
   return (
     <div className="project-hub-card-container">
       <div className="project-hub-card-header">
@@ -39,32 +47,45 @@ const ProjectCard = ({
         </div>
         <div className="project-hub-card-header-right">
           <h1>{name}</h1>
-          {/* <FaEllipsisV onClick={() => console.log("fuck")} /> */}
+          <FaEllipsisV
+            className="project-hub-card-header-right-ellipsis"
+            onClick={() => openEditModal()}
+          />
         </div>
       </div>
-      <ChartMain
-        tasks={tasks}
-        late={count}
-        progress={tasks.length - count}
-        completed={completed.length}
-      />
-      <div className="project-hub-card-days">
-        <p>{getTimeDiff(launch)} Days Left</p>
-      </div>
-      <div className="project-hub-card-bottom">
-        <div className="card-bottom-red">
-          <p>{count}</p>
-          <p>Late</p>
+      <Link
+        onClick={() => changeActiveTab(name)}
+        to="/project"
+        style={{
+          textDecoration: "none",
+          color: "black",
+          width: "100%",
+        }}
+      >
+        <ChartMain
+          tasks={tasks}
+          late={count}
+          progress={tasks.length - count}
+          completed={completed.length}
+        />
+        <div className="project-hub-card-days">
+          <p>{getTimeDiff(launch)} Days Left</p>
         </div>
-        <div className="card-bottom-blue">
-          <p>{tasks.length - count}</p>
-          <p>In Progress</p>
+        <div className="project-hub-card-bottom">
+          <div className="card-bottom-red">
+            <p>{count}</p>
+            <p>Late</p>
+          </div>
+          <div className="card-bottom-blue">
+            <p>{tasks.length - count}</p>
+            <p>In Progress</p>
+          </div>
+          <div className="card-bottom-green">
+            <p>{completed.length}</p>
+            <p>Completed</p>
+          </div>
         </div>
-        <div className="card-bottom-green">
-          <p>{completed.length}</p>
-          <p>Completed</p>
-        </div>
-      </div>
+      </Link>
     </div>
   )
 }
@@ -72,8 +93,9 @@ const ProjectCard = ({
 export default ProjectCard
 
 /*
-    figure out late progress and completed 
-    make sure tasks go into chart correctly
+  Make the elipsis open up the edit modal 
+  use the same modal as before but change a few things 
+  copy the way you did it with tasks 
 
 
 */

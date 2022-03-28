@@ -28,9 +28,14 @@
   @extend %flex-align;
   justify-content: space-between;
   width: 100%;
+
   h1 {
     padding-left: 1rem;
     font-size: clamp(1rem, 1.3vw, 1.3vw);
+  }
+
+  .project-hub-card-header-right-ellipsis {
+    cursor: pointer;
   }
 }
 

@@ -8,12 +8,20 @@ const Content = ({
   displayAddProjectModal,
   displayProjectModal,
   addProject,
+  editProject,
+  deleteProject,
   changeActiveTab,
+  displayEditProjectModal,
+  changeDisplayEditProjectModal,
 }: {
   displayAddProjectModal: boolean
   displayProjectModal: any
   addProject: any
+  editProject: any
+  deleteProject: any
   changeActiveTab: any
+  displayEditProjectModal: boolean
+  changeDisplayEditProjectModal: any
 }) => {
   return (
     <main className="content">
@@ -25,7 +33,11 @@ const Content = ({
               displayAddProjectModal={displayAddProjectModal}
               displayProjectModal={displayProjectModal}
               addProject={addProject}
+              editProject={editProject}
+              deleteProject={deleteProject}
               changeActiveTab={changeActiveTab}
+              displayEditProjectModal={displayEditProjectModal}
+              changeDisplayEditProjectModal={changeDisplayEditProjectModal}
             />
           }
         />

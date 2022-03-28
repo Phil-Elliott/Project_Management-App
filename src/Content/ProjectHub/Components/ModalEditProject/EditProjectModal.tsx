@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react"
 import { projectData } from "../../../../Interfaces"
-import "./ModalAddProject.scss"
+import "./../ModalAddProject/ModalAddProject.scss"
 
 const ModalAddProject = ({
-  displayAddProjectModal,
-  displayProjectModal,
-  addProject,
+  displayEditProjectModal,
+  changeDisplayEditProjectModal,
+  editProject,
+  projectData,
+  deleteProject,
 }: {
-  displayAddProjectModal: boolean
-  displayProjectModal: any
-  addProject: any
+  displayEditProjectModal: boolean
+  changeDisplayEditProjectModal: any
+  editProject: any
+  projectData: any
+  deleteProject: any
 }) => {
   const [inputData, setInputData] = useState<projectData>({
     name: "",
@@ -29,7 +33,7 @@ const ModalAddProject = ({
       inputData.description &&
       inputData.launch
     ) {
-      addProject(inputData)
+      editProject(inputData, projectData.name)
     } else {
       alert("Please fill out all fields")
     }
@@ -48,20 +52,20 @@ const ModalAddProject = ({
 
   useEffect(() => {
     setInputData({
-      name: "",
-      initials: "",
-      color: "green",
-      description: "",
-      launch: "",
-      tasks: [],
-      completed: [],
+      name: projectData.name,
+      initials: projectData.initials,
+      color: projectData.color,
+      description: projectData.description,
+      launch: projectData.launch,
+      tasks: projectData.tasks,
+      completed: projectData.completed,
     })
-  }, [displayAddProjectModal])
+  }, [displayEditProjectModal])
 
   // Allows ESC key to only be used to close
   const closeOnEscapeKeyDown = (e: any) => {
     if ((e.charCode || e.keyCode) === 27) {
-      displayProjectModal()
+      changeDisplayEditProjectModal()
     }
   }
 
@@ -74,20 +78,20 @@ const ModalAddProject = ({
 
   // Allows access to use keys only when modal is displayed
   useEffect(() => {
-    if (displayAddProjectModal === true) {
+    if (displayEditProjectModal === true) {
       document.body.addEventListener("keydown", closeOnEscapeKeyDown)
       document.body.addEventListener("keydown", saveOnEnterKeyDown)
     }
-  }, [displayAddProjectModal])
+  }, [displayEditProjectModal])
 
   return (
     <div
-      className={`modal ${displayAddProjectModal ? "show" : ""}`}
-      onClick={displayProjectModal}
+      className={`modal ${displayEditProjectModal ? "show" : ""}`}
+      onClick={changeDisplayEditProjectModal}
     >
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h1 className="modal-title">Create Project</h1>
+          <h1 className="modal-title">Edit Project</h1>
         </div>
         <div className="modalAdd-body">
           <div className="modal-add-projectName">
@@ -158,16 +162,22 @@ const ModalAddProject = ({
         <div className="modal-footer">
           <button
             className="modal-close-btn"
-            onClick={() => displayProjectModal()}
+            onClick={() => changeDisplayEditProjectModal()}
           >
             Close
+          </button>
+          <button
+            className="modal-close-btn"
+            onClick={() => deleteProject(projectData.name)}
+          >
+            Delete
           </button>
           <button
             className="modal-create-btn"
             type="submit"
             onClick={() => addTheProject()}
           >
-            Create
+            Edit
           </button>
         </div>
       </div>
@@ -178,7 +188,8 @@ const ModalAddProject = ({
 export default ModalAddProject
 
 /* 
-
   
-
+  change add function to edit function 
+  
+  can pass back the card name and use filter inside of edit project to add data
 */

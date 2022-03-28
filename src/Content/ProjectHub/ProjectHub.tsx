@@ -1,22 +1,31 @@
-import React from "react"
+import React, { useState } from "react"
 import "./ProjectHub.scss"
 import ProjectCard from "./Components/ProjectCard"
 import ModalAddProject from "./Components/ModalAddProject/ModalAddProject"
+import EditProjectModal from "./Components/ModalEditProject/EditProjectModal"
 import { RootState } from "../../Store"
 import { useSelector } from "react-redux"
-import { Link } from "react-router-dom"
 
 const ProjectHub = ({
   displayAddProjectModal,
   displayProjectModal,
   addProject,
+  editProject,
   changeActiveTab,
+  displayEditProjectModal,
+  changeDisplayEditProjectModal,
+  deleteProject,
 }: {
   displayAddProjectModal: boolean
   displayProjectModal: any
   addProject: any
+  editProject: any
   changeActiveTab: any
+  displayEditProjectModal: boolean
+  changeDisplayEditProjectModal: any
+  deleteProject: any
 }) => {
+  const [editData, setEditData] = useState<number>(0)
   const projectsData = useSelector(
     (state: RootState) => state.projectsData.projects
   )
@@ -36,28 +45,28 @@ const ProjectHub = ({
         displayProjectModal={displayProjectModal}
         addProject={addProject}
       />
+      <EditProjectModal
+        displayEditProjectModal={displayEditProjectModal}
+        changeDisplayEditProjectModal={changeDisplayEditProjectModal}
+        editProject={editProject}
+        projectData={newProjectsData[editData]}
+        deleteProject={deleteProject}
+      />
       {newProjectsData.map((project, i) => {
         return (
-          <Link
-            onClick={() => changeActiveTab(project.name)}
-            to="/project"
-            style={{
-              textDecoration: "none",
-              color: "black",
-              width: "100%",
-            }}
+          <ProjectCard
             key={i}
-          >
-            <ProjectCard
-              name={project.name}
-              initials={project.initials}
-              color={project.color}
-              description={project.description}
-              launch={project.launch}
-              tasks={project.tasks}
-              completed={project.completed}
-            />
-          </Link>
+            name={project.name}
+            initials={project.initials}
+            color={project.color}
+            description={project.description}
+            launch={project.launch}
+            tasks={project.tasks}
+            completed={project.completed}
+            changeActiveTab={changeActiveTab}
+            changeDisplayEditProjectModal={changeDisplayEditProjectModal}
+            i={i}
+          />
         )
       })}
     </div>
