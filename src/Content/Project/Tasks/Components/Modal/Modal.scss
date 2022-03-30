@@ -21,7 +21,8 @@
 }
 
 .modal-content {
-  width: clamp(20%, 25rem, 90%);
+  box-shadow: $box-shadow;
+  width: clamp(20%, 35rem, 90%);
   border-radius: 3px;
   background-color: $white;
   transform: translateY(-200px);

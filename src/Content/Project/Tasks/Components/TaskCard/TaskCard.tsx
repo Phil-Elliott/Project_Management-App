@@ -1,9 +1,11 @@
 import React, { useState } from "react"
 import EditModal from "./Components/EditModal"
+import CommentModal from "./Components/CommentModal"
 import "./TaskCard.scss"
 import { tasksData } from "../../../../../Interfaces"
 import {
   FaRegComment,
+  FaComment,
   FaRegCalendar,
   FaRegUser,
   FaCheckCircle,
@@ -17,16 +19,9 @@ import {
 } from "../../../../../ProjectDataSlice"
 import { useDispatch } from "react-redux"
 
-const TaskCard = ({
-  task,
-
-  complete,
-}: {
-  task: tasksData
-
-  complete?: any
-}) => {
+const TaskCard = ({ task, complete }: { task: tasksData; complete?: any }) => {
   const [displayEditModal, setDisplayEditModal] = useState(false)
+  const [displayCommentModal, setDisplayCommentModal] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -34,9 +29,14 @@ const TaskCard = ({
     dispatch(deleteTask(task.name))
   }
 
-  // displays the modal
+  // displays the edit modal
   const changeEditDisplay = () => {
     setDisplayEditModal(!displayEditModal)
+  }
+
+  // displays the comment modal
+  const changeCommentDisplay = () => {
+    setDisplayCommentModal(!displayCommentModal)
   }
 
   return (
@@ -44,6 +44,11 @@ const TaskCard = ({
       <EditModal
         displayEditModal={displayEditModal}
         changeEditDisplay={changeEditDisplay}
+        task={task}
+      />
+      <CommentModal
+        displayCommentModal={displayCommentModal}
+        changeCommentDisplay={changeCommentDisplay}
         task={task}
       />
 
@@ -75,7 +80,21 @@ const TaskCard = ({
           <FaRegCalendar />
           <p>{task.date}</p>
         </div>
-        {/* <FaRegComment className="task-icon" /> */}
+        {/* <FaRegComment
+          className="task-icon"
+          onClick={() => changeCommentDisplay()}
+        /> */}
+        {task.comments.length ? (
+          <FaComment
+            className="task-icon"
+            onClick={() => changeCommentDisplay()}
+          />
+        ) : (
+          <FaRegComment
+            className="task-icon"
+            onClick={() => changeCommentDisplay()}
+          />
+        )}
       </div>
       <div className="asignedTo-container">
         <div className="task-card-assignedTo">

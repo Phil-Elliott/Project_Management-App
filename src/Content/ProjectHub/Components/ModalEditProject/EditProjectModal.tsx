@@ -18,7 +18,7 @@ const ModalAddProject = ({
   const [inputData, setInputData] = useState<projectData>({
     name: "",
     initials: "",
-    color: "green",
+    color: "",
     description: "",
     launch: "",
     tasks: [],
@@ -41,7 +41,6 @@ const ModalAddProject = ({
 
   const change = (e: any, init?: boolean) => {
     if (init) {
-      console.log(e.length)
       if (e.initials.length < 3) {
         setInputData(e)
       }
@@ -126,20 +125,20 @@ const ModalAddProject = ({
             <div className="logo-color">
               <p>Color</p>
               <select
-                defaultValue="green"
+                defaultValue=""
                 name="logo color"
                 onChange={(e) =>
                   change({ ...inputData, color: e.target.value })
                 }
               >
-                <option value="green">Green</option>
-                <option value="orange">Orange</option>
-                <option value="blue">Blue</option>
+                <option value="" selected disabled hidden>
+                  Choose here
+                </option>
+                <option value="#5ec99c">Green</option>
+                <option value="#38b2e0">Light Blue</option>
+                <option value="#283170">Dark Blue</option>
                 <option value="purple">Purple</option>
-                <option value="pink">Pink</option>
-                <option value="red">Red</option>
-                <option value="grey">Grey</option>
-                <option value="black">Black</option>
+                <option value="rgb(248, 68, 68)">Red</option>
               </select>
             </div>
           </div>

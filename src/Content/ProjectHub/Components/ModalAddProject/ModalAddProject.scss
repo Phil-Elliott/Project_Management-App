@@ -48,9 +48,9 @@
     border-radius: 5px;
     padding: 0.5rem 0.75rem;
     max-height: 20vh;
+    height: 15vh;
     max-width: 100%;
     min-width: 100%;
-    // resize: none;
     margin-bottom: 0.75rem;
 
     &:focus {
@@ -68,11 +68,12 @@
     color: white;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-bottom: 1rem;
     margin-right: 1rem;
     padding: 0 0.75rem;
     font-weight: 900;
-    width: 2.5rem;
+    width: 3rem;
 
     p {
       padding: 0;
@@ -94,9 +95,9 @@
   justify-content: space-between;
 
   .logo-initials {
-    width: 45%;
+    width: 48%;
   }
   .logo-color {
-    width: 45%;
+    width: 48%;
   }
 }

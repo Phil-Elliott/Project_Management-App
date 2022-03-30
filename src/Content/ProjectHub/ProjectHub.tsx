@@ -38,6 +38,11 @@ const ProjectHub = ({
     return dateA - dateB
   })
 
+  const openEditModal = (i: number) => {
+    setEditData(i)
+    changeDisplayEditProjectModal()
+  }
+
   return (
     <div className="project-hub-main-container">
       <ModalAddProject
@@ -45,13 +50,15 @@ const ProjectHub = ({
         displayProjectModal={displayProjectModal}
         addProject={addProject}
       />
-      <EditProjectModal
-        displayEditProjectModal={displayEditProjectModal}
-        changeDisplayEditProjectModal={changeDisplayEditProjectModal}
-        editProject={editProject}
-        projectData={newProjectsData[editData]}
-        deleteProject={deleteProject}
-      />
+      {projectsData.length > 0 && (
+        <EditProjectModal
+          displayEditProjectModal={displayEditProjectModal}
+          changeDisplayEditProjectModal={changeDisplayEditProjectModal}
+          editProject={editProject}
+          projectData={newProjectsData[editData]}
+          deleteProject={deleteProject}
+        />
+      )}
       {newProjectsData.map((project, i) => {
         return (
           <ProjectCard
@@ -64,7 +71,7 @@ const ProjectHub = ({
             tasks={project.tasks}
             completed={project.completed}
             changeActiveTab={changeActiveTab}
-            changeDisplayEditProjectModal={changeDisplayEditProjectModal}
+            openEditModal={openEditModal}
             i={i}
           />
         )

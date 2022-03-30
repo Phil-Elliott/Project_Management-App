@@ -105,45 +105,26 @@ function App() {
 }
 
 export default App
-/*
-  Monday 
-    - add more data 
-    - make elipsis work 
+/*    
 
-  Tuesday 
-    - Make a comment section for the tasks 
+  1) Upcoming deadlines 
+        color changes based off if late 
+        put more padding top on plaunch date
+        change dep workload to red color
+        change top to red and purple or even project color (cool)
+        make sure board starts active (look at router for this or tak out underline)
+        find a new place for delete bttn on modal project 
+        fix modals to look better (more space or something)
+        
 
-  Wednesday 
-    - Create a login page 
-    - connect to firebase 
-
-
-
-
-    Finish first phase of project 
-     
-      3) Need to make edit bttn for projecthub cards (edit, delete)
-        - could use elipsis for this or have edit take care of it on dash
-        - could just do on the side 
-
-                1) Add elipsis 
-                2) Add dropdown for elipsis (edit and delete)
-                3) Edit - opens same modal with edit on top and previous inputs
-                4) Delete just deletes from main project array 
+        hook up to firebase 
+        find good way to host it 
 
 
-      4) dashboard 
-            - have modal for description 
-            - have edit button work for details   
-       
-      6) Play around with UI
-      7) Add comments section 
-      
-    
-    Phase 2 
-      1) Add comments 
-      2) Do testing
-      3) Allow project hub to edit projects 
+
+
+
+
       4) Fix performance 
       5) Hook up to a backend (firebase)
       6) Add form validation 

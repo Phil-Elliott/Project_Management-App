@@ -7,7 +7,7 @@ export interface projectData {
   tasks: Array<tasksData>
   completed: Array<tasksData>
   changeActiveTab?: any
-  changeDisplayEditProjectModal?: any
+  openEditModal?: any
   i?: any
 }
 
@@ -16,5 +16,11 @@ export interface tasksData {
   department: string
   date: any
   assigned: string
-  comments: Array<object>
+  comments: Array<commentsData>
+}
+
+export interface commentsData {
+  name: string
+  date: any
+  comment: string
 }
