@@ -14,7 +14,7 @@ const ProjectCard = ({
   tasks,
   completed,
   changeActiveTab,
-  changeDisplayEditProjectModal,
+  openEditModal,
   i,
 }: projectData) => {
   // Finds the difference between launch date and current date in days
@@ -32,8 +32,8 @@ const ProjectCard = ({
     }
   })
 
-  const openEditModal = () => {
-    changeDisplayEditProjectModal()
+  const openEdit = () => {
+    openEditModal(i)
   }
 
   return (
@@ -49,7 +49,7 @@ const ProjectCard = ({
           <h1>{name}</h1>
           <FaEllipsisV
             className="project-hub-card-header-right-ellipsis"
-            onClick={() => openEditModal()}
+            onClick={() => openEdit()}
           />
         </div>
       </div>

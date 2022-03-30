@@ -47,7 +47,7 @@ const TopHeaderContent = ({
   return (
     <div className="top-header-content">
       <div className={expandMain ? "logo expand-container" : "logo"}>
-        SP<h2>SimplePlan</h2>
+        sP<h2>SimplePlan</h2>
       </div>
       <NavLink
         to="/"
