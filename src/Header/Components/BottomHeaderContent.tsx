@@ -23,6 +23,14 @@ const BottomHeaderContent = ({
     (state: RootState) => state.projectsData.projects
   )
 
+  let arrayForSort = [...projectsData]
+
+  let newProjectsData = arrayForSort.sort((a, b) => {
+    var dateA: any = new Date(a.launch)
+    var dateB: any = new Date(b.launch)
+    return dateA - dateB
+  })
+
   return (
     <div className="bottom-header-content">
       <div
@@ -40,7 +48,7 @@ const BottomHeaderContent = ({
         />
       </div>
       {!expandContent
-        ? projectsData.map((project, i) => {
+        ? newProjectsData.map((project, i) => {
             if (i < 3) {
               return (
                 <Link
@@ -72,7 +80,7 @@ const BottomHeaderContent = ({
               )
             }
           })
-        : projectsData.map((project, i) => {
+        : newProjectsData.map((project, i) => {
             return (
               <Link
                 key={project.name}
