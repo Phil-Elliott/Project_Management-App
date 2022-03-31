@@ -105,30 +105,3 @@ function App() {
 }
 
 export default App
-/*    
-
-  1) Upcoming deadlines 
-        color changes based off if late 
-        put more padding top on plaunch date
-        change dep workload to red color
-        change top to red and purple or even project color (cool)
-        make sure board starts active (look at router for this or tak out underline)
-        find a new place for delete bttn on modal project 
-        fix modals to look better (more space or something)
-        
-
-        hook up to firebase 
-        find good way to host it 
-
-
-
-
-
-
-      4) Fix performance 
-      5) Hook up to a backend (firebase)
-      6) Add form validation 
-      7) Play around with other hooks 
-      
-
-*/
