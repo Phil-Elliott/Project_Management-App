@@ -40,18 +40,18 @@
 
 .comments-body {
   max-height: 20rem;
-  padding: 1rem 1rem;
+  padding: 1rem 1.5rem 0rem;
   overflow: scroll;
 }
 
 .comment {
-  padding-bottom: 1.5rem;
+  padding: 1.5rem 0;
 
   .top-comment {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 0.5rem;
+    padding-bottom: 1rem;
 
     .top-comment-left {
       display: flex;
@@ -64,5 +64,7 @@
   }
   .bottom-comment {
     font-weight: 600;
+    font-size: 1rem;
+    line-height: 2rem;
   }
 }

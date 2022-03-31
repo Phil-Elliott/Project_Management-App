@@ -84,6 +84,7 @@ const CommentModal = ({
           </div>
           <div className="button-container">
             <button
+              style={{ backgroundColor: "rgb(248, 68, 68)" }}
               className="modal-post-btn"
               onClick={() => changeCommentDisplay()}
             >
@@ -99,22 +100,24 @@ const CommentModal = ({
             </button>
           </div>
         </div>
-        <div className="comments-body">
-          {task.comments.map((comment) => {
-            return (
-              <div key={comment.comment} className="comment">
-                <div className="top-comment">
-                  <div className="top-comment-left">
-                    <FaRegUser />
-                    <p>{comment.name}</p>
+        {task.comments.length > 0 && (
+          <div className="comments-body">
+            {task.comments.map((comment) => {
+              return (
+                <div key={comment.comment} className="comment">
+                  <div className="top-comment">
+                    <div className="top-comment-left">
+                      <FaRegUser />
+                      <p>{comment.name}</p>
+                    </div>
+                    <p>{comment.date}</p>
                   </div>
-                  <p>{comment.date}</p>
+                  <p className="bottom-comment">{comment.comment}</p>
                 </div>
-                <p className="bottom-comment">{comment.comment}</p>
-              </div>
-            )
-          })}
-        </div>
+              )
+            })}
+          </div>
+        )}
       </div>
     </div>
   )

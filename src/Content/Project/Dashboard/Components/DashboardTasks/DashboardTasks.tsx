@@ -27,17 +27,17 @@ const DashboardTasks = ({ projectsData }: { projectsData: projectData }) => {
     {
       title: "Incomplete tasks",
       number: projectsData.tasks.length,
-      color: "blue",
+      color: "#00006f",
     },
     {
       title: "Overdue tasks",
       number: count,
-      color: "red",
+      color: "rgb(248, 68, 68)",
     },
     {
       title: "Total tasks",
       number: projectsData.tasks.length + projectsData.completed.length,
-      color: "black",
+      color: "purple",
     },
   ]
 

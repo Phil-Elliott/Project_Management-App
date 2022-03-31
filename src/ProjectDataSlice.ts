@@ -508,7 +508,7 @@ const initialState: ProjectsState = {
     },
     {
       name: "Train Developers",
-      initials: "TF",
+      initials: "TD",
       color: "rgb(248, 68, 68)",
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente tempora saepe laborum reprehenderit, autem debitis totam facere accusamus odit minus ipsum dolores itaque laudantium nihil enim quibusdam eaque tenetur omnis.",

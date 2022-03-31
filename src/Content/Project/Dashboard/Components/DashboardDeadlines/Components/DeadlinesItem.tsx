@@ -2,6 +2,7 @@ import React from "react"
 import { FaPencilAlt, FaTrash, FaCheckCircle } from "react-icons/fa"
 import { useDispatch } from "react-redux"
 import { deleteTask, completeTask } from "../../../../../../ProjectDataSlice"
+import moment from "moment"
 
 const DeadlinesItem = ({
   date,
@@ -14,11 +15,28 @@ const DeadlinesItem = ({
 }) => {
   const dispatch = useDispatch()
 
+  const getTimeDiff = (date: string) => {
+    let dueDate = moment(date).format("L")
+    let days = moment(dueDate, "MM/DD/YYYY").diff(moment().endOf("day"), "days")
+    return days
+  }
+
+  let diff = task ? getTimeDiff(task.date) : 0
+
   return (
     <div className="dashboard-deadlines-content">
       <div className="deadlines-left">
         <div>
-          <p className="deadlines-date">{date ? date : ""}</p>
+          <p
+            className="deadlines-date"
+            style={
+              diff < 0
+                ? { borderRight: "4px solid rgb(248, 68, 68)" }
+                : { borderRight: "4px solid #00006f" }
+            }
+          >
+            {date ? date : ""}
+          </p>
         </div>
         <p className="deadlines-task">{name ? name : ""}</p>
       </div>

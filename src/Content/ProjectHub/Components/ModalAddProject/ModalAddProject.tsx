@@ -50,7 +50,7 @@ const ModalAddProject = ({
     setInputData({
       name: "",
       initials: "",
-      color: "green",
+      color: "#5ec99c",
       description: "",
       launch: "",
       tasks: [],

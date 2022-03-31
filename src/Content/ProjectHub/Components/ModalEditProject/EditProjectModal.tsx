@@ -53,7 +53,7 @@ const ModalAddProject = ({
     setInputData({
       name: projectData.name,
       initials: projectData.initials,
-      color: projectData.color,
+      color: "#5ec99c",
       description: projectData.description,
       launch: projectData.launch,
       tasks: projectData.tasks,
@@ -125,15 +125,12 @@ const ModalAddProject = ({
             <div className="logo-color">
               <p>Color</p>
               <select
-                defaultValue=""
+                defaultValue="#5ec99c"
                 name="logo color"
                 onChange={(e) =>
                   change({ ...inputData, color: e.target.value })
                 }
               >
-                <option value="" selected disabled hidden>
-                  Choose here
-                </option>
                 <option value="#5ec99c">Green</option>
                 <option value="#38b2e0">Light Blue</option>
                 <option value="#283170">Dark Blue</option>
@@ -158,26 +155,33 @@ const ModalAddProject = ({
             onChange={(e) => change({ ...inputData, launch: e.target.value })}
           />
         </div>
-        <div className="modal-footer">
+        <div
+          className="modal-footer"
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
           <button
-            className="modal-close-btn"
-            onClick={() => changeDisplayEditProjectModal()}
-          >
-            Close
-          </button>
-          <button
+            style={{ marginLeft: "0" }}
             className="modal-close-btn"
             onClick={() => deleteProject(projectData.name)}
           >
             Delete
           </button>
-          <button
-            className="modal-create-btn"
-            type="submit"
-            onClick={() => addTheProject()}
-          >
-            Edit
-          </button>
+          <div className="modal-buttons-right">
+            <button
+              className="modal-close-btn"
+              onClick={() => changeDisplayEditProjectModal()}
+            >
+              Close
+            </button>
+
+            <button
+              className="modal-create-btn"
+              type="submit"
+              onClick={() => addTheProject()}
+            >
+              Edit
+            </button>
+          </div>
         </div>
       </div>
     </div>
