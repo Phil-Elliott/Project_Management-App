@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Project_Management-App/static/css/main.d378a309.css",
-    "main.js": "/Project_Management-App/static/js/main.63af7e7b.js",
+    "main.css": "/Project_Management-App/static/css/main.ecae567d.css",
+    "main.js": "/Project_Management-App/static/js/main.5ee205f9.js",
     "index.html": "/Project_Management-App/index.html",
-    "main.d378a309.css.map": "/Project_Management-App/static/css/main.d378a309.css.map",
-    "main.63af7e7b.js.map": "/Project_Management-App/static/js/main.63af7e7b.js.map"
+    "main.ecae567d.css.map": "/Project_Management-App/static/css/main.ecae567d.css.map",
+    "main.5ee205f9.js.map": "/Project_Management-App/static/js/main.5ee205f9.js.map"
   },
   "entrypoints": [
-    "static/css/main.d378a309.css",
-    "static/js/main.63af7e7b.js"
+    "static/css/main.ecae567d.css",
+    "static/js/main.5ee205f9.js"
   ]
 }
