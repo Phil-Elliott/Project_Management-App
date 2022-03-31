@@ -20,7 +20,7 @@ const ResponsiveHeader = ({
   return (
     <div className="responsive-nav">
       <div className="responsive-header-logo">
-        <h2>SP</h2>
+        <h2>sP</h2>
         <div onClick={changeClass}>
           {navLogo === "ham" ? (
             <FaBars

@@ -105,3 +105,17 @@ function App() {
 }
 
 export default App
+
+/*
+  Need to restructure to have a login page
+
+  put all of the dashboard stuff into one folder 
+  change the name of app to mainUI
+
+  make a page for login 
+
+  have both on app and use a router 
+
+  first you can fix up portfolio and docs to reflect changes 
+
+*/
