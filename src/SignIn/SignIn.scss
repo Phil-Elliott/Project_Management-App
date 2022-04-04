@@ -1,0 +1,162 @@
+.signIn-main-container {
+  background-color: white;
+  height: 100vh;
+  width: 100vw;
+}
+
+.signIn-right-container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  h1 {
+    text-align: right;
+    background: -webkit-linear-gradient(rgb(248, 68, 68), purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+
+    h2 {
+      color: purple;
+      font-size: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    div {
+      padding-bottom: 2rem;
+      width: 100%;
+
+      p {
+        font-weight: 300;
+        padding-bottom: 0.5rem;
+      }
+      input {
+        border: none;
+        border-bottom: 1px solid black;
+        padding: 0.5rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+        width: 100%;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .signIn-button {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+      font-size: 0.8rem;
+      font-weight: 300;
+    }
+    span {
+      color: grey;
+      padding: 0 0.25rem;
+    }
+    .browsers {
+      color: grey;
+      display: flex;
+
+      p {
+        color: black;
+        padding-right: 0.5rem;
+      }
+      .browser-icon {
+        margin: 0 0.5rem;
+      }
+    }
+  }
+}
+
+button {
+  color: white;
+  background-color: rgb(248, 68, 68);
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0.5rem 1.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 1rem;
+  border-color: rgb(248, 68, 68);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .signIn-main-container {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr;
+  }
+  .signIn-left-container {
+    background: url("https://images.unsplash.com/photo-1470790376778-a9fbc86d70e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=704&q=80");
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-position: cover;
+    background-repeat: no-repeat;
+
+    h1 {
+      padding-bottom: 1.25rem;
+    }
+    p {
+      font-weight: 600;
+      padding-bottom: 1.75rem;
+      font-size: 1.25rem;
+    }
+  }
+  .responsive-button {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .signIn-left-container {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .bottom {
+    flex-direction: column;
+    p {
+      padding-bottom: 1rem;
+    }
+  }
+  h1 {
+    text-align: center !important;
+  }
+  button {
+    padding: 0.5rem 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .content {
+    width: 100% !important;
+  }
+}

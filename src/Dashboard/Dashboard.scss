@@ -1,0 +1,19 @@
+@import "./Shared.scss";
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient($secondary, $primary);
+  // border-radius: 50px;
+}
+
+.Dashboard {
+  background-color: $background-color;
+  max-width: 100vw;
+  min-height: 100vh;
+  @extend %flex-between;
+}
