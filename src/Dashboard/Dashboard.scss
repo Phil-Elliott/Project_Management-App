@@ -1,12 +1,4 @@
 @import "./Shared.scss";
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
-
-* {
-  box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
-  margin: 0;
-  padding: 0;
-}
 
 /* width */
 ::-webkit-scrollbar {
@@ -19,7 +11,7 @@
   // border-radius: 50px;
 }
 
-.App {
+.Dashboard {
   background-color: $background-color;
   max-width: 100vw;
   min-height: 100vh;

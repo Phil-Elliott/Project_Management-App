@@ -76,7 +76,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="Dashboard">
       <Router basename="/Project_Management-App">
         <ResponsiveHeader
           changeClass={changeClass}
