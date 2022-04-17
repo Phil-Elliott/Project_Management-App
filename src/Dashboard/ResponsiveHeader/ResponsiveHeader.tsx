@@ -1,6 +1,12 @@
 import React, { useState } from "react"
 import "./ResponsiveHeader.scss"
-import { FaPlus, FaRegCircle, FaBars, FaArrowLeft } from "react-icons/fa"
+import {
+  FaPlus,
+  FaRegCircle,
+  FaBars,
+  FaArrowLeft,
+  FaSignOutAlt,
+} from "react-icons/fa"
 import { NavLink } from "react-router-dom"
 
 const ResponsiveHeader = ({
@@ -37,17 +43,23 @@ const ResponsiveHeader = ({
       </div>
       <div className="responsive-header-links">
         <NavLink
-          to="/"
+          to="/dashboard/"
           style={{ textDecoration: "none", color: "white", width: "100%" }}
           onClick={() => displayProjectModal()}
         >
           <FaPlus />
         </NavLink>
         <NavLink
-          to="/"
+          to="/dashboard/"
           style={{ textDecoration: "none", color: "white", width: "100%" }}
         >
           <FaRegCircle />
+        </NavLink>
+        <NavLink
+          to="/"
+          style={{ textDecoration: "none", color: "white", width: "100%" }}
+        >
+          <FaSignOutAlt />
         </NavLink>
       </div>
     </div>

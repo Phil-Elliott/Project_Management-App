@@ -57,8 +57,15 @@
 
   .signIn-button {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    // align-items: flex-start;
+    // justify-content: space-between;
     width: 100%;
+  }
+
+  .top-buttons {
+    display: flex;
+    justify-content: space-between;
   }
 
   .bottom {
@@ -89,7 +96,7 @@
   }
 }
 
-button {
+.signIn-bttn {
   color: white;
   background-color: rgb(248, 68, 68);
   border-radius: 5px;
@@ -99,6 +106,22 @@ button {
   font-weight: 600;
   font-size: 1rem;
   border-color: rgb(248, 68, 68);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.google-button {
+  background-color: white;
+  border-color: purple;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0.5rem 1.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 1rem;
+  color: purple;
 
   &:hover {
     opacity: 0.8;
@@ -150,7 +173,7 @@ button {
   h1 {
     text-align: center !important;
   }
-  button {
+  .signIn-bttn {
     padding: 0.5rem 0.5rem;
   }
 }

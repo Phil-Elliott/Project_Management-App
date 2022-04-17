@@ -1,6 +1,8 @@
 import React from "react"
-import { FaPlus, FaRegCircle } from "react-icons/fa"
+import { FaPlus, FaRegCircle, FaSignOutAlt } from "react-icons/fa"
 import { NavLink } from "react-router-dom"
+import { signOut } from "firebase/auth"
+import { auth } from "../../../utils/Firebase/Firebase"
 
 const TopHeaderContent = ({
   expandClass,
@@ -17,26 +19,16 @@ const TopHeaderContent = ({
 }) => {
   // Links to the top part of the header
   const iconLinks = [
-    // {
-    //   icon: <FaPlus />,
-    //   name: "New project",
-    //   route: "/new",
-    // },
     {
       icon: <FaRegCircle />,
       name: "Projects hub",
+      route: "/dashboard/",
+    },
+    {
+      icon: <FaSignOutAlt />,
+      name: "Sign out",
       route: "/",
     },
-    // {
-    //   icon: <FaTasks />,
-    //   name: "My tasks",
-    //   route: "/tasks",
-    // },
-    // {
-    //   icon: <FaUser />,
-    //   name: "Account",
-    //   route: "/account",
-    // },
   ]
 
   const addProject = () => {
@@ -49,8 +41,9 @@ const TopHeaderContent = ({
       <div className={expandMain ? "logo expand-container" : "logo"}>
         sP<h2>SimplePlan</h2>
       </div>
+
       <NavLink
-        to="/"
+        to="/dashboard/"
         style={{
           textDecoration: "none",
           color: "white",
@@ -62,22 +55,30 @@ const TopHeaderContent = ({
           <h2>New project</h2>
         </div>
       </NavLink>
-      {iconLinks.map((icon, i) => {
-        return (
-          <NavLink
-            key={icon.name}
-            to={icon.route}
-            style={{ textDecoration: "none", color: "white", width: "100%" }}
-            className={({ isActive }) =>
-              isActive ? `activeTab ${expandClass}` : expandClass
-            }
-            onClick={() => changeActiveTab(icon.name)}
-          >
-            {icon.icon}
-            <h2>{icon.name}</h2>
-          </NavLink>
-        )
-      })}
+
+      <NavLink
+        to="/dashboard/"
+        style={{ textDecoration: "none", color: "white", width: "100%" }}
+        className={({ isActive }) =>
+          isActive ? `activeTab ${expandClass}` : expandClass
+        }
+        onClick={() => changeActiveTab("Projects hub")}
+      >
+        <FaRegCircle />
+        <h2>Projects hub</h2>
+      </NavLink>
+
+      <NavLink
+        to="/"
+        style={{ textDecoration: "none", color: "white", width: "100%" }}
+        className={({ isActive }) =>
+          isActive ? `activeTab ${expandClass}` : expandClass
+        }
+        onClick={() => signOut(auth)}
+      >
+        <FaSignOutAlt />
+        <h2>Sign out</h2>
+      </NavLink>
     </div>
   )
 }

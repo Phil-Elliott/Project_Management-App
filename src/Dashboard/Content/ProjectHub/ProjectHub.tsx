@@ -27,7 +27,7 @@ const ProjectHub = ({
 }) => {
   const [editData, setEditData] = useState<number>(0)
   const projectsData = useSelector(
-    (state: RootState) => state.projectsData.projects
+    (state: RootState) => state.projectsData.projects.projects
   )
 
   let arrayForSort = [...projectsData]

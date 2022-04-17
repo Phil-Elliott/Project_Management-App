@@ -16,12 +16,12 @@ const Nav = () => {
     {
       logo: <FaTh />,
       name: "Board",
-      route: "/project/board",
+      route: "/dashboard/project/board",
     },
     {
       logo: <FaTasks />,
       name: "Tasks",
-      route: "/project/tasks",
+      route: "/dashboard/project/tasks",
     },
   ]
 

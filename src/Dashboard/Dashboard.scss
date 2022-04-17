@@ -3,11 +3,12 @@
 /* width */
 ::-webkit-scrollbar {
   width: 7px;
+  height: 7px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient($secondary, $primary);
+  background: purple;
   // border-radius: 50px;
 }
 

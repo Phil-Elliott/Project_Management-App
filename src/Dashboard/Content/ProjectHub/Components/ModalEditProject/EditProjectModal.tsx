@@ -166,16 +166,16 @@ const ModalAddProject = ({
           >
             Delete
           </button>
-          <div className="modal-buttons-right">
+          <div className="modal-buttons-right ">
             <button
-              className="modal-close-btn"
+              className="modal-close-btn edit-bttn"
               onClick={() => changeDisplayEditProjectModal()}
             >
               Close
             </button>
 
             <button
-              className="modal-create-btn"
+              className="modal-create-btn "
               type="submit"
               onClick={() => addTheProject()}
             >

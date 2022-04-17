@@ -20,7 +20,7 @@ const BottomHeaderContent = ({
   changeActiveTab: any
 }) => {
   const projectsData = useSelector(
-    (state: RootState) => state.projectsData.projects
+    (state: RootState) => state.projectsData.projects.projects
   )
 
   let arrayForSort = [...projectsData]
@@ -53,7 +53,7 @@ const BottomHeaderContent = ({
               return (
                 <Link
                   key={project.name}
-                  to="/project"
+                  to="/dashboard/project"
                   style={{
                     textDecoration: "none",
                     color: "white",
@@ -84,7 +84,7 @@ const BottomHeaderContent = ({
             return (
               <Link
                 key={project.name}
-                to="/project"
+                to="/dashboard/project"
                 style={{
                   textDecoration: "none",
                   color: "white",

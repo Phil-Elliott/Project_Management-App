@@ -10,7 +10,7 @@ import {
   FaFirefox,
 } from "react-icons/fa"
 
-const SignIn = () => {
+const SignIn = ({ setIsAuth }: { setIsAuth: any }) => {
   const [login, setLogin] = useState<boolean>(true)
 
   return (
@@ -18,14 +18,14 @@ const SignIn = () => {
       <div className="signIn-left-container">
         <h1>{login ? "Try It For Free Today!" : "Already Have An Account"}</h1>
         <p>Keep It Simple</p>
-        <button onClick={() => setLogin(!login)}>
+        <button className="signIn-bttn" onClick={() => setLogin(!login)}>
           {login ? "Create Account" : "Sign In"}
         </button>
       </div>
       <div className="signIn-right-container">
         <h1>Simple Plan</h1>
         {login ? (
-          <Login login={login} setLogin={setLogin} />
+          <Login login={login} setLogin={setLogin} setIsAuth={setIsAuth} />
         ) : (
           <SignUp login={login} setLogin={setLogin} />
         )}

@@ -1,3 +1,10 @@
+export interface allData {
+  createdAt: any
+  displayName: string
+  email: string
+  projects: Array<projectData>
+}
+
 export interface projectData {
   name: string
   initials: string

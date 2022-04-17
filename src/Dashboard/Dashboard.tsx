@@ -4,18 +4,20 @@ import ResponsiveHeader from "./ResponsiveHeader/ResponsiveHeader"
 import Header from "./Header/Header"
 import Content from "./Content/Content"
 import { projectData } from "./Interfaces"
-import { BrowserRouter as Router } from "react-router-dom"
 import { RootState } from "./Store"
 import { useSelector, useDispatch } from "react-redux"
 import {
+  addDataOnRender,
   addNewProject,
   editProject,
   deleteProject,
   changeActiveProject,
   updateProjectData,
 } from "./ProjectDataSlice"
+import { doc, getDoc, collection, updateDoc } from "firebase/firestore"
+import { db, auth } from "../utils/Firebase/Firebase"
 
-function App() {
+const Dashboard = () => {
   const [navClass, setNavClass] = useState("header unactive-side-nav")
   const [activeTab, setActiveTab] = useState<string>("")
   const [displayAddProjectModal, setDisplayAddProjectModal] =
@@ -26,7 +28,40 @@ function App() {
   const activeProject = useSelector(
     (state: RootState) => state.projectsData.activeProject
   )
+  const projects = useSelector(
+    (state: RootState) => state.projectsData.projects.projects
+  )
   const dispatch = useDispatch()
+
+  // Firebase
+
+  const currentUser = auth.currentUser
+  let uid = "test"
+  if (currentUser) {
+    uid = currentUser.uid
+  }
+
+  useEffect(() => {
+    const getData = async () => {
+      const docRef = doc(db, "users", uid)
+      const docSnap = await getDoc(docRef)
+      const data = docSnap.data()
+      if (data) {
+        dispatch(addDataOnRender(data.projects))
+      }
+    }
+    getData()
+  }, [])
+
+  useEffect(() => {
+    const updateData = async () => {
+      const userRef = doc(db, "users", uid)
+      await updateDoc(userRef, {
+        projects: projects,
+      })
+    }
+    updateData()
+  }, [projects])
 
   // Adds a project to the projectsData array from addProjectModal
   const addProject = (project: projectData) => {
@@ -77,44 +112,53 @@ function App() {
 
   return (
     <div className="Dashboard">
-      <Router basename="/Project_Management-App">
-        <ResponsiveHeader
-          changeClass={changeClass}
-          displayProjectModal={displayProjectModal}
-        />
-        <Header
-          navClass={navClass}
-          displayProjectModal={displayProjectModal}
-          activeTab={activeTab}
-          changeActiveTab={changeActiveTab}
-        />
-        <Content
-          displayAddProjectModal={displayAddProjectModal}
-          displayProjectModal={displayProjectModal}
-          displayEditProjectModal={displayEditProjectModal}
-          changeDisplayEditProjectModal={changeDisplayEditProjectModal}
-          addProject={addProject}
-          editProject={editTheProject}
-          deleteProject={deleteTheProject}
-          changeActiveTab={changeActiveTab}
-        />
-      </Router>
+      <ResponsiveHeader
+        changeClass={changeClass}
+        displayProjectModal={displayProjectModal}
+      />
+      <Header
+        navClass={navClass}
+        displayProjectModal={displayProjectModal}
+        activeTab={activeTab}
+        changeActiveTab={changeActiveTab}
+      />
+      <Content
+        displayAddProjectModal={displayAddProjectModal}
+        displayProjectModal={displayProjectModal}
+        displayEditProjectModal={displayEditProjectModal}
+        changeDisplayEditProjectModal={changeDisplayEditProjectModal}
+        addProject={addProject}
+        editProject={editTheProject}
+        deleteProject={deleteTheProject}
+        changeActiveTab={changeActiveTab}
+      />
     </div>
   )
 }
 
-export default App
+export default Dashboard
 
 /*
-  Need to restructure to have a login page
+  1) new user logsin and a new data set should be made 
+        - it should see if one already exists
+        - could create when the user is created and add on 
+        - need to display this data on login
+        - need to add to data everytime updated (can have a function for this)
 
-  put all of the dashboard stuff into one folder 
-  change the name of app to mainUI
 
-  make a page for login 
 
-  have both on app and use a router 
 
-  first you can fix up portfolio and docs to reflect changes 
+  1) Need to pull project data from firebase on login
+  2) Need to add project data to firebase when changes are made
+
+
+    
+    - figure out how to grab it
+      - put data into intial state
+
+
+
+    - figure out how to add it 
+  
 
 */

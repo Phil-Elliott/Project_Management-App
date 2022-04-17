@@ -55,7 +55,7 @@ const ProjectCard = ({
       </div>
       <Link
         onClick={() => changeActiveTab(name)}
-        to="/project"
+        to="/dashboard/project"
         style={{
           textDecoration: "none",
           color: "black",
@@ -91,11 +91,3 @@ const ProjectCard = ({
 }
 
 export default ProjectCard
-
-/*
-  Make the elipsis open up the edit modal 
-  use the same modal as before but change a few things 
-  copy the way you did it with tasks 
-
-
-*/
