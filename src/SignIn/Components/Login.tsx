@@ -48,12 +48,13 @@ export const Login = ({
     await createUserDocumentFromAuth(user)
     console.log(user)
     setIsAuth(true)
-    navigate("/dashboard")
     resetloginData()
+    navigate("/dashboard")
   }
 
   const handleSubmit = async (event: any) => {
     event.preventDefault()
+    console.log("it ran")
 
     try {
       const response = await signInAuthUserWithEmailAndPassword(email, password)
@@ -101,17 +102,10 @@ export const Login = ({
         </div>
         <div className="signIn-button">
           <div className="top-buttons">
-            {/* <Link
-              to="/dashboard"
-              style={{
-                textDecoration: "none",
-                color: "black",
-              }}
-            > */}
             <button type="submit" className="signIn-bttn">
               Sign In
             </button>
-            {/* </Link> */}
+
             <button
               style={{
                 marginLeft: "1rem",
@@ -124,7 +118,11 @@ export const Login = ({
               Create Account
             </button>
           </div>
-          <button className="google-button" onClick={logGoogleUser}>
+          <button
+            type="button"
+            className="google-button"
+            onClick={logGoogleUser}
+          >
             Sign In with Google
           </button>
         </div>

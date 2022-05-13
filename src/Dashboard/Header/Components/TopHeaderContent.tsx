@@ -17,20 +17,6 @@ const TopHeaderContent = ({
   changeActiveTab: any
   displayProjectModal: any
 }) => {
-  // Links to the top part of the header
-  const iconLinks = [
-    {
-      icon: <FaRegCircle />,
-      name: "Projects hub",
-      route: "/dashboard/",
-    },
-    {
-      icon: <FaSignOutAlt />,
-      name: "Sign out",
-      route: "/",
-    },
-  ]
-
   const addProject = () => {
     displayProjectModal()
     changeActiveTab("Projects hub")

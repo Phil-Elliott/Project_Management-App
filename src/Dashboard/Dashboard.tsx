@@ -60,7 +60,9 @@ const Dashboard = () => {
         projects: projects,
       })
     }
-    updateData()
+    if (projects.length) {
+      updateData()
+    }
   }, [projects])
 
   // Adds a project to the projectsData array from addProjectModal
@@ -139,26 +141,8 @@ const Dashboard = () => {
 export default Dashboard
 
 /*
-  1) new user logsin and a new data set should be made 
-        - it should see if one already exists
-        - could create when the user is created and add on 
-        - need to display this data on login
-        - need to add to data everytime updated (can have a function for this)
-
-
-
-
-  1) Need to pull project data from firebase on login
-  2) Need to add project data to firebase when changes are made
-
-
-    
-    - figure out how to grab it
-      - put data into intial state
-
-
-
-    - figure out how to add it 
+  1) Could probably use local storage to help with refreshing the page
+  2) Maybe you need to get rid of data on signout 
   
 
 */

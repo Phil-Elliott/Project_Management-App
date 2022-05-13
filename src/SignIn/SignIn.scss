@@ -36,9 +36,8 @@
       padding-bottom: 2rem;
       width: 100%;
 
-      p {
+      label {
         font-weight: 300;
-        padding-bottom: 0.5rem;
       }
       input {
         border: none;
@@ -47,6 +46,7 @@
         font-size: 1.1rem;
         font-weight: 500;
         width: 100%;
+        margin-top: 0.5rem;
 
         &:focus {
           outline: none;
