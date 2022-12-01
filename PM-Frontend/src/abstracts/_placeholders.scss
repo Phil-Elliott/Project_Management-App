@@ -1,0 +1,31 @@
+@use "variables.scss" as *;
+
+%flex-align {
+  display: flex;
+  align-items: center;
+}
+
+%flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+%flex-between-column {
+  @extend %flex-between;
+  flex-direction: column;
+}
+
+%flex-center {
+  @extend %flex-between;
+  justify-content: center;
+}
+
+%center {
+  @extend %flex-align;
+  justify-content: center;
+}
+
+%flex-column {
+  @extend %flex-align;
+  flex-direction: column;
+}

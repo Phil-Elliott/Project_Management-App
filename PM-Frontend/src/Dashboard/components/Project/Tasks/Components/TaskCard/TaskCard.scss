@@ -1,0 +1,97 @@
+@use "../../../../../../abstracts" as *;
+
+.task-card {
+  position: relative;
+  background-color: white;
+  box-shadow: $box-shadow;
+  border-radius: 3px;
+  margin-block: 1rem;
+}
+
+.task-card-top,
+.task-card-bottom {
+  @extend %flex-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid $border-color;
+
+  .task-icon {
+    cursor: pointer;
+
+    &:hover {
+      color: $secondary;
+    }
+  }
+}
+
+.task-card-top {
+  font-weight: 600;
+
+  .task-card-top-icon-left,
+  .task-card-top-icon-right {
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .task-card-top-icon-left {
+    &:hover {
+      color: $secondary;
+    }
+  }
+
+  .task-card-top-icon-right {
+    margin-left: 1rem;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}
+
+.task-card-department {
+  padding: 0.75rem 0.75rem 0;
+  font-size: 0.9rem;
+}
+
+.task-card-bottom-date {
+  @extend %flex-align;
+  font-size: 0.9rem;
+
+  p {
+    padding-left: 0.5rem;
+  }
+}
+
+.asignedTo-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+
+  .check-icon {
+    cursor: pointer;
+    color: blue;
+
+    &:hover {
+      color: green;
+    }
+  }
+  .active-check-icon {
+    cursor: pointer;
+    color: green;
+
+    &:hover {
+      color: blue;
+    }
+  }
+}
+
+.task-card-assignedTo {
+  @extend %flex-align;
+
+  p {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding-left: 1rem;
+  }
+}
