@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
-import Project from "./components/Project/Project";
-import ProjectHub from "./components/ProjectHub/ProjectHub";
+import { Layout, ProjectHub, Project } from "./components";
+import Board from "./components/Project/Board";
+import { ProjectLayout } from "./components/Project/ProjectLayout";
+import Tasks from "./components/Project/Tasks";
 import "./Dashboard.scss";
 import { projectData } from "./Interfaces";
 import {
@@ -25,6 +26,10 @@ const Dashboard = () => {
 
   const activeProject = useSelector(
     (state: RootState) => state.projectsData.activeProject
+  );
+
+  const projectsData = useSelector(
+    (state: RootState) => state.projectsData.projects
   );
   const dispatch = useDispatch();
 
@@ -101,7 +106,13 @@ const Dashboard = () => {
                 />
               }
             />
-            <Route path="/project/*" element={<Project />} />
+            <Route
+              path="/:id"
+              element={<ProjectLayout projectsData={projectsData} />}
+            >
+              <Route index element={<Board />} />
+              <Route path="tasks" element={<Tasks />} />
+            </Route>
           </Routes>
         </div>
       </Layout>
@@ -111,6 +122,22 @@ const Dashboard = () => {
 
 export default Dashboard;
 
+{
+  /* <Route path="/:id" element={<NoteLayout notes={notesWithTags} />}>
+          <Route index element={<Note onDelete={onDeleteNote} />} />
+          <Route
+            path="edit"
+            element={
+              <EditNote
+                onSubmit={onUpdateNote}
+                onAddTag={addTag}
+                availableTags={tags}
+              />
+            }
+          />
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} /> */
+}
 /*
 
      1) Create a new repo 
