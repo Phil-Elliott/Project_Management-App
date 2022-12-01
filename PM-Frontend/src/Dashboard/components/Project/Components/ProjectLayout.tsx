@@ -4,7 +4,7 @@ import {
   useOutletContext,
   useParams,
 } from "react-router-dom";
-import { projectData } from "../../Interfaces";
+import { projectData } from "../../../Interfaces";
 
 type ProjectLayoutProps = {
   projectsData: projectData[];
@@ -19,6 +19,6 @@ export function ProjectLayout({ projectsData }: ProjectLayoutProps) {
   return <Outlet context={project} />;
 }
 
-export function useNote() {
+export function useProject() {
   return useOutletContext<projectData>();
 }
