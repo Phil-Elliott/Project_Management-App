@@ -56,7 +56,7 @@ const ProjectCard = ({
       </div>
       <Link
         onClick={() => changeActiveTab(name)}
-        to="/dashboard/project"
+        to={`/dashboard/${id}`}
         style={{
           textDecoration: "none",
           color: "black",

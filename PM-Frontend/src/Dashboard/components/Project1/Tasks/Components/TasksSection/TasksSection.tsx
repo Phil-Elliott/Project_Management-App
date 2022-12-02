@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
-import TaskCard from "../TaskCard/TaskCard"
-import { tasksData } from "../../../../../Interfaces"
-import { FaPlus, FaAngleDown } from "react-icons/fa"
-import moment from "moment"
+import React, { useState, useEffect } from "react";
+import TaskCard from "../TaskCard/TaskCard";
+import { tasksData } from "../../../../../Interfaces";
+import { FaPlus, FaAngleDown } from "react-icons/fa";
+import moment from "moment";
 
 const TasksSection = ({
   due,
@@ -10,101 +10,104 @@ const TasksSection = ({
   changeDisplay,
   completedTasksData,
 }: {
-  due: string
-  tasksData: Array<tasksData>
-  changeDisplay: any
-  completedTasksData: Array<tasksData>
+  due: string;
+  tasksData: Array<tasksData>;
+  changeDisplay: any;
+  completedTasksData: Array<tasksData>;
 }) => {
-  const [showAll, setShowAll] = useState<boolean>(false)
-  const [showCompleted, setShowCompleted] = useState<boolean>(false)
-  const [taskArrByDate, setTaskArrByDate] = useState<Array<tasksData>>([])
+  const [showAll, setShowAll] = useState<boolean>(false);
+  const [showCompleted, setShowCompleted] = useState<boolean>(false);
+  const [taskArrByDate, setTaskArrByDate] = useState<Array<tasksData>>([]);
   const [completedTaskArrByDate, setCompletedTaskArrByDate] = useState<
     Array<tasksData>
-  >([])
+  >([]);
 
-  let arrayForSort = [...tasksData]
+  let arrayForSort = [...tasksData];
 
   let newTasksData = arrayForSort.sort((a, b) => {
-    var dateA: any = new Date(a.date)
-    var dateB: any = new Date(b.date)
-    return dateA - dateB
-  })
+    var dateA: any = new Date(a.date);
+    var dateB: any = new Date(b.date);
+    return dateA - dateB;
+  });
 
-  let completedArrayForSort = [...completedTasksData]
+  let completedArrayForSort = [...completedTasksData];
 
   let newCompletedTasksData = completedArrayForSort.sort((a, b) => {
-    var dateA: any = new Date(a.date)
-    var dateB: any = new Date(b.date)
-    return dateA - dateB
-  })
+    var dateA: any = new Date(a.date);
+    var dateB: any = new Date(b.date);
+    return dateA - dateB;
+  });
 
   // Finds the difference between due date and current date in days
   const getTimeDiff = (date: string) => {
-    let dueDate = moment(date).format("L")
-    let days = moment(dueDate, "MM/DD/YYYY").diff(moment().endOf("day"), "days")
-    return days
-  }
+    let dueDate = moment(date).format("L");
+    let days = moment(dueDate, "MM/DD/YYYY").diff(
+      moment().endOf("day"),
+      "days"
+    );
+    return days;
+  };
 
-  let nextMon = moment().startOf("isoWeek").add(1, "week").format("L")
+  let nextMon = moment().startOf("isoWeek").add(1, "week").format("L");
   let nextMonDiff = moment(nextMon, "MM/DD/YYYY").diff(
     moment().endOf("day"),
     "days"
-  )
+  );
 
   // used to set the taskArrByDate with the correct tasks for the section
   useEffect(() => {
-    let newArr: Array<tasksData> = []
+    let newArr: Array<tasksData> = [];
     newTasksData.map((task, i) => {
-      let timeDiff = getTimeDiff(task.date)
+      let timeDiff = getTimeDiff(task.date);
       if (timeDiff < 0) {
         if (due === "Late") {
-          return newArr.push(task)
+          return newArr.push(task);
         }
       } else if (timeDiff <= nextMonDiff) {
         if (due === "This Week") {
-          return newArr.push(task)
+          return newArr.push(task);
         }
       } else if (timeDiff <= nextMonDiff + 6) {
         if (due === "Next Week") {
-          return newArr.push(task)
+          return newArr.push(task);
         }
       } else if (timeDiff > nextMonDiff + 6 && due === "Future") {
-        return newArr.push(task)
+        return newArr.push(task);
       }
-    })
+    });
 
-    setTaskArrByDate(newArr)
-  }, [tasksData.length, tasksData])
+    setTaskArrByDate(newArr);
+  }, [tasksData.length, tasksData]);
 
   // used to set the taskArrByDate with the correct tasks for the section
   useEffect(() => {
-    let newArr: Array<tasksData> = []
+    let newArr: Array<tasksData> = [];
     newCompletedTasksData.map((task, i) => {
-      let timeDiff = getTimeDiff(task.date)
+      let timeDiff = getTimeDiff(task.date);
       if (timeDiff < 0) {
         if (due === "Late") {
-          return newArr.push(task)
+          return newArr.push(task);
         }
       } else if (timeDiff <= nextMonDiff) {
         if (due === "This Week") {
-          return newArr.push(task)
+          return newArr.push(task);
         }
       } else if (timeDiff <= nextMonDiff + 6) {
         if (due === "Next Week") {
-          return newArr.push(task)
+          return newArr.push(task);
         }
       } else if (timeDiff > nextMonDiff + 6 && due === "Future") {
-        return newArr.push(task)
+        return newArr.push(task);
       }
-    })
+    });
 
-    setCompletedTaskArrByDate(newArr)
-  }, [completedTasksData.length, tasksData])
+    setCompletedTaskArrByDate(newArr);
+  }, [completedTasksData.length, tasksData]);
 
   // Changes the view from three cards to all cards and back to three cards
   const showAllCards = () => {
-    setShowAll(!showAll)
-  }
+    setShowAll(!showAll);
+  };
 
   return (
     <div className="tasks-section">
@@ -117,11 +120,11 @@ const TasksSection = ({
         {!showAll
           ? taskArrByDate.map((task, i) => {
               if (i < 3) {
-                return <TaskCard key={i} task={task} />
+                return <TaskCard key={i} task={task} />;
               }
             })
           : taskArrByDate.map((task, i) => {
-              return <TaskCard key={i} task={task} />
+              return <TaskCard key={i} task={task} />;
             })}
       </div>
       <div className="cards-showAll" onClick={showAllCards}>
@@ -155,13 +158,13 @@ const TasksSection = ({
       </div>
       {showCompleted &&
         completedTaskArrByDate.map((task, i) => {
-          return <TaskCard key={i} task={task} complete={true} />
+          return <TaskCard key={i} task={task} complete={true} />;
         })}
     </div>
-  )
-}
+  );
+};
 
-export default TasksSection
+export default TasksSection;
 
 /*
 

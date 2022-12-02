@@ -1,0 +1,16 @@
+.invite-container {
+  margin-right: 1rem;
+
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.15rem;
+    padding: 0.25rem 1rem;
+    border-radius: 3px;
+
+    &:hover {
+      background-color: white;
+    }
+  }
+}

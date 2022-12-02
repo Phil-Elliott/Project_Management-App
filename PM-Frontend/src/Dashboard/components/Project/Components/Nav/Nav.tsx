@@ -18,13 +18,13 @@ const Nav = () => {
   const navLinksArr = [
     {
       logo: <FaTh />,
-      name: "Board",
+      name: "Display",
       route: `/dashboard/${project.id}`,
     },
     {
       logo: <FaTasks />,
-      name: "Tasks",
-      route: `/dashboard/${project.id}/tasks`,
+      name: "Board",
+      route: `/dashboard/${project.id}/board`,
     },
   ];
 

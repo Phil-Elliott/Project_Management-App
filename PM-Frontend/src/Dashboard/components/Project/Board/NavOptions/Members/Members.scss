@@ -1,0 +1,19 @@
+.members-container {
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
+
+  .member {
+    background-color: blue;
+    border-radius: 100%;
+    color: white;
+    font-size: 1rem;
+    height: 2rem;
+    width: 2rem;
+    margin-right: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+}

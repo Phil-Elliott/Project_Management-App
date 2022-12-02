@@ -53,7 +53,7 @@ const BottomHeaderContent = ({
               return (
                 <Link
                   key={project.name}
-                  to="/dashboard/project"
+                  to={`/dashboard/${project.id}`}
                   style={{
                     textDecoration: "none",
                     color: "white",
@@ -84,7 +84,7 @@ const BottomHeaderContent = ({
             return (
               <Link
                 key={project.name}
-                to="/project"
+                to={`/dashboard/${project.id}`}
                 style={{
                   textDecoration: "none",
                   color: "white",

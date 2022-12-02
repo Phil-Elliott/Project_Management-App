@@ -1,10 +1,10 @@
-import React, { useState } from "react"
-import "./ProjectHub.scss"
-import ProjectCard from "./Components/ProjectCard"
-import ModalAddProject from "./Components/ModalAddProject/ModalAddProject"
-import EditProjectModal from "./Components/ModalEditProject/EditProjectModal"
-import { RootState } from "../../Store"
-import { useSelector } from "react-redux"
+import React, { useState } from "react";
+import "./ProjectHub.scss";
+import ProjectCard from "./Components/ProjectCard";
+import ModalAddProject from "./Components/ModalAddProject/ModalAddProject";
+import EditProjectModal from "./Components/ModalEditProject/EditProjectModal";
+import { RootState } from "../../Store";
+import { useSelector } from "react-redux";
 
 const ProjectHub = ({
   displayAddProjectModal,
@@ -16,32 +16,32 @@ const ProjectHub = ({
   changeDisplayEditProjectModal,
   deleteProject,
 }: {
-  displayAddProjectModal: boolean
-  displayProjectModal: any
-  addProject: any
-  editProject: any
-  changeActiveTab: any
-  displayEditProjectModal: boolean
-  changeDisplayEditProjectModal: any
-  deleteProject: any
+  displayAddProjectModal: boolean;
+  displayProjectModal: any;
+  addProject: any;
+  editProject: any;
+  changeActiveTab: any;
+  displayEditProjectModal: boolean;
+  changeDisplayEditProjectModal: any;
+  deleteProject: any;
 }) => {
-  const [editData, setEditData] = useState<number>(0)
+  const [editData, setEditData] = useState<number>(0);
   const projectsData = useSelector(
     (state: RootState) => state.projectsData.projects
-  )
+  );
 
-  let arrayForSort = [...projectsData]
+  let arrayForSort = [...projectsData];
 
   let newProjectsData = arrayForSort.sort((a, b) => {
-    var dateA: any = new Date(a.launch)
-    var dateB: any = new Date(b.launch)
-    return dateA - dateB
-  })
+    var dateA: any = new Date(a.launch);
+    var dateB: any = new Date(b.launch);
+    return dateA - dateB;
+  });
 
   const openEditModal = (i: number) => {
-    setEditData(i)
-    changeDisplayEditProjectModal()
-  }
+    setEditData(i);
+    changeDisplayEditProjectModal();
+  };
 
   return (
     <div className="project-hub-main-container">
@@ -63,6 +63,7 @@ const ProjectHub = ({
         return (
           <ProjectCard
             key={i}
+            id={project.id}
             name={project.name}
             initials={project.initials}
             color={project.color}
@@ -74,13 +75,13 @@ const ProjectHub = ({
             openEditModal={openEditModal}
             i={i}
           />
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
-export default ProjectHub
+export default ProjectHub;
 
 /*
 
