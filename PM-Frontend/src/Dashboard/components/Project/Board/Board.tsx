@@ -1,67 +1,9 @@
 import React from "react";
 import Nav from "../Components/Nav/Nav";
 import NavOptions from "./NavOptions/NavOptions";
+import Tasks from "./Tasks/Tasks";
 
-const fakeData = {
-  name: "Transfer Files",
-  id: "1",
-  background: "can be a color or an image(options for images)",
-  members: ["John Doe", "Jane Doe", "Bob Tyler"],
-  notes: [
-    {
-      id: "1",
-      title: "Transfer Files",
-      member: "John Doe",
-      description: "Transfer files from old computer to new computer",
-      urgency: "high",
-      comments: [
-        {
-          id: "1",
-          member: "John Doe",
-          comment: "This is a comment",
-        },
-      ],
-    },
-  ],
-  tasksSections: [
-    {
-      id: "1",
-      name: "Marketing",
-    },
-    {
-      id: "2",
-      name: "Design",
-    },
-    {
-      id: "3",
-      name: "Production",
-    },
-    {
-      id: "4",
-      name: "Done",
-    },
-  ],
-  tasks: [
-    {
-      id: "1",
-      name: "Decide on what to transfer",
-      assignedTo: ["John Doe", "Jane Doe"],
-      description: "Decide on what to transfer",
-      due: "2021-01-01",
-      taskSection: "Done",
-      comments: [
-        {
-          id: "1",
-          member: "John Doe",
-          date: "March 18, 2022 12:54 PM",
-          comment: "This is a comment",
-        },
-      ],
-    },
-  ],
-};
-
-export type fakeData = {
+export type fakeDataProps = {
   name: string;
   id: string;
   background: string;
@@ -99,11 +41,70 @@ export type fakeData = {
 };
 
 const Board = () => {
+  const [fakeData, setFakeData] = React.useState<fakeDataProps>({
+    name: "Transfer Files",
+    id: "1",
+    background: "can be a color or an image(options for images)",
+    members: ["John Doe", "Jane Doe", "Bob Tyler"],
+    notes: [
+      {
+        id: "1",
+        title: "Transfer Files",
+        member: "John Doe",
+        description: "Transfer files from old computer to new computer",
+        urgency: "high",
+        comments: [
+          {
+            id: "1",
+            member: "John Doe",
+            comment: "This is a comment",
+          },
+        ],
+      },
+    ],
+    tasksSections: [
+      {
+        id: "1",
+        name: "Marketing",
+      },
+      {
+        id: "2",
+        name: "Design",
+      },
+      {
+        id: "3",
+        name: "Production",
+      },
+      {
+        id: "4",
+        name: "Done",
+      },
+    ],
+    tasks: [
+      {
+        id: "1",
+        name: "Decide on what to transfer",
+        assignedTo: ["John Doe", "Jane Doe"],
+        description: "Decide on what to transfer",
+        due: "2021-01-01",
+        taskSection: "Done",
+        comments: [
+          {
+            id: "1",
+            member: "John Doe",
+            date: "March 18, 2022 12:54 PM",
+            comment: "This is a comment",
+          },
+        ],
+      },
+    ],
+  });
+
   return (
     <div>
       <Nav />
       <NavOptions members={fakeData.members} />
-      <h1>Board</h1>
+      <Tasks fakeData={fakeData} />
     </div>
   );
 };
@@ -152,6 +153,63 @@ export default Board;
   Add functionality and plug into to the start of the app
 
 
-
+let fakeData = {
+  //   name: "Transfer Files",
+  //   id: "1",
+  //   background: "can be a color or an image(options for images)",
+  //   members: ["John Doe", "Jane Doe", "Bob Tyler"],
+  //   notes: [
+  //     {
+  //       id: "1",
+  //       title: "Transfer Files",
+  //       member: "John Doe",
+  //       description: "Transfer files from old computer to new computer",
+  //       urgency: "high",
+  //       comments: [
+  //         {
+  //           id: "1",
+  //           member: "John Doe",
+  //           comment: "This is a comment",
+  //         },
+  //       ],
+  //     },
+  //   ],
+  //   tasksSections: [
+  //     {
+  //       id: "1",
+  //       name: "Marketing",
+  //     },
+  //     {
+  //       id: "2",
+  //       name: "Design",
+  //     },
+  //     {
+  //       id: "3",
+  //       name: "Production",
+  //     },
+  //     {
+  //       id: "4",
+  //       name: "Done",
+  //     },
+  //   ],
+  //   tasks: [
+  //     {
+  //       id: "1",
+  //       name: "Decide on what to transfer",
+  //       assignedTo: ["John Doe", "Jane Doe"],
+  //       description: "Decide on what to transfer",
+  //       due: "2021-01-01",
+  //       taskSection: "Done",
+  //       comments: [
+  //         {
+  //           id: "1",
+  //           member: "John Doe",
+  //           date: "March 18, 2022 12:54 PM",
+  //           comment: "This is a comment",
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // };
 
 */
