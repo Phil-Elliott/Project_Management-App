@@ -21,6 +21,12 @@ const Tasks = ({ fakeData }: TasksProps) => {
 export default Tasks;
 
 /*
+
+  fix up the styling for the tasks section
+  fix up the add button at the end 
+  make sure you can scroll left
+
+
     Map through sections and create a taskSection component for each one
     Need an AddTaskSectionComponent at end
         Could be a button 

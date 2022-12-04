@@ -2,41 +2,48 @@ import React from "react";
 import Nav from "../Components/Nav/Nav";
 import NavOptions from "./NavOptions/NavOptions";
 import Tasks from "./Tasks/Tasks";
+import "./Board.scss";
 
 export type fakeDataProps = {
   name: string;
   id: string;
   background: string;
   members: string[];
-  notes: {
+  notes: Note[];
+  tasksSections: TasksSections[];
+  tasks: TaskProps[];
+};
+
+export type Note = {
+  id: string;
+  title: string;
+  member: string;
+  description: string;
+  urgency: string;
+  comments: {
     id: string;
-    title: string;
     member: string;
-    description: string;
-    urgency: string;
-    comments: {
-      id: string;
-      member: string;
-      comment: string;
-    }[];
-  }[];
-  tasksSections: {
+    comment: string;
+  };
+};
+
+export type TasksSections = {
+  id: string;
+  name: string;
+};
+
+export type TaskProps = {
+  id: string;
+  name: string;
+  assignedTo: string[];
+  description: string;
+  due: string;
+  taskSection: string;
+  comments: {
     id: string;
-    name: string;
-  }[];
-  tasks: {
-    id: string;
-    name: string;
-    assignedTo: string[];
-    description: string;
-    due: string;
-    taskSection: string;
-    comments: {
-      id: string;
-      member: string;
-      date: string;
-      comment: string;
-    }[];
+    member: string;
+    date: string;
+    comment: string;
   }[];
 };
 
@@ -79,6 +86,10 @@ const Board = () => {
         id: "4",
         name: "Done",
       },
+      {
+        id: "5",
+        name: "Testing",
+      },
     ],
     tasks: [
       {
@@ -101,7 +112,7 @@ const Board = () => {
   });
 
   return (
-    <div>
+    <div className="board-content-container">
       <Nav />
       <NavOptions members={fakeData.members} />
       <Tasks fakeData={fakeData} />

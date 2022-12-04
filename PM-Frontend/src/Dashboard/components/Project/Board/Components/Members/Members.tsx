@@ -1,5 +1,5 @@
 import React from "react";
-import { NavOptionsProps } from "../NavOptions";
+import { NavOptionsProps } from "../../NavOptions/NavOptions";
 import "./Members.scss";
 
 const Members = ({ members }: NavOptionsProps) => {
