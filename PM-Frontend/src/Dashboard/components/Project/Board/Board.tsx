@@ -124,6 +124,11 @@ export default Board;
 
 /*
 
+  1) Figure out member component
+        - need to have the size be adjustable
+        - could even change the component into maybe a sass mixin
+
+
   map through task sections and create a task section component for each one
           (need to make sure that you can keep moving to the right)
           (Find a way to scroll by clicking and holding the mouse button)
@@ -131,30 +136,6 @@ export default Board;
   find a way to drag the tasks to another section
           (need to change the taskSection property in the task object)
   create a modal for the task and make it functional
-
-  structure
-    - Board
-      - Nav (from left)
-        - search
-           - test that it returns correct results
-        - filter (ame as trello)
-           - modal
-        - members
-           - test that it returns all of the members invited to project 
-        - invite bttn
-           - modal (invite by email like trello)
-           - test that it sends invite to member 
-
-      - Modal
-        - test that it opens on click 
-        - test that it populates the correct data
-
-      - TaskSection
-        - settings modal (like trello)
-        - Task
-        - AddCard display
-      
-
 
 
 
