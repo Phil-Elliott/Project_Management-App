@@ -1,6 +1,7 @@
 import React from "react";
 import { TaskProps } from "../../../Board";
 import { Members } from "../../../NavOptions";
+import { FaComment, FaEye } from "react-icons/fa";
 import "./Task.scss";
 
 type TaskComponentProps = {
@@ -13,14 +14,11 @@ const Task = ({ taskData }: TaskComponentProps) => {
       <p>{taskData.name}</p>
       <div className="task-bottom-container">
         <div className="task-bottom-left">
-          <p>p</p>
-          <p>t</p>
-          <p>f</p>
+          <FaEye className="task-icon" />
+          <FaComment className="task-icon" />
         </div>
         <div className="task-bottom-right">
-          {taskData.assignedTo.map((member) => {
-            return <Members members={[member]} />;
-          })}
+          <Members size={"med"} members={taskData.assignedTo} />
         </div>
       </div>
     </div>

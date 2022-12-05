@@ -1,21 +1,31 @@
+@use "../../../../../../../abstracts" as *;
+
 .taskSection-task {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   background-color: white;
   border-radius: 3px;
   padding: 1rem;
+  box-shadow: $box-shadow-light;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
 }
 
 .task-bottom-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 
   .task-bottom-left {
     display: flex;
 
-    p {
-      margin-right: 1rem;
+    .task-icon {
+      margin-right: 0.5rem;
+      cursor: pointer;
     }
   }
 

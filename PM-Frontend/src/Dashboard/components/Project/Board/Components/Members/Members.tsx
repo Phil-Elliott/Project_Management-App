@@ -1,15 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
 import { NavOptionsProps } from "../../NavOptions/NavOptions";
 import "./Members.scss";
 
-const Members = ({ members }: NavOptionsProps) => {
-  // const [hoverRef, isHovered] = useHover<HTMLDivElement>();
+type MembersProps = {
+  members: NavOptionsProps["members"];
+  size?: string;
+};
+
+const Members = ({ members, size }: MembersProps) => {
+  const mystyle = {
+    fontSize: size === "med" ? ".8rem" : "1rem",
+    width: size === "med" ? "1.5rem" : "2rem",
+    height: size === "med" ? "1.5rem" : "2rem",
+  };
 
   return (
     <div className="members-container">
       {members.map((member, i) => {
         return (
-          <div key={i} className="member" style={{ zIndex: -i + 5 }}>
+          <div
+            key={i}
+            className="member"
+            style={{ ...mystyle, zIndex: -i + 5 }}
+          >
             <p>{member[0]}</p>
           </div>
         );
@@ -19,33 +31,6 @@ const Members = ({ members }: NavOptionsProps) => {
 };
 
 export default Members;
-
-// function useHover<T>(): [MutableRefObject<T>, boolean] {
-//   const [value, setValue] = useState<boolean>(false);
-
-//   const ref: any = useRef<T | null>(null);
-
-//   const handleMouseOver = (): void => setValue(true);
-//   const handleMouseOut = (): void => setValue(false);
-
-//   useEffect(
-//     () => {
-//       const node: any = ref.current;
-//       if (node) {
-//         node.addEventListener("mouseover", handleMouseOver);
-//         node.addEventListener("mouseout", handleMouseOut);
-
-//         return () => {
-//           node.removeEventListener("mouseover", handleMouseOver);
-//           node.removeEventListener("mouseout", handleMouseOut);
-//         };
-//       }
-//     },
-//     [ref.current] // Recall only if ref changes
-//   );
-
-//   return [ref, value];
-// }
 
 /*
   Start by passing in the members data as a prop
