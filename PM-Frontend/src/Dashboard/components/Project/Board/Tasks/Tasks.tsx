@@ -1,6 +1,7 @@
 import React from "react";
 import TasksSection from "./TaskSection/TaskSection";
 import { fakeDataProps } from "../Board";
+import ScrollContainer from "react-indiana-drag-scroll";
 import "./Tasks.scss";
 
 type TasksProps = {
@@ -9,12 +10,14 @@ type TasksProps = {
 
 const Tasks = ({ fakeData }: TasksProps) => {
   return (
-    <div className="tasks-container">
-      {fakeData.tasksSections.map((section) => {
-        return <TasksSection section={section} fakeData={fakeData} />;
-      })}
-      <button>Add another list</button>
-    </div>
+    <ScrollContainer className="scroll-container">
+      <div className="tasks-container">
+        {fakeData.tasksSections.map((section) => {
+          return <TasksSection section={section} fakeData={fakeData} />;
+        })}
+        <button>Add another list</button>
+      </div>
+    </ScrollContainer>
   );
 };
 
