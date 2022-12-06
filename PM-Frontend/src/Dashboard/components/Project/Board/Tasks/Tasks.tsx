@@ -3,6 +3,7 @@ import TasksSection from "./TaskSection/TaskSection";
 import { fakeDataProps } from "../Board";
 import ScrollContainer from "react-indiana-drag-scroll";
 import "./Tasks.scss";
+import AddList from "./AddListBttn/AddList";
 
 type TasksProps = {
   fakeData: fakeDataProps;
@@ -15,7 +16,7 @@ const Tasks = ({ fakeData }: TasksProps) => {
         {fakeData.tasksSections.map((section) => {
           return <TasksSection section={section} fakeData={fakeData} />;
         })}
-        <button>Add another list</button>
+        <AddList />
       </div>
     </ScrollContainer>
   );
@@ -24,6 +25,22 @@ const Tasks = ({ fakeData }: TasksProps) => {
 export default Tasks;
 
 /*
+  <div className="add-task-btn-container">
+          <div className="taskSection-header"></div>
+          <button className="add-task-btn">
+            <FaPlus className="plus-button" />
+            <p>Add another list</p>
+          </button>
+        </div>
+        <div className="taskSection-container">
+          <div className="taskSection-header"></div>
+          <button>
+            <FaPlus className="plus-button" />
+            <p>Add another list</p>
+          </button>
+        </div>
+
+
 
   fix up the styling for the tasks section
   fix up the add button at the end 

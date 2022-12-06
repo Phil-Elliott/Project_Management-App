@@ -1,9 +1,8 @@
 @use "../../../../../../abstracts" as *;
 
-.taskSection-container {
+.add-task-btn-container {
   background-color: #f4f5f7;
   border-radius: 3px;
-  padding: 1rem 0.5rem;
   margin-right: 2rem;
   height: 100%;
   box-shadow: $box-shadow-light;
@@ -17,8 +16,8 @@
     align-items: center;
     width: 100%;
     padding: 0.5rem 0.75rem;
-    margin-top: 1rem;
     cursor: pointer;
+
     .plus-button {
       margin-right: 1rem;
     }
@@ -34,14 +33,6 @@
   }
 }
 
-.taskSection-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0rem;
+.add-task-btn {
   width: 20rem;
-
-  .ellipsis {
-    cursor: pointer;
-  }
 }

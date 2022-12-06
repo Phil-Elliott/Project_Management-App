@@ -90,6 +90,10 @@ const Board = () => {
         id: "5",
         name: "Testing",
       },
+      {
+        id: "6",
+        name: "Other",
+      },
     ],
     tasks: [
       {
