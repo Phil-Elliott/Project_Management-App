@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "../Components/Nav/Nav";
 import NavOptions from "./NavOptions/NavOptions";
 import Tasks from "./Tasks/Tasks";
+import uuid from "react-uuid";
 import "./Board.scss";
 
 export type fakeDataProps = {
@@ -24,11 +25,12 @@ export type Note = {
     id: string;
     member: string;
     comment: string;
-  };
+  }[];
 };
 
 export type TasksSections = {
   id: string;
+  order: number;
   name: string;
 };
 
@@ -66,32 +68,43 @@ const Board = () => {
             member: "John Doe",
             comment: "This is a comment",
           },
+          {
+            id: "1",
+            member: "John Doe",
+            comment: "This is a comment",
+          },
         ],
       },
     ],
     tasksSections: [
       {
         id: "1",
+        order: 5,
         name: "Marketing",
       },
       {
         id: "2",
+        order: 2,
         name: "Design",
       },
       {
         id: "3",
+        order: 3,
         name: "Production",
       },
       {
         id: "4",
+        order: 4,
         name: "Done",
       },
       {
         id: "5",
+        order: 1,
         name: "Testing",
       },
       {
         id: "6",
+        order: 6,
         name: "Other",
       },
     ],
@@ -115,11 +128,26 @@ const Board = () => {
     ],
   });
 
+  // adds a new section to the data - triggered by addList btn
+  const addNewSection = (name: string) => {
+    const newSection = {
+      id: uuid(),
+      order: fakeData.tasksSections.length + 1,
+      name,
+    };
+    setFakeData((prevFakeData) => {
+      return {
+        ...prevFakeData,
+        tasksSections: [...prevFakeData.tasksSections, newSection],
+      };
+    });
+  };
+
   return (
     <div className="board-content-container">
       <Nav />
       <NavOptions members={fakeData.members} />
-      <Tasks fakeData={fakeData} />
+      <Tasks fakeData={fakeData} addNewSection={addNewSection} />
     </div>
   );
 };
@@ -132,8 +160,7 @@ export default Board;
   2) Make tasks draggable
 
 
-  3) Fixup add another list bttn to change when clicked 
-  4) Have it add the task afterwards 
+  4) Have addList bttn add a list section
 
   5) Create a modal for the task
 

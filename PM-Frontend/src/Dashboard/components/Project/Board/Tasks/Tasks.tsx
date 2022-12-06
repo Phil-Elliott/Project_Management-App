@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TasksSection from "./TaskSection/TaskSection";
 import { fakeDataProps } from "../Board";
 import ScrollContainer from "react-indiana-drag-scroll";
@@ -7,16 +7,31 @@ import AddList from "./AddListBttn/AddList";
 
 type TasksProps = {
   fakeData: fakeDataProps;
+  addNewSection: (name: string) => void;
 };
 
-const Tasks = ({ fakeData }: TasksProps) => {
+const Tasks = ({ fakeData, addNewSection }: TasksProps) => {
+  const [orderedSections, setOrderedSections] = useState<
+    {
+      id: string;
+      name: string;
+    }[]
+  >([]);
+
+  useEffect(() => {
+    const orderedSections = fakeData.tasksSections.sort((a, b) => {
+      return a.order - b.order;
+    });
+    setOrderedSections(orderedSections);
+  }, [fakeData.tasksSections]);
+
   return (
     <ScrollContainer className="scroll-container">
       <div className="tasks-container">
-        {fakeData.tasksSections.map((section) => {
+        {orderedSections.map((section) => {
           return <TasksSection section={section} fakeData={fakeData} />;
         })}
-        <AddList />
+        <AddList addNewSection={addNewSection} />
       </div>
     </ScrollContainer>
   );
@@ -25,6 +40,15 @@ const Tasks = ({ fakeData }: TasksProps) => {
 export default Tasks;
 
 /*
+
+  for loop 
+    put in order 
+
+
+  add one to each order after the order of the one you are adding
+
+  could make a custom hook or function for putting things in order
+  also make a hook for changing the order of all based off of movement
 
 
 

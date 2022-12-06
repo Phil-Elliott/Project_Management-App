@@ -2,12 +2,21 @@ import React, { useRef, useState } from "react";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import "./AddList.scss";
 
-const AddList = () => {
+type AddListProps = {
+  addNewSection: (name: string) => void;
+};
+
+const AddList = ({ addNewSection }: AddListProps) => {
   const [showForm, setShowForm] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const toggleForm = () => {
     setShowForm(!showForm);
+  };
+
+  const addSection = () => {
+    addNewSection(inputRef.current!.value);
+    toggleForm();
   };
 
   return (
@@ -28,7 +37,12 @@ const AddList = () => {
               onClick={() => inputRef.current?.focus()}
             />
             <div className="add-task-form-btns">
-              <button className="add-task-form-btns-add">Add List</button>
+              <button
+                className="add-task-form-btns-add"
+                onClick={() => addSection()}
+              >
+                Add List
+              </button>
               <button
                 className="add-task-form-btns-cancel"
                 onClick={() => toggleForm()}
