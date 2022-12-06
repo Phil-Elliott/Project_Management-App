@@ -128,84 +128,16 @@ export default Board;
 
 /*
 
-  1) Figure out member component
-        - need to have the size be adjustable
-        - could even change the component into maybe a sass mixin
+  1) Make taskSection draggable 
+  2) Make tasks draggable
 
 
-  map through task sections and create a task section component for each one
-          (need to make sure that you can keep moving to the right)
-          (Find a way to scroll by clicking and holding the mouse button)
-  place tasks under appropriate sections
-  find a way to drag the tasks to another section
-          (need to change the taskSection property in the task object)
-  create a modal for the task and make it functional
+  3) Fixup add another list bttn to change when clicked 
+  4) Have it add the task afterwards 
 
+  5) Create a modal for the task
 
+  6) Create the modal for the elipsis bttn on the taskSedction
 
-  Plug in some fake data 
-  Create the display 
-  Create the modals 
-  Add functionality and plug into to the start of the app
-
-
-let fakeData = {
-  //   name: "Transfer Files",
-  //   id: "1",
-  //   background: "can be a color or an image(options for images)",
-  //   members: ["John Doe", "Jane Doe", "Bob Tyler"],
-  //   notes: [
-  //     {
-  //       id: "1",
-  //       title: "Transfer Files",
-  //       member: "John Doe",
-  //       description: "Transfer files from old computer to new computer",
-  //       urgency: "high",
-  //       comments: [
-  //         {
-  //           id: "1",
-  //           member: "John Doe",
-  //           comment: "This is a comment",
-  //         },
-  //       ],
-  //     },
-  //   ],
-  //   tasksSections: [
-  //     {
-  //       id: "1",
-  //       name: "Marketing",
-  //     },
-  //     {
-  //       id: "2",
-  //       name: "Design",
-  //     },
-  //     {
-  //       id: "3",
-  //       name: "Production",
-  //     },
-  //     {
-  //       id: "4",
-  //       name: "Done",
-  //     },
-  //   ],
-  //   tasks: [
-  //     {
-  //       id: "1",
-  //       name: "Decide on what to transfer",
-  //       assignedTo: ["John Doe", "Jane Doe"],
-  //       description: "Decide on what to transfer",
-  //       due: "2021-01-01",
-  //       taskSection: "Done",
-  //       comments: [
-  //         {
-  //           id: "1",
-  //           member: "John Doe",
-  //           date: "March 18, 2022 12:54 PM",
-  //           comment: "This is a comment",
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // };
 
 */

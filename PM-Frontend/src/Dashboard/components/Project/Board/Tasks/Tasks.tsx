@@ -25,20 +25,6 @@ const Tasks = ({ fakeData }: TasksProps) => {
 export default Tasks;
 
 /*
-  <div className="add-task-btn-container">
-          <div className="taskSection-header"></div>
-          <button className="add-task-btn">
-            <FaPlus className="plus-button" />
-            <p>Add another list</p>
-          </button>
-        </div>
-        <div className="taskSection-container">
-          <div className="taskSection-header"></div>
-          <button>
-            <FaPlus className="plus-button" />
-            <p>Add another list</p>
-          </button>
-        </div>
 
 
 

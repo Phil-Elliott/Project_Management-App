@@ -8,15 +8,18 @@
   box-shadow: $box-shadow-light;
 
   button {
-    background-color: transparent;
     border: none;
     border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .add-task-btn-add {
+    background-color: transparent;
     color: gray;
     display: flex;
     align-items: center;
     width: 100%;
     padding: 0.5rem 0.75rem;
-    cursor: pointer;
 
     .plus-button {
       margin-right: 1rem;
@@ -35,4 +38,49 @@
 
 .add-task-btn {
   width: 20rem;
+}
+
+.add-task-form {
+  padding: 0.5rem 0.75rem;
+
+  input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 3px;
+
+    &:focus {
+      outline: blue 1px solid;
+    }
+  }
+
+  .add-task-form-btns {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      font-size: 1rem;
+      width: auto;
+    }
+    .add-task-form-btns-add {
+      background-color: blue;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      &:hover {
+        background-color: #1a73e8;
+      }
+    }
+
+    .add-task-form-btns-cancel {
+      background-color: transparent;
+      color: gray;
+      &:hover {
+        color: black;
+      }
+    }
+  }
 }
