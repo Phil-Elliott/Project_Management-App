@@ -178,9 +178,21 @@ const Board = () => {
 export default Board;
 
 /*
-  - Clean up bttn 
-  - Only one can be clicked at a time
-  - Outside click closes the bttn
+
+  1) Could have array for section
+          [sectionName, orderNumber]
+          - when task moves (change name and orderNumber)
+          - Would have to change order numbers for all tasks in that section
+
+
+
+
+
+
+  1) Have tasks get ordered within sections
+      - could have the task get a higher order than the one it is above
+      - could change the layout of the data
+        - have each task within a section and have an order for each task
 
 
 

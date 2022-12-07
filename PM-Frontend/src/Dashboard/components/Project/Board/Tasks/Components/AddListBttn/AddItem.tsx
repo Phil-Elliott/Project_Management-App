@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useOnClickOutside } from "usehooks-ts";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import "./AddItem.scss";
 
@@ -11,6 +12,12 @@ type AddItemProps = {
 const AddItem = ({ addNewItem, item, section }: AddItemProps) => {
   const [showForm, setShowForm] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const ref = useRef(null);
+
+  const handleClickOutside = () => {
+    setShowForm(false);
+  };
+  useOnClickOutside(ref, handleClickOutside);
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -36,6 +43,7 @@ const AddItem = ({ addNewItem, item, section }: AddItemProps) => {
         </button>
       ) : (
         <div
+          ref={ref}
           className="add-task-form"
           style={
             item === "list"
@@ -49,6 +57,11 @@ const AddItem = ({ addNewItem, item, section }: AddItemProps) => {
             placeholder="Enter list title..."
             autoFocus
             onClick={() => inputRef.current?.focus()}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                addItem();
+              }
+            }}
           />
           <div className="add-task-form-btns">
             <button

@@ -10,18 +10,18 @@ import { fakeDataProps } from "../Board";
 //   setOrdered(orderedSections);
 // }
 
-export function useOrderData<T>(fakeData: fakeDataProps, part: string) {
-  const [ordered, setOrdered] = useState<fakeDataProps>([]);
+// export function useOrderData<T>(fakeData: fakeDataProps, part: string) {
+//   const [ordered, setOrdered] = useState<fakeDataProps>([]);
 
-  useEffect(() => {
-    const orderedContent = fakeData.tasksSections.sort((a, b) => {
-      return a.order - b.order;
-    });
-    setOrdered(orderedContent);
-  }, [data]);
+//   useEffect(() => {
+//     const orderedContent = fakeData.tasksSections.sort((a, b) => {
+//       return a.order - b.order;
+//     });
+//     setOrdered(orderedContent);
+//   }, [data]);
 
-  return ordered;
-}
+//   return ordered;
+// }
 
 // const [orderedSections, setOrderedSections] = useState<
 //     {

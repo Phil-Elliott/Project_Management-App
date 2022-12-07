@@ -27,7 +27,11 @@ const Tasks = ({ fakeData, addNewSection, addNewTask }: TasksProps) => {
   }, [fakeData.tasksSections]);
 
   return (
-    <ScrollContainer className="scroll-container">
+    <ScrollContainer
+      className="scroll-container"
+      ignoreElements=".add-item-btn-container, .taskSection-container"
+      hideScrollbars={false}
+    >
       <div className="tasks-container">
         {orderedSections.map((section) => {
           return (
@@ -48,7 +52,10 @@ const Tasks = ({ fakeData, addNewSection, addNewTask }: TasksProps) => {
 
 export default Tasks;
 
-/*
+/*  
+  make indiana scroll only work on empty space outside of tasks sections
+
+
 
   for loop 
     put in order 

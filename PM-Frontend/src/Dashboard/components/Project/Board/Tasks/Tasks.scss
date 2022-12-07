@@ -1,19 +1,20 @@
 @use "../../../../../abstracts/" as *;
 
 .scroll-container {
-  margin-block: 9rem 2rem;
-  min-height: 100vh;
-  margin-inline: 1rem;
+  margin-block: 9rem 0rem;
+  min-height: calc(100% - 9rem);
+  margin-right: 1rem;
 }
 
 .tasks-container {
   display: flex;
+  margin-left: 1rem;
 }
 
 .add-item-btn-container {
   background-color: #f4f5f7;
   border-radius: 3px;
-  margin-right: 2rem;
+  // margin-right: 2rem;
   height: 100%;
   box-shadow: $box-shadow-light;
 }
