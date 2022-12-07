@@ -3,6 +3,7 @@ import { fakeDataProps } from "../../Board";
 import Task from "./Task/Task";
 import "./TaskSection.scss";
 import { FaEllipsisH, FaPlus } from "react-icons/fa";
+import AddList from "../Components/AddListBttn/AddItem";
 
 type TaskSectionProps = {
   section: {
@@ -10,9 +11,10 @@ type TaskSectionProps = {
     name: string;
   };
   fakeData: fakeDataProps;
+  addNewTask: (name: string, section: string) => void;
 };
 
-const TaskSection = ({ section, fakeData }: TaskSectionProps) => {
+const TaskSection = ({ section, fakeData, addNewTask }: TaskSectionProps) => {
   return (
     <div className="taskSection-container">
       <div className="taskSection-header">
@@ -26,10 +28,7 @@ const TaskSection = ({ section, fakeData }: TaskSectionProps) => {
           }
         })}
       </div>
-      <button>
-        <FaPlus className="plus-button" />
-        <p>Add a card</p>
-      </button>
+      <AddList addNewItem={addNewTask} item={"task"} section={section.name} />
     </div>
   );
 };

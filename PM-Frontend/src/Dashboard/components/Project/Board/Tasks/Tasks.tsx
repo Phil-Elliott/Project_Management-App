@@ -3,14 +3,15 @@ import TasksSection from "./TaskSection/TaskSection";
 import { fakeDataProps } from "../Board";
 import ScrollContainer from "react-indiana-drag-scroll";
 import "./Tasks.scss";
-import AddList from "./AddListBttn/AddList";
+import AddList from "./Components/AddListBttn/AddItem";
 
 type TasksProps = {
   fakeData: fakeDataProps;
   addNewSection: (name: string) => void;
+  addNewTask: (name: string, section: string) => void;
 };
 
-const Tasks = ({ fakeData, addNewSection }: TasksProps) => {
+const Tasks = ({ fakeData, addNewSection, addNewTask }: TasksProps) => {
   const [orderedSections, setOrderedSections] = useState<
     {
       id: string;
@@ -29,9 +30,17 @@ const Tasks = ({ fakeData, addNewSection }: TasksProps) => {
     <ScrollContainer className="scroll-container">
       <div className="tasks-container">
         {orderedSections.map((section) => {
-          return <TasksSection section={section} fakeData={fakeData} />;
+          return (
+            <TasksSection
+              section={section}
+              fakeData={fakeData}
+              addNewTask={addNewTask}
+            />
+          );
         })}
-        <AddList addNewSection={addNewSection} />
+        <div className="add-item-btn-container">
+          <AddList addNewItem={addNewSection} item={"list"} />
+        </div>
       </div>
     </ScrollContainer>
   );

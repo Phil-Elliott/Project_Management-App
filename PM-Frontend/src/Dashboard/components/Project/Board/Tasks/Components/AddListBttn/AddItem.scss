@@ -1,11 +1,7 @@
-@use "../../../../../../abstracts" as *;
+@use "../../../../../../../abstracts/" as *;
 
-.add-task-btn-container {
-  background-color: #f4f5f7;
-  border-radius: 3px;
-  margin-right: 2rem;
-  height: 100%;
-  box-shadow: $box-shadow-light;
+.add-task-btn {
+  width: 20rem;
 
   button {
     border: none;
@@ -36,12 +32,9 @@
   }
 }
 
-.add-task-btn {
-  width: 20rem;
-}
-
 .add-task-form {
-  padding: 0.5rem 0.75rem;
+  // need to create special for each item
+  // padding: 0.5rem 0.75rem;
 
   input {
     width: 100%;

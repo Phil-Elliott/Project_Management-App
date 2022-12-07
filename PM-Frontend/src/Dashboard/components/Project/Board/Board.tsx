@@ -143,11 +143,34 @@ const Board = () => {
     });
   };
 
+  // adds a new task to the section
+  const addNewTask = (name: string, taskSection: string) => {
+    const newTask = {
+      id: uuid(),
+      name,
+      assignedTo: [],
+      description: "",
+      due: "",
+      taskSection,
+      comments: [],
+    };
+    setFakeData((prevFakeData) => {
+      return {
+        ...prevFakeData,
+        tasks: [...prevFakeData.tasks, newTask],
+      };
+    });
+  };
+
   return (
     <div className="board-content-container">
       <Nav />
       <NavOptions members={fakeData.members} />
-      <Tasks fakeData={fakeData} addNewSection={addNewSection} />
+      <Tasks
+        fakeData={fakeData}
+        addNewSection={addNewSection}
+        addNewTask={addNewTask}
+      />
     </div>
   );
 };
@@ -155,16 +178,26 @@ const Board = () => {
 export default Board;
 
 /*
+  - Clean up bttn 
+  - Only one can be clicked at a time
+  - Outside click closes the bttn
+
+
+
+  1) Have addList btn be the same as addTask btn
+  2) Create addTask function
+
 
   1) Make taskSection draggable 
   2) Make tasks draggable
 
 
-  4) Have addList bttn add a list section
-
   5) Create a modal for the task
 
   6) Create the modal for the elipsis bttn on the taskSedction
+
+
+  Start cleaning up the code (Its quite messy)
 
 
 */
