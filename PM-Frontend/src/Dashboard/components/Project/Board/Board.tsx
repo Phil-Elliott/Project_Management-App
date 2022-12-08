@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Nav from "../Components/Nav/Nav";
 import NavOptions from "./NavOptions/NavOptions";
 import Tasks from "./Tasks/Tasks";
@@ -162,11 +162,45 @@ const Board = () => {
     });
   };
 
+  // changes the order of the sections
+  const changeSectionOrder = (id: string, order: number, source: number) => {
+    setFakeData((prevData) => {
+      return {
+        ...prevData,
+        tasksSections: prevData.tasksSections.map((section) => {
+          if (section.id === id) {
+            return {
+              ...section,
+              order: order,
+            };
+          } else if (section.order > source && section.order <= order) {
+            return {
+              ...section,
+              order: section.order - 1,
+            };
+          } else if (section.order < source && section.order >= order) {
+            return {
+              ...section,
+              order: section.order + 1,
+            };
+          } else {
+            return section;
+          }
+        }),
+      };
+    });
+  };
+
+  // useEffect(() => {
+  //   console.log(fakeData);
+  // }, [fakeData]);
+
   return (
     <div className="board-content-container">
       <Nav />
       <NavOptions members={fakeData.members} />
       <Tasks
+        changeSectionOrder={changeSectionOrder}
         fakeData={fakeData}
         addNewSection={addNewSection}
         addNewTask={addNewTask}
@@ -178,6 +212,15 @@ const Board = () => {
 export default Board;
 
 /*
+
+  change order 
+    - Create function on board to change the order and the section of the tasks 
+    - First change the data to the below 
+    - Create the function 
+    - Call function on dragEnd
+
+
+
 
   1) Could have array for section
           [sectionName, orderNumber]

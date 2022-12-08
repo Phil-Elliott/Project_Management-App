@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import TasksSection from "./TaskSection/TaskSection";
 import { fakeDataProps } from "../Board";
 import ScrollContainer from "react-indiana-drag-scroll";
@@ -9,9 +10,15 @@ type TasksProps = {
   fakeData: fakeDataProps;
   addNewSection: (name: string) => void;
   addNewTask: (name: string, section: string) => void;
+  changeSectionOrder: (id: string, order: number, source: number) => void;
 };
 
-const Tasks = ({ fakeData, addNewSection, addNewTask }: TasksProps) => {
+const Tasks = ({
+  fakeData,
+  addNewSection,
+  addNewTask,
+  changeSectionOrder,
+}: TasksProps) => {
   const [orderedSections, setOrderedSections] = useState<
     {
       id: string;
@@ -19,6 +26,7 @@ const Tasks = ({ fakeData, addNewSection, addNewTask }: TasksProps) => {
     }[]
   >([]);
 
+  // orders the sections based off of their order to be displayed
   useEffect(() => {
     const orderedSections = fakeData.tasksSections.sort((a, b) => {
       return a.order - b.order;
@@ -26,27 +34,55 @@ const Tasks = ({ fakeData, addNewSection, addNewTask }: TasksProps) => {
     setOrderedSections(orderedSections);
   }, [fakeData.tasksSections]);
 
+  /*
+    find out where it came from and dont add 1 to anything after that
+
+  */
+  const handleOnDrageEnd = (result: any) => {
+    const { source, destination } = result;
+    changeSectionOrder(
+      result.draggableId,
+      destination.index + 1,
+      source.index + 1
+    );
+    console.log(result.destination.index + 1);
+    console.log(result);
+  };
+
   return (
-    <ScrollContainer
+    <div
       className="scroll-container"
-      ignoreElements=".add-item-btn-container, .taskSection-container"
-      hideScrollbars={false}
+      // ignoreElements=".add-item-btn-container, .taskSection-container"
+      // hideScrollbars={false}
     >
-      <div className="tasks-container">
-        {orderedSections.map((section) => {
-          return (
-            <TasksSection
-              section={section}
-              fakeData={fakeData}
-              addNewTask={addNewTask}
-            />
-          );
-        })}
-        <div className="add-item-btn-container">
-          <AddList addNewItem={addNewSection} item={"list"} />
-        </div>
-      </div>
-    </ScrollContainer>
+      <DragDropContext onDragEnd={handleOnDrageEnd}>
+        <Droppable droppableId={"sections"} direction="horizontal">
+          {(provided) => (
+            <div
+              className="tasks-container"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {orderedSections.map((section, index) => {
+                return (
+                  <TasksSection
+                    key={section.id}
+                    section={section}
+                    fakeData={fakeData}
+                    addNewTask={addNewTask}
+                    index={index}
+                  />
+                );
+              })}
+              {provided.placeholder}
+              <div className="add-item-btn-container">
+                <AddList addNewItem={addNewSection} item={"list"} />
+              </div>
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </div>
   );
 };
 
