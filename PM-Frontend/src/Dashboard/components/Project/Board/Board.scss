@@ -1,8 +1,8 @@
+@use "../../../../abstracts/" as *;
+
 .board-content-container {
-  background-color: white;
-  //   min-width: 100vw;
+  background-color: $background-color;
   min-height: 100vh;
   height: 100vh;
-  //   overflow-y: scroll;
   overflow: auto;
 }

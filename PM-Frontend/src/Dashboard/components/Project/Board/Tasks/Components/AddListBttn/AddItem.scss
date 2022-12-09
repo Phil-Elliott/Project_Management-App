@@ -12,8 +12,7 @@
   .add-task-btn-add {
     background-color: transparent;
     color: gray;
-    display: flex;
-    align-items: center;
+    @extend %flex-align;
     width: 100%;
     padding: 0.5rem 0.75rem;
 
@@ -33,9 +32,6 @@
 }
 
 .add-task-form {
-  // need to create special for each item
-  // padding: 0.5rem 0.75rem;
-
   input {
     width: 100%;
     border: none;
@@ -52,8 +48,7 @@
 
   .add-task-form-btns {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
+    @extend %flex-between;
 
     button {
       font-size: 1rem;

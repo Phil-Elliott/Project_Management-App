@@ -4,50 +4,7 @@ import NavOptions from "./NavOptions/NavOptions";
 import Tasks from "./Tasks/Tasks";
 import uuid from "react-uuid";
 import "./Board.scss";
-
-export type fakeDataProps = {
-  name: string;
-  id: string;
-  background: string;
-  members: string[];
-  notes: Note[];
-  tasksSections: TasksSections[];
-  tasks: TaskProps[];
-};
-
-export type Note = {
-  id: string;
-  title: string;
-  member: string;
-  description: string;
-  urgency: string;
-  comments: {
-    id: string;
-    member: string;
-    comment: string;
-  }[];
-};
-
-export type TasksSections = {
-  id: string;
-  order: number;
-  name: string;
-};
-
-export type TaskProps = {
-  id: string;
-  name: string;
-  assignedTo: string[];
-  description: string;
-  due: string;
-  taskSection: string;
-  comments: {
-    id: string;
-    member: string;
-    date: string;
-    comment: string;
-  }[];
-};
+import { fakeDataProps } from "./Interfaces";
 
 const Board = () => {
   const [fakeData, setFakeData] = React.useState<fakeDataProps>({
@@ -78,47 +35,79 @@ const Board = () => {
     ],
     tasksSections: [
       {
-        id: "1",
-        order: 5,
+        id: "1dfghdfghgt6",
+        order: 1,
         name: "Marketing",
       },
       {
-        id: "2",
+        id: "65u56ufghngfh2",
         order: 2,
         name: "Design",
       },
       {
-        id: "3",
+        id: "3657u56fghhrf",
         order: 3,
         name: "Production",
       },
       {
-        id: "4",
+        id: "465y765ytrhftgh",
         order: 4,
         name: "Done",
       },
       {
-        id: "5",
-        order: 1,
+        id: "dfhkulil6i75",
+        order: 5,
         name: "Testing",
       },
       {
-        id: "6",
+        id: "235756hfgrt",
         order: 6,
         name: "Other",
       },
     ],
     tasks: [
       {
-        id: "1",
+        id: "153454354367656gfdbdfbfdbre",
         name: "Decide on what to transfer",
         assignedTo: ["John Doe", "Jane Doe"],
         description: "Decide on what to transfer",
         due: "2021-01-01",
-        taskSection: "Done",
+        taskSection: ["Done", 1],
         comments: [
           {
-            id: "1",
+            id: "1dff43456655755",
+            member: "John Doe",
+            date: "March 18, 2022 12:54 PM",
+            comment: "This is a comment",
+          },
+        ],
+      },
+      {
+        id: "2ggfhbfdgbghn6556",
+        name: "Eat a pizza",
+        assignedTo: ["Jane Doe"],
+        description: "Decide on what to transfer",
+        due: "2021-01-01",
+        taskSection: ["Done", 3],
+        comments: [
+          {
+            id: "15676556hfgh65rthrt",
+            member: "John Doe",
+            date: "March 18, 2022 12:54 PM",
+            comment: "This is a comment",
+          },
+        ],
+      },
+      {
+        id: "3rhh5y67565uyhnghnfghfg",
+        name: "Take out trash",
+        assignedTo: ["Forest Gump", "Jenny"],
+        description: "Decide on what to transfer",
+        due: "2021-01-01",
+        taskSection: ["Production", 2],
+        comments: [
+          {
+            id: "1fghgfhhrt7657665765756",
             member: "John Doe",
             date: "March 18, 2022 12:54 PM",
             comment: "This is a comment",
@@ -145,15 +134,21 @@ const Board = () => {
 
   // adds a new task to the section
   const addNewTask = (name: string, taskSection: string) => {
+    // gets the order number for the new task
+    const order =
+      fakeData.tasks.filter((task) => task.taskSection[0] === taskSection)
+        .length + 1;
+
     const newTask = {
       id: uuid(),
       name,
       assignedTo: [],
       description: "",
       due: "",
-      taskSection,
+      taskSection: [taskSection, order],
       comments: [],
     };
+
     setFakeData((prevFakeData) => {
       return {
         ...prevFakeData,
@@ -191,9 +186,9 @@ const Board = () => {
     });
   };
 
-  // useEffect(() => {
-  //   console.log(fakeData);
-  // }, [fakeData]);
+  useEffect(() => {
+    console.log(fakeData);
+  }, [fakeData]);
 
   return (
     <div className="board-content-container">
@@ -213,29 +208,10 @@ export default Board;
 
 /*
 
-  change order 
-    - Create function on board to change the order and the section of the tasks 
-    - First change the data to the below 
-    - Create the function 
-    - Call function on dragEnd
-
-
-
-
-  1) Could have array for section
-          [sectionName, orderNumber]
-          - when task moves (change name and orderNumber)
-          - Would have to change order numbers for all tasks in that section
-
-
-
-
-
-
-  1) Have tasks get ordered within sections
-      - could have the task get a higher order than the one it is above
-      - could change the layout of the data
-        - have each task within a section and have an order for each task
+  1) Move tasks around
+        - Create a change task order function (changes order and section if it needs to)
+        - make tasks draggable
+        - have the changeTaskOrder function get called when the task is dropped
 
 
 

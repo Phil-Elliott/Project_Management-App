@@ -16,8 +16,7 @@
 }
 
 .task-bottom-container {
-  display: flex;
-  justify-content: space-between;
+  @extend %flex-between;
   align-items: center;
   margin-top: 0.5rem;
 

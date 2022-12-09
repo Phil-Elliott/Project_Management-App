@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import TasksSection from "./TaskSection/TaskSection";
-import { fakeDataProps } from "../Board";
 import ScrollContainer from "react-indiana-drag-scroll";
 import "./Tasks.scss";
 import AddList from "./Components/AddListBttn/AddItem";
+import { fakeDataProps } from "../Interfaces";
 
 type TasksProps = {
   fakeData: fakeDataProps;
@@ -39,24 +39,32 @@ const Tasks = ({
 
   */
   const handleOnDrageEnd = (result: any) => {
-    const { source, destination } = result;
-    changeSectionOrder(
-      result.draggableId,
-      destination.index + 1,
-      source.index + 1
-    );
-    console.log(result.destination.index + 1);
+    const { type, source, destination } = result;
+    if (type === "droppable-category") {
+      changeSectionOrder(
+        result.draggableId,
+        destination.index + 1,
+        source.index + 1
+      );
+    } else if (type === "droppable-item") {
+      console.log("item");
+    }
+    // console.log(result.destination.index + 1);
     console.log(result);
   };
 
   return (
-    <div
+    <ScrollContainer
       className="scroll-container"
-      // ignoreElements=".add-item-btn-container, .taskSection-container"
-      // hideScrollbars={false}
+      ignoreElements=".add-item-btn-container, .taskSection-container"
+      hideScrollbars={false}
     >
       <DragDropContext onDragEnd={handleOnDrageEnd}>
-        <Droppable droppableId={"sections"} direction="horizontal">
+        <Droppable
+          droppableId={"sections"}
+          direction="horizontal"
+          type="droppable-category"
+        >
           {(provided) => (
             <div
               className="tasks-container"
@@ -82,7 +90,7 @@ const Tasks = ({
           )}
         </Droppable>
       </DragDropContext>
-    </div>
+    </ScrollContainer>
   );
 };
 

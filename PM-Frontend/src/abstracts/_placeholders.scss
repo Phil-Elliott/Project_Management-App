@@ -16,7 +16,7 @@
 }
 
 %flex-center {
-  @extend %flex-between;
+  @extend %flex-align;
   justify-content: center;
 }
 
