@@ -26,11 +26,11 @@ const TaskSection = ({
 
   useEffect(() => {
     const filteredTasks = fakeData.tasks.filter((task) => {
-      return task.taskSection[0] === section.name;
+      return task.taskSection.section === section.name;
     });
 
     const orderedTasks = filteredTasks.sort((a, b) => {
-      return Number(a.taskSection[1]) - Number(b.taskSection[1]);
+      return Number(a.taskSection.order) - Number(b.taskSection.order);
     });
     setOrderedTasks(orderedTasks);
   }, [fakeData.tasks]);

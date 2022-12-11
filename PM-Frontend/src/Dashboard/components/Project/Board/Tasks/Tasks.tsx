@@ -11,6 +11,13 @@ type TasksProps = {
   addNewSection: (name: string) => void;
   addNewTask: (name: string, section: string) => void;
   changeSectionOrder: (id: string, order: number, source: number) => void;
+  changeTaskSection: (
+    id: string,
+    section: string,
+    order: number,
+    source: string,
+    sourceIndex: number
+  ) => void;
 };
 
 const Tasks = ({
@@ -18,6 +25,7 @@ const Tasks = ({
   addNewSection,
   addNewTask,
   changeSectionOrder,
+  changeTaskSection,
 }: TasksProps) => {
   const [orderedSections, setOrderedSections] = useState<
     {
@@ -47,7 +55,13 @@ const Tasks = ({
         source.index + 1
       );
     } else if (type === "droppable-item") {
-      console.log("item");
+      changeTaskSection(
+        result.draggableId,
+        result.destination.droppableId,
+        result.destination.index + 1,
+        source.droppableId,
+        result.source.index + 1
+      );
     }
     // console.log(result.destination.index + 1);
     console.log(result);

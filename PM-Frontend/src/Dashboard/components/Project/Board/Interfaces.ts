@@ -33,7 +33,10 @@ export type TaskProps = {
   assignedTo: string[];
   description: string;
   due: string;
-  taskSection: (string | number)[]; // [sectionId, order]
+  taskSection: {
+    section: string;
+    order: number;
+  };
   comments: {
     id: string;
     member: string;

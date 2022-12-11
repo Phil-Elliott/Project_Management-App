@@ -72,7 +72,10 @@ const Board = () => {
         assignedTo: ["John Doe", "Jane Doe"],
         description: "Decide on what to transfer",
         due: "2021-01-01",
-        taskSection: ["Done", 1],
+        taskSection: {
+          section: "Done",
+          order: 1,
+        },
         comments: [
           {
             id: "1dff43456655755",
@@ -88,7 +91,10 @@ const Board = () => {
         assignedTo: ["Jane Doe"],
         description: "Decide on what to transfer",
         due: "2021-01-01",
-        taskSection: ["Done", 3],
+        taskSection: {
+          section: "Done",
+          order: 2,
+        },
         comments: [
           {
             id: "15676556hfgh65rthrt",
@@ -104,7 +110,10 @@ const Board = () => {
         assignedTo: ["Forest Gump", "Jenny"],
         description: "Decide on what to transfer",
         due: "2021-01-01",
-        taskSection: ["Production", 2],
+        taskSection: {
+          section: "Production",
+          order: 1,
+        },
         comments: [
           {
             id: "1fghgfhhrt7657665765756",
@@ -136,7 +145,7 @@ const Board = () => {
   const addNewTask = (name: string, taskSection: string) => {
     // gets the order number for the new task
     const order =
-      fakeData.tasks.filter((task) => task.taskSection[0] === taskSection)
+      fakeData.tasks.filter((task) => task.taskSection.section === taskSection)
         .length + 1;
 
     const newTask = {
@@ -145,7 +154,10 @@ const Board = () => {
       assignedTo: [],
       description: "",
       due: "",
-      taskSection: [taskSection, order],
+      taskSection: {
+        section: taskSection,
+        order,
+      },
       comments: [],
     };
 
@@ -186,8 +198,110 @@ const Board = () => {
     });
   };
 
+  // changes the task section within the task object - triggered by drag and drop
+  /*
+      1) Need to set new task section of dragged component
+      2) Need to rearange the order of the tasks in the new task section
+      3) Need to rearange the order of the tasks in the old task section
+
+
+      check if old section and new section are same
+        if same
+          check if it is moving up or down
+            if moving up
+              everything in between old spot and new spot gets order +1
+            if moving down
+              everything in between old spot and new spot gets order -1
+        if not same
+          everything in between old spot and end of old section gets order -1
+        
+
+  */
+  const changeTaskSection = (
+    id: string,
+    taskSection: string,
+    order: number,
+    source: string,
+    sourceIndex: number
+  ) => {
+    setFakeData((prevFakeData) => {
+      const taskSectionName = prevFakeData.tasksSections.find(
+        (section) => section.id === taskSection
+      )!.name;
+
+      const sourceSectionName = prevFakeData.tasksSections.find(
+        (section) => section.id === source
+      )!.name;
+
+      return {
+        ...prevFakeData,
+        tasks: prevFakeData.tasks.map((task) => {
+          if (task.id === id) {
+            return {
+              ...task,
+              taskSection: {
+                section: taskSectionName,
+                order,
+              },
+            };
+          } else if (
+            taskSection === source &&
+            task.taskSection.section === taskSectionName
+          ) {
+            if (
+              order < sourceIndex &&
+              task.taskSection.order >= order &&
+              task.taskSection.order < sourceIndex
+            ) {
+              console.log("moving up");
+              return {
+                ...task,
+                taskSection: {
+                  ...task.taskSection,
+                  order: task.taskSection.order + 1,
+                },
+              };
+            } else if (
+              order > sourceIndex &&
+              task.taskSection.order <= order &&
+              task.taskSection.order > sourceIndex
+            ) {
+              console.log("moving down");
+              return {
+                ...task,
+                taskSection: {
+                  ...task.taskSection,
+                  order: task.taskSection.order - 1,
+                },
+              };
+            } else {
+              return task;
+            }
+          } else if (
+            taskSection !== source &&
+            task.taskSection.section === taskSectionName
+          ) {
+            if (task.taskSection.order >= order) {
+              return {
+                ...task,
+                taskSection: {
+                  ...task.taskSection,
+                  order: task.taskSection.order + 1,
+                },
+              };
+            } else {
+              return task;
+            }
+          } else {
+            return task;
+          }
+        }),
+      };
+    });
+  };
+
   useEffect(() => {
-    console.log(fakeData);
+    console.log(fakeData.tasks);
   }, [fakeData]);
 
   return (
@@ -199,6 +313,7 @@ const Board = () => {
         fakeData={fakeData}
         addNewSection={addNewSection}
         addNewTask={addNewTask}
+        changeTaskSection={changeTaskSection}
       />
     </div>
   );
