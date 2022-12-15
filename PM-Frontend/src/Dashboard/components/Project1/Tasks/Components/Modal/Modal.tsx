@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react"
-import "./Modal.scss"
-import ModalInput from "./ModalInput"
-import { useSelector, useDispatch } from "react-redux"
-import { addTask } from "../../../../../ProjectDataSlice"
+import React, { useState, useEffect } from "react";
+// import "./Modal.scss"
+import ModalInput from "./ModalInput";
+import { useSelector, useDispatch } from "react-redux";
+import { addTask } from "../../../../../ProjectDataSlice";
 
 const Modal = ({
   display,
   changeDisplay,
 }: {
-  display: boolean
-  changeDisplay: any
+  display: boolean;
+  changeDisplay: any;
 }) => {
   const objectData = {
     name: "",
@@ -23,9 +23,9 @@ const Modal = ({
         comment: "",
       },
     ],
-  }
+  };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const addProjectTask = () => {
     if (
@@ -34,46 +34,46 @@ const Modal = ({
       objectData.date &&
       objectData.assigned
     ) {
-      dispatch(addTask(objectData))
-      changeDisplay()
+      dispatch(addTask(objectData));
+      changeDisplay();
     } else {
-      alert("Please fill out all fields")
+      alert("Please fill out all fields");
     }
-  }
+  };
 
   const changeObjectData = (part: any, input: string) => {
     if (part === "name") {
-      objectData.name = input
+      objectData.name = input;
     } else if (part === "department") {
-      objectData.department = input
+      objectData.department = input;
     } else if (part === "date") {
-      objectData.date = input
+      objectData.date = input;
     } else if (part === "assigned") {
-      objectData.assigned = input
+      objectData.assigned = input;
     }
-  }
+  };
 
   // Allows ESC key to only be used to close
   const closeOnEscapeKeyDown = (e: any) => {
     if ((e.charCode || e.keyCode) === 27) {
-      changeDisplay()
+      changeDisplay();
     }
-  }
+  };
 
   // Allows for enter key to save details
   const saveOnEnterKeyDown = (e: any) => {
     if (e.code === "Enter" || e.code === "NumpadEnter") {
-      addProjectTask()
+      addProjectTask();
     }
-  }
+  };
 
   // Allows access to use keys only when modal is displayed
   useEffect(() => {
     if (display === true) {
-      document.body.addEventListener("keydown", closeOnEscapeKeyDown)
-      document.body.addEventListener("keydown", saveOnEnterKeyDown)
+      document.body.addEventListener("keydown", closeOnEscapeKeyDown);
+      document.body.addEventListener("keydown", saveOnEnterKeyDown);
     }
-  }, [display])
+  }, [display]);
 
   // Array for input questions
   const inputQuestions = [
@@ -97,7 +97,7 @@ const Modal = ({
       type: "text",
       part: "assigned",
     },
-  ]
+  ];
 
   return (
     <div className={`modal ${display ? "show" : ""}`} onClick={changeDisplay}>
@@ -116,7 +116,7 @@ const Modal = ({
                 display={display}
                 changeObjectData={changeObjectData}
               />
-            )
+            );
           })}
         </div>
         <div className="modal-footer">
@@ -133,10 +133,10 @@ const Modal = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;
 
 /*
 

@@ -1,0 +1,21 @@
+@use "../../../../../../../../abstracts" as *;
+
+.task-modal-container {
+  padding: 1rem;
+}
+
+.task-modal-header {
+  display: flex;
+  justify-content: space-between;
+
+  .task-modal-header-left {
+  }
+
+  .task-modal-header-right {
+    display: flex;
+
+    .task-modal-header-icon {
+      margin-left: 1rem;
+    }
+  }
+}

@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../Components/Nav/Nav";
 import NavOptions from "./NavOptions/NavOptions";
 import Tasks from "./Tasks/Tasks";
 import uuid from "react-uuid";
 import "./Board.scss";
-import { fakeDataProps } from "./Interfaces";
+import { fakeDataProps, TaskProps } from "./Interfaces";
+import Modal from "./Components/Modal/Modal";
+import TaskModal from "./Tasks/TaskSection/Task/TaskModal/TaskModal";
 
 const Board = () => {
-  const [fakeData, setFakeData] = React.useState<fakeDataProps>({
+  const [fakeData, setFakeData] = useState<fakeDataProps>({
     name: "Transfer Files",
     id: "1",
     background: "can be a color or an image(options for images)",
@@ -125,6 +127,35 @@ const Board = () => {
       },
     ],
   });
+  const [display, setDisplay] = useState<boolean>(false);
+  const [modalTask, setModalTask] = useState<TaskProps>();
+
+  // closes modal
+  const closeModal = () => {
+    setDisplay(false);
+  };
+
+  // displays the modal
+  const changeModalDisplay = (id: string) => {
+    setModalTask(fakeData.tasks.find((task) => task.id === id));
+    setDisplay(!display);
+  };
+
+  // changes task data
+  const changeTaskData = (data: TaskProps) => {
+    setFakeData((prevFakeData) => {
+      return {
+        ...prevFakeData,
+        tasks: prevFakeData.tasks.map((task) => {
+          if (task.id === data.id) {
+            return data;
+          } else {
+            return task;
+          }
+        }),
+      };
+    });
+  };
 
   // adds a new section to the data - triggered by addList btn
   const addNewSection = (name: string) => {
@@ -198,26 +229,8 @@ const Board = () => {
     });
   };
 
-  // changes the task section within the task object - triggered by drag and drop
-  /*
-      1) Need to set new task section of dragged component
-      2) Need to rearange the order of the tasks in the new task section
-      3) Need to rearange the order of the tasks in the old task section
-
-
-      check if old section and new section are same
-        if same
-          check if it is moving up or down
-            if moving up
-              everything in between old spot and new spot gets order +1
-            if moving down
-              everything in between old spot and new spot gets order -1
-        if not same
-          everything in between old spot and end of old section gets order -1
-        
-
-  */
-  const changeTaskSection = (
+  // changes the task section and order within the task object - triggered by drag and drop
+  const changeTaskPosition = (
     id: string,
     taskSection: string,
     order: number,
@@ -253,7 +266,6 @@ const Board = () => {
               task.taskSection.order >= order &&
               task.taskSection.order < sourceIndex
             ) {
-              console.log("moving up");
               return {
                 ...task,
                 taskSection: {
@@ -266,7 +278,6 @@ const Board = () => {
               task.taskSection.order <= order &&
               task.taskSection.order > sourceIndex
             ) {
-              console.log("moving down");
               return {
                 ...task,
                 taskSection: {
@@ -313,8 +324,18 @@ const Board = () => {
         fakeData={fakeData}
         addNewSection={addNewSection}
         addNewTask={addNewTask}
-        changeTaskSection={changeTaskSection}
+        changeTaskPosition={changeTaskPosition}
+        changeModalDisplay={changeModalDisplay}
       />
+      {modalTask && (
+        <Modal display={display} closeModal={closeModal}>
+          <TaskModal
+            modalTask={modalTask}
+            changeTaskData={changeTaskData}
+            display={display}
+          />
+        </Modal>
+      )}
     </div>
   );
 };
@@ -322,23 +343,22 @@ const Board = () => {
 export default Board;
 
 /*
-
-  1) Move tasks around
-        - Create a change task order function (changes order and section if it needs to)
-        - make tasks draggable
-        - have the changeTaskOrder function get called when the task is dropped
-
+  on task click
+    - show modal
+    - close on escape and outside click (maybe use a hook for this)
+        - what did you do for addtask part
 
 
-  1) Have addList btn be the same as addTask btn
-  2) Create addTask function
 
 
-  1) Make taskSection draggable 
-  2) Make tasks draggable
+         
+
+  Show effect when task is dragged to done (or maybe just add that function to each task section to be chosen)
 
 
-  5) Create a modal for the task
+
+
+
 
   6) Create the modal for the elipsis bttn on the taskSedction
 

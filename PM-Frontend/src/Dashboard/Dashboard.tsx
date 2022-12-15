@@ -122,6 +122,9 @@ const Dashboard = () => {
 export default Dashboard;
 
 /*
+  add a spinner on load
+
+
 
      1) Fix up both navs 
      2) Add some basic tests for navs (maybe) 

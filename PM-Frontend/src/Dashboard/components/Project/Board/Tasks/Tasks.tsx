@@ -11,13 +11,14 @@ type TasksProps = {
   addNewSection: (name: string) => void;
   addNewTask: (name: string, section: string) => void;
   changeSectionOrder: (id: string, order: number, source: number) => void;
-  changeTaskSection: (
+  changeTaskPosition: (
     id: string,
     section: string,
     order: number,
     source: string,
     sourceIndex: number
   ) => void;
+  changeModalDisplay: (id: string) => void;
 };
 
 const Tasks = ({
@@ -25,7 +26,8 @@ const Tasks = ({
   addNewSection,
   addNewTask,
   changeSectionOrder,
-  changeTaskSection,
+  changeTaskPosition,
+  changeModalDisplay,
 }: TasksProps) => {
   const [orderedSections, setOrderedSections] = useState<
     {
@@ -55,7 +57,7 @@ const Tasks = ({
         source.index + 1
       );
     } else if (type === "droppable-item") {
-      changeTaskSection(
+      changeTaskPosition(
         result.draggableId,
         result.destination.droppableId,
         result.destination.index + 1,
@@ -93,6 +95,7 @@ const Tasks = ({
                     fakeData={fakeData}
                     addNewTask={addNewTask}
                     index={index}
+                    changeModalDisplay={changeModalDisplay}
                   />
                 );
               })}

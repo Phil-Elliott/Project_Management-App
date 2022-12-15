@@ -8,9 +8,10 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 type TaskComponentProps = {
   taskData: TaskProps;
   index: number;
+  changeModalDisplay: (id: string) => void;
 };
 
-const Task = ({ taskData, index }: TaskComponentProps) => {
+const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
   return (
     <Draggable draggableId={taskData.id} index={index} key={taskData.id}>
       {(provided) => (
@@ -19,6 +20,7 @@ const Task = ({ taskData, index }: TaskComponentProps) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
+          onClick={() => changeModalDisplay(taskData.id)}
         >
           <p>{taskData.name}</p>
           <div className="task-bottom-container">

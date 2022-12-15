@@ -14,6 +14,7 @@ type TaskSectionProps = {
   fakeData: fakeDataProps;
   addNewTask: (name: string, section: string) => void;
   index: number;
+  changeModalDisplay: (id: string) => void;
 };
 
 const TaskSection = ({
@@ -21,6 +22,7 @@ const TaskSection = ({
   fakeData,
   addNewTask,
   index,
+  changeModalDisplay,
 }: TaskSectionProps) => {
   const [orderedTasks, setOrderedTasks] = useState<TaskProps[]>([]);
 
@@ -54,7 +56,13 @@ const TaskSection = ({
 
                 <div className="taskSection-tasks">
                   {orderedTasks.map((task, index) => {
-                    return <Task taskData={task} index={index} />;
+                    return (
+                      <Task
+                        taskData={task}
+                        index={index}
+                        changeModalDisplay={changeModalDisplay}
+                      />
+                    );
                   })}
                   {provided.placeholder}
                 </div>
