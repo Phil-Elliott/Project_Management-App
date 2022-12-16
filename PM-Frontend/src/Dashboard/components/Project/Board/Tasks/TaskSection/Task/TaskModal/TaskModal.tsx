@@ -1,18 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { FaTimes, FaRegTrashAlt } from "react-icons/fa";
+import Modal from "../../../../Components/Modal/Modal";
 import { TaskProps } from "../../../../Interfaces";
+import ConfirmModal from "./ConfirmModal/ConfirmModal";
 import "./TaskModal.scss";
 
 type TaskModalProps = {
   modalTask: any;
   changeTaskData: (data: TaskProps) => void;
   display: boolean;
+  deleteTaskData: (id: string) => void;
+  closeModal: () => void;
+  disableCloseToggle: () => void;
+  enableCloseToggle: () => void;
 };
 
-const TaskModal = ({ modalTask, changeTaskData, display }: TaskModalProps) => {
+const TaskModal = ({
+  modalTask,
+  changeTaskData,
+  display,
+  deleteTaskData,
+  closeModal,
+  disableCloseToggle,
+  enableCloseToggle,
+}: TaskModalProps) => {
   const [taskData, setTaskData] = useState<TaskProps>(modalTask);
+  const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
 
-  // changes the input data and saves changes to task when the input is changed
+  // toggles the confirm modal
+  const toggleDeleteModal = () => {
+    setDisplayConfirm(true);
+    disableCloseToggle();
+  };
+
+  // closes confirm modal
+  const closeConfirmModal = () => {
+    setDisplayConfirm(false);
+    enableCloseToggle();
+  };
+
+  // changes the name of the task
   const changeName = (value: string) => {
     setTaskData((prevTaskData) => {
       return {
@@ -20,6 +47,13 @@ const TaskModal = ({ modalTask, changeTaskData, display }: TaskModalProps) => {
         name: value,
       };
     });
+  };
+
+  // deletes the task
+  const deleteTask = () => {
+    deleteTaskData(taskData.id);
+    closeConfirmModal();
+    closeModal();
   };
 
   // changes the input data when a new task is selected
@@ -43,8 +77,19 @@ const TaskModal = ({ modalTask, changeTaskData, display }: TaskModalProps) => {
           />
         </div>
         <div className="task-modal-header-right">
-          <FaRegTrashAlt className="task-modal-header-icon" />
-          <FaTimes className="task-modal-header-icon" />
+          <FaRegTrashAlt
+            className="task-modal-header-icon"
+            onClick={() => toggleDeleteModal()}
+          />
+          <FaTimes
+            className="task-modal-header-icon"
+            onClick={() => closeModal()}
+          />
+          <ConfirmModal
+            display={displayConfirm}
+            closeModal={closeConfirmModal}
+            deleteTask={deleteTask}
+          />
         </div>
       </div>
     </div>

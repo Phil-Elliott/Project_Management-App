@@ -129,6 +129,16 @@ const Board = () => {
   });
   const [display, setDisplay] = useState<boolean>(false);
   const [modalTask, setModalTask] = useState<TaskProps>();
+  const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
+
+  // changes ability to close modal when clicked outside of modal (when confirm modal is open)
+  const disableCloseToggle = () => {
+    setDisableCloseModal(true);
+  };
+
+  const enableCloseToggle = () => {
+    setDisableCloseModal(false);
+  };
 
   // closes modal
   const closeModal = () => {
@@ -141,7 +151,7 @@ const Board = () => {
     setDisplay(!display);
   };
 
-  // changes task data
+  // changes task data from the modal
   const changeTaskData = (data: TaskProps) => {
     setFakeData((prevFakeData) => {
       return {
@@ -153,6 +163,16 @@ const Board = () => {
             return task;
           }
         }),
+      };
+    });
+  };
+
+  // deletes the task data from the modal
+  const deleteTaskData = (id: string) => {
+    setFakeData((prevFakeData) => {
+      return {
+        ...prevFakeData,
+        tasks: prevFakeData.tasks.filter((task) => task.id !== id),
       };
     });
   };
@@ -328,11 +348,19 @@ const Board = () => {
         changeModalDisplay={changeModalDisplay}
       />
       {modalTask && (
-        <Modal display={display} closeModal={closeModal}>
+        <Modal
+          display={display}
+          closeModal={closeModal}
+          disableCloseModal={disableCloseModal}
+        >
           <TaskModal
             modalTask={modalTask}
             changeTaskData={changeTaskData}
+            deleteTaskData={deleteTaskData}
             display={display}
+            closeModal={closeModal}
+            disableCloseToggle={disableCloseToggle}
+            enableCloseToggle={enableCloseToggle}
           />
         </Modal>
       )}
@@ -343,6 +371,14 @@ const Board = () => {
 export default Board;
 
 /*
+
+  double modals
+  - have a booleon state to confirm if there are two modals
+  - If so then dont allow modal to close
+  - if not then close modal
+
+
+
   on task click
     - show modal
     - close on escape and outside click (maybe use a hook for this)
