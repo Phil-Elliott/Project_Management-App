@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FaTimes, FaRegTrashAlt } from "react-icons/fa";
-import Modal from "../../../../Components/Modal/Modal";
 import { TaskProps } from "../../../../Interfaces";
 import ConfirmModal from "./ConfirmModal/ConfirmModal";
+import Header from "./Header/Header";
+import Tags from "./Tags/Tags";
 import "./TaskModal.scss";
 
 type TaskModalProps = {
@@ -39,6 +40,13 @@ const TaskModal = ({
     enableCloseToggle();
   };
 
+  // deletes the task
+  const deleteTask = () => {
+    deleteTaskData(taskData.id);
+    closeConfirmModal();
+    closeModal();
+  };
+
   // changes the name of the task
   const changeName = (value: string) => {
     setTaskData((prevTaskData) => {
@@ -49,11 +57,14 @@ const TaskModal = ({
     });
   };
 
-  // deletes the task
-  const deleteTask = () => {
-    deleteTaskData(taskData.id);
-    closeConfirmModal();
-    closeModal();
+  // adds a new member to the task
+  const addNewMember = (member: string) => {
+    setTaskData((prevTaskData) => {
+      return {
+        ...prevTaskData,
+        assignedTo: [...prevTaskData.assignedTo, member],
+      };
+    });
   };
 
   // changes the input data when a new task is selected
@@ -68,29 +79,19 @@ const TaskModal = ({
 
   return (
     <div className="task-modal-container">
-      <div className="task-modal-header">
-        <div className="task-modal-header-left">
-          <input
-            className="task-modal-header-input"
-            value={taskData.name}
-            onChange={(e) => changeName(e.target.value)}
-          />
-        </div>
-        <div className="task-modal-header-right">
-          <FaRegTrashAlt
-            className="task-modal-header-icon"
-            onClick={() => toggleDeleteModal()}
-          />
-          <FaTimes
-            className="task-modal-header-icon"
-            onClick={() => closeModal()}
-          />
-          <ConfirmModal
-            display={displayConfirm}
-            closeModal={closeConfirmModal}
-            deleteTask={deleteTask}
-          />
-        </div>
+      <Header
+        taskData={taskData}
+        changeName={changeName}
+        toggleDeleteModal={toggleDeleteModal}
+        closeModal={closeModal}
+        displayConfirm={displayConfirm}
+        closeConfirmModal={closeConfirmModal}
+        deleteTask={deleteTask}
+      />
+      <div className="task-modal-body">
+        <Tags taskData={taskData} addNewMember={addNewMember} />
+        <div className="task-modal-description"></div>
+        <div className="task-modal-comments"></div>
       </div>
     </div>
   );
@@ -108,12 +109,11 @@ export default TaskModal;
 Create a modal for the task (when click)
     - Top (same as trello - name, section, trashcan and x on right)
     - Two rows
-          - top
-              - assigned to (same as jira clone)
-              - priority (same as jira clone)
-              - watch button
-              - due date
-              - could show created and updated date
+          - top (left to right)
+              - assigned to (same as trello)
+              - watch button (same as trello)
+              - priority (same as jira clone) - dropdown
+              - due date (same as trello)  
          - bottom
               - description (try to get the same as the jira clone)
               - comments (same as jira clone)
@@ -127,5 +127,11 @@ Create a modal for the task (when click)
     - have another popup to confirm
 
 - figure out react portals
+
+
+
+Extra for later
+- could show created and updated date
+- activity (that records everything)
 
 */

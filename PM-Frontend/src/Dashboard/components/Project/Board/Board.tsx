@@ -131,11 +131,14 @@ const Board = () => {
   const [modalTask, setModalTask] = useState<TaskProps>();
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
 
-  // changes ability to close modal when clicked outside of modal (when confirm modal is open)
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // modal functions
+  // disables ability to close modal when clicked outside of modal (when confirm modal is open)
   const disableCloseToggle = () => {
     setDisableCloseModal(true);
   };
 
+  // disables ability to close modal when clicked outside of modal (when confirm modal is closed)
   const enableCloseToggle = () => {
     setDisableCloseModal(false);
   };
@@ -176,6 +179,8 @@ const Board = () => {
       };
     });
   };
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // adds a new section to the data - triggered by addList btn
   const addNewSection = (name: string) => {
@@ -219,6 +224,9 @@ const Board = () => {
       };
     });
   };
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // drag and drop functions
 
   // changes the order of the sections
   const changeSectionOrder = (id: string, order: number, source: number) => {

@@ -7,7 +7,7 @@ type MembersProps = {
 };
 
 const Members = ({ members, size }: MembersProps) => {
-  const mystyle = {
+  const myStyle = {
     fontSize: size === "med" ? ".8rem" : "1rem",
     width: size === "med" ? "1.5rem" : "2rem",
     height: size === "med" ? "1.5rem" : "2rem",
@@ -20,7 +20,7 @@ const Members = ({ members, size }: MembersProps) => {
           <div
             key={i}
             className="member"
-            style={{ ...mystyle, zIndex: -i + 5 }}
+            style={{ ...myStyle, zIndex: -i + 5 }}
           >
             <p>{member[0]}</p>
           </div>

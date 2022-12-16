@@ -1,0 +1,64 @@
+@use "../../../../../../../../../abstracts" as *;
+
+.modal-confirm-content {
+  width: clamp(10%, 35rem, 70%);
+}
+
+.confirm-container {
+  padding: 1rem;
+
+  .confirm-header {
+    margin-bottom: 1rem;
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .confirm-header-icon {
+      font-size: 1.5rem;
+      cursor: pointer;
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
+  .confirm-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    p {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+  }
+
+  .confirm-footer {
+    display: flex;
+    justify-content: flex-end;
+
+    .confirm-footer-button {
+      padding: 0.5rem 1rem;
+      border-radius: 3px;
+      border: none;
+      outline: none;
+      font-size: 1.15rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 1rem;
+
+      &:hover {
+        background-color: lightblue;
+      }
+
+      &:focus {
+        background-color: white;
+        border: blue 1px solid;
+        outline: none;
+      }
+    }
+  }
+}
