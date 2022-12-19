@@ -68,6 +68,16 @@ const TaskModal = ({
     });
   };
 
+  // changes the description of the task
+  const changeDescription = (value: string) => {
+    setTaskData((prevTaskData) => {
+      return {
+        ...prevTaskData,
+        description: value,
+      };
+    });
+  };
+
   // changes the input data when a new task is selected
   useEffect(() => {
     setTaskData(modalTask);
@@ -91,7 +101,10 @@ const TaskModal = ({
       />
       <div className="task-modal-body">
         <Tags taskData={taskData} addNewMember={addNewMember} />
-        <Description />
+        <Description
+          descriptionData={taskData.description}
+          changeDescription={changeDescription}
+        />
         <Comments taskData={taskData} />
       </div>
     </div>
