@@ -1,0 +1,25 @@
+.main {
+  display: flex;
+  margin-top: 20px;
+}
+
+.user {
+  margin-right: 10px;
+}
+
+.comment-container {
+  //   display: flex;
+  //   flex-direction: column;
+  //   width: 100%;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .name {
+    font-weight: 600;
+    margin-right: 10px;
+  }
+}

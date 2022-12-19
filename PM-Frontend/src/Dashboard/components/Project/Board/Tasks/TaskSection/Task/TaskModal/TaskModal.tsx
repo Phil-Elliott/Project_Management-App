@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { FaTimes, FaRegTrashAlt } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import { TaskProps } from "../../../../Interfaces";
-import ConfirmModal from "./ConfirmModal/ConfirmModal";
 import Header from "./Header/Header";
 import Tags from "./Tags/Tags";
+
 import "./TaskModal.scss";
+import Description from "./Description/Description";
+import Comments from "./Comments/Comments";
 
 type TaskModalProps = {
   modalTask: any;
@@ -90,8 +91,8 @@ const TaskModal = ({
       />
       <div className="task-modal-body">
         <Tags taskData={taskData} addNewMember={addNewMember} />
-        <div className="task-modal-description"></div>
-        <div className="task-modal-comments"></div>
+        <Description />
+        <Comments taskData={taskData} />
       </div>
     </div>
   );
