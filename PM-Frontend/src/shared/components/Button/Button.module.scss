@@ -1,0 +1,21 @@
+button {
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border: none;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.primary {
+  background-color: blue;
+  color: white;
+  margin-right: 1rem;
+}
+
+.secondary {
+}

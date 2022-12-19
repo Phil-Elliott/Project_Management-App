@@ -1,0 +1,46 @@
+.main {
+  margin-top: 1.5rem;
+  margin-left: 0.5rem;
+  //   min-height: 200px;
+
+  p {
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+}
+
+.quill {
+  border: 0.1px solid lightgray;
+  border-radius: 3px;
+  font-size: 1rem;
+  height: 200px;
+  overflow-y: scroll;
+  margin-bottom: 1rem;
+}
+
+.buttons {
+  display: flex;
+  margin-top: 1rem;
+
+  .button {
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.5rem;
+    border: none;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .save {
+    background-color: blue;
+    color: white;
+    margin-right: 1rem;
+  }
+
+  .cancel {
+  }
+}
