@@ -3,7 +3,7 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import Task from "./Task/Task";
 import "./TaskSection.scss";
 import { FaEllipsisH, FaPlus } from "react-icons/fa";
-import AddList from "../Components/AddListBttn/AddItem";
+import AddList from "../../Components/AddListBttn/AddItem";
 import { fakeDataProps, TaskProps } from "../../Interfaces";
 
 type TaskSectionProps = {

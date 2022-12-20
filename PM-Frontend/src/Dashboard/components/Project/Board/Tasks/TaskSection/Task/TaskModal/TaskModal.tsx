@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { TaskProps } from "../../../../Interfaces";
 import Header from "./Header/Header";
 import Tags from "./Tags/Tags";
-
 import "./TaskModal.scss";
 import Description from "./Description/Description";
 import Comments from "./Comments/Comments";

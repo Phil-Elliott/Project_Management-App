@@ -1,4 +1,5 @@
 import { FaTimes } from "react-icons/fa";
+import Button from "../../../../../../../../../shared/components/Button/Button";
 import "./ConfirmModal.scss";
 
 type ConfirmModalProps = {
@@ -26,18 +27,16 @@ const ConfirmModal = ({
             <p>Once you delete, it's gone for good.</p>
           </div>
           <div className="confirm-footer">
-            <button
-              className="confirm-footer-button"
-              onClick={() => closeModal()}
-            >
-              Cancel
-            </button>
-            <button
-              className="confirm-footer-button"
-              onClick={() => deleteTask()}
+            <Button
+              space={true}
+              variant="danger"
+              handleClick={() => deleteTask()}
             >
               Delete
-            </button>
+            </Button>
+            <Button variant="secondary" handleClick={() => closeModal()}>
+              Cancel
+            </Button>
           </div>
         </div>
       </div>

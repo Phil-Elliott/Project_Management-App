@@ -3,9 +3,9 @@ import Nav from "../Components/Nav/Nav";
 import NavOptions from "./NavOptions/NavOptions";
 import Tasks from "./Tasks/Tasks";
 import uuid from "react-uuid";
-import "./Board.scss";
+import styles from "./Board.module.scss";
 import { fakeDataProps, TaskProps } from "./Interfaces";
-import Modal from "./Components/Modal/Modal";
+import Modal from "../../../../shared/components/Modal/Modal";
 import TaskModal from "./Tasks/TaskSection/Task/TaskModal/TaskModal";
 
 const Board = () => {
@@ -132,6 +132,12 @@ const Board = () => {
         ],
       },
     ],
+  });
+  const [user, setUser] = useState<any>({
+    id: "1",
+    name: "John Doe",
+    avatar: "red",
+    watching: ["153454354367656gfdbdfbfdbre"],
   });
   const [display, setDisplay] = useState<boolean>(false);
   const [modalTask, setModalTask] = useState<TaskProps>();
@@ -350,7 +356,7 @@ const Board = () => {
   }, [fakeData]);
 
   return (
-    <div className="board-content-container">
+    <div className={styles.main}>
       <Nav />
       <NavOptions members={fakeData.members} />
       <Tasks

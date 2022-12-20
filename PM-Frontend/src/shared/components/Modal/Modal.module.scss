@@ -1,33 +1,5 @@
-@use "../../../../../../../../../abstracts" as *;
+@use "../../../abstracts" as *;
 
-.modal-confirm-content {
-  width: clamp(10%, 35rem, 70%);
-}
-
-.confirm-container {
-  padding: 2rem;
-
-  .confirm-header {
-    margin-bottom: 2rem;
-
-    h3 {
-      font-size: 1.5rem;
-    }
-  }
-  .confirm-body {
-    margin-bottom: 2rem;
-
-    p {
-      font-size: 1.15rem;
-      font-weight: 600;
-    }
-  }
-
-  .confirm-footer {
-    display: flex;
-    justify-content: flex-end;
-  }
-}
 .modal {
   position: fixed;
   left: 0;
@@ -50,7 +22,7 @@
 
 .modal-content {
   box-shadow: $box-shadow;
-  width: clamp(20%, 40rem, 90%);
+  width: clamp(20%, 55rem, 90%);
   border-radius: 3px;
   background-color: $white;
   transform: translateY(-200px);

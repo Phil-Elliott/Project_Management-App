@@ -44,3 +44,10 @@ export type TaskProps = {
     comment: string;
   }[];
 };
+
+export type User = {
+  id: string;
+  name: string;
+  avatar: string;
+  watching: string[];
+};

@@ -1,6 +1,7 @@
 import React from "react";
 import { TaskProps } from "../../../../../Interfaces";
 import { Members } from "../../../../../NavOptions";
+import Avatar from "../../../../../../../../../shared/components/Avatar/Avatar";
 import CommentData from "./Comment/Comment";
 import styles from "./Comments.module.scss";
 
@@ -14,7 +15,7 @@ const Comments = ({ taskData }: CommentsProps) => {
       <p className={styles.header}>Comments</p>
       <div className={styles.input}>
         <div className={styles.user}>
-          <Members members={[taskData.assignedTo[0]]} />
+          <Avatar user={"Bob"} />
         </div>
         <input type="text" placeholder="Add a comment..." />
       </div>

@@ -43,7 +43,7 @@ const Description = ({
             onChange={setDescriptionValue}
           />
           <div className={styles.buttons}>
-            <Button variant={"primary"} handleClick={handleSave}>
+            <Button space={true} variant={"primary"} handleClick={handleSave}>
               Save
             </Button>
             <Button variant={"secondary"} handleClick={handleCancel}>

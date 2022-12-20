@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import "./AddItem.scss";
+import Button from "../../../../../../shared/components/Button/Button";
 
 type AddItemProps = {
   addNewItem: any;
@@ -24,10 +25,13 @@ const AddItem = ({ addNewItem, item, section }: AddItemProps) => {
   };
 
   const addItem = () => {
-    item === "list"
-      ? addNewItem(inputRef.current!.value)
-      : addNewItem(inputRef.current!.value, section);
-    toggleForm();
+    const add = () => {
+      item === "list"
+        ? addNewItem(inputRef.current!.value)
+        : addNewItem(inputRef.current!.value, section);
+      toggleForm();
+    };
+    inputRef.current!.value ? add() : null;
   };
 
   return (
@@ -54,9 +58,8 @@ const AddItem = ({ addNewItem, item, section }: AddItemProps) => {
           <input
             ref={inputRef}
             type="text"
-            placeholder="Enter list title..."
+            placeholder={`Enter a ${item}`}
             autoFocus
-            onClick={() => inputRef.current?.focus()}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 addItem();
@@ -64,12 +67,10 @@ const AddItem = ({ addNewItem, item, section }: AddItemProps) => {
             }}
           />
           <div className="add-task-form-btns">
-            <button
-              className="add-task-form-btns-add"
-              onClick={() => addItem()}
-            >
-              Add List
-            </button>
+            <Button
+              variant={"primary"}
+              handleClick={() => addItem()}
+            >{`Add ${item}`}</Button>
             <button
               className="add-task-form-btns-cancel"
               onClick={() => toggleForm()}

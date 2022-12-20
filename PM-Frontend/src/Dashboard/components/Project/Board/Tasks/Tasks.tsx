@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import TasksSection from "./TaskSection/TaskSection";
 import ScrollContainer from "react-indiana-drag-scroll";
 import "./Tasks.scss";
-import AddList from "./Components/AddListBttn/AddItem";
+import AddList from "../Components/AddListBttn/AddItem";
 import { fakeDataProps } from "../Interfaces";
 
 type TasksProps = {

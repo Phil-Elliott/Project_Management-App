@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
-import "./Modal.scss";
+import styles from "./Modal.module.scss";
 
 type ModalProps = {
   display: boolean;
@@ -21,8 +21,8 @@ const Modal = ({
   const itemProps = !disableCloseModal ? { ref: ref } : {};
 
   return (
-    <div className={`modal ${display ? "show" : ""}`}>
-      <div className="modal-content" {...itemProps}>
+    <div className={`${styles.modal} ${display ? styles.show : ""}`}>
+      <div className={styles["modal-content"]} {...itemProps}>
         {children}
       </div>
     </div>
@@ -30,11 +30,3 @@ const Modal = ({
 };
 
 export default Modal;
-
-/*
-   how can i close just the top most modal
-   
-
-
-
-*/
