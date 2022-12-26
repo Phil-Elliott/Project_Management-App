@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TaskProps } from "../../../../Interfaces";
+import { TaskProps, User } from "../../../../Interfaces";
 import Header from "./Header/Header";
 import Tags from "./Tags/Tags";
 import styles from "./TaskModal.module.scss";
@@ -7,6 +7,7 @@ import Description from "./Description/Description";
 import Comments from "./Comments/Comments";
 
 type TaskModalProps = {
+  user: User;
   modalTask: any;
   members: string[];
   changeTaskData: (data: TaskProps) => void;
@@ -15,9 +16,12 @@ type TaskModalProps = {
   closeModal: () => void;
   disableCloseToggle: () => void;
   enableCloseToggle: () => void;
+  addWatching: (id: string) => void;
+  removeWatching: (id: string) => void;
 };
 
 const TaskModal = ({
+  user,
   modalTask,
   members,
   changeTaskData,
@@ -26,6 +30,8 @@ const TaskModal = ({
   closeModal,
   disableCloseToggle,
   enableCloseToggle,
+  addWatching,
+  removeWatching,
 }: TaskModalProps) => {
   const [taskData, setTaskData] = useState<TaskProps>(modalTask);
   const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
@@ -122,10 +128,13 @@ const TaskModal = ({
         </div>
         <div className={styles.left}>
           <Tags
+            user={user}
             taskData={taskData}
             members={members}
             addNewMember={addNewMember}
             removeMember={removeMember}
+            addWatching={addWatching}
+            removeWatching={removeWatching}
           />
         </div>
       </div>

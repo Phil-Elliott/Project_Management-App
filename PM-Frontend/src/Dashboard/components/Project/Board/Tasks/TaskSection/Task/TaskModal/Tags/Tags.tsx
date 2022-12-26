@@ -1,73 +1,43 @@
 import React, { useState } from "react";
 import styles from "./Tags.module.scss";
-import { Members } from "../../../../../NavOptions";
 import { FaPlus, FaEye, FaTimes } from "react-icons/fa";
-import Avatar from "../../../../../../../../../shared/components/Avatar/Avatar";
+import Members from "./Members/Members";
+import Notifications from "./Nofications/Notifications";
+import { User } from "../../../../../Interfaces";
 
 type TagsProps = {
+  user: User;
   taskData: any;
   members: string[];
   addNewMember: (member: string) => void;
   removeMember: (member: string) => void;
+  addWatching: (id: string) => void;
+  removeWatching: (id: string) => void;
 };
 
-const Tags = ({ taskData, members, addNewMember, removeMember }: TagsProps) => {
-  const [showSelect, setShowSelect] = useState<boolean>(false);
-
+const Tags = ({
+  user,
+  taskData,
+  members,
+  addNewMember,
+  removeMember,
+  addWatching,
+  removeWatching,
+}: TagsProps) => {
   return (
     <div className={styles.main}>
-      <div className={styles["members-container"]}>
-        <h3>Members</h3>
-        <div className={styles["members-content"]}>
-          {taskData.assignedTo.map((member: string) => {
-            return (
-              <div
-                className={styles.member}
-                onClick={() => removeMember(member)}
-              >
-                <Avatar user={member[0]} size="med" />
-                <p className={styles["member-name"]}>{member}</p>
-                <FaTimes className={styles["cross-icon"]} />
-              </div>
-            );
-          })}
-          <div
-            className={styles["add-member"]}
-            onClick={() => setShowSelect(true)}
-          >
-            <FaPlus className={styles["plus-icon"]} />
-            <p>Add</p>
-          </div>
-          {showSelect && (
-            <div className={styles["member-select"]}>
-              {members.map((member) => {
-                if (taskData.assignedTo.includes(member)) {
-                  return null;
-                } else {
-                  return (
-                    <div
-                      onClick={() => {
-                        addNewMember(member);
-                        setShowSelect(false);
-                      }}
-                    >
-                      <Avatar user={member[0]} size="med" />
-                      <p className={styles["member-name"]}>{member}</p>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          )}
-        </div>
-      </div>
-      <div className={styles.watch}>
-        <p>Notifications</p>
-        <div className={styles["watch-content"]}>
-          <FaEye />
-          <p>Watch</p>
-        </div>
-      </div>
+      <Members
+        taskData={taskData}
+        members={members}
+        addNewMember={addNewMember}
+        removeMember={removeMember}
+      />
+      <Notifications
+        user={user}
+        taskData={taskData}
+        addWatching={addWatching}
+        removeWatching={removeWatching}
+      />
       <div className={styles["priority"]}>
         <p>Priority</p>
         <div className={styles["priority-content"]}>

@@ -4,7 +4,7 @@ import NavOptions from "./NavOptions/NavOptions";
 import Tasks from "./Tasks/Tasks";
 import uuid from "react-uuid";
 import styles from "./Board.module.scss";
-import { fakeDataProps, TaskProps } from "./Interfaces";
+import { fakeDataProps, TaskProps, User } from "./Interfaces";
 import Modal from "../../../../shared/components/Modal/Modal";
 import TaskModal from "./Tasks/TaskSection/Task/TaskModal/TaskModal";
 
@@ -133,7 +133,7 @@ const Board = () => {
       },
     ],
   });
-  const [user, setUser] = useState<any>({
+  const [user, setUser] = useState<User>({
     id: "1",
     name: "John Doe",
     avatar: "red",
@@ -193,7 +193,7 @@ const Board = () => {
   };
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  // section functions
   // adds a new section to the data - triggered by addList btn
   const addNewSection = (name: string) => {
     const newSection = {
@@ -351,9 +351,32 @@ const Board = () => {
     });
   };
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // user functions
+  // add task to user watching
+  const addWatching = (taskID: string) => {
+    setUser((prevUser) => {
+      return {
+        ...prevUser,
+        watching: [...prevUser.watching, taskID],
+      };
+    });
+  };
+
+  // remove task from user watching
+  const removeWatching = (taskID: string) => {
+    setUser((prevUser) => {
+      return {
+        ...prevUser,
+        watching: prevUser.watching.filter((id: string) => id !== taskID),
+      };
+    });
+  };
+
   useEffect(() => {
     console.log(fakeData.tasks);
-  }, [fakeData]);
+    console.log(user);
+  }, [fakeData, user]);
 
   return (
     <div className={styles.main}>
@@ -374,6 +397,9 @@ const Board = () => {
           disableCloseModal={disableCloseModal}
         >
           <TaskModal
+            user={user}
+            addWatching={addWatching}
+            removeWatching={removeWatching}
             modalTask={modalTask}
             members={fakeData.members}
             changeTaskData={changeTaskData}
