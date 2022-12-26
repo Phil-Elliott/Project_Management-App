@@ -1,17 +1,19 @@
 @use "../../../../../../../../../abstracts" as *;
 
-.task-modal-header {
+.main {
   display: grid;
-  grid-template-columns: 6fr 1fr;
+  grid-template-columns: 3fr 1fr;
+  grid-gap: 1rem;
   align-items: center;
   width: 100%;
 
-  .task-modal-header-right {
+  .right {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 
-    .task-modal-header-icon {
-      font-size: 1.5rem;
+    .icon {
+      font-size: 1.25rem;
       margin-left: 1rem;
       cursor: pointer;
 
@@ -22,7 +24,7 @@
   }
 }
 
-.task-modal-header-left {
+.left {
   input {
     border: white 1px solid;
     outline: none;
@@ -34,7 +36,7 @@
     border-radius: 3px;
 
     &:hover {
-      background-color: lightblue;
+      background-color: $background-color;
     }
 
     &:focus {

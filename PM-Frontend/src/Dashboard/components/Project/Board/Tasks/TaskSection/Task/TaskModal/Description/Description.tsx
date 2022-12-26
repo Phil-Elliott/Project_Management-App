@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
-// import Parser from "html-react-parser";
 import "react-quill/dist/quill.snow.css";
 import Button from "../../../../../../../../../shared/components/Button/Button";
 import styles from "./Description.module.scss";
@@ -28,7 +27,13 @@ const Description = ({
   };
 
   useEffect(() => {
-    setDescriptionValue(descriptionData);
+    if (descriptionData === "") {
+      setDescriptionValue("<p>Enter description</p>");
+      setOpenEditor(true);
+    } else {
+      setDescriptionValue(descriptionData);
+      setOpenEditor(false);
+    }
   }, [descriptionData]);
 
   return (

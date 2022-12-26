@@ -58,6 +58,7 @@ const TaskSection = ({
                   {orderedTasks.map((task, index) => {
                     return (
                       <Task
+                        key={task.id}
                         taskData={task}
                         index={index}
                         changeModalDisplay={changeModalDisplay}

@@ -1,0 +1,11 @@
+@use "../../../../../../../../abstracts" as *;
+
+.main {
+  padding: 1rem 1rem 1rem 0.5rem;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-gap: 1rem;
+}

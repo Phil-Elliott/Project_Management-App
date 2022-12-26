@@ -1,3 +1,5 @@
+@use "../../../../../../../../../abstracts/" as *;
+
 .main {
   margin-left: 0.5rem;
 }
@@ -8,8 +10,7 @@
 }
 
 .input {
-  display: flex;
-  align-items: center;
+  @extend %flex-align;
   margin-top: 1rem;
 
   .user {

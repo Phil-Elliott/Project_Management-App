@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Nav from "../Components/Nav/Nav";
 import NavOptions from "./NavOptions/NavOptions";
 import Tasks from "./Tasks/Tasks";
@@ -375,6 +375,7 @@ const Board = () => {
         >
           <TaskModal
             modalTask={modalTask}
+            members={fakeData.members}
             changeTaskData={changeTaskData}
             deleteTaskData={deleteTaskData}
             display={display}
@@ -391,6 +392,13 @@ const Board = () => {
 export default Board;
 
 /*
+  - Add functionanlity to watch bttn
+  - Fix ability to only add a member to a task that is part of the board
+  - Fix the styles (have some common rules)
+  - Add redux
+
+
+
 
   double modals
   - have a booleon state to confirm if there are two modals

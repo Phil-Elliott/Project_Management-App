@@ -21,6 +21,11 @@ type TasksProps = {
   changeModalDisplay: (id: string) => void;
 };
 
+type orderedSectionsProps = {
+  id: string;
+  name: string;
+};
+
 const Tasks = ({
   fakeData,
   addNewSection,
@@ -30,10 +35,7 @@ const Tasks = ({
   changeModalDisplay,
 }: TasksProps) => {
   const [orderedSections, setOrderedSections] = useState<
-    {
-      id: string;
-      name: string;
-    }[]
+    orderedSectionsProps[]
   >([]);
 
   // orders the sections based off of their order to be displayed
@@ -44,10 +46,7 @@ const Tasks = ({
     setOrderedSections(orderedSections);
   }, [fakeData.tasksSections]);
 
-  /*
-    find out where it came from and dont add 1 to anything after that
-
-  */
+  // handles the drag and drop
   const handleOnDrageEnd = (result: any) => {
     const { type, source, destination } = result;
     if (type === "droppable-category") {
@@ -65,8 +64,6 @@ const Tasks = ({
         result.source.index + 1
       );
     }
-    // console.log(result.destination.index + 1);
-    console.log(result);
   };
 
   return (

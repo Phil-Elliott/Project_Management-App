@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { TaskProps } from "../../../../Interfaces";
 import Header from "./Header/Header";
 import Tags from "./Tags/Tags";
-import "./TaskModal.scss";
+import styles from "./TaskModal.module.scss";
 import Description from "./Description/Description";
 import Comments from "./Comments/Comments";
 
 type TaskModalProps = {
   modalTask: any;
+  members: string[];
   changeTaskData: (data: TaskProps) => void;
   display: boolean;
   deleteTaskData: (id: string) => void;
@@ -18,6 +19,7 @@ type TaskModalProps = {
 
 const TaskModal = ({
   modalTask,
+  members,
   changeTaskData,
   display,
   deleteTaskData,
@@ -67,6 +69,18 @@ const TaskModal = ({
     });
   };
 
+  // removes a member from the task
+  const removeMember = (member: string) => {
+    setTaskData((prevTaskData) => {
+      return {
+        ...prevTaskData,
+        assignedTo: prevTaskData.assignedTo.filter(
+          (memberName: string) => memberName !== member
+        ),
+      };
+    });
+  };
+
   // changes the description of the task
   const changeDescription = (value: string) => {
     setTaskData((prevTaskData) => {
@@ -88,7 +102,7 @@ const TaskModal = ({
   }, [display]);
 
   return (
-    <div className="task-modal-container">
+    <div className={styles.main}>
       <Header
         taskData={taskData}
         changeName={changeName}
@@ -98,13 +112,22 @@ const TaskModal = ({
         closeConfirmModal={closeConfirmModal}
         deleteTask={deleteTask}
       />
-      <div className="task-modal-body">
-        <Tags taskData={taskData} addNewMember={addNewMember} />
-        <Description
-          descriptionData={taskData.description}
-          changeDescription={changeDescription}
-        />
-        <Comments taskData={taskData} />
+      <div className={styles.body}>
+        <div className={styles.right}>
+          <Description
+            descriptionData={taskData.description}
+            changeDescription={changeDescription}
+          />
+          <Comments taskData={taskData} />
+        </div>
+        <div className={styles.left}>
+          <Tags
+            taskData={taskData}
+            members={members}
+            addNewMember={addNewMember}
+            removeMember={removeMember}
+          />
+        </div>
       </div>
     </div>
   );
@@ -113,6 +136,15 @@ const TaskModal = ({
 export default TaskModal;
 
 /*
+  - main 
+  - right 
+  - left
+
+
+
+
+
+
    input 
     - set value to task name
     - on change, set the task name to the value

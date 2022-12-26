@@ -1,7 +1,7 @@
 import React from "react";
 import { FaTimes, FaRegTrashAlt } from "react-icons/fa";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
-import "./Header.scss";
+import styles from "./Header.module.scss";
 
 type HeaderProps = {
   taskData: any;
@@ -23,23 +23,20 @@ const Header = ({
   deleteTask,
 }: HeaderProps) => {
   return (
-    <div className="task-modal-header">
-      <div className="task-modal-header-left">
+    <div className={styles.main}>
+      <div className={styles.left}>
         <input
           className="task-modal-header-input"
           value={taskData.name}
           onChange={(e) => changeName(e.target.value)}
         />
       </div>
-      <div className="task-modal-header-right">
+      <div className={styles.right}>
         <FaRegTrashAlt
-          className="task-modal-header-icon"
+          className={styles.icon}
           onClick={() => toggleDeleteModal()}
         />
-        <FaTimes
-          className="task-modal-header-icon"
-          onClick={() => closeModal()}
-        />
+        <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <ConfirmModal
           display={displayConfirm}
           closeModal={closeConfirmModal}
