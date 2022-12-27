@@ -3,7 +3,7 @@
 .members-container {
   margin-block: 1rem;
 
-  h3 {
+  h5 {
     @include h5($primary-dark);
     margin-bottom: 0.5rem;
   }
@@ -11,6 +11,9 @@
 
 .members-content {
   position: relative;
+}
+
+.members-selected {
   @extend %flex-align-wrap;
 }
 
@@ -36,35 +39,30 @@
   }
 }
 
-.member-select {
-  @include popup(10rem);
+input {
+  width: 100%;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: $med;
+  font-weight: 500;
 
-  input {
-    width: 100%;
-    border: none;
-    padding: 0.5rem 1rem;
-    font-size: $med;
-    font-weight: 500;
-
-    &:focus {
-      outline: none;
-    }
+  &:focus {
+    outline: none;
   }
+}
 
-  .member-select-container {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 0.25rem 1rem;
+.member-select-container {
+  @extend %flex-align;
+  cursor: pointer;
+  padding: 0.25rem 1rem;
 
-    &:hover {
-      background: $primary-light;
-    }
+  &:hover {
+    background: $primary-light;
   }
+}
 
-  .member-name {
-    font-size: $med;
-    font-weight: 500;
-    margin: 0.5rem 0rem 0.5rem 1rem;
-  }
+.member-name {
+  font-size: $med;
+  font-weight: 500;
+  margin: 0.5rem 0rem 0.5rem 1rem;
 }

@@ -87,6 +87,16 @@ const TaskModal = ({
     });
   };
 
+  // changes the priority of the task
+  const changePriority = (value: string) => {
+    setTaskData((prevTaskData) => {
+      return {
+        ...prevTaskData,
+        priority: value,
+      };
+    });
+  };
+
   // changes the description of the task
   const changeDescription = (value: string) => {
     setTaskData((prevTaskData) => {
@@ -135,6 +145,7 @@ const TaskModal = ({
             removeMember={removeMember}
             addWatching={addWatching}
             removeWatching={removeWatching}
+            changePriority={changePriority}
           />
         </div>
       </div>

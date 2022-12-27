@@ -32,6 +32,7 @@ export type TaskProps = {
   name: string;
   assignedTo: string[];
   description: string;
+  priority: string;
   due: string;
   taskSection: {
     section: string;

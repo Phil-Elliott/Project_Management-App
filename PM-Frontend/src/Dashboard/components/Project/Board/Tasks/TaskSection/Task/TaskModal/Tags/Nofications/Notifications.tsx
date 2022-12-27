@@ -39,7 +39,7 @@ const Notifications = ({
 
   return (
     <div className={styles.watch}>
-      <p>Notifications</p>
+      <h5>Notifications</h5>
       <div className={styles["watch-content"]} onClick={() => toggleWatching()}>
         <FaEye />
         <p>{watching}</p>

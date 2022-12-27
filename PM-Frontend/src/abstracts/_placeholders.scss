@@ -37,3 +37,17 @@
   @extend %flex-align;
   flex-direction: column;
 }
+
+//==================================================
+// Modal
+//==================================================
+%modalItem {
+  @extend %flex-align;
+  font-size: $med;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-light;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  background-color: $primary-light;
+  width: 100%;
+}

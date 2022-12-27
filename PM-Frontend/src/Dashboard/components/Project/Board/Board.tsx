@@ -73,6 +73,7 @@ const Board = () => {
         name: "Decide on what to transfer",
         assignedTo: ["John Doe", "Jane Doe"],
         description: "Decide on what to transfer",
+        priority: "Low",
         due: "2021-01-01",
         taskSection: {
           section: "Done",
@@ -92,6 +93,7 @@ const Board = () => {
         name: "Eat a pizza",
         assignedTo: ["Jane Doe"],
         description: "Decide on what to transfer",
+        priority: "Normal",
         due: "2021-01-01",
         taskSection: {
           section: "Done",
@@ -111,6 +113,7 @@ const Board = () => {
         name: "Take out trash",
         assignedTo: ["Forest Gump", "Jenny"],
         description: "Take out trash",
+        priority: "High",
         due: "2021-01-01",
         taskSection: {
           section: "Production",
@@ -221,6 +224,7 @@ const Board = () => {
       name,
       assignedTo: [],
       description: "",
+      priority: "Low",
       due: "",
       taskSection: {
         section: taskSection,

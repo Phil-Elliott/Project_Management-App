@@ -13,6 +13,7 @@ type TagsProps = {
   removeMember: (member: string) => void;
   addWatching: (id: string) => void;
   removeWatching: (id: string) => void;
+  changePriority: (priority: string) => void;
 };
 
 const Tags = ({
@@ -23,6 +24,7 @@ const Tags = ({
   removeMember,
   addWatching,
   removeWatching,
+  changePriority,
 }: TagsProps) => {
   return (
     <div className={styles.main}>
@@ -38,7 +40,7 @@ const Tags = ({
         addWatching={addWatching}
         removeWatching={removeWatching}
       />
-      <Priority />
+      <Priority changePriority={changePriority} priority={taskData.priority} />
       <div className={styles["due-date"]}>
         <p>Due Date</p>
         <div className={styles["due-date-content"]}>

@@ -1,13 +1,12 @@
 @use "variables.scss" as *;
 
-@mixin popup($margin) {
+@mixin popup {
   position: absolute;
   box-shadow: $box-shadow;
   border-radius: $border-radius;
   width: 100%;
   z-index: 1000;
   background-color: $popup-background;
-  margin-top: $margin;
 }
 
 @mixin icon($size, $margin) {

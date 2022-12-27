@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import Avatar from "../../../../../../../../../../shared/components/Avatar/Avatar";
 import styles from "./Members.module.scss";
-import { useOnClickOutside } from "usehooks-ts";
+import Popup from "../../../../../../../../../../shared/components/Popup/Popup";
 
 type MemberProps = {
   taskData: any;
@@ -19,12 +19,6 @@ const Members = ({
 }: MemberProps) => {
   const [showSelect, setShowSelect] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
-  const ref = useRef(null);
-
-  const handleClickOutside = () => {
-    setShowSelect(false);
-  };
-  useOnClickOutside(ref, handleClickOutside);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -33,26 +27,33 @@ const Members = ({
 
   return (
     <div className={styles["members-container"]}>
-      <h3>Members</h3>
+      <h5>Members</h5>
       <div className={styles["members-content"]}>
-        {taskData.assignedTo.map((member: string) => {
-          return (
-            <div className={styles.member} onClick={() => removeMember(member)}>
-              <Avatar user={member[0]} size="med" />
-              <p className={styles["member-name"]}>{member}</p>
-              <FaTimes className={styles["cross-icon"]} />
-            </div>
-          );
-        })}
-        <div
-          className={styles["add-member"]}
-          onClick={() => setShowSelect(true)}
-        >
-          <FaPlus className={styles["plus-icon"]} />
-          <p>Add</p>
+        <div className={styles["members-selected"]}>
+          {taskData.assignedTo.map((member: string) => {
+            return (
+              <div
+                className={styles.member}
+                onClick={() => removeMember(member)}
+              >
+                <Avatar user={member[0]} size="med" />
+                <p className={styles["member-name"]}>{member}</p>
+                <FaTimes className={styles["cross-icon"]} />
+              </div>
+            );
+          })}
+
+          <div
+            className={styles["add-member"]}
+            onClick={() => setShowSelect(true)}
+          >
+            <FaPlus className={styles["plus-icon"]} />
+            <p>Add</p>
+          </div>
         </div>
+
         {showSelect && (
-          <div ref={ref} className={styles["member-select"]}>
+          <Popup close={setShowSelect}>
             <input
               type="search"
               placeholder="Search"
@@ -76,7 +77,7 @@ const Members = ({
                 );
               }
             })}
-          </div>
+          </Popup>
         )}
       </div>
     </div>
