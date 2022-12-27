@@ -1,11 +1,15 @@
 @use "../../../../../../../../abstracts" as *;
 
 .main {
-  padding: 1rem 1rem 1rem 0.5rem;
+  background-color: $modal-background;
+  padding: 1rem;
+  min-height: 70vh;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .body {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 3fr 1.5fr;
   grid-gap: 1rem;
 }

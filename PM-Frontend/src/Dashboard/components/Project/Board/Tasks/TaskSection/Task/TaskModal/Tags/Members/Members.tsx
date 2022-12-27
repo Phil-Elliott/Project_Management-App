@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import Avatar from "../../../../../../../../../../shared/components/Avatar/Avatar";
 import styles from "./Members.module.scss";
+import { useOnClickOutside } from "usehooks-ts";
 
 type MemberProps = {
   taskData: any;
@@ -17,6 +18,18 @@ const Members = ({
   removeMember,
 }: MemberProps) => {
   const [showSelect, setShowSelect] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("");
+  const ref = useRef(null);
+
+  const handleClickOutside = () => {
+    setShowSelect(false);
+  };
+  useOnClickOutside(ref, handleClickOutside);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    console.log(search);
+  };
 
   return (
     <div className={styles["members-container"]}>
@@ -39,13 +52,19 @@ const Members = ({
           <p>Add</p>
         </div>
         {showSelect && (
-          <div className={styles["member-select"]}>
+          <div ref={ref} className={styles["member-select"]}>
+            <input
+              type="search"
+              placeholder="Search"
+              onChange={(e) => handleSearch(e)}
+            />
             {members.map((member) => {
               if (taskData.assignedTo.includes(member)) {
                 return null;
-              } else {
+              } else if (member.toLowerCase().includes(search.toLowerCase())) {
                 return (
                   <div
+                    className={styles["member-select-container"]}
                     onClick={() => {
                       addNewMember(member);
                       setShowSelect(false);

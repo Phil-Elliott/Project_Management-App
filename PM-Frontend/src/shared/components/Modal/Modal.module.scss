@@ -7,8 +7,7 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  @extend %flex-align;
-  justify-content: center;
+  @extend %flex-center;
   z-index: 5;
   opacity: 0;
   transition: $transistion-ease;
@@ -22,7 +21,7 @@
 
 .modal-content {
   box-shadow: $box-shadow;
-  width: clamp(20%, 55rem, 90%);
+  width: clamp(20%, 65rem, 90%);
   border-radius: 3px;
   background-color: $white;
   transform: translateY(-200px);

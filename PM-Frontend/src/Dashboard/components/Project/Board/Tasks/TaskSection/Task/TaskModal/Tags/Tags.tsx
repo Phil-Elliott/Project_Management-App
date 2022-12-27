@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styles from "./Tags.module.scss";
-import { FaPlus, FaEye, FaTimes } from "react-icons/fa";
 import Members from "./Members/Members";
 import Notifications from "./Nofications/Notifications";
 import { User } from "../../../../../Interfaces";
+import Priority from "./Priority/Priority";
 
 type TagsProps = {
   user: User;
@@ -38,12 +38,7 @@ const Tags = ({
         addWatching={addWatching}
         removeWatching={removeWatching}
       />
-      <div className={styles["priority"]}>
-        <p>Priority</p>
-        <div className={styles["priority-content"]}>
-          <p>Normal</p>
-        </div>
-      </div>
+      <Priority />
       <div className={styles["due-date"]}>
         <p>Due Date</p>
         <div className={styles["due-date-content"]}>

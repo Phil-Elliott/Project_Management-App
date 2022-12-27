@@ -6,7 +6,7 @@ const Search = () => {
   return (
     <div className="search-container">
       <FaSearch className="search-icon" />
-      <input></input>
+      <input />
     </div>
   );
 };

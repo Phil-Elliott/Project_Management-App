@@ -1,0 +1,13 @@
+@use "../../../../../../../../../../abstracts" as *;
+
+.priority {
+  margin-left: 2rem;
+  .priority-content {
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem 0;
+  }
+}
