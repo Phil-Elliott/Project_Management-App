@@ -1,0 +1,22 @@
+@use "/src/styles/" as *;
+
+.navOptions-container {
+  display: flex;
+  align-items: center;
+  margin-top: 5rem;
+  margin-left: 1rem;
+  position: fixed;
+
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.15rem;
+    padding: 0.25rem 1rem;
+    border-radius: 3px;
+
+    &:hover {
+      background-color: white;
+    }
+  }
+}

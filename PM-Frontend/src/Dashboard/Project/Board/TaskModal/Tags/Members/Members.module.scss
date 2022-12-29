@@ -1,0 +1,68 @@
+@use "/src/styles/" as *;
+
+.members-container {
+  margin-block: 1rem;
+
+  h5 {
+    @include h5($primary-dark);
+    margin-bottom: 0.5rem;
+  }
+}
+
+.members-content {
+  position: relative;
+}
+
+.members-selected {
+  @extend %flex-align-wrap;
+}
+
+.member {
+  @include textBox(0 0.5rem 0.5rem 0);
+
+  .member-name,
+  .cross-icon {
+    @include icon(0.9rem, 1rem);
+  }
+}
+.add-member {
+  position: relative;
+  @extend %flex-align;
+  font-size: $small;
+  font-weight: 500;
+  color: blue;
+  cursor: pointer;
+  padding: 0.25rem;
+
+  .plus-icon {
+    margin-right: 0.5rem;
+  }
+}
+
+input {
+  width: 100%;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: $med;
+  font-weight: 500;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.member-select-container {
+  @extend %flex-align;
+  cursor: pointer;
+  padding: 0.25rem 1rem;
+
+  &:hover {
+    background: $primary-light;
+  }
+}
+
+.member-name {
+  font-size: $med;
+  font-weight: 500;
+  margin: 0.5rem 0rem 0.5rem 1rem;
+}

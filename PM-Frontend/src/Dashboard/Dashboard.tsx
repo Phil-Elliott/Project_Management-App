@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Layout, ProjectHub } from "./components";
-import { Board, Display, ProjectLayout } from "./components/Project";
+
 import "./Dashboard.scss";
 import { projectData } from "./Interfaces";
+
+import Layout from "./Layout/Layout";
+import { Board, Display, ProjectLayout } from "./Project";
+
 import {
   addNewProject,
   changeActiveProject,
@@ -12,6 +15,7 @@ import {
   editProject,
   updateProjectData,
 } from "./ProjectDataSlice";
+import ProjectHub from "./ProjectHub/ProjectHub";
 import { RootState } from "./Store";
 
 const Dashboard = () => {

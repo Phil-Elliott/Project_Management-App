@@ -1,0 +1,28 @@
+@use "../../../styles" as *;
+
+.dashboard-main-container {
+  display: grid;
+  gap: $grid-gap;
+  padding: $content-padding;
+}
+
+.dashboard-top-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: $grid-gap;
+}
+
+.dashboard-bottom-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: $grid-gap;
+}
+
+@media only screen and (max-width: 1100px) {
+  .dashboard-top-container {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-bottom-container {
+    grid-template-columns: 1fr;
+  }
+}

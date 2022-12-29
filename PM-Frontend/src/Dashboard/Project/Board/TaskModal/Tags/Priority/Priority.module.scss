@@ -1,0 +1,39 @@
+@use "~/styles" as *;
+
+.main {
+  margin-bottom: 1rem;
+  h5 {
+    @include h5($primary-dark);
+    margin-bottom: 0.5rem;
+  }
+}
+.content {
+  position: relative;
+}
+
+.choice {
+  @extend %modalItem;
+  padding: 0.5rem;
+
+  p {
+    font-size: $med;
+    font-weight: 500;
+    margin-left: 0.5rem;
+  }
+}
+
+.option {
+  @extend %flex-align;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+
+  &:hover {
+    background: $primary-light;
+  }
+
+  p {
+    font-size: $med;
+    font-weight: 500;
+    margin-left: 0.5rem;
+  }
+}

@@ -1,6 +1,8 @@
-import { Dashboard, LandingPage, SignIn } from "./";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.scss";
+import Dashboard from "./Dashboard/Dashboard";
+import LandingPage from "./LandingPage/LandingPage";
+import SignIn from "./SignIn/SignIn";
 
 function App() {
   return (
