@@ -1,7 +1,7 @@
 import React from "react";
 import { FaComment, FaEye } from "react-icons/fa";
 import styles from "./Task.module.scss";
-import { TaskProps } from "../../../Interfaces";
+import { TaskProps } from "../../../../../../shared/interfaces/Projects";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { Members } from "~/shared/components";
 

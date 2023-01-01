@@ -2,152 +2,44 @@ import { useEffect, useState } from "react";
 import Nav from "../Nav/Nav";
 import NavOptions from "./NavOptions/NavOptions";
 import Tasks from "./Tasks/Tasks";
-import uuid from "react-uuid";
 import styles from "./Board.module.scss";
-import { fakeDataProps, TaskProps, User } from "./Interfaces";
-import Modal from "../../../shared/components/Modal/Modal";
+import { TaskProps } from "~/shared/interfaces/Projects";
 import TaskModal from "./TaskModal/TaskModal";
+import { Modal } from "~/shared/components";
+
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "~/Dashboard/Store";
+import {
+  addSection,
+  addTask,
+  switchSectionOrder,
+  switchTaskOrder,
+} from "../ProjectSlice";
 
 const Board = () => {
-  const [fakeData, setFakeData] = useState<fakeDataProps>({
-    name: "Transfer Files",
-    id: "1",
-    background: "can be a color or an image(options for images)",
-    members: ["John Doe", "Jane Doe", "Bob Tyler"],
-    notes: [
-      {
-        id: "1",
-        title: "Transfer Files",
-        member: "John Doe",
-        description: "Transfer files from old computer to new computer",
-        urgency: "high",
-        comments: [
-          {
-            id: "1",
-            member: "John Doe",
-            comment: "This is a comment",
-          },
-          {
-            id: "1",
-            member: "John Doe",
-            comment: "This is a comment",
-          },
-        ],
-      },
-    ],
-    tasksSections: [
-      {
-        id: "1dfghdfghgt6",
-        order: 1,
-        name: "Marketing",
-      },
-      {
-        id: "65u56ufghngfh2",
-        order: 2,
-        name: "Design",
-      },
-      {
-        id: "3657u56fghhrf",
-        order: 3,
-        name: "Production",
-      },
-      {
-        id: "465y765ytrhftgh",
-        order: 4,
-        name: "Done",
-      },
-      {
-        id: "dfhkulil6i75",
-        order: 5,
-        name: "Testing",
-      },
-      {
-        id: "235756hfgrt",
-        order: 6,
-        name: "Other",
-      },
-    ],
-    tasks: [
-      {
-        id: "153454354367656gfdbdfbfdbre",
-        name: "Decide on what to transfer",
-        assignedTo: ["John Doe", "Jane Doe"],
-        description: "Decide on what to transfer",
-        priority: "Low",
-        due: "2021-01-01",
-        taskSection: {
-          section: "Done",
-          order: 1,
-        },
-        comments: [
-          {
-            id: "1dff43456655755",
-            member: "John Doe",
-            date: "March 18, 2022 12:54 PM",
-            comment: "Decide on what to transfer comment",
-          },
-        ],
-      },
-      {
-        id: "2ggfhbfdgbghn6556",
-        name: "Eat a pizza",
-        assignedTo: ["Jane Doe"],
-        description: "Decide on what to transfer",
-        priority: "Normal",
-        due: "2021-01-01",
-        taskSection: {
-          section: "Done",
-          order: 2,
-        },
-        comments: [
-          {
-            id: "15676556hfgh65rthrt",
-            member: "John Doe",
-            date: "March 18, 2022 12:54 PM",
-            comment: "Eat a pizza comment",
-          },
-        ],
-      },
-      {
-        id: "3rhh5y67565uyhnghnfghfg",
-        name: "Take out trash",
-        assignedTo: ["Forest Gump", "Jenny"],
-        description: "Take out trash",
-        priority: "High",
-        due: "2021-01-01",
-        taskSection: {
-          section: "Production",
-          order: 1,
-        },
-        comments: [
-          {
-            id: "1fghgfhhrt7657665765756",
-            member: "John Doe",
-            date: "December 19, 2022 12:54 PM",
-            comment: "Take out trash comment",
-          },
-          {
-            id: "efefekwbfkj35346534eufdb",
-            member: "Jane",
-            date: "November 15, 2022 1:54 AM",
-            comment: "I like trash",
-          },
-        ],
-      },
-    ],
-  });
-  const [user, setUser] = useState<User>({
-    id: "1",
-    name: "John Doe",
-    avatar: "red",
-    watching: ["153454354367656gfdbdfbfdbre"],
-  });
   const [display, setDisplay] = useState<boolean>(false);
   const [modalTask, setModalTask] = useState<TaskProps>();
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
 
+  const newData = useSelector((state: RootState) => state.project.project);
+  const user = useSelector((state: RootState) => state.project.user);
+  const dispatch = useDispatch();
+
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // modal functions
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // closes modal
+  const closeModal = () => {
+    setDisplay(false);
+  };
+
+  // displays the modal
+  const changeModalDisplay = (id: string) => {
+    setModalTask(newData.tasks.find((task) => task.id === id));
+    setDisplay(!display);
+  };
+
   // disables ability to close modal when clicked outside of modal (when confirm modal is open)
   const disableCloseToggle = () => {
     setDisableCloseModal(true);
@@ -158,119 +50,27 @@ const Board = () => {
     setDisableCloseModal(false);
   };
 
-  // closes modal
-  const closeModal = () => {
-    setDisplay(false);
-  };
-
-  // displays the modal
-  const changeModalDisplay = (id: string) => {
-    setModalTask(fakeData.tasks.find((task) => task.id === id));
-    setDisplay(!display);
-  };
-
-  // changes task data from the modal
-  const changeTaskData = (data: TaskProps) => {
-    setFakeData((prevFakeData) => {
-      return {
-        ...prevFakeData,
-        tasks: prevFakeData.tasks.map((task) => {
-          if (task.id === data.id) {
-            return data;
-          } else {
-            return task;
-          }
-        }),
-      };
-    });
-  };
-
-  // deletes the task data from the modal
-  const deleteTaskData = (id: string) => {
-    setFakeData((prevFakeData) => {
-      return {
-        ...prevFakeData,
-        tasks: prevFakeData.tasks.filter((task) => task.id !== id),
-      };
-    });
-  };
-
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // section functions
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   // adds a new section to the data - triggered by addList btn
   const addNewSection = (name: string) => {
-    const newSection = {
-      id: uuid(),
-      order: fakeData.tasksSections.length + 1,
-      name,
-    };
-    setFakeData((prevFakeData) => {
-      return {
-        ...prevFakeData,
-        tasksSections: [...prevFakeData.tasksSections, newSection],
-      };
-    });
+    dispatch(addSection(name));
   };
 
   // adds a new task to the section
   const addNewTask = (name: string, taskSection: string) => {
-    // gets the order number for the new task
-    const order =
-      fakeData.tasks.filter((task) => task.taskSection.section === taskSection)
-        .length + 1;
-
-    const newTask = {
-      id: uuid(),
-      name,
-      assignedTo: [],
-      description: "",
-      priority: "Low",
-      due: "",
-      taskSection: {
-        section: taskSection,
-        order,
-      },
-      comments: [],
-    };
-
-    setFakeData((prevFakeData) => {
-      return {
-        ...prevFakeData,
-        tasks: [...prevFakeData.tasks, newTask],
-      };
-    });
+    dispatch(addTask({ name: name, tasksSection: taskSection }));
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // drag and drop functions
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // changes the order of the sections
   const changeSectionOrder = (id: string, order: number, source: number) => {
-    setFakeData((prevData) => {
-      return {
-        ...prevData,
-        tasksSections: prevData.tasksSections.map((section) => {
-          if (section.id === id) {
-            return {
-              ...section,
-              order: order,
-            };
-          } else if (section.order > source && section.order <= order) {
-            return {
-              ...section,
-              order: section.order - 1,
-            };
-          } else if (section.order < source && section.order >= order) {
-            return {
-              ...section,
-              order: section.order + 1,
-            };
-          } else {
-            return section;
-          }
-        }),
-      };
-    });
+    dispatch(switchSectionOrder({ id: id, order: order, source: source }));
   };
 
   // changes the task section and order within the task object - triggered by drag and drop
@@ -281,114 +81,29 @@ const Board = () => {
     source: string,
     sourceIndex: number
   ) => {
-    setFakeData((prevFakeData) => {
-      const taskSectionName = prevFakeData.tasksSections.find(
-        (section) => section.id === taskSection
-      )!.name;
-
-      const sourceSectionName = prevFakeData.tasksSections.find(
-        (section) => section.id === source
-      )!.name;
-
-      return {
-        ...prevFakeData,
-        tasks: prevFakeData.tasks.map((task) => {
-          if (task.id === id) {
-            return {
-              ...task,
-              taskSection: {
-                section: taskSectionName,
-                order,
-              },
-            };
-          } else if (
-            taskSection === source &&
-            task.taskSection.section === taskSectionName
-          ) {
-            if (
-              order < sourceIndex &&
-              task.taskSection.order >= order &&
-              task.taskSection.order < sourceIndex
-            ) {
-              return {
-                ...task,
-                taskSection: {
-                  ...task.taskSection,
-                  order: task.taskSection.order + 1,
-                },
-              };
-            } else if (
-              order > sourceIndex &&
-              task.taskSection.order <= order &&
-              task.taskSection.order > sourceIndex
-            ) {
-              return {
-                ...task,
-                taskSection: {
-                  ...task.taskSection,
-                  order: task.taskSection.order - 1,
-                },
-              };
-            } else {
-              return task;
-            }
-          } else if (
-            taskSection !== source &&
-            task.taskSection.section === taskSectionName
-          ) {
-            if (task.taskSection.order >= order) {
-              return {
-                ...task,
-                taskSection: {
-                  ...task.taskSection,
-                  order: task.taskSection.order + 1,
-                },
-              };
-            } else {
-              return task;
-            }
-          } else {
-            return task;
-          }
-        }),
-      };
-    });
-  };
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // user functions
-  // add task to user watching
-  const addWatching = (taskID: string) => {
-    setUser((prevUser) => {
-      return {
-        ...prevUser,
-        watching: [...prevUser.watching, taskID],
-      };
-    });
-  };
-
-  // remove task from user watching
-  const removeWatching = (taskID: string) => {
-    setUser((prevUser) => {
-      return {
-        ...prevUser,
-        watching: prevUser.watching.filter((id: string) => id !== taskID),
-      };
-    });
+    dispatch(
+      switchTaskOrder({
+        id: id,
+        taskSection: taskSection,
+        order: order,
+        source: source,
+        sourceIndex: sourceIndex,
+      })
+    );
   };
 
   useEffect(() => {
-    console.log(fakeData.tasks);
-    console.log(user);
-  }, [fakeData, user]);
+    console.log("newData", newData);
+    console.log("user", user);
+  }, [newData, user]);
 
   return (
     <div className={styles.main}>
       <Nav />
-      <NavOptions members={fakeData.members} />
+      <NavOptions members={newData.members} />
       <Tasks
         changeSectionOrder={changeSectionOrder}
-        fakeData={fakeData}
+        fakeData={newData}
         addNewSection={addNewSection}
         addNewTask={addNewTask}
         changeTaskPosition={changeTaskPosition}
@@ -402,12 +117,8 @@ const Board = () => {
         >
           <TaskModal
             user={user}
-            addWatching={addWatching}
-            removeWatching={removeWatching}
             modalTask={modalTask}
-            members={fakeData.members}
-            changeTaskData={changeTaskData}
-            deleteTaskData={deleteTaskData}
+            members={newData.members}
             display={display}
             closeModal={closeModal}
             disableCloseToggle={disableCloseToggle}

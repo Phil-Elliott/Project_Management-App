@@ -1,40 +1,36 @@
 import { useEffect, useState } from "react";
-import { TaskProps, User } from "../../../../Interfaces";
 import Header from "./Header/Header";
 import Tags from "./Tags/Tags";
 import styles from "./TaskModal.module.scss";
 import Description from "./Description/Description";
 import Comments from "./Comments/Comments";
+import { TaskProps, User } from "~/shared/interfaces/Projects";
+import { updateTask, deleteTask } from "../../ProjectSlice";
+import { useDispatch } from "react-redux";
 
 type TaskModalProps = {
   user: User;
   modalTask: any;
   members: string[];
-  changeTaskData: (data: TaskProps) => void;
   display: boolean;
-  deleteTaskData: (id: string) => void;
   closeModal: () => void;
   disableCloseToggle: () => void;
   enableCloseToggle: () => void;
-  addWatching: (id: string) => void;
-  removeWatching: (id: string) => void;
 };
 
 const TaskModal = ({
   user,
   modalTask,
   members,
-  changeTaskData,
   display,
-  deleteTaskData,
   closeModal,
   disableCloseToggle,
   enableCloseToggle,
-  addWatching,
-  removeWatching,
 }: TaskModalProps) => {
   const [taskData, setTaskData] = useState<TaskProps>(modalTask);
   const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
 
   // toggles the confirm modal
   const toggleDeleteModal = () => {
@@ -49,8 +45,8 @@ const TaskModal = ({
   };
 
   // deletes the task
-  const deleteTask = () => {
-    deleteTaskData(taskData.id);
+  const deleteTaskData = () => {
+    dispatch(deleteTask(taskData.id));
     closeConfirmModal();
     closeModal();
   };
@@ -114,7 +110,7 @@ const TaskModal = ({
 
   // saves the changes to the task when the modal is closed
   useEffect(() => {
-    changeTaskData(taskData);
+    dispatch(updateTask(taskData));
   }, [display]);
 
   return (
@@ -126,7 +122,7 @@ const TaskModal = ({
         closeModal={closeModal}
         displayConfirm={displayConfirm}
         closeConfirmModal={closeConfirmModal}
-        deleteTask={deleteTask}
+        deleteTask={deleteTaskData}
       />
       <div className={styles.body}>
         <div className={styles.right}>
@@ -143,8 +139,6 @@ const TaskModal = ({
             members={members}
             addNewMember={addNewMember}
             removeMember={removeMember}
-            addWatching={addWatching}
-            removeWatching={removeWatching}
             changePriority={changePriority}
           />
         </div>

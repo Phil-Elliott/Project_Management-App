@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styles from "./Tags.module.scss";
 import Members from "./Members/Members";
 import Notifications from "./Nofications/Notifications";
-import { User } from "../../../../../Interfaces";
 import Priority from "./Priority/Priority";
+import { User } from "~/shared/interfaces/Projects";
 
 type TagsProps = {
   user: User;
@@ -11,8 +11,6 @@ type TagsProps = {
   members: string[];
   addNewMember: (member: string) => void;
   removeMember: (member: string) => void;
-  addWatching: (id: string) => void;
-  removeWatching: (id: string) => void;
   changePriority: (priority: string) => void;
 };
 
@@ -22,8 +20,6 @@ const Tags = ({
   members,
   addNewMember,
   removeMember,
-  addWatching,
-  removeWatching,
   changePriority,
 }: TagsProps) => {
   return (
@@ -34,12 +30,7 @@ const Tags = ({
         addNewMember={addNewMember}
         removeMember={removeMember}
       />
-      <Notifications
-        user={user}
-        taskData={taskData}
-        addWatching={addWatching}
-        removeWatching={removeWatching}
-      />
+      <Notifications user={user} taskData={taskData} />
       <Priority changePriority={changePriority} priority={taskData.priority} />
       <div className={styles["due-date"]}>
         <p>Due Date</p>

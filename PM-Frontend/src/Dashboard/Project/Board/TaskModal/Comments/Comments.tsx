@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar } from "~/shared/components";
-import { TaskProps } from "../../Interfaces";
+import { TaskProps } from "../../../../../shared/interfaces/Projects";
 import CommentData from "./Comment/Comment";
 import styles from "./Comments.module.scss";
 

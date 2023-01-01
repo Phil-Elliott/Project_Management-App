@@ -1,23 +1,22 @@
-import { E } from "chart.js/dist/chunks/helpers.core";
 import React, { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
-import { User } from "../../../../../../Interfaces";
+import { User } from "~/shared/interfaces/Projects";
 import styles from "./Notifications.module.scss";
+import {
+  addWatchingTask,
+  removeWatchingTask,
+} from "~/Dashboard/Project/ProjectSlice";
+import { useDispatch } from "react-redux";
 
 type NotificationProps = {
   user: User;
   taskData: any;
-  addWatching: (id: string) => void;
-  removeWatching: (id: string) => void;
 };
 
-const Notifications = ({
-  user,
-  taskData,
-  addWatching,
-  removeWatching,
-}: NotificationProps) => {
+const Notifications = ({ user, taskData }: NotificationProps) => {
   const [watching, setWatching] = useState<string>("Watch");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (user.watching.includes(taskData.id)) {
@@ -29,10 +28,10 @@ const Notifications = ({
 
   const toggleWatching = () => {
     if (watching === "Watch") {
-      addWatching(taskData.id);
+      dispatch(addWatchingTask(taskData.id));
       setWatching("Watching");
     } else {
-      removeWatching(taskData.id);
+      dispatch(removeWatchingTask(taskData.id));
       setWatching("Watch");
     }
   };

@@ -1,4 +1,4 @@
-export type fakeDataProps = {
+export type ProjectDataProps = {
   name: string;
   id: string;
   background: string;

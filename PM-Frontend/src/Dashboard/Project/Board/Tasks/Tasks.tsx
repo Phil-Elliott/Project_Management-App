@@ -4,11 +4,11 @@ import TasksSection from "./TaskSection/TaskSection";
 import ScrollContainer from "react-indiana-drag-scroll";
 import "./Tasks.scss";
 import AddList from "../../../../shared/components/AddItemBttn/AddItem";
-import { fakeDataProps } from "../Interfaces";
+import { ProjectDataProps } from "~/shared/interfaces/Projects";
 
 type TasksProps = {
-  fakeData: fakeDataProps;
-  addNewSection: (name: string) => void;
+  fakeData: ProjectDataProps;
+  addNewSection: any;
   addNewTask: (name: string, section: string) => void;
   changeSectionOrder: (id: string, order: number, source: number) => void;
   changeTaskPosition: (
@@ -26,6 +26,12 @@ type orderedSectionsProps = {
   name: string;
 };
 
+type sections = {
+  id: string;
+  name: string;
+  order: number;
+};
+
 const Tasks = ({
   fakeData,
   addNewSection,
@@ -40,9 +46,17 @@ const Tasks = ({
 
   // orders the sections based off of their order to be displayed
   useEffect(() => {
-    const orderedSections = fakeData.tasksSections.sort((a, b) => {
+    const sections = (fakeData.tasksSections as sections[]).map((section) => {
+      return {
+        id: section.id,
+        name: section.name,
+        order: section.order,
+      };
+    });
+    const orderedSections = sections.sort((a, b) => {
       return a.order - b.order;
     });
+
     setOrderedSections(orderedSections);
   }, [fakeData.tasksSections]);
 

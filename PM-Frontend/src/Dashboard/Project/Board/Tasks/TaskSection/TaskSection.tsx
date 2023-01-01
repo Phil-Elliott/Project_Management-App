@@ -4,7 +4,10 @@ import Task from "./Task/Task";
 import "./TaskSection.scss";
 import { FaEllipsisH, FaPlus } from "react-icons/fa";
 
-import { fakeDataProps, TaskProps } from "../../Interfaces";
+import {
+  ProjectDataProps,
+  TaskProps,
+} from "../../../../../shared/interfaces/Projects";
 import { AddItem } from "~/shared/components";
 
 type TaskSectionProps = {
@@ -12,7 +15,7 @@ type TaskSectionProps = {
     id: string;
     name: string;
   };
-  fakeData: fakeDataProps;
+  fakeData: ProjectDataProps;
   addNewTask: (name: string, section: string) => void;
   index: number;
   changeModalDisplay: (id: string) => void;

@@ -885,3 +885,29 @@ export const {
 } = ProjectDataSlice.actions;
 
 export default ProjectDataSlice.reducer;
+
+/*
+Project Slice
+
+
+ProjectData Slice
+- can set the initial state based off of what is chosen 
+- add all of the functions to it 
+- somehow have it shoot back to the database
+
+
+Data Objects
+- User {
+        id: "1",
+        name: "John Doe",
+        avatar: "red",
+        watching: ["153454354367656gfdbdfbfdbre"], (do notifications later, but have tasks show watching now and have filter for it)
+        projects: [{
+          name: "Project 1",
+          id: "153454354367656gfdbdfbfdbre",
+        }] 
+      }
+- ProjectData
+
+
+*/
