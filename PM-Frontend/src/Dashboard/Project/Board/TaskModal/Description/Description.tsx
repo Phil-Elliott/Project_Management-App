@@ -2,23 +2,24 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Button } from "~/shared/components";
+import { TaskProps } from "~/shared/interfaces/Projects";
 
 import styles from "./Description.module.scss";
 
 type DescriptionProps = {
   descriptionData: string;
-  changeDescription: (value: string) => void;
+  updateTaskData: <T extends keyof TaskProps>(
+    type: T,
+    value: TaskProps[T]
+  ) => void;
 };
 
-const Description = ({
-  descriptionData,
-  changeDescription,
-}: DescriptionProps) => {
+const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
   const [descriptionValue, setDescriptionValue] = useState("");
   const [openEditor, setOpenEditor] = useState(false);
 
   const handleSave = () => {
-    changeDescription(descriptionValue);
+    updateTaskData("description", descriptionValue);
     setOpenEditor(false);
   };
 

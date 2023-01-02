@@ -7,22 +7,15 @@ import styles from "./Members.module.scss";
 type MemberProps = {
   taskData: any;
   members: string[];
-  addNewMember: (member: string) => void;
-  removeMember: (member: string) => void;
+  updateMembers: (member: string, add: boolean) => void;
 };
 
-const Members = ({
-  taskData,
-  members,
-  addNewMember,
-  removeMember,
-}: MemberProps) => {
+const Members = ({ taskData, members, updateMembers }: MemberProps) => {
   const [showSelect, setShowSelect] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-    console.log(search);
   };
 
   return (
@@ -34,7 +27,7 @@ const Members = ({
             return (
               <div
                 className={styles.member}
-                onClick={() => removeMember(member)}
+                onClick={() => updateMembers(member, false)}
               >
                 <Avatar user={member[0]} size="med" />
                 <p className={styles["member-name"]}>{member}</p>
@@ -67,7 +60,7 @@ const Members = ({
                   <div
                     className={styles["member-select-container"]}
                     onClick={() => {
-                      addNewMember(member);
+                      updateMembers(member, true);
                       setShowSelect(false);
                     }}
                   >

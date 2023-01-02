@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { TaskProps, User } from "~/shared/interfaces/Projects";
+import styles from "./TaskModal.module.scss";
+
 import Header from "./Header/Header";
 import Tags from "./Tags/Tags";
-import styles from "./TaskModal.module.scss";
 import Description from "./Description/Description";
 import Comments from "./Comments/Comments";
-import { TaskProps, User } from "~/shared/interfaces/Projects";
+
 import { updateTask, deleteTask } from "../../ProjectSlice";
 import { useDispatch } from "react-redux";
 
@@ -14,8 +16,7 @@ type TaskModalProps = {
   members: string[];
   display: boolean;
   closeModal: () => void;
-  disableCloseToggle: () => void;
-  enableCloseToggle: () => void;
+  toggleDisableCloseModal: (disable: boolean) => void;
 };
 
 const TaskModal = ({
@@ -24,8 +25,7 @@ const TaskModal = ({
   members,
   display,
   closeModal,
-  disableCloseToggle,
-  enableCloseToggle,
+  toggleDisableCloseModal,
 }: TaskModalProps) => {
   const [taskData, setTaskData] = useState<TaskProps>(modalTask);
   const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
@@ -34,71 +34,40 @@ const TaskModal = ({
 
   // toggles the confirm modal
   const toggleDeleteModal = () => {
-    setDisplayConfirm(true);
-    disableCloseToggle();
-  };
-
-  // closes confirm modal
-  const closeConfirmModal = () => {
-    setDisplayConfirm(false);
-    enableCloseToggle();
+    setDisplayConfirm(!displayConfirm);
+    toggleDisableCloseModal(!displayConfirm);
   };
 
   // deletes the task
   const deleteTaskData = () => {
     dispatch(deleteTask(taskData.id));
-    closeConfirmModal();
+    toggleDeleteModal();
     closeModal();
   };
 
-  // changes the name of the task
-  const changeName = (value: string) => {
+  // updates the members assigned to the task
+  const updateMembers = (member: string, add: boolean) => {
     setTaskData((prevTaskData) => {
       return {
         ...prevTaskData,
-        name: value,
+        assignedTo: add
+          ? [...prevTaskData.assignedTo, member]
+          : prevTaskData.assignedTo.filter(
+              (memberName: string) => memberName !== member
+            ),
       };
     });
   };
 
-  // adds a new member to the task
-  const addNewMember = (member: string) => {
+  // updates the task data based off of user inputs
+  const updateTaskData = <T extends keyof TaskProps>(
+    type: T,
+    value: TaskProps[T]
+  ) => {
     setTaskData((prevTaskData) => {
       return {
         ...prevTaskData,
-        assignedTo: [...prevTaskData.assignedTo, member],
-      };
-    });
-  };
-
-  // removes a member from the task
-  const removeMember = (member: string) => {
-    setTaskData((prevTaskData) => {
-      return {
-        ...prevTaskData,
-        assignedTo: prevTaskData.assignedTo.filter(
-          (memberName: string) => memberName !== member
-        ),
-      };
-    });
-  };
-
-  // changes the priority of the task
-  const changePriority = (value: string) => {
-    setTaskData((prevTaskData) => {
-      return {
-        ...prevTaskData,
-        priority: value,
-      };
-    });
-  };
-
-  // changes the description of the task
-  const changeDescription = (value: string) => {
-    setTaskData((prevTaskData) => {
-      return {
-        ...prevTaskData,
-        description: value,
+        [type]: value,
       };
     });
   };
@@ -117,18 +86,17 @@ const TaskModal = ({
     <div className={styles.main}>
       <Header
         taskData={taskData}
-        changeName={changeName}
         toggleDeleteModal={toggleDeleteModal}
         closeModal={closeModal}
         displayConfirm={displayConfirm}
-        closeConfirmModal={closeConfirmModal}
         deleteTask={deleteTaskData}
+        updateTaskData={updateTaskData}
       />
       <div className={styles.body}>
         <div className={styles.right}>
           <Description
             descriptionData={taskData.description}
-            changeDescription={changeDescription}
+            updateTaskData={updateTaskData}
           />
           <Comments taskData={taskData} />
         </div>
@@ -137,9 +105,8 @@ const TaskModal = ({
             user={user}
             taskData={taskData}
             members={members}
-            addNewMember={addNewMember}
-            removeMember={removeMember}
-            changePriority={changePriority}
+            updateMembers={updateMembers}
+            updateTaskData={updateTaskData}
           />
         </div>
       </div>
@@ -150,47 +117,6 @@ const TaskModal = ({
 export default TaskModal;
 
 /*
-  - main 
-  - right 
-  - left
-
-
-
-
-
-
-   input 
-    - set value to task name
-    - on change, set the task name to the value
-
-
-
-Create a modal for the task (when click)
-    - Top (same as trello - name, section, trashcan and x on right)
-    - Two rows
-          - top (left to right)
-              - assigned to (same as trello)
-              - watch button (same as trello)
-              - priority (same as jira clone) - dropdown
-              - due date (same as trello)  
-         - bottom
-              - description (try to get the same as the jira clone)
-              - comments (same as jira clone)
-
-
-- Should be able to change task name
-     - make the task name an input
-     - use an onchange to change the task name
-     - add a debounce method?
-- Have the trashcan delete the task on click
-    - have another popup to confirm
-
-- figure out react portals
-
-
-
-Extra for later
-- could show created and updated date
-- activity (that records everything)
+ 
 
 */

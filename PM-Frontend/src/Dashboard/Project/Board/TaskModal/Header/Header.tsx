@@ -1,26 +1,28 @@
 import React from "react";
 import { FaTimes, FaRegTrashAlt } from "react-icons/fa";
+import { TaskProps } from "~/shared/interfaces/Projects";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import styles from "./Header.module.scss";
 
 type HeaderProps = {
   taskData: any;
-  changeName: (value: string) => void;
   toggleDeleteModal: () => void;
   closeModal: () => void;
   displayConfirm: boolean;
-  closeConfirmModal: () => void;
   deleteTask: () => void;
+  updateTaskData: <T extends keyof TaskProps>(
+    type: T,
+    value: TaskProps[T]
+  ) => void;
 };
 
 const Header = ({
   taskData,
-  changeName,
   toggleDeleteModal,
   closeModal,
   displayConfirm,
-  closeConfirmModal,
   deleteTask,
+  updateTaskData,
 }: HeaderProps) => {
   return (
     <div className={styles.main}>
@@ -28,7 +30,7 @@ const Header = ({
         <textarea
           rows={1}
           value={taskData.name}
-          onChange={(e) => changeName(e.target.value)}
+          onChange={(e) => updateTaskData("name", e.target.value)}
         />
       </div>
       <div className={styles.right}>
@@ -39,7 +41,7 @@ const Header = ({
         <FaTimes className={styles.icon} onClick={() => closeModal()} />
         <ConfirmModal
           display={displayConfirm}
-          closeModal={closeConfirmModal}
+          closeModal={toggleDeleteModal}
           deleteTask={deleteTask}
         />
       </div>

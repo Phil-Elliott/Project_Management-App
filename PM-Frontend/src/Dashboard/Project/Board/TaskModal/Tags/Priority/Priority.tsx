@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Priority.module.scss";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import { Popup } from "~/shared/components";
+import { TaskProps } from "~/shared/interfaces/Projects";
 
 type OptionProps = {
   name: string;
@@ -11,7 +12,10 @@ type OptionProps = {
 
 type PriorityProps = {
   priority: string;
-  changePriority: (priority: string) => void;
+  updateTaskData: <T extends keyof TaskProps>(
+    type: T,
+    value: TaskProps[T]
+  ) => void;
 };
 
 const priorityOptions = [
@@ -33,7 +37,7 @@ const priorityOptions = [
   { name: "Low", color: "#00B87C", icon: <AiOutlineArrowDown /> },
 ];
 
-const Priority = ({ changePriority, priority }: PriorityProps) => {
+const Priority = ({ updateTaskData, priority }: PriorityProps) => {
   const [priorityData, setPriorityData] = useState<OptionProps>({
     name: "Normal",
     color: "#FFC107",
@@ -43,7 +47,7 @@ const Priority = ({ changePriority, priority }: PriorityProps) => {
 
   const handlePriority = (option: OptionProps) => {
     setPriorityData(option);
-    changePriority(option.name);
+    updateTaskData("priority", option.name);
     setShowOptions(false);
   };
 

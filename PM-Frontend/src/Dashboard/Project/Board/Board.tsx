@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import styles from "./Board.module.scss";
+import { TaskProps } from "~/shared/interfaces/Projects";
+
 import Nav from "../Nav/Nav";
 import NavOptions from "./NavOptions/NavOptions";
 import Tasks from "./Tasks/Tasks";
-import styles from "./Board.module.scss";
-import { TaskProps } from "~/shared/interfaces/Projects";
 import TaskModal from "./TaskModal/TaskModal";
 import { Modal } from "~/shared/components";
 
@@ -17,8 +18,8 @@ import {
 } from "../ProjectSlice";
 
 const Board = () => {
-  const [display, setDisplay] = useState<boolean>(false);
   const [modalTask, setModalTask] = useState<TaskProps>();
+  const [display, setDisplay] = useState<boolean>(false);
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
 
   const newData = useSelector((state: RootState) => state.project.project);
@@ -41,13 +42,8 @@ const Board = () => {
   };
 
   // disables ability to close modal when clicked outside of modal (when confirm modal is open)
-  const disableCloseToggle = () => {
-    setDisableCloseModal(true);
-  };
-
-  // disables ability to close modal when clicked outside of modal (when confirm modal is closed)
-  const enableCloseToggle = () => {
-    setDisableCloseModal(false);
+  const toggleDisableCloseModal = (disable: boolean) => {
+    setDisableCloseModal(disable);
   };
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -121,8 +117,7 @@ const Board = () => {
             members={newData.members}
             display={display}
             closeModal={closeModal}
-            disableCloseToggle={disableCloseToggle}
-            enableCloseToggle={enableCloseToggle}
+            toggleDisableCloseModal={toggleDisableCloseModal}
           />
         </Modal>
       )}
@@ -133,42 +128,7 @@ const Board = () => {
 export default Board;
 
 /*
-  - Add functionanlity to watch bttn
-  - Fix ability to only add a member to a task that is part of the board
-  - Fix the styles (have some common rules)
-  - Add redux
-
-
-
-
-  double modals
-  - have a booleon state to confirm if there are two modals
-  - If so then dont allow modal to close
-  - if not then close modal
-
-
-
-  on task click
-    - show modal
-    - close on escape and outside click (maybe use a hook for this)
-        - what did you do for addtask part
-
-
-
-
-         
-
-  Show effect when task is dragged to done (or maybe just add that function to each task section to be chosen)
-
-
-
-
-
-
-  6) Create the modal for the elipsis bttn on the taskSedction
-
-
-  Start cleaning up the code (Its quite messy)
+  
 
 
 */
