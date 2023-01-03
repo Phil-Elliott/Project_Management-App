@@ -23,8 +23,8 @@ export type Note = {
 
 export type TasksSections = {
   id: string;
-  order: number;
   name: string;
+  tasks: string[];
 };
 
 export type TaskProps = {
@@ -34,10 +34,6 @@ export type TaskProps = {
   description: string;
   priority: string;
   due: string;
-  taskSection: {
-    section: string;
-    order: number;
-  };
   comments: {
     id: string;
     member: string;

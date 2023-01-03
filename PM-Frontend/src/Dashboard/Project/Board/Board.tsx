@@ -128,7 +128,8 @@ const Board = () => {
 export default Board;
 
 /*
-  
-
-
+  fix change order functions 
+  get rid of flicker when dragging
+  start using strapi
+  maybe fix style of nav
 */

@@ -21,17 +21,6 @@ type TasksProps = {
   changeModalDisplay: (id: string) => void;
 };
 
-type orderedSectionsProps = {
-  id: string;
-  name: string;
-};
-
-type sections = {
-  id: string;
-  name: string;
-  order: number;
-};
-
 const Tasks = ({
   fakeData,
   addNewSection,
@@ -40,42 +29,19 @@ const Tasks = ({
   changeTaskPosition,
   changeModalDisplay,
 }: TasksProps) => {
-  const [orderedSections, setOrderedSections] = useState<
-    orderedSectionsProps[]
-  >([]);
-
-  // orders the sections based off of their order to be displayed
-  useEffect(() => {
-    const sections = (fakeData.tasksSections as sections[]).map((section) => {
-      return {
-        id: section.id,
-        name: section.name,
-        order: section.order,
-      };
-    });
-    const orderedSections = sections.sort((a, b) => {
-      return a.order - b.order;
-    });
-
-    setOrderedSections(orderedSections);
-  }, [fakeData.tasksSections]);
-
   // handles the drag and drop
   const handleOnDrageEnd = (result: any) => {
     const { type, source, destination } = result;
     if (type === "droppable-category") {
-      changeSectionOrder(
-        result.draggableId,
-        destination.index + 1,
-        source.index + 1
-      );
+      changeSectionOrder(result.draggableId, destination.index, source.index);
     } else if (type === "droppable-item") {
+      console.log(result, "result");
       changeTaskPosition(
         result.draggableId,
         result.destination.droppableId,
-        result.destination.index + 1,
+        result.destination.index,
         source.droppableId,
-        result.source.index + 1
+        result.source.index
       );
     }
   };
@@ -98,7 +64,7 @@ const Tasks = ({
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {orderedSections.map((section, index) => {
+              {fakeData.tasksSections.map((section, index) => {
                 return (
                   <TasksSection
                     key={section.id}

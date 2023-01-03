@@ -60,33 +60,33 @@ const initialState: ProjectState = {
     tasksSections: [
       {
         id: "1dfghdfghgt6",
-        order: 1,
         name: "Marketing",
+        tasks: ["153454354367656gfdbdfbfdbre"],
       },
       {
         id: "65u56ufghngfh2",
-        order: 2,
         name: "Design",
+        tasks: [],
       },
       {
         id: "3657u56fghhrf",
-        order: 3,
         name: "Production",
+        tasks: [],
       },
       {
         id: "465y765ytrhftgh",
-        order: 4,
         name: "Done",
+        tasks: [],
       },
       {
         id: "dfhkulil6i75",
-        order: 5,
         name: "Testing",
+        tasks: ["2ggfhbfdgbghn6556", "3rhh5y67565uyhnghnfghfg"],
       },
       {
         id: "235756hfgrt",
-        order: 6,
         name: "Other",
+        tasks: [],
       },
     ],
     tasks: [
@@ -97,10 +97,6 @@ const initialState: ProjectState = {
         description: "Decide on what to transfer",
         priority: "Low",
         due: "2021-01-01",
-        taskSection: {
-          section: "Done",
-          order: 1,
-        },
         comments: [
           {
             id: "1dff43456655755",
@@ -117,10 +113,6 @@ const initialState: ProjectState = {
         description: "Decide on what to transfer",
         priority: "Normal",
         due: "2021-01-01",
-        taskSection: {
-          section: "Done",
-          order: 2,
-        },
         comments: [
           {
             id: "15676556hfgh65rthrt",
@@ -137,10 +129,6 @@ const initialState: ProjectState = {
         description: "Take out trash",
         priority: "High",
         due: "2021-01-01",
-        taskSection: {
-          section: "Production",
-          order: 1,
-        },
         comments: [
           {
             id: "1fghgfhhrt7657665765756",
@@ -181,6 +169,7 @@ export const projectSlice = createSlice({
         id: uuid(),
         order: state.project.tasksSections.length + 1,
         name: action.payload,
+        tasks: [],
       };
       state.project = {
         ...state.project,
@@ -188,12 +177,7 @@ export const projectSlice = createSlice({
       };
     },
     addTask: (state, action: PayloadAction<AddTaskProps>) => {
-      // gets the order number for the new task
-      const order =
-        state.project.tasks.filter(
-          (task) => task.taskSection.section === action.payload.tasksSection
-        ).length + 1;
-
+      // creates the new task to be added
       const newTask = {
         id: uuid(),
         name: action.payload.name,
@@ -201,15 +185,22 @@ export const projectSlice = createSlice({
         description: "",
         priority: "Low",
         due: "",
-        taskSection: {
-          section: action.payload.tasksSection,
-          order,
-        },
         comments: [],
       };
 
+      // adds the new task to the tasks section
+      const updatedTasksSection = state.project.tasksSections.find(
+        (section) => section.id === action.payload.tasksSection
+      );
+      updatedTasksSection!.tasks.push(newTask.id);
+
       state.project = {
         ...state.project,
+        tasksSections: state.project.tasksSections.map((section) =>
+          section.id === updatedTasksSection!.id
+            ? updatedTasksSection!
+            : section
+        ),
         tasks: [...state.project.tasks, newTask],
       };
     },
@@ -221,91 +212,54 @@ export const projectSlice = createSlice({
       action: PayloadAction<SwitchSectionOrderProps>
     ) => {
       const { id, order, source } = action.payload;
+
+      const obj = state.project.tasksSections.find(
+        (section) => section.id === id
+      );
+
+      const sections = state.project.tasksSections;
+      sections.splice(source, 1)[0];
+      sections.splice(order, 0, obj!);
+
+      state.project = {
+        ...state.project,
+        tasksSections: sections,
+      };
+    },
+
+    switchTaskOrder: (state, action: PayloadAction<SwitchTaskOrderProps>) => {
+      const { id, order, taskSection, source, sourceIndex } = action.payload;
+      console.log(action.payload);
+
+      const sameSection = taskSection === source;
+
       state.project = {
         ...state.project,
         tasksSections: state.project.tasksSections.map((section) => {
-          if (section.id === id) {
-            return {
-              ...section,
-              order: order,
-            };
-          } else if (section.order > source && section.order <= order) {
-            return {
-              ...section,
-              order: section.order - 1,
-            };
-          } else if (section.order < source && section.order >= order) {
-            return {
-              ...section,
-              order: section.order + 1,
-            };
+          if (sameSection && section.id === taskSection) {
+            const tasks = section.tasks;
+            console.log(current(tasks), "before");
+            tasks.splice(sourceIndex, 1)[0];
+            tasks.splice(order, 0, id);
+            console.log(current(tasks), "same section");
+            return { ...section, tasks };
+          } else if (section.id === source) {
+            const tasks = section.tasks;
+            tasks.splice(sourceIndex, 1)[0];
+            console.log(tasks, "source section");
+            return { ...section, tasks };
+          } else if (section.id === taskSection) {
+            const tasks = section.tasks;
+            tasks.splice(order, 0, id);
+            console.log(tasks, "source section");
+            return { ...section, tasks };
           } else {
             return section;
           }
         }),
       };
-    },
-    switchTaskOrder: (state, action: PayloadAction<SwitchTaskOrderProps>) => {
-      const { id, order, taskSection, source, sourceIndex } = action.payload;
-      const taskSectionName = state.project.tasksSections.find(
-        (section) => section.id === taskSection
-      )!.name;
 
-      const sourceSectionName = state.project.tasksSections.find(
-        (section) => section.id === source
-      )!.name;
-
-      state.project = {
-        ...state.project,
-        tasks: state.project.tasks.map((task) => {
-          if (task.id === id) {
-            return {
-              ...task,
-              taskSection: {
-                section: taskSectionName,
-                order,
-              },
-            };
-          } else if (
-            task.taskSection.section === taskSectionName &&
-            task.taskSection.order > sourceIndex &&
-            task.taskSection.order <= order
-          ) {
-            return {
-              ...task,
-              taskSection: {
-                ...task.taskSection,
-                order: task.taskSection.order - 1,
-              },
-            };
-          } else if (
-            task.taskSection.section === taskSectionName &&
-            task.taskSection.order < sourceIndex &&
-            task.taskSection.order >= order
-          ) {
-            return {
-              ...task,
-              taskSection: {
-                ...task.taskSection,
-                order: task.taskSection.order + 1,
-              },
-            };
-          } else if (
-            task.taskSection.section === sourceSectionName &&
-            task.taskSection.order > sourceIndex
-          ) {
-            return {
-              ...task,
-              taskSection: {
-                ...task.taskSection,
-                order: task.taskSection.order - 1,
-              },
-            };
-          } else {
-            return task;
-          }
-        }),
-      };
+      console.log(current(state), "after");
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // task functions (from the modal)

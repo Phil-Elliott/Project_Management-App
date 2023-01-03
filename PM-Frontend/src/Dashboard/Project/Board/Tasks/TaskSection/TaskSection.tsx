@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Task from "./Task/Task";
 import "./TaskSection.scss";
-import { FaEllipsisH, FaPlus } from "react-icons/fa";
+import { FaEllipsisH } from "react-icons/fa";
 
 import {
   ProjectDataProps,
@@ -14,6 +14,7 @@ type TaskSectionProps = {
   section: {
     id: string;
     name: string;
+    tasks: string[];
   };
   fakeData: ProjectDataProps;
   addNewTask: (name: string, section: string) => void;
@@ -28,18 +29,19 @@ const TaskSection = ({
   index,
   changeModalDisplay,
 }: TaskSectionProps) => {
-  const [orderedTasks, setOrderedTasks] = useState<TaskProps[]>([]);
+  const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const [taskOrder, setTaskOrder] = useState<string[]>([]);
 
   useEffect(() => {
-    const filteredTasks = fakeData.tasks.filter((task) => {
-      return task.taskSection.section === section.name;
-    });
-
-    const orderedTasks = filteredTasks.sort((a, b) => {
-      return Number(a.taskSection.order) - Number(b.taskSection.order);
-    });
-    setOrderedTasks(orderedTasks);
-  }, [fakeData.tasks]);
+    setTaskOrder(section.tasks);
+    setTasks(
+      section.tasks
+        .map((task) => {
+          return fakeData.tasks.find((t) => t.id === task);
+        })
+        .filter((task) => task !== undefined) as TaskProps[]
+    );
+  }, [section, section.tasks]);
 
   return (
     <Draggable draggableId={section.id} index={index} key={section.id}>
@@ -59,7 +61,7 @@ const TaskSection = ({
                 </div>
 
                 <div className="taskSection-tasks">
-                  {orderedTasks.map((task, index) => {
+                  {tasks.map((task, index) => {
                     return (
                       <Task
                         key={task.id}
@@ -74,11 +76,7 @@ const TaskSection = ({
               </div>
             )}
           </Droppable>
-          <AddItem
-            addNewItem={addNewTask}
-            item={"task"}
-            section={section.name}
-          />
+          <AddItem addNewItem={addNewTask} item={"task"} section={section.id} />
         </div>
       )}
     </Draggable>
@@ -86,3 +84,4 @@ const TaskSection = ({
 };
 
 export default TaskSection;
+// setTasks(fakeData.tasks.filter((task) => section.tasks.includes(task.id)));
