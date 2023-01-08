@@ -1,14 +1,17 @@
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
+import _ from "lodash";
 import uuid from "react-uuid";
 import {
   ProjectDataProps,
   TaskProps,
+  TasksSections,
   User,
 } from "~/shared/interfaces/Projects";
 
 type ProjectState = {
   project: ProjectDataProps;
   user: User;
+  searchQuery: string;
 };
 
 type AddTaskProps = {
@@ -23,11 +26,12 @@ type SwitchSectionOrderProps = {
 };
 
 type SwitchTaskOrderProps = {
-  id: string;
-  taskSection: string;
-  order: number;
-  source: string;
-  sourceIndex: number;
+  taskSections: TasksSections[];
+  // id: string;
+  // taskSection: string;
+  // order: number;
+  // source: string;
+  // sourceIndex: number;
 };
 
 const initialState: ProjectState = {
@@ -152,6 +156,7 @@ const initialState: ProjectState = {
     avatar: "red",
     watching: ["153454354367656gfdbdfbfdbre"],
   },
+  searchQuery: "",
 };
 
 export const projectSlice = createSlice({
@@ -217,7 +222,7 @@ export const projectSlice = createSlice({
         (section) => section.id === id
       );
 
-      const sections = state.project.tasksSections;
+      const sections = _.cloneDeep(state.project.tasksSections);
       sections.splice(source, 1)[0];
       sections.splice(order, 0, obj!);
 
@@ -228,38 +233,35 @@ export const projectSlice = createSlice({
     },
 
     switchTaskOrder: (state, action: PayloadAction<SwitchTaskOrderProps>) => {
-      const { id, order, taskSection, source, sourceIndex } = action.payload;
-      console.log(action.payload);
-
-      const sameSection = taskSection === source;
-
       state.project = {
         ...state.project,
-        tasksSections: state.project.tasksSections.map((section) => {
-          if (sameSection && section.id === taskSection) {
-            const tasks = section.tasks;
-            console.log(current(tasks), "before");
-            tasks.splice(sourceIndex, 1)[0];
-            tasks.splice(order, 0, id);
-            console.log(current(tasks), "same section");
-            return { ...section, tasks };
-          } else if (section.id === source) {
-            const tasks = section.tasks;
-            tasks.splice(sourceIndex, 1)[0];
-            console.log(tasks, "source section");
-            return { ...section, tasks };
-          } else if (section.id === taskSection) {
-            const tasks = section.tasks;
-            tasks.splice(order, 0, id);
-            console.log(tasks, "source section");
-            return { ...section, tasks };
-          } else {
-            return section;
-          }
-        }),
+        tasksSections: action.payload.taskSections,
       };
 
-      console.log(current(state), "after");
+      // const { id, order, taskSection, source, sourceIndex } = action.payload;
+      // console.log(action.payload);
+      // const sameSection = taskSection === source;
+      // state.project = {
+      //   ...state.project,
+      //   tasksSections: state.project.tasksSections.map((section) => {
+      //     if (sameSection && section.id === taskSection) {
+      //       const tasks = section.tasks;
+      //       tasks.splice(sourceIndex, 1)[0];
+      //       tasks.splice(order, 0, id);
+      //       return { ...section, tasks };
+      //     } else if (section.id === source) {
+      //       const tasks = section.tasks;
+      //       tasks.splice(sourceIndex, 1)[0];
+      //       return { ...section, tasks };
+      //     } else if (section.id === taskSection) {
+      //       const tasks = section.tasks;
+      //       tasks.splice(order, 0, id);
+      //       return { ...section, tasks };
+      //     } else {
+      //       return section;
+      //     }
+      //   }),
+      // };
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // task functions (from the modal)
@@ -297,6 +299,12 @@ export const projectSlice = createSlice({
         watching: state.user.watching.filter((id) => id !== action.payload),
       };
     },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Search Query
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    changeSearchQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload;
+    },
   },
 });
 
@@ -310,6 +318,7 @@ export const {
   deleteTask,
   addWatchingTask,
   removeWatchingTask,
+  changeSearchQuery,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

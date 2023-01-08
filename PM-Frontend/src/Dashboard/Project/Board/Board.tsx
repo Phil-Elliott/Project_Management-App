@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Board.module.scss";
 import { TaskProps } from "~/shared/interfaces/Projects";
+import _ from "lodash";
 
 import Nav from "../Nav/Nav";
 import NavOptions from "./NavOptions/NavOptions";
@@ -70,6 +71,7 @@ const Board = () => {
   };
 
   // changes the task section and order within the task object - triggered by drag and drop
+
   const changeTaskPosition = (
     id: string,
     taskSection: string,
@@ -77,13 +79,31 @@ const Board = () => {
     source: string,
     sourceIndex: number
   ) => {
+    const sameSection = taskSection === source;
+    console.time("TaskPosition");
+    const tasksSections = _.cloneDeep(newData.tasksSections);
+    console.timeEnd("TaskPosition");
+
+    if (sameSection) {
+      let tasks = tasksSections.find(
+        (section) => section.id === taskSection
+      )?.tasks;
+      tasks?.splice(sourceIndex, 1)[0];
+      tasks?.splice(order, 0, id);
+    }
+
+    if (!sameSection) {
+      let tasks = tasksSections.find((section) => section.id === source)?.tasks;
+      tasks?.splice(sourceIndex, 1)[0];
+      tasks = tasksSections.find(
+        (section) => section.id === taskSection
+      )?.tasks;
+      tasks?.splice(order, 0, id);
+    }
+
     dispatch(
       switchTaskOrder({
-        id: id,
-        taskSection: taskSection,
-        order: order,
-        source: source,
-        sourceIndex: sourceIndex,
+        taskSections: tasksSections,
       })
     );
   };
@@ -128,8 +148,15 @@ const Board = () => {
 export default Board;
 
 /*
-  fix change order functions 
-  get rid of flicker when dragging
-  start using strapi
-  maybe fix style of nav
+  
+  1) Add functionality to search bar
+  2) Add functionality to comments
+  3) Work on Invite and Filter buttons
+
+
+  1) Start working on Display page and its styles
+
+  1) Could do a testing tutorial
+
+
 */

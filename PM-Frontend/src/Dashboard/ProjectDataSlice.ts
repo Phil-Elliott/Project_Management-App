@@ -4,6 +4,7 @@ import { projectData, tasksData, commentsData } from "./Interfaces";
 export interface ProjectsState {
   projects: Array<projectData>;
   activeProject: projectData;
+  searchQuery: string;
 }
 
 export interface editProjectsData {
@@ -731,6 +732,7 @@ const initialState: ProjectsState = {
       },
     ],
   },
+  searchQuery: "",
 };
 
 export const ProjectDataSlice = createSlice({

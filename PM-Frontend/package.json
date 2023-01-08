@@ -13,7 +13,11 @@
     "@reduxjs/toolkit": "^1.9.0",
     "@types/react-beautiful-dnd": "^13.1.2",
     "chart.js": "^4.0.1",
+    "i": "^0.3.7",
+    "lodash": "^4.17.21",
+    "lodash.chunk": "^4.2.0",
     "moment": "^2.29.4",
+    "npm": "^9.2.0",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-chartjs-2": "^5.0.1",
@@ -22,7 +26,7 @@
     "react-indiana-drag-scroll": "^2.2.0",
     "react-quill": "^2.0.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.4.3",
+    "react-router-dom": "^6.6.1",
     "react-uuid": "^2.0.0",
     "sass": "^1.56.1",
     "usehooks-ts": "^2.9.1"
@@ -30,6 +34,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
+    "@types/lodash": "^4.14.191",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",

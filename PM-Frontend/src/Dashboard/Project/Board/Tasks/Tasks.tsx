@@ -3,8 +3,9 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import TasksSection from "./TaskSection/TaskSection";
 import ScrollContainer from "react-indiana-drag-scroll";
 import "./Tasks.scss";
-import AddList from "../../../../shared/components/AddItemBttn/AddItem";
+
 import { ProjectDataProps } from "~/shared/interfaces/Projects";
+import { AddItem } from "~/shared/components";
 
 type TasksProps = {
   fakeData: ProjectDataProps;
@@ -78,7 +79,7 @@ const Tasks = ({
               })}
               {provided.placeholder}
               <div className="add-item-btn-container">
-                <AddList addNewItem={addNewSection} item={"list"} />
+                <AddItem addNewItem={addNewSection} item={"list"} />
               </div>
             </div>
           )}

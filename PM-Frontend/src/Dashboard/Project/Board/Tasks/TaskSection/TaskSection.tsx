@@ -10,6 +10,9 @@ import {
 } from "../../../../../shared/interfaces/Projects";
 import { AddItem } from "~/shared/components";
 
+import { useSelector } from "react-redux";
+import { RootState } from "~/Dashboard/Store";
+
 type TaskSectionProps = {
   section: {
     id: string;
@@ -29,12 +32,11 @@ const TaskSection = ({
   index,
   changeModalDisplay,
 }: TaskSectionProps) => {
-  const [tasks, setTasks] = useState<TaskProps[]>([]);
-  const [taskOrder, setTaskOrder] = useState<string[]>([]);
+  const [orderedTasks, setOrderedTasks] = useState<TaskProps[]>([]);
+  const search = useSelector((state: RootState) => state.project.searchQuery);
 
   useEffect(() => {
-    setTaskOrder(section.tasks);
-    setTasks(
+    setOrderedTasks(
       section.tasks
         .map((task) => {
           return fakeData.tasks.find((t) => t.id === task);
@@ -61,15 +63,20 @@ const TaskSection = ({
                 </div>
 
                 <div className="taskSection-tasks">
-                  {tasks.map((task, index) => {
-                    return (
-                      <Task
-                        key={task.id}
-                        taskData={task}
-                        index={index}
-                        changeModalDisplay={changeModalDisplay}
-                      />
-                    );
+                  {orderedTasks.map((task, index) => {
+                    if (
+                      search === "" ||
+                      task.name.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                      return (
+                        <Task
+                          key={task.id}
+                          taskData={task}
+                          index={index}
+                          changeModalDisplay={changeModalDisplay}
+                        />
+                      );
+                    }
                   })}
                   {provided.placeholder}
                 </div>
@@ -85,3 +92,19 @@ const TaskSection = ({
 
 export default TaskSection;
 // setTasks(fakeData.tasks.filter((task) => section.tasks.includes(task.id)));
+
+/*
+// const [tasks, setTasks] = useState<TaskProps[]>([]);
+  // const [taskOrder, setTaskOrder] = useState<string[]>([]);
+// useEffect(() => {
+  //   // setTaskOrder(section.tasks);
+  //   setTasks(
+  //     section.tasks
+  //       .map((task) => {
+  //         return fakeData.tasks.find((t) => t.id === task);
+  //       })
+  //       .filter((task) => task !== undefined) as TaskProps[]
+  //   );
+  // }, [section, section.tasks]);
+
+*/

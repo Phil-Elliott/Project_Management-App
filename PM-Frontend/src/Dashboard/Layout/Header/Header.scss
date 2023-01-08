@@ -1,7 +1,7 @@
 @use "../../../styles" as *;
 
 .header {
-  background: linear-gradient($primary, $secondary);
+  background: $primary;
   box-shadow: $box-shadow-light;
   color: $white;
   @extend %flex-between-column;
@@ -30,7 +30,6 @@
   font-size: 1.1rem;
 
   h2 {
-    transition: $transistion-ease;
     font-size: 0%;
   }
 }
@@ -48,7 +47,6 @@
   }
 
   h2 {
-    transition: $transistion-ease;
     font-size: 0%;
   }
 }
