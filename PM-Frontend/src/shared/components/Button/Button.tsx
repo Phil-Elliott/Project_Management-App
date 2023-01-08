@@ -16,8 +16,6 @@ const Button = ({
   space,
   disabled,
 }: ButtonProps) => {
-  console.log("Button", disabled);
-
   return (
     <button
       className={`${styles[variant]}`}

@@ -3,6 +3,7 @@ import styles from "./Tags.module.scss";
 import Members from "./Members/Members";
 import Notifications from "./Nofications/Notifications";
 import Priority from "./Priority/Priority";
+import DueDate from "./DueDate/DueDate";
 import { TaskProps, User } from "~/shared/interfaces/Projects";
 
 type TagsProps = {
@@ -32,12 +33,7 @@ const Tags = ({
       />
       <Notifications user={user} taskData={taskData} />
       <Priority updateTaskData={updateTaskData} priority={taskData.priority} />
-      <div className={styles["due-date"]}>
-        <p>Due Date</p>
-        <div className={styles["due-date-content"]}>
-          <p>None</p>
-        </div>
-      </div>
+      <DueDate updateTaskData={updateTaskData} due={taskData.due} />
     </div>
   );
 };

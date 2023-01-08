@@ -40,7 +40,7 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
 
   return (
     <div className={styles.main}>
-      <p>Description</p>
+      <h3>Description</h3>
       {openEditor ? (
         <div className={styles["quill-container"]}>
           <ReactQuill

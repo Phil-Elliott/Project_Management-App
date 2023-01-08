@@ -1,23 +1,81 @@
-import React from "react";
-import { Avatar } from "~/shared/components";
+import React, { useEffect, useState } from "react";
+import { Avatar, Button } from "~/shared/components";
 import { TaskProps } from "../../../../../shared/interfaces/Projects";
 import CommentData from "./Comment/Comment";
 import styles from "./Comments.module.scss";
+import uuid from "react-uuid";
+import moment from "moment";
 
 type CommentsProps = {
   taskData: TaskProps;
+  updateTaskData: <T extends keyof TaskProps>(
+    type: T,
+    value: TaskProps[T]
+  ) => void;
+  user: string;
+  display: boolean;
 };
 
-const Comments = ({ taskData }: CommentsProps) => {
+const Comments = ({
+  taskData,
+  updateTaskData,
+  user,
+  display,
+}: CommentsProps) => {
+  const [displayButtons, setDisplayButtons] = useState(false);
+  const [comment, setComment] = useState<string>("");
+
+  const handleSave = () => {
+    setDisplayButtons(false);
+    const commentData = {
+      id: uuid(),
+      member: user,
+      date: moment().format("MMM Do YYYY"),
+      comment: comment,
+    };
+    updateTaskData("comments", [...taskData.comments, commentData]);
+    setComment("");
+  };
+
+  const handleCancel = () => {
+    setDisplayButtons(false);
+    setComment("");
+  };
+
+  useEffect(() => {
+    setComment("");
+    setDisplayButtons(false);
+  }, [display]);
+
   return (
     <div className={styles.main}>
-      <p className={styles.header}>Comments</p>
+      <h3 className={styles.header}>Comments</h3>
       <div className={styles.input}>
         <div className={styles.user}>
           <Avatar user={"Bob"} />
         </div>
-        <input type="text" placeholder="Add a comment..." />
+        <input
+          type="text"
+          placeholder="Add a comment..."
+          value={comment}
+          onClick={() => setDisplayButtons(true)}
+          onChange={(e) => setComment(e.target.value)}
+        />
       </div>
+      {displayButtons ? (
+        <div className={styles.buttons}>
+          <Button
+            variant={"primary"}
+            handleClick={() => handleSave()}
+            space={true}
+          >
+            Save
+          </Button>
+          <Button variant={"secondary"} handleClick={() => handleCancel()}>
+            Cancel
+          </Button>
+        </div>
+      ) : null}
       <div className={styles.comments}>
         {taskData.comments.map((comment) => {
           return <CommentData comment={comment} />;
@@ -31,30 +89,6 @@ export default Comments;
 
 /*
 
-  1) user picture 
-  2) input field
-
-  Map through the comments
-  left side
-  image top left
-  right side
-  name top right (days ago)
-  comment
-  edit and delete bttn on bottom
-
-
-  create the ui for now 
-  add user functionality later
-
-  probably going to be a user data object
-  user {
-    name: string,
-    picture: string,
-    id: string
-    reminders: string[]
-    projects: string[]
-  }
-
-
+add enter key functionality
 
 */

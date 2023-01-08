@@ -98,7 +98,12 @@ const TaskModal = ({
             descriptionData={taskData.description}
             updateTaskData={updateTaskData}
           />
-          <Comments taskData={taskData} />
+          <Comments
+            taskData={taskData}
+            updateTaskData={updateTaskData}
+            user={user.name}
+            display={display}
+          />
         </div>
         <div className={styles.left}>
           <Tags

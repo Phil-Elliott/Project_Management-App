@@ -52,12 +52,10 @@ const Priority = ({ updateTaskData, priority }: PriorityProps) => {
   };
 
   useEffect(() => {
-    console.log("kinda working");
     const PriorityObject = priorityOptions.find(
       (option) => option.name === priority
     );
     if (PriorityObject) {
-      console.log("PriorityObject: ", PriorityObject);
       setPriorityData(PriorityObject);
     }
   }, [priority]);
