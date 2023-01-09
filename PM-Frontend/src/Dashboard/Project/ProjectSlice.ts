@@ -27,11 +27,6 @@ type SwitchSectionOrderProps = {
 
 type SwitchTaskOrderProps = {
   taskSections: TasksSections[];
-  // id: string;
-  // taskSection: string;
-  // order: number;
-  // source: string;
-  // sourceIndex: number;
 };
 
 const initialState: ProjectState = {

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
-import "./Header.scss"
-import TopHeaderContent from "./Components/TopHeaderContent"
-import BottomHeaderContent from "./Components/BottomHeaderContent"
-import { FaAngleDoubleRight } from "react-icons/fa"
+import React, { useState, useEffect } from "react";
+import "./Header.scss";
+import TopHeaderContent from "./Components/TopHeaderContent";
+import BottomHeaderContent from "./Components/BottomHeaderContent";
+import { FaAngleDoubleRight } from "react-icons/fa";
 
 const Header = ({
   navClass,
@@ -10,32 +10,31 @@ const Header = ({
   activeTab,
   changeActiveTab,
 }: {
-  navClass: string
-  displayProjectModal: any
-  activeTab: string
-  changeActiveTab: any
+  navClass: string;
+  displayProjectModal: any;
+  activeTab: string;
+  changeActiveTab: any;
 }) => {
-  const [expandMain, setExpandMain] = useState<boolean>(false)
-  const [expandContent, setExpandContent] = useState<boolean>(false)
-  // const [activeTab, setActiveTab] = useState<string>("Big project")
+  const [expandMain, setExpandMain] = useState<boolean>(false);
+  const [expandContent, setExpandContent] = useState<boolean>(false);
 
   // Expands the nav when the bottom arrow is clicked
   const expandNav = () => {
-    setExpandMain(!expandMain)
-  }
+    setExpandMain(!expandMain);
+  };
 
   // Expands the projects when the arrow above projects is clicked
   const expandProjects = () => {
-    setExpandContent(!expandContent)
-  }
+    setExpandContent(!expandContent);
+  };
 
   // classnames for expanded nav and not expanded nav
-  const expandClass = expandMain ? "nav-icon expand-container" : "nav-icon"
+  const expandClass = expandMain ? "nav-icon expand-container" : "nav-icon";
 
   // Makes sure that the entire header goes away when responsive and top icon is clicked
   useEffect(() => {
-    setExpandMain(false)
-  }, [navClass])
+    setExpandMain(false);
+  }, [navClass]);
 
   // Changes the active tab when item is clicked on header
   // const changeActiveTab = (name: string) => {
@@ -74,7 +73,7 @@ const Header = ({
         />
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

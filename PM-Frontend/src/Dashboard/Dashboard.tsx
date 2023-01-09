@@ -1,29 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
-
 import "./Dashboard.scss";
-import { projectData } from "./Interfaces";
-
 import Layout from "./Layout/Layout";
+import MainHub from "./MainHub/MainHub";
 import { Board, Display, ProjectLayout } from "./Project";
 
-import {
-  addNewProject,
-  changeActiveProject,
-  deleteProject,
-  editProject,
-  updateProjectData,
-} from "./ProjectDataSlice";
-import ProjectHub from "./ProjectHub/ProjectHub";
+import { changeActiveProject, updateProjectData } from "./ProjectDataSlice";
 import { RootState } from "./Store";
 
 const Dashboard = () => {
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // All Header Stuff
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const [navClass, setNavClass] = useState("header unactive-side-nav");
   const [activeTab, setActiveTab] = useState<string>("");
   const [displayAddProjectModal, setDisplayAddProjectModal] =
-    useState<boolean>(false);
-  const [displayEditProjectModal, setDisplayEditProjectModal] =
     useState<boolean>(false);
 
   const activeProject = useSelector(
@@ -34,24 +26,6 @@ const Dashboard = () => {
     (state: RootState) => state.projectsData.projects
   );
   const dispatch = useDispatch();
-
-  // Adds a project to the projectsData array from addProjectModal
-  const addProject = (project: projectData) => {
-    dispatch(addNewProject(project));
-    displayProjectModal();
-  };
-
-  // Edits a project to the projectsData array from editProjectModal
-  const editTheProject = (project: projectData, name: string) => {
-    dispatch(editProject({ project, name }));
-    changeDisplayEditProjectModal();
-  };
-
-  // Deletes a project from the projectsData array
-  const deleteTheProject = (name: string) => {
-    dispatch(deleteProject(name));
-    changeDisplayEditProjectModal();
-  };
 
   // Changes the active tab when item is clicked on header
   const changeActiveTab = (name: string) => {
@@ -78,9 +52,7 @@ const Dashboard = () => {
   const displayProjectModal = () => {
     setDisplayAddProjectModal(!displayAddProjectModal);
   };
-  const changeDisplayEditProjectModal = () => {
-    setDisplayEditProjectModal(!displayEditProjectModal);
-  };
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <div className="dashboard-container">
@@ -93,21 +65,7 @@ const Dashboard = () => {
       >
         <div className="content">
           <Routes>
-            <Route
-              path="/"
-              element={
-                <ProjectHub
-                  displayAddProjectModal={displayAddProjectModal}
-                  displayProjectModal={displayProjectModal}
-                  addProject={addProject}
-                  editProject={editTheProject}
-                  deleteProject={deleteTheProject}
-                  changeActiveTab={changeActiveTab}
-                  displayEditProjectModal={displayEditProjectModal}
-                  changeDisplayEditProjectModal={changeDisplayEditProjectModal}
-                />
-              }
-            />
+            <Route path="/" element={<MainHub />} />
             <Route
               path="/:id"
               element={<ProjectLayout projectsData={projectsData} />}
@@ -126,6 +84,32 @@ const Dashboard = () => {
 export default Dashboard;
 
 /*
+  1) Fix the data flow and make sure it is working properly
+         - Combine data stores 
+         - Might have data for every project and change the way the individual project data is stored
+
+        - change it to include all projects
+        - Fix everything that breaks because of it 
+        - Move it to the dashboard component
+
+
+
+  2) Fix up the UI on the ProjectHub page
+  O) Fix up or redo the entire header
+  3) Fix and change options in modal for adding a project
+  4) Make the signIn page work and connect it to and api with all the data
+  5) Make everything so far responsive
+  6) Add a display page for the projects
+  7) Add a notification system
+  8) Fix up rest of functionality in the board component
+  9) Add a spinner on load
+  10) Add a landing page
+
+
+
+
+
+
   add a spinner on load
 
 
@@ -284,5 +268,24 @@ export default Dashboard;
       ],
     },
 
-    
+    const changeDisplayEditProjectModal = () => {
+    setDisplayEditProjectModal(!displayEditProjectModal);
+  };
+
+  // Adds a project to the projectsData array from addProjectModal
+  const addProject = (project: projectData) => {
+    dispatch(addNewProject(project));
+    displayProjectModal();
+  };
+
+    <ProjectHub
+                  displayAddProjectModal={displayAddProjectModal}
+                  displayProjectModal={displayProjectModal}
+                  addProject={addProject}
+                  editProject={editTheProject}
+                  deleteProject={deleteTheProject}
+                  changeActiveTab={changeActiveTab}
+                  displayEditProjectModal={displayEditProjectModal}
+                  changeDisplayEditProjectModal={changeDisplayEditProjectModal}
+                />
 */
