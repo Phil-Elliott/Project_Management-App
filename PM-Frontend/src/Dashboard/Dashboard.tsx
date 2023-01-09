@@ -91,6 +91,7 @@ export default Dashboard;
         - change it to include all projects
         - Fix everything that breaks because of it 
         - Move it to the dashboard component
+        - Figure out how to get the active project data on mount for the project page
 
 
 

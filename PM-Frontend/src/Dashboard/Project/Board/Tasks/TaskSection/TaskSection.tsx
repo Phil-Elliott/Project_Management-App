@@ -43,7 +43,7 @@ const TaskSection = ({
         })
         .filter((task) => task !== undefined) as TaskProps[]
     );
-  }, [section, section.tasks]);
+  }, [section, section.tasks, fakeData]);
 
   return (
     <Draggable draggableId={section.id} index={index} key={section.id}>

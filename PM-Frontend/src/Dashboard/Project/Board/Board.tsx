@@ -23,7 +23,25 @@ const Board = () => {
   const [display, setDisplay] = useState<boolean>(false);
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
 
-  const newData = useSelector((state: RootState) => state.project.project);
+  const selectedProject = useSelector(
+    (state: RootState) => state.project.selectedProject
+  );
+
+  const emptyData = {
+    name: "",
+    id: "",
+    background: "",
+    members: [],
+    notes: [],
+    tasksSections: [],
+    tasks: [],
+  };
+
+  const newData =
+    useSelector((state: RootState) =>
+      state.project.projects.find((project) => project.id === selectedProject)
+    ) || emptyData;
+
   const user = useSelector((state: RootState) => state.project.user);
   const dispatch = useDispatch();
 
@@ -38,7 +56,7 @@ const Board = () => {
 
   // displays the modal
   const changeModalDisplay = (id: string) => {
-    setModalTask(newData.tasks.find((task) => task.id === id));
+    setModalTask(newData!.tasks.find((task) => task.id === id));
     setDisplay(!display);
   };
 
@@ -80,9 +98,7 @@ const Board = () => {
     sourceIndex: number
   ) => {
     const sameSection = taskSection === source;
-    console.time("TaskPosition");
-    const tasksSections = _.cloneDeep(newData.tasksSections);
-    console.timeEnd("TaskPosition");
+    const tasksSections = _.cloneDeep(newData!.tasksSections);
 
     if (sameSection) {
       let tasks = tasksSections.find(
@@ -116,7 +132,7 @@ const Board = () => {
   return (
     <div className={styles.main}>
       <Nav />
-      <NavOptions members={newData.members} />
+      <NavOptions members={newData!.members} />
       <Tasks
         changeSectionOrder={changeSectionOrder}
         fakeData={newData}
