@@ -93,7 +93,7 @@ const initialState: ProjectState = {
       tasks: [
         {
           id: "153454354367656gfdbdfbfdbre",
-          name: "Do Something fun",
+          name: "Do Something",
           assignedTo: ["John Doe", "Jane Doe"],
           description: "Decide on what to transfer",
           priority: "Low",

@@ -16,31 +16,34 @@ import {
   addTask,
   switchSectionOrder,
   switchTaskOrder,
-} from "../ProjectSlice";
+} from "~/Dashboard/ProjectSlice";
+import { useProject } from "../Nav/ProjectLayout";
 
 const Board = () => {
   const [modalTask, setModalTask] = useState<TaskProps>();
   const [display, setDisplay] = useState<boolean>(false);
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
 
-  const selectedProject = useSelector(
-    (state: RootState) => state.project.selectedProject
-  );
+  // const selectedProject = useSelector(
+  //   (state: RootState) => state.project.selectedProject
+  // );
 
-  const emptyData = {
-    name: "",
-    id: "",
-    background: "",
-    members: [],
-    notes: [],
-    tasksSections: [],
-    tasks: [],
-  };
+  const newData = useProject();
 
-  const newData =
-    useSelector((state: RootState) =>
-      state.project.projects.find((project) => project.id === selectedProject)
-    ) || emptyData;
+  // const emptyData = {
+  //   name: "",
+  //   id: "",
+  //   background: "",
+  //   members: [],
+  //   notes: [],
+  //   tasksSections: [],
+  //   tasks: [],
+  // };
+
+  // const otherData =
+  //   useSelector((state: RootState) =>
+  //     state.project.projects.find((project) => project.id === selectedProject)
+  //   ) || emptyData;
 
   const user = useSelector((state: RootState) => state.project.user);
   const dispatch = useDispatch();
@@ -126,7 +129,8 @@ const Board = () => {
 
   useEffect(() => {
     console.log("newData", newData);
-    console.log("user", user);
+    // console.log("otherData", otherData);
+    // console.log("user", user);
   }, [newData, user]);
 
   return (

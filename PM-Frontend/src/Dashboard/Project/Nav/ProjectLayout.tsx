@@ -4,15 +4,22 @@ import {
   useOutletContext,
   useParams,
 } from "react-router-dom";
-import { projectData } from "../../Interfaces";
+import { ProjectDataProps } from "~/shared/interfaces/Projects";
+
+import { useDispatch } from "react-redux";
+import { setProject } from "~/Dashboard/ProjectSlice";
 
 type ProjectLayoutProps = {
-  projectsData: projectData[];
+  projectsData: ProjectDataProps[];
 };
 
 export function ProjectLayout({ projectsData }: ProjectLayoutProps) {
   const { id } = useParams();
   const project = projectsData.find((project) => project.id === id);
+
+  const dispatch = useDispatch();
+
+  if (project) dispatch(setProject(project.id));
 
   if (project == null) return <Navigate to="/dashboard" replace />;
 
@@ -20,5 +27,5 @@ export function ProjectLayout({ projectsData }: ProjectLayoutProps) {
 }
 
 export function useProject() {
-  return useOutletContext<projectData>();
+  return useOutletContext<ProjectDataProps>();
 }

@@ -36,11 +36,6 @@ const Header = ({
     setExpandMain(false);
   }, [navClass]);
 
-  // Changes the active tab when item is clicked on header
-  // const changeActiveTab = (name: string) => {
-  //   setActiveTab(name)
-  // }
-
   return (
     <header
       className={navClass}

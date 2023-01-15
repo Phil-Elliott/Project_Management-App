@@ -7,8 +7,8 @@ import Tags from "./Tags/Tags";
 import Description from "./Description/Description";
 import Comments from "./Comments/Comments";
 
-import { updateTask, deleteTask } from "../../ProjectSlice";
 import { useDispatch } from "react-redux";
+import { updateTask, deleteTask } from "~/Dashboard/ProjectSlice";
 
 type TaskModalProps = {
   user: User;

@@ -20,16 +20,16 @@ const BottomHeaderContent = ({
   changeActiveTab: any;
 }) => {
   const projectsData = useSelector(
-    (state: RootState) => state.projectsData.projects
+    (state: RootState) => state.project.projects
   );
 
-  let arrayForSort = [...projectsData];
+  // let arrayForSort = [...projectsData];
 
-  let newProjectsData = arrayForSort.sort((a, b) => {
-    var dateA: any = new Date(a.launch);
-    var dateB: any = new Date(b.launch);
-    return dateA - dateB;
-  });
+  // let newProjectsData = arrayForSort.sort((a, b) => {
+  //   var dateA: any = new Date(a.launch);
+  //   var dateB: any = new Date(b.launch);
+  //   return dateA - dateB;
+  // });
 
   return (
     <div className="bottom-header-content">
@@ -48,7 +48,7 @@ const BottomHeaderContent = ({
         />
       </div>
       {!expandContent
-        ? newProjectsData.map((project, i) => {
+        ? projectsData.map((project, i) => {
             if (i < 3) {
               return (
                 <Link
@@ -70,9 +70,9 @@ const BottomHeaderContent = ({
                   >
                     <div
                       className="bottom-header-logo"
-                      style={{ background: project.color }}
+                      style={{ background: "pink" }}
                     >
-                      <p>{project.initials}</p>
+                      <p>{project.name[0]}</p>
                     </div>
                     <h2>{project.name}</h2>
                   </div>
@@ -80,7 +80,7 @@ const BottomHeaderContent = ({
               );
             }
           })
-        : newProjectsData.map((project, i) => {
+        : projectsData.map((project, i) => {
             return (
               <Link
                 key={project.name}
@@ -101,9 +101,9 @@ const BottomHeaderContent = ({
                 >
                   <div
                     className="bottom-header-logo"
-                    style={{ background: project.color }}
+                    style={{ background: "pink" }}
                   >
-                    <p>{project.initials}</p>
+                    <p>{project.name[0]}</p>
                   </div>
                   <h2>{project.name}</h2>
                 </div>

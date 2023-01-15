@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./Dashboard.scss";
 import Layout from "./Layout/Layout";
+import LayoutOld from "./LayoutOld/Layout";
 import MainHub from "./MainHub/MainHub";
 import { Board, Display, ProjectLayout } from "./Project";
-
-import { changeActiveProject, updateProjectData } from "./ProjectDataSlice";
 import { RootState } from "./Store";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const projects = useSelector((state: RootState) => state.project.projects);
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // All Header Stuff
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -18,28 +20,11 @@ const Dashboard = () => {
   const [displayAddProjectModal, setDisplayAddProjectModal] =
     useState<boolean>(false);
 
-  const activeProject = useSelector(
-    (state: RootState) => state.projectsData.activeProject
-  );
-
-  const projectsData = useSelector(
-    (state: RootState) => state.projectsData.projects
-  );
-  const dispatch = useDispatch();
-
   // Changes the active tab when item is clicked on header
   const changeActiveTab = (name: string) => {
     setActiveTab(name);
-    dispatch(changeActiveProject(name));
+    // dispatch(changeActiveProject(name));
   };
-
-  useEffect(() => {
-    dispatch(changeActiveProject(activeTab));
-  }, []);
-
-  useEffect(() => {
-    dispatch(updateProjectData(activeTab));
-  }, [activeProject]);
 
   // Used to display the responsive nav
   const changeClass = () => {
@@ -54,21 +39,25 @@ const Dashboard = () => {
   };
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  useEffect(() => {
+    console.log("projects", projects);
+  }, [projects]);
+
   return (
     <div className="dashboard-container">
-      <Layout
+      <LayoutOld
         navClass={navClass}
-        displayProjectModal={displayProjectModal}
+        changeClass={changeClass}
         activeTab={activeTab}
         changeActiveTab={changeActiveTab}
-        changeClass={changeClass}
+        displayProjectModal={displayProjectModal}
       >
         <div className="content">
           <Routes>
             <Route path="/" element={<MainHub />} />
             <Route
               path="/:id"
-              element={<ProjectLayout projectsData={projectsData} />}
+              element={<ProjectLayout projectsData={projects} />}
             >
               <Route index element={<Display />} />
               <Route path="board" element={<Board />} />
@@ -76,7 +65,7 @@ const Dashboard = () => {
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>
-      </Layout>
+      </LayoutOld>
     </div>
   );
 };
@@ -84,209 +73,8 @@ const Dashboard = () => {
 export default Dashboard;
 
 /*
-  1) Fix the data flow and make sure it is working properly
-         - Combine data stores 
-         - Might have data for every project and change the way the individual project data is stored
-
-        - change it to include all projects
-        - Fix everything that breaks because of it 
-        - Move it to the dashboard component
-        - Figure out how to get the active project data on mount for the project page
-
-
-
-  2) Fix up the UI on the ProjectHub page
-  O) Fix up or redo the entire header
-  3) Fix and change options in modal for adding a project
-  4) Make the signIn page work and connect it to and api with all the data
-  5) Make everything so far responsive
-  6) Add a display page for the projects
-  7) Add a notification system
-  8) Fix up rest of functionality in the board component
-  9) Add a spinner on load
-  10) Add a landing page
-
-
-
-
-
-
-  add a spinner on load
-
-
-
-     1) Fix up both navs 
-     2) Add some basic tests for navs (maybe) 
-     3) Figure out the data structure for the project data
-     4) Create some test data 
-     5) Start creating the board
-          - Make the folder structure for the board
-          - Create the board component
-
-
-
-  notes or comments
-
-
-*/
-
-/*
-
-{
-      name: "Transfer Files",
-      id: "1",
-      background: "can be a color or an image(options for images)",
-      notes: [
-        {
-          id: "1",
-          title: "Transfer Files",
-          member: "John Doe",
-          description: "Transfer files from old computer to new computer",
-          urgency: "high",
-          comments: [
-            {
-              id: "1",
-              member: "John Doe",
-              comment: "This is a comment",
-            },
-          ]
-        },
-      ],
-      tasks: [
-        {
-          id: "1",
-          name: "Decide on what to transfer",
-          assignedTo: ["John Doe", "Jane Doe"],
-          description: "Decide on what to transfer",
-          due: "2021-01-01",
-          list: "Done",
-          comments: [
-            {
-              id: "1",
-              member: "John Doe",
-              comment: "This is a comment",
-            },
-          ], 
-      ]
-      tasks: [
-        {
-          name: "Decide on what to transfer",
-          department: "Accounting",
-          date: "2022-05-24",
-          assigned: "John Ellie",
-          comments: [
-            {
-              name: "Bob Tyler",
-              date: "March 18, 2022 12:54 PM",
-              comment: "We might need to change the deadline to a later date.",
-            },
-            {
-              name: "Darrel Kent",
-              date: "March 18, 2022 2:17 PM",
-              comment:
-                "That is not a problem Bob. Just let me know when the new deadline will be.",
-            },
-          ],
-        },
-        {
-          name: "Call about files",
-          department: "Sales",
-          date: "2022-04-27",
-          assigned: "Tim",
-          comments: [],
-        },
-        {
-          name: "Figure out a structure",
-          department: "Marketing",
-          date: "2022-07-18",
-          assigned: "Josh Sterling",
-          comments: [],
-        },
-        {
-          name: "Delete unnecessary files",
-          department: "Accounting",
-          date: "2022-04-06",
-          assigned: "Lisa Atkins",
-          comments: [
-            {
-              name: "Sarah Evans",
-              date: "March 29, 2022 7:54 AM",
-              comment: "Which files should we start with?",
-            },
-            {
-              name: "Dan Thompson",
-              date: "March 29, 2022 12:17 PM",
-              comment:
-                "Start with the oldest files in the system and make sure they have already been backed up.",
-            },
-            {
-              name: "Marry Glass",
-              date: "March 29, 2022 2:24 PM",
-              comment: "I will be able to help starting tomorrow afternoon.",
-            },
-            {
-              name: "Sarah Evans",
-              date: "March 29, 2022 4:31 PM",
-              comment: "Thanks Marry",
-            },
-          ],
-        },
-        {
-          name: "Hire new employee",
-          department: "Human Resources",
-          date: "2022-04-14",
-          assigned: "Tracy Daniels",
-          comments: [],
-        },
-        {
-          name: "Track progress",
-          department: "Management",
-          date: "2022-04-18",
-          assigned: "Mark Stein",
-          comments: [],
-        },
-        {
-          name: "Sign documents",
-          department: "Marketing",
-          date: "2022-03-20",
-          assigned: "Josh Peck",
-          comments: [],
-        },
-        {
-          name: "Meet clients",
-          department: "Sales",
-          date: "2022-03-08",
-          assigned: "Diane",
-          comments: [],
-        },
-        {
-          name: "Fix UI",
-          department: "Marketing",
-          date: "2022-04-09",
-          assigned: "Jose Nunez",
-          comments: [],
-        },
-      ],
-    },
-
-    const changeDisplayEditProjectModal = () => {
-    setDisplayEditProjectModal(!displayEditProjectModal);
-  };
-
-  // Adds a project to the projectsData array from addProjectModal
-  const addProject = (project: projectData) => {
-    dispatch(addNewProject(project));
-    displayProjectModal();
-  };
-
-    <ProjectHub
-                  displayAddProjectModal={displayAddProjectModal}
-                  displayProjectModal={displayProjectModal}
-                  addProject={addProject}
-                  editProject={editTheProject}
-                  deleteProject={deleteTheProject}
-                  changeActiveTab={changeActiveTab}
-                  displayEditProjectModal={displayEditProjectModal}
-                  changeDisplayEditProjectModal={changeDisplayEditProjectModal}
-                />
+  2) Have data somehow populate in the board and display when project is clicked on
+         - Maybe have a function that grabs it
+         - manipulate that data in the board
+         - Need to make sure changes are show with the data (useEffect?)
 */

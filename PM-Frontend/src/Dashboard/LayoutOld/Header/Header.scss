@@ -4,7 +4,9 @@
   background: $primary;
   box-shadow: $box-shadow-light;
   color: $white;
-  @extend %flex-between-column;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   max-height: 100vh;
   height: 100%;
   transition: $transistion-ease;

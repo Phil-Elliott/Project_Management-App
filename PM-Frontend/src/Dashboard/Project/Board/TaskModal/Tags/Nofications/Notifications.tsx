@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { User } from "~/shared/interfaces/Projects";
 import styles from "./Notifications.module.scss";
-import {
-  addWatchingTask,
-  removeWatchingTask,
-} from "~/Dashboard/Project/ProjectSlice";
+
 import { useDispatch } from "react-redux";
+import { addWatchingTask, removeWatchingTask } from "~/Dashboard/ProjectSlice";
 
 type NotificationProps = {
   user: User;

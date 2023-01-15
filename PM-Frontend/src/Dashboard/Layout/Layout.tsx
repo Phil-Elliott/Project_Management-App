@@ -1,37 +1,19 @@
-import Header from "./Header/Header";
-import ResponsiveHeader from "./ResponsiveHeader/ResponsiveHeader";
-import "./Layout.scss";
+import styles from "./Layout.module.scss";
+import LeftNav from "./LeftNav/LeftNav";
+import TopNav from "./TopNav/TopNav";
 
 type LayoutProps = {
-  navClass: string;
-  displayProjectModal: () => void;
-  activeTab: string;
-  changeActiveTab: (name: string) => void;
-  changeClass: (name: string) => void;
   children: React.ReactNode;
 };
 
-const Layout = ({
-  navClass,
-  displayProjectModal,
-  activeTab,
-  changeActiveTab,
-  changeClass,
-  children,
-}: LayoutProps) => {
+const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="main-container">
-      <ResponsiveHeader
-        changeClass={changeClass}
-        displayProjectModal={displayProjectModal}
-      />
-      <Header
-        navClass={navClass}
-        displayProjectModal={displayProjectModal}
-        activeTab={activeTab}
-        changeActiveTab={changeActiveTab}
-      />
-      <div className="content-container">{children}</div>
+    <div className={styles.main}>
+      <LeftNav />
+      <div className={styles["right-container"]}>
+        <TopNav />
+        <div className={styles.content}>{children}</div>
+      </div>
     </div>
   );
 };

@@ -10,7 +10,7 @@ import Nav from "../Nav/Nav";
 
 const Display = () => {
   const projectsData = useSelector(
-    (state: RootState) => state.projectsData.activeProject
+    (state: RootState) => state.project.projects
   );
   return (
     <div>

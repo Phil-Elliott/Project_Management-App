@@ -3,7 +3,7 @@ import "./Search.scss";
 import { FaSearch } from "react-icons/fa";
 import { useDebounce } from "usehooks-ts";
 import { useDispatch } from "react-redux";
-import { changeSearchQuery } from "../../../ProjectSlice";
+import { changeSearchQuery } from "~/Dashboard/ProjectSlice";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,10 +15,6 @@ const Search = () => {
     console.log(searchQuery);
     dispatch(changeSearchQuery(searchQuery));
   }, [debouncedValue]);
-
-  // useEffect(() => {
-  //   console.log("set searchQuery to blank");
-  // }, []);
 
   return (
     <div className="search-container">
