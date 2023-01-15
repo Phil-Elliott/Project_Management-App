@@ -3,7 +3,6 @@ import styles from "./Board.module.scss";
 import { TaskProps } from "~/shared/interfaces/Projects";
 import _ from "lodash";
 
-import Nav from "../Nav/Nav";
 import NavOptions from "./NavOptions/NavOptions";
 import Tasks from "./Tasks/Tasks";
 import TaskModal from "./TaskModal/TaskModal";
@@ -24,26 +23,7 @@ const Board = () => {
   const [display, setDisplay] = useState<boolean>(false);
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
 
-  // const selectedProject = useSelector(
-  //   (state: RootState) => state.project.selectedProject
-  // );
-
   const newData = useProject();
-
-  // const emptyData = {
-  //   name: "",
-  //   id: "",
-  //   background: "",
-  //   members: [],
-  //   notes: [],
-  //   tasksSections: [],
-  //   tasks: [],
-  // };
-
-  // const otherData =
-  //   useSelector((state: RootState) =>
-  //     state.project.projects.find((project) => project.id === selectedProject)
-  //   ) || emptyData;
 
   const user = useSelector((state: RootState) => state.project.user);
   const dispatch = useDispatch();
@@ -129,13 +109,10 @@ const Board = () => {
 
   useEffect(() => {
     console.log("newData", newData);
-    // console.log("otherData", otherData);
-    // console.log("user", user);
   }, [newData, user]);
 
   return (
     <div className={styles.main}>
-      <Nav />
       <NavOptions members={newData!.members} />
       <Tasks
         changeSectionOrder={changeSectionOrder}

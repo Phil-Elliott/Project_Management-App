@@ -1,0 +1,24 @@
+@use "src/styles" as *;
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.card {
+  background-image: url("https://images.unsplash.com/photo-1672592785502-ad7a5465400e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  padding: 1rem;
+  border-radius: $border-radius;
+  color: white;
+  height: 10rem;
+  cursor: pointer;
+
+  h1 {
+  }
+}

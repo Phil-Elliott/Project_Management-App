@@ -54,13 +54,13 @@ const Dashboard = () => {
       >
         <div className="content">
           <Routes>
-            <Route path="/" element={<MainHub />} />
+            <Route path="/" element={<MainHub projects={projects} />} />
             <Route
               path="/:id"
               element={<ProjectLayout projectsData={projects} />}
             >
-              <Route index element={<Display />} />
-              <Route path="board" element={<Board />} />
+              <Route index element={<Board />} />
+              {/* <Route path="board" element={<Board />} /> */}
             </Route>
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
@@ -73,8 +73,22 @@ const Dashboard = () => {
 export default Dashboard;
 
 /*
-  2) Have data somehow populate in the board and display when project is clicked on
-         - Maybe have a function that grabs it
-         - manipulate that data in the board
-         - Need to make sure changes are show with the data (useEffect?)
+  Fix up projecthub
+  Make add project modal 
+  Make edit project modal 
+  Add more functionality to task section
+  Make everything responsive
+
+  Fix up signin page
+  Connect to a database
+
+  Make sure all data in the app works with the database
+
+  Make a landing page
+
+  Continue to add functionality 
+  Maybe add a dashboard for each project
+
+
+
 */

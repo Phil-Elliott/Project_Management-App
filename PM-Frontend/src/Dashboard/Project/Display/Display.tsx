@@ -1,32 +1,44 @@
 import React from "react";
-import "./Display.scss";
-// import DashboardDetails from "./Components/DashboardDetails/DashboardDetails";
-// import DashboardDeadlines from "./Components/DashboardDeadlines/DashboardDeadlines";
-// import DashboardTasks from "./Components/DashboardTasks/DashboardTasks";
-// import DashboardTime from "./Components/DashboardTime/DashboardTime";
-import { RootState } from "../../Store";
-import { useSelector } from "react-redux";
+// import "./Display.scss";
 import Nav from "../Nav/Nav";
+import { useProject } from "../Nav/ProjectLayout";
 
 const Display = () => {
-  const projectsData = useSelector(
-    (state: RootState) => state.project.projects
-  );
+  // const projectData = useProject();
+
   return (
     <div>
-      <Nav />
+      {/* <Nav />
       <div className="dashboard-main-container">
-        <div className="dashboard-top-container">
-          {/* <DashboardDetails description={projectsData.description} />
-          <DashboardDeadlines projectsData={projectsData} /> */}
-        </div>
-        <div className="dashboard-bottom-container">
-          {/* <DashboardTasks projectsData={projectsData} />
-          <DashboardTime launch={projectsData.launch} /> */}
-        </div>
-      </div>
+        <div className="dashboard-top-container"> */}
+      {/* <DashboardDetails description={"poop"} />
+          <DashboardDeadlines projectsData={projectData} /> */}
+      {/* </div>
+        <div className="dashboard-bottom-container"> */}
+      {/* <DashboardTasks projectsData={projectData} /> */}
+      {/* <DashboardTime launch={"2"} /> */}
+      {/* </div>
+      </div> */}
     </div>
   );
 };
 
 export default Display;
+
+/*
+
+Sections
+
+1) Description and Notes on Project
+2) Display Members
+3) 
+
+
+
+Could just do this part last
+
+
+
+
+
+*/
