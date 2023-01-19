@@ -30,12 +30,18 @@ type SwitchTaskOrderProps = {
   taskSections: TasksSections[];
 };
 
+type AddProjectProps = {
+  name: string;
+  background: string;
+};
+
 const initialState: ProjectState = {
   projects: [
     {
       name: "Do It",
       id: "2grgr3223r532rff3f",
-      background: "can be a color or an image(options for images)",
+      background:
+        "https://images.unsplash.com/photo-1673619739076-68ba2af9a66f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=877&q=80",
       members: ["Meg Doe", "Jane Doe", "Addin Tyler"],
       notes: [
         {
@@ -150,7 +156,8 @@ const initialState: ProjectState = {
     {
       name: "Transfer Files",
       id: "kuiluiokngfrgrg",
-      background: "can be a color or an image(options for images)",
+      background:
+        "https://images.unsplash.com/photo-1673261077665-581069aac65d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1506&q=80",
       members: ["John Doe", "Jane Doe", "Bob Tyler"],
       notes: [
         {
@@ -280,6 +287,23 @@ export const projectSlice = createSlice({
     setProject: (state, action: PayloadAction<string>) => {
       state.selectedProject = action.payload;
     },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // project functions
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    addProject: (state, action: PayloadAction<AddProjectProps>) => {
+      const newProject = {
+        name: action.payload.name,
+        id: uuid(),
+        background: action.payload.background,
+        members: [],
+        notes: [],
+        tasksSections: [],
+        tasks: [],
+      };
+
+      state.projects = [...state.projects, newProject];
+    },
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // section functions
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -449,6 +473,7 @@ export const projectSlice = createSlice({
 });
 
 export const {
+  addProject,
   setProject,
   addSection,
   addTask,

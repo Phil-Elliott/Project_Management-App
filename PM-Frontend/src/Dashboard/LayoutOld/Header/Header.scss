@@ -101,6 +101,9 @@
 }
 
 .bottom-header-logo {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 3px;
   box-shadow: $box-shadow-light;
   width: 2rem;

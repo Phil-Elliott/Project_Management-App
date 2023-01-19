@@ -1,5 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import CreateBoard from "./CreateBoard/CreateBoard";
+import ProjectCard from "./ProjectCard/ProjectCard";
+
 import { ProjectDataProps } from "~/shared/interfaces/Projects";
 import styles from "./MainHub.module.scss";
 
@@ -11,21 +12,9 @@ const MainHub = ({ projects }: MainHubProps) => {
   return (
     <div className={styles.main}>
       {projects.map((project, i) => {
-        return (
-          <Link
-            className={styles.card}
-            key={i}
-            to={`/dashboard/${project.id}`}
-            style={{
-              textDecoration: "none",
-              color: "white",
-              width: "100%",
-            }}
-          >
-            <h1>{project.name}</h1>
-          </Link>
-        );
+        return <ProjectCard key={i} project={project} />;
       })}
+      <CreateBoard />
     </div>
   );
 };
@@ -33,13 +22,9 @@ const MainHub = ({ projects }: MainHubProps) => {
 export default MainHub;
 
 /*
-  Card
-  - Title
-  - Background
   
-  2) Make a basic card component for each component
-  3) Make sure that clicking goes to the board
-  4) Fix up the card styles
+  
+  
   5) Add an edit section
         - Edit some of the details
         - Delete the project

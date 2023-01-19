@@ -70,7 +70,7 @@ const BottomHeaderContent = ({
                   >
                     <div
                       className="bottom-header-logo"
-                      style={{ background: "pink" }}
+                      style={{ backgroundImage: `url(${project.background})` }}
                     >
                       <p>{project.name[0]}</p>
                     </div>

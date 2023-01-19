@@ -1,0 +1,19 @@
+@use "src/styles" as *;
+
+.card {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: $box-shadow-light;
+
+  @extend %flex-between;
+
+  padding: 1rem;
+  padding-bottom: 8rem;
+  border-radius: $border-radius;
+  color: white;
+  cursor: pointer;
+
+  h1 {
+  }
+}

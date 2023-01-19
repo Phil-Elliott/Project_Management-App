@@ -57,10 +57,10 @@ const TopHeaderContent = ({
           width: "100%",
         }}
       >
-        <div className={expandClass} onClick={() => addProject()}>
+        {/* <div className={expandClass} onClick={() => addProject()}>
           <FaPlus />
           <h2>New project</h2>
-        </div>
+        </div> */}
       </NavLink>
       {iconLinks.map((icon, i) => {
         return (
