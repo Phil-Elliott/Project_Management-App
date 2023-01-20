@@ -39,7 +39,7 @@ const Header = ({
   return (
     <header
       className={navClass}
-      style={expandMain ? { width: "15rem" } : { width: "4.5rem" }}
+      style={expandMain ? { width: "12rem" } : { width: "3.5rem" }}
     >
       <div className="main-header-content">
         <TopHeaderContent

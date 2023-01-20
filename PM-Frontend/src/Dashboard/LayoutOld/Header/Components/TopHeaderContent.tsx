@@ -1,5 +1,8 @@
 import React from "react";
-import { FaPlus, FaRegCircle } from "react-icons/fa";
+import { FaRegCircle } from "react-icons/fa";
+import { IoMdSettings } from "react-icons/io";
+import { RiAccountCircleFill } from "react-icons/ri";
+import { AiOutlineBell } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 
 const TopHeaderContent = ({
@@ -17,32 +20,28 @@ const TopHeaderContent = ({
 }) => {
   // Links to the top part of the header
   const iconLinks = [
-    // {
-    //   icon: <FaPlus />,
-    //   name: "New project",
-    //   route: "/new",
-    // },
     {
       icon: <FaRegCircle />,
       name: "Projects hub",
       route: "/dashboard/",
     },
-    // {
-    //   icon: <FaTasks />,
-    //   name: "My tasks",
-    //   route: "/tasks",
-    // },
-    // {
-    //   icon: <FaUser />,
-    //   name: "Account",
-    //   route: "/account",
-    // },
+    {
+      icon: <AiOutlineBell />,
+      name: "Notifications",
+      route: "/dashboard/settings",
+    },
+
+    {
+      icon: <RiAccountCircleFill />,
+      name: "Profile",
+      route: "/dashboard/profile",
+    },
   ];
 
-  const addProject = () => {
-    displayProjectModal();
-    changeActiveTab("Projects hub");
-  };
+  // const addProject = () => {
+  //   displayProjectModal();
+  //   changeActiveTab("Projects hub");
+  // };
 
   return (
     <div className="top-header-content">
@@ -56,12 +55,7 @@ const TopHeaderContent = ({
           color: "white",
           width: "100%",
         }}
-      >
-        {/* <div className={expandClass} onClick={() => addProject()}>
-          <FaPlus />
-          <h2>New project</h2>
-        </div> */}
-      </NavLink>
+      ></NavLink>
       {iconLinks.map((icon, i) => {
         return (
           <NavLink
@@ -74,7 +68,7 @@ const TopHeaderContent = ({
             onClick={() => changeActiveTab(icon.name)}
           >
             {icon.icon}
-            <h2>{icon.name}</h2>
+            {expandMain && <h2>{icon.name}</h2>}
           </NavLink>
         );
       })}

@@ -74,7 +74,7 @@ const BottomHeaderContent = ({
                     >
                       <p>{project.name[0]}</p>
                     </div>
-                    <h2>{project.name}</h2>
+                    {expandMain && <h2>{project.name}</h2>}
                   </div>
                 </Link>
               );

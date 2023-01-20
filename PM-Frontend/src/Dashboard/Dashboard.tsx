@@ -45,13 +45,14 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <LayoutOld
+      {/* <LayoutOld
         navClass={navClass}
         changeClass={changeClass}
         activeTab={activeTab}
         changeActiveTab={changeActiveTab}
         displayProjectModal={displayProjectModal}
-      >
+      > */}
+      <Layout>
         <div className="content">
           <Routes>
             <Route path="/" element={<MainHub projects={projects} />} />
@@ -65,7 +66,8 @@ const Dashboard = () => {
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>
-      </LayoutOld>
+      </Layout>
+      {/* </LayoutOld> */}
     </div>
   );
 };

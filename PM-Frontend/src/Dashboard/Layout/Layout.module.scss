@@ -1,13 +1,13 @@
 @use "~/styles" as *;
 
 .main {
-  display: flex;
+  // display: flex;
   min-height: 100vh;
   min-width: 100vw;
   background-color: $background-color;
 }
 
 .right-container {
-  width: calc(100% - 4.5%);
-  margin-left: 4.5%;
+  width: calc(100% - 3.5%);
+  margin-left: 3.5%;
 }

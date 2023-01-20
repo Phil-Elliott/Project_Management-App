@@ -1,31 +1,66 @@
 import React from "react";
-import { FaPlus, FaRegCircle } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+
+import { FaRegCircle } from "react-icons/fa";
+import { IoMdSettings } from "react-icons/io";
+import { RiAccountCircleFill } from "react-icons/ri";
+import { AiOutlineBell } from "react-icons/ai";
 import styles from "./Top.module.scss";
+
+type TopProps = {
+  expand: boolean;
+};
 
 const iconLinks = [
   {
-    icon: <FaPlus />,
-    name: "New project",
+    icon: <FaRegCircle />,
+    name: "Projects",
     route: "/dashboard/",
   },
   {
-    icon: <FaRegCircle />,
-    name: "Projects Hub",
-    route: "/dashboard/",
+    icon: <AiOutlineBell />,
+    name: "Notifications",
+    route: "/dashboard/notifications",
+  },
+  {
+    icon: <IoMdSettings />,
+    name: "Settings",
+    route: "/dashboard/settings/",
+  },
+  {
+    icon: <RiAccountCircleFill />,
+    name: "Profile",
+    route: "/dashboard/profile/",
   },
 ];
 
-const Top = () => {
+const Top = ({ expand }: TopProps) => {
   return (
     <div className={styles.main}>
       <div className={styles.logo}>
         <h2>sP</h2>
+        {expand && <h3>SimplePlan</h3>}
       </div>
       <div className={styles["icon-container"]}>
-        {iconLinks.map((link) => (
-          <div className={styles["icon-link"]} key={link.name}>
-            <a href={link.route}>{link.icon}</a>
-          </div>
+        {iconLinks.map((link, index) => (
+          <NavLink
+            to={link.route}
+            style={{
+              textDecoration: "none",
+              color: "white",
+              width: "100%",
+            }}
+            className={(navData) => (navData.isActive ? styles.activeLink : "")}
+            key={index}
+          >
+            <div className={styles["icon-link"]}>
+              <div className={styles["link-icon"]}>
+                {/* <a href={link.route}>{link.icon}</a> */}
+                {link.icon}
+              </div>
+              {expand && <div className={styles["link-name"]}>{link.name}</div>}
+            </div>
+          </NavLink>
         ))}
       </div>
     </div>

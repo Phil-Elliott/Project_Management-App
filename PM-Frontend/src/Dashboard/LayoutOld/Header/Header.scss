@@ -19,7 +19,7 @@
 }
 
 .top-header-content {
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
 }
 
 .logo {
@@ -29,7 +29,7 @@
   padding: 1rem;
   width: 100%;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
 
   h2 {
     font-size: 0%;
@@ -49,7 +49,7 @@
   }
 
   h2 {
-    font-size: 0%;
+    display: none;
   }
 }
 
@@ -65,11 +65,13 @@
 
 .expand-container {
   justify-content: flex-start;
+
   h2 {
-    transition: all 0.5s ease-in-out 0.15s;
+    // transition: all 0.5s ease-in-out 0.15s;
     display: inline;
     font-size: 100%;
     padding-left: 1rem;
+    white-space: nowrap;
   }
 }
 
