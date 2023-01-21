@@ -27,7 +27,10 @@ const iconLinks = [
 const Top = ({ expand }: TopProps) => {
   return (
     <div className={styles.main}>
-      <div className={styles.logo}>
+      <div
+        className={styles.logo}
+        style={!expand ? { justifyContent: "center" } : {}}
+      >
         <h2>sP</h2>
         {expand && <h3>SimplePlan</h3>}
       </div>
@@ -43,7 +46,10 @@ const Top = ({ expand }: TopProps) => {
             className={(navData) => (navData.isActive ? styles.activeLink : "")}
             key={index}
           >
-            <div className={styles["icon-link"]}>
+            <div
+              className={styles["icon-link"]}
+              style={!expand ? { justifyContent: "center" } : {}}
+            >
               <div className={styles["link-icon"]}>{link.icon}</div>
               {expand && <div className={styles["link-name"]}>{link.name}</div>}
             </div>

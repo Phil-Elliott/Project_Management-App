@@ -3,7 +3,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import "./Dashboard.scss";
 import Layout from "./Layout/Layout";
 import MainHub from "./MainHub/MainHub";
-import { Board, ProjectLayout } from "./Project";
+import Board from "./Board/Board";
+import { ProjectLayout } from "./Board/ProjectLayout/ProjectLayout";
 import { RootState } from "./Store";
 
 const Dashboard = () => {

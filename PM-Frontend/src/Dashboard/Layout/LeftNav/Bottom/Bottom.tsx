@@ -31,7 +31,10 @@ const Bottom = ({ expand }: BottomProps) => {
             }}
             className={(navData) => (navData.isActive ? styles.activeLink : "")}
           >
-            <div className={styles["icon-link"]}>
+            <div
+              className={styles["icon-link"]}
+              style={!expand ? { justifyContent: "center" } : {}}
+            >
               <div
                 style={{
                   backgroundImage: `url(${project.background})`,

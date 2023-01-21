@@ -1,4 +1,4 @@
-import { NavOptionsProps } from "~/Dashboard/Project/Board/NavOptions/NavOptions";
+import { NavOptionsProps } from "~/Dashboard/Board/NavOptions/NavOptions";
 import { Avatar } from "~/shared/components";
 import styles from "./Members.module.scss";
 
