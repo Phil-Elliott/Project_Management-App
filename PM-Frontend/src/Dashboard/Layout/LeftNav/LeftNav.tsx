@@ -6,12 +6,16 @@ import styles from "./LeftNav.module.scss";
 
 import { FaAngleDoubleRight } from "react-icons/fa";
 
-const LeftNav = () => {
+type LeftNavProps = {
+  hideNav: boolean;
+};
+
+const LeftNav = ({ hideNav }: LeftNavProps) => {
   const [expand, setExpand] = useState<boolean>(false);
 
   return (
     <div
-      className={styles.main}
+      className={hideNav ? `${styles.main} ${styles.hide}` : styles.main}
       style={expand ? { width: "13rem" } : { width: "3.5rem" }}
     >
       <div className={styles["nav-container"]}>

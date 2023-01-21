@@ -18,16 +18,6 @@ const iconLinks = [
     route: "/dashboard/",
   },
   {
-    icon: <AiOutlineBell />,
-    name: "Notifications",
-    route: "/dashboard/notifications",
-  },
-  {
-    icon: <IoMdSettings />,
-    name: "Settings",
-    route: "/dashboard/settings/",
-  },
-  {
     icon: <RiAccountCircleFill />,
     name: "Profile",
     route: "/dashboard/profile/",
@@ -54,10 +44,7 @@ const Top = ({ expand }: TopProps) => {
             key={index}
           >
             <div className={styles["icon-link"]}>
-              <div className={styles["link-icon"]}>
-                {/* <a href={link.route}>{link.icon}</a> */}
-                {link.icon}
-              </div>
+              <div className={styles["link-icon"]}>{link.icon}</div>
               {expand && <div className={styles["link-name"]}>{link.name}</div>}
             </div>
           </NavLink>

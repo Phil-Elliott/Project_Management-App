@@ -16,9 +16,9 @@ const Bottom = ({ expand }: BottomProps) => {
 
   return (
     <div className={styles.main}>
-      <div className={styles["arrow-container"]}>
+      {/* <div className={styles["arrow-container"]}>
         <FaAngleDown />
-      </div>
+      </div> */}
       <div className={styles["projects-container"]}>
         {projects.map((project) => (
           <NavLink
