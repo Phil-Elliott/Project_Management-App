@@ -86,10 +86,13 @@ const CreateBoard = () => {
                         className={
                           activeBackground === index ? styles.active : ""
                         }
+                        style={
+                          loading ? { display: "block" } : { display: "none" }
+                        }
                       />
 
                       {!loading && (
-                        <div>
+                        <div className={styles.loader}>
                           <Loader size={10} />
                         </div>
                       )}
