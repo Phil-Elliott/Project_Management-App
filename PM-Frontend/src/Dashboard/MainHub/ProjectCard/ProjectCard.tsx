@@ -14,8 +14,6 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
       to={`/dashboard/${project.id}`}
       style={{
         textDecoration: "none",
-        color: "white",
-        width: "100%",
         backgroundImage: `url(${project.background})`,
         backgroundColor: project.background,
       }}

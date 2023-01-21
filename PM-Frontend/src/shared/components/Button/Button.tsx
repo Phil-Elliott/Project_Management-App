@@ -7,6 +7,7 @@ type ButtonProps = {
   handleClick: () => void;
   space?: boolean;
   disabled?: boolean;
+  widthFull?: boolean;
 };
 
 const Button = ({
@@ -15,12 +16,16 @@ const Button = ({
   handleClick,
   space,
   disabled,
+  widthFull,
 }: ButtonProps) => {
   return (
     <button
       className={`${styles[variant]}`}
       onClick={() => handleClick()}
-      style={{ marginRight: space ? "1rem" : "0" }}
+      style={{
+        marginRight: space ? "1rem" : "0",
+        width: widthFull ? "100%" : "auto",
+      }}
       disabled={disabled}
     >
       {children}

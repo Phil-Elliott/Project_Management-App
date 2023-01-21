@@ -5,17 +5,19 @@
 }
 
 .new-container {
+  box-shadow: $box-shadow-light;
+  @extend %flex-between;
+  padding: 0.5rem 1rem;
+  border-radius: $border-radius;
   background-color: $primary-light;
   color: $primary-dark;
-  box-shadow: $box-shadow-light;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.75rem;
   cursor: pointer;
-  font-weight: 400;
-  position: relative;
-  height: 100%;
+  height: 16vh;
+  width: 100%;
+
+  h1 {
+    font-size: $title;
+  }
 }
 
 .popup-container {
@@ -27,10 +29,11 @@
     border-bottom: 1px solid $border-color;
     padding-bottom: 0.5rem;
     font-weight: 600;
+    font-size: 1rem;
 
     .closeBtn {
       cursor: pointer;
-      color: red;
+      color: $primary-dark;
     }
   }
 }
@@ -38,8 +41,12 @@
 .background {
   padding-top: 0.5rem;
 
+  .errorText {
+    padding-top: 0.25rem;
+  }
+
   p {
-    font-size: 0.75rem;
+    font-size: $small-text;
     font-weight: 600;
     color: $primary-dark;
     padding-bottom: 0.5rem;
@@ -49,14 +56,13 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 5%;
-    padding: 0.5rem;
+    gap: 7.5px;
+    padding: 7.5px;
     border: 1px solid $border-color;
     border-radius: 0.25rem;
-    font-size: 0.75rem;
+    font-size: $small-text;
     font-weight: 400;
     color: $primary-dark;
-    margin-bottom: 1rem;
     cursor: pointer;
 
     img {
@@ -71,12 +77,24 @@
       border-radius: 0.25rem;
     }
   }
+  .color,
+  img {
+    border: 2px solid transparent;
+
+    &:hover {
+      border: 2px solid $secondary;
+    }
+  }
+
+  .selected {
+    border: 2px solid $secondary;
+  }
 }
 
 .title {
-  padding-top: 0.5rem;
+  padding-top: 0.25rem;
   p {
-    font-size: 0.75rem;
+    font-size: $small-text;
     font-weight: 600;
     color: $primary-dark;
     padding-bottom: 0.5rem;
@@ -87,10 +105,22 @@
     padding: 0.5rem;
     border: 1px solid $border-color;
     border-radius: 0.25rem;
-    font-size: 0.75rem;
+    font-size: $small-text;
     font-weight: 400;
-    color: $primary-dark;
+    margin-bottom: 0.5rem;
 
-    margin-bottom: 1rem;
+    &:focus {
+      border: $primary 1px solid;
+      outline: none;
+    }
   }
+
+  .errorText {
+    padding-bottom: 1rem;
+  }
+}
+
+.errorText {
+  color: $primary !important;
+  font-size: 0.7rem !important;
 }

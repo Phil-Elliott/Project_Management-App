@@ -35,7 +35,7 @@ const ResponisveNav = ({ toggleNav }: ResponsiveNavProps) => {
         <div className={styles.logo}>
           <h2>sP</h2>
         </div>
-        <div onClick={toggleNav}>
+        <div onClick={toggleNav} className={styles.toggle}>
           {navLogo === "ham" ? (
             <FaBars
               className="hamburger-icon"

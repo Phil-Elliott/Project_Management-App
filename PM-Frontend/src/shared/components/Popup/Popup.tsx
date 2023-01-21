@@ -4,7 +4,7 @@ import { useOnClickOutside } from "usehooks-ts";
 
 type PopupProps = {
   children: React.ReactNode;
-  close: (value: boolean) => void;
+  close: (value: boolean) => void | (() => void);
 };
 
 const Popup = ({ children, close }: PopupProps) => {

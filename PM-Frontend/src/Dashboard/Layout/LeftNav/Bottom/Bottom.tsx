@@ -20,8 +20,9 @@ const Bottom = ({ expand }: BottomProps) => {
         <FaAngleDown />
       </div> */}
       <div className={styles["projects-container"]}>
-        {projects.map((project) => (
+        {projects.map((project, index) => (
           <NavLink
+            key={index}
             to={`/dashboard/${project.id}`}
             style={{
               textDecoration: "none",

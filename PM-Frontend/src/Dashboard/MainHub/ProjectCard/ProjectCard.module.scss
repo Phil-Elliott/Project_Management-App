@@ -8,12 +8,16 @@
 
   @extend %flex-between;
 
-  padding: 1rem;
-  padding-bottom: 8rem;
+  padding: 0.5rem 1rem;
+  // padding-bottom: 8rem;
   border-radius: $border-radius;
   color: white;
   cursor: pointer;
+  height: 16vh;
+  width: 100%;
 
   h1 {
+    align-self: baseline;
+    font-size: $title;
   }
 }

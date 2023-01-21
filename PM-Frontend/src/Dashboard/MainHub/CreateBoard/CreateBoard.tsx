@@ -17,54 +17,75 @@ const colors = ["blue", "red", "green", "orange"];
 
 const CreateBoard = () => {
   const [display, setDisplay] = useState<boolean>(false);
-  const [background, setBackground] = useState<string>("");
+  const [backgroundState, setBackgroundState] = useState<string>("");
+  const [activeBackground, setActiveBackground] = useState<number>(10);
   const [title, setTitle] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [attempted, setAttempted] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
-  const handleBackground = (e: React.MouseEvent<HTMLImageElement>) => {
+  const handleBackground = (index: number, e: any) => {
     if (e.currentTarget.src) {
-      setBackground(e.currentTarget.src);
+      setActiveBackground(index);
+      setBackgroundState(e.currentTarget.src);
     } else {
-      setBackground(e.currentTarget.style.background);
+      setBackgroundState(e.currentTarget.style.background);
     }
   };
 
-  const handleCreateBoard = () => {
-    dispatch(addProject({ name: title, background: background }));
+  const reset = () => {
     setDisplay(false);
     setTitle("");
-    setBackground("");
+    setBackgroundState("");
+    setAttempted(false);
+    setActiveBackground(10);
+  };
+
+  const handleCreateBoard = () => {
+    if (!title || !backgroundState) {
+      setAttempted(true);
+      return;
+    }
+    dispatch(addProject({ name: title, background: backgroundState }));
+    reset();
   };
 
   const handleLoad = () => {
     setLoading(true);
   };
 
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key === "Enter") {
+      handleCreateBoard();
+    }
+  }
+
   return (
     <div className={styles.main}>
       {display && (
-        <Popup close={setDisplay}>
-          <div className={styles["popup-container"]}>
+        <Popup close={() => reset()}>
+          <div
+            className={styles["popup-container"]}
+            onKeyDown={(e) => handleKeyDown(e)}
+          >
             <div className={styles.header}>
               <p>Create Board</p>
-              <FaTimes
-                className={styles.closeBtn}
-                onClick={() => setDisplay(false)}
-              />
+              <FaTimes className={styles.closeBtn} onClick={() => reset()} />
             </div>
             <div className={styles.background}>
               <p>Background</p>
               <div className={styles.images}>
                 {backgrounds.map((background, index) => {
                   return (
-                    <>
+                    <div key={index}>
                       <img
-                        key={index}
                         src={background}
-                        onClick={handleBackground}
+                        onClick={(e) => handleBackground(index, e)}
                         onLoad={handleLoad}
+                        className={
+                          activeBackground === index ? styles.active : ""
+                        }
                       />
 
                       {!loading && (
@@ -72,7 +93,7 @@ const CreateBoard = () => {
                           <Loader size={10} />
                         </div>
                       )}
-                    </>
+                    </div>
                   );
                 })}
                 {colors.map((color, index) => {
@@ -81,11 +102,16 @@ const CreateBoard = () => {
                       key={index}
                       className={styles.color}
                       style={{ background: color }}
-                      onClick={handleBackground}
+                      onClick={(e) => handleBackground(index, e)}
                     ></div>
                   );
                 })}
               </div>
+              {backgroundState === "" && attempted && (
+                <p className={styles.errorText}>
+                  👋 Please select a background
+                </p>
+              )}
             </div>
             <div className={styles.title}>
               <p>Board Title</p>
@@ -95,8 +121,15 @@ const CreateBoard = () => {
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
               />
+              {title === "" && attempted && (
+                <p className={styles.errorText}>👋 Please enter a title</p>
+              )}
             </div>
-            <Button variant="primary" handleClick={() => handleCreateBoard()}>
+            <Button
+              widthFull
+              variant="primary"
+              handleClick={() => handleCreateBoard()}
+            >
               Create
             </Button>
           </div>

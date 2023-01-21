@@ -1,3 +1,5 @@
+@use "src/styles" as *;
+
 button {
   cursor: pointer;
   border-radius: 3px;
@@ -5,6 +7,7 @@ button {
   font-weight: 500;
   padding: 0.5rem 1rem;
   border: none;
+  font-size: $small-text;
 
   &:hover {
     opacity: 0.8;
@@ -12,16 +15,16 @@ button {
 }
 
 .primary {
-  background-color: blue;
+  background-color: $primary;
   color: white;
 }
 
 .secondary {
-  background-color: #e0e0e0;
+  background-color: $primary-light;
   color: black;
 }
 
 .danger {
-  background-color: red;
+  background-color: $primary-dark;
   color: white;
 }
