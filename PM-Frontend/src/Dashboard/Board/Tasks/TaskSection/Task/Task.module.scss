@@ -1,14 +1,14 @@
 @use "~/styles" as *;
 
 .main {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 500;
   background-color: white;
   border-radius: $border-radius;
-  padding: 1rem;
+  padding: 0.5rem 0.5rem;
   box-shadow: $box-shadow-light;
   cursor: pointer;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 
   &:hover {
     background-color: #f5f5f5;
@@ -16,6 +16,7 @@
 
   .name {
     word-break: break-all;
+    font-weight: 600;
   }
 }
 
@@ -28,7 +29,8 @@
     display: flex;
 
     .icon {
-      margin-right: 0.5rem;
+      margin-right: 0.75rem;
+      font-size: 0.8rem;
       cursor: pointer;
     }
   }

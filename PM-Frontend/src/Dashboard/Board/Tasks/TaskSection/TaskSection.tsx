@@ -4,14 +4,11 @@ import Task from "./Task/Task";
 import "./TaskSection.scss";
 import { FaEllipsisH } from "react-icons/fa";
 
-import {
-  ProjectDataProps,
-  TaskProps,
-} from "../../../../../shared/interfaces/Projects";
 import { AddItem } from "~/shared/components";
 
 import { useSelector } from "react-redux";
 import { RootState } from "~/Dashboard/Store";
+import { ProjectDataProps, TaskProps } from "~/shared/interfaces/Projects";
 
 type TaskSectionProps = {
   section: {
@@ -91,20 +88,3 @@ const TaskSection = ({
 };
 
 export default TaskSection;
-// setTasks(fakeData.tasks.filter((task) => section.tasks.includes(task.id)));
-
-/*
-// const [tasks, setTasks] = useState<TaskProps[]>([]);
-  // const [taskOrder, setTaskOrder] = useState<string[]>([]);
-// useEffect(() => {
-  //   // setTaskOrder(section.tasks);
-  //   setTasks(
-  //     section.tasks
-  //       .map((task) => {
-  //         return fakeData.tasks.find((t) => t.id === task);
-  //       })
-  //       .filter((task) => task !== undefined) as TaskProps[]
-  //   );
-  // }, [section, section.tasks]);
-
-*/

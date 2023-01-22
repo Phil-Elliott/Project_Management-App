@@ -3,6 +3,8 @@ import { Avatar, Button } from "~/shared/components";
 
 import CommentData from "./Comment/Comment";
 import styles from "./Comments.module.scss";
+import { MdInsertComment } from "react-icons/md";
+
 import uuid from "react-uuid";
 import moment from "moment";
 import { TaskProps } from "~/shared/interfaces/Projects";
@@ -47,7 +49,10 @@ const Comments = ({
 
   return (
     <div className={styles.main}>
-      <h3 className={styles.header}>Comments</h3>
+      <div className={styles.header}>
+        <MdInsertComment className={styles.icon} />
+        <h3>Comments</h3>
+      </div>
       <div className={styles.input}>
         <div className={styles.user}>
           <Avatar user={"Bob"} />

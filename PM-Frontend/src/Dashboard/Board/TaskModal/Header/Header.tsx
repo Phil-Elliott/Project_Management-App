@@ -3,6 +3,7 @@ import { FaTimes, FaRegTrashAlt } from "react-icons/fa";
 import { TaskProps } from "~/shared/interfaces/Projects";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import styles from "./Header.module.scss";
+import { TiThLarge } from "react-icons/ti";
 
 type HeaderProps = {
   taskData: any;
@@ -24,6 +25,7 @@ const Header = ({
   return (
     <div className={styles.main}>
       <div className={styles.left}>
+        <TiThLarge className={styles.icon} />
         <textarea
           rows={1}
           value={taskData.name}

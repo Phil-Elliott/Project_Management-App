@@ -6,6 +6,7 @@
   grid-gap: 2rem;
   align-items: center;
   width: 100%;
+  padding-bottom: 1.5rem;
 
   .right {
     display: flex;
@@ -13,27 +14,36 @@
     align-items: center;
 
     .icon {
-      font-size: 1.25rem;
+      font-size: 1rem;
       margin-left: 1rem;
       cursor: pointer;
 
       &:hover {
-        color: red;
+        color: $primary-dark;
       }
     }
   }
 }
 
 .left {
+  display: flex;
+  align-items: center;
+
+  .icon {
+    font-size: 1.25rem;
+    color: $primary-dark;
+    margin-right: 0.25rem;
+  }
+
   textarea {
     border: $modal-background 1px solid;
     background-color: $modal-background;
     outline: none;
-    font-size: 1.75rem;
-    font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: 700;
     color: black;
     width: 100%;
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem 0.25rem;
     border-radius: $border-radius;
     resize: none;
 

@@ -1,5 +1,7 @@
+@use "~/styles" as *;
+
 .avatar {
-  background-color: blue;
+  background-color: $primary;
   border: 1px solid white;
   border-radius: 100%;
   color: white;

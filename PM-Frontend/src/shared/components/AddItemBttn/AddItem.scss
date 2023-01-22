@@ -1,7 +1,7 @@
 @use "/src/styles/" as *;
 
 .add-task-btn {
-  width: 20rem;
+  width: 17rem;
 
   button {
     border: none;
@@ -14,14 +14,15 @@
     color: gray;
     @extend %flex-align;
     width: 100%;
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem 0.5rem;
 
     .plus-button {
       margin-right: 1rem;
     }
 
     p {
-      font-size: 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
     }
 
     &:hover {

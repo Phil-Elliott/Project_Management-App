@@ -1,11 +1,13 @@
 @use "/src/styles/" as *;
 
 .members-container {
-  margin-block: 1rem;
+  margin-bottom: 1rem;
 
   h5 {
     @include h5($primary-dark);
     margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
   }
 }
 
@@ -29,8 +31,8 @@
   position: relative;
   @extend %flex-align;
   font-size: $small;
-  font-weight: 500;
-  color: blue;
+  font-weight: 600;
+  color: $primary;
   cursor: pointer;
   padding: 0.25rem;
 

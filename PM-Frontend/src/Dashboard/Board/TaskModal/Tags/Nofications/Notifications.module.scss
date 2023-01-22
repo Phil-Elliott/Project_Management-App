@@ -6,6 +6,8 @@
   h5 {
     @include h5($primary-dark);
     margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
   }
 
   .watch-content {
@@ -14,6 +16,7 @@
 
     p {
       margin-left: 0.5rem;
+      font-size: 0.9rem;
     }
   }
 }

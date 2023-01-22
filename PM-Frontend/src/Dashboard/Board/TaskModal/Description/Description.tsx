@@ -5,6 +5,7 @@ import { Button } from "~/shared/components";
 import { TaskProps } from "~/shared/interfaces/Projects";
 
 import styles from "./Description.module.scss";
+import { AiOutlineAlignLeft } from "react-icons/ai";
 
 type DescriptionProps = {
   descriptionData: string;
@@ -40,7 +41,10 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
 
   return (
     <div className={styles.main}>
-      <h3>Description</h3>
+      <div className={styles.header}>
+        <AiOutlineAlignLeft className={styles.icon} />
+        <h3>Description</h3>
+      </div>
       {openEditor ? (
         <div className={styles["quill-container"]}>
           <ReactQuill

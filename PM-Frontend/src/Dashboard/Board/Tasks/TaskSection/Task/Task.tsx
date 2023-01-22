@@ -1,9 +1,11 @@
 import React from "react";
 import { FaComment, FaEye } from "react-icons/fa";
 import styles from "./Task.module.scss";
-import { TaskProps } from "../../../../../../shared/interfaces/Projects";
-import { Draggable, Droppable } from "react-beautiful-dnd";
+import { Draggable } from "react-beautiful-dnd";
 import { Members } from "~/shared/components";
+import { TaskProps } from "~/shared/interfaces/Projects";
+import { useSelector } from "react-redux";
+import { RootState } from "~/Dashboard/Store";
 
 type TaskComponentProps = {
   taskData: TaskProps;
@@ -12,6 +14,11 @@ type TaskComponentProps = {
 };
 
 const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
+  const user = useSelector((state: RootState) => state.project.user);
+
+  // checks if the task id is in the user's watched tasks
+  const isWatched = user.watching.includes(taskData.id);
+
   return (
     <Draggable draggableId={taskData.id} index={index} key={taskData.id}>
       {(provided) => (
@@ -25,8 +32,8 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
           <p className={styles.name}>{taskData.name}</p>
           <div className={styles.bottom}>
             <div className={styles["bottom-left"]}>
-              <FaEye className={styles.icon} />
-              <FaComment className={styles.icon} />
+              {isWatched && <FaEye className={styles.icon} />}
+              {taskData.comments[0] && <FaComment className={styles.icon} />}
             </div>
             <div className={styles["bottom-right"]}>
               <Members size={"med"} members={taskData.assignedTo} />

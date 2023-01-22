@@ -5,6 +5,8 @@
   h5 {
     @include h5($primary-dark);
     margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
   }
 }
 .content {
@@ -13,11 +15,12 @@
 
 .choice {
   @extend %modalItem;
+  font-size: 0.9rem;
   padding: 0.5rem;
 
   p {
-    font-size: $med;
-    font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 600;
     margin-left: 0.5rem;
   }
 }

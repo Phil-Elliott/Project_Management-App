@@ -1,17 +1,16 @@
 @use "~/styles" as *;
 
 .scroll-container {
-  padding-block: 1rem 0rem;
+  padding-block: 1rem;
   // min-height: calc(100vh - 1rem);
   overflow: scroll;
-
   // margin-right: 1rem;
   min-height: calc(100vh - 3.7rem);
 }
 
 .tasks-container {
   display: flex;
-  margin-left: 1rem;
+  padding-inline: 1rem;
 }
 
 .add-item-btn-container {
