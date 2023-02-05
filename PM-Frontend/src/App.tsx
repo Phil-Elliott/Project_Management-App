@@ -3,7 +3,6 @@ import "./App.scss";
 import Dashboard from "./Dashboard/Dashboard";
 import LandingPage from "./LandingPage/LandingPage";
 import SignIn from "./SignIn/SignIn";
-// import SignInOld from "./SignInOld/SignIn";
 
 function App() {
   return (
