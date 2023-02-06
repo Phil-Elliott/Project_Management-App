@@ -8,10 +8,8 @@
   height: 100%;
 
   form {
-    display: flex;
     flex-direction: column;
     padding-top: 10%;
-    width: 50%;
   }
 }
 
@@ -37,11 +35,17 @@ input {
 .buttons {
   margin-top: 2rem;
   display: flex;
+  justify-content: space-around;
+  width: 100%;
+
+  .left-button {
+    margin-right: 1rem;
+  }
 
   button {
     background-color: $primary;
     color: white;
-    margin-right: 1rem;
+    margin-bottom: 1rem;
     cursor: pointer;
     border-radius: 3px;
     font-size: 1rem;
@@ -49,6 +53,7 @@ input {
     padding: 0.5rem 1rem;
     border: none;
     font-size: $small-text;
+    width: 100%;
 
     &:hover {
       opacity: 0.8;
@@ -59,10 +64,36 @@ input {
 .signup {
   font-size: 1rem;
   font-weight: 500;
+  //   padding-bottom: 1rem;
 
   span {
     text-decoration: underline;
     color: $primary;
     cursor: pointer;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .main {
+    form {
+      display: flex;
+      width: 60%;
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .main {
+    form {
+      padding-top: 5rem;
+    }
+  }
+
+  .buttons {
+    flex-direction: column;
+
+    .left-button {
+      margin-bottom: 1rem;
+    }
   }
 }

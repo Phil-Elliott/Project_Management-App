@@ -2,10 +2,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import { FaRegCircle } from "react-icons/fa";
-import { IoMdSettings } from "react-icons/io";
 import { RiAccountCircleFill } from "react-icons/ri";
-import { AiOutlineBell } from "react-icons/ai";
+import { FaSignOutAlt } from "react-icons/fa";
+
 import styles from "./Top.module.scss";
+import { supaClient } from "~/supa-client";
 
 type TopProps = {
   expand: boolean;
@@ -22,6 +23,11 @@ const iconLinks = [
     name: "Profile",
     route: "/dashboard/profile/",
   },
+  // {
+  //   icon: <FaSignOutAlt />,
+  //   name: "Sign Out",
+  //   route: "/signin",
+  // },
 ];
 
 const Top = ({ expand }: TopProps) => {
@@ -55,9 +61,31 @@ const Top = ({ expand }: TopProps) => {
             </div>
           </NavLink>
         ))}
+        <NavLink
+          to="/signin"
+          style={{
+            textDecoration: "none",
+            color: "white",
+            width: "100%",
+          }}
+          className={(navData) => (navData.isActive ? styles.activeLink : "")}
+        >
+          <div
+            className={styles["icon-link"]}
+            style={!expand ? { justifyContent: "center" } : {}}
+            onClick={() => supaClient.auth.signOut()}
+          >
+            <div className={styles["link-icon"]}>
+              <FaSignOutAlt />
+            </div>
+            {expand && <div className={styles["link-name"]}>Sign Out</div>}
+          </div>
+        </NavLink>
       </div>
     </div>
   );
 };
 
 export default Top;
+
+//onClick={() => supaClient.auth.signOut()}

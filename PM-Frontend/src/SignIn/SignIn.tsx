@@ -1,19 +1,17 @@
-import { useState } from "react";
-
-import Login from "./Login/Login";
-import Signup from "./Signup/Signup";
-
-import { Button } from "~/shared/components";
-
+import { useContext, useEffect, useState } from "react";
+import { Navigate, redirect } from "react-router-dom";
 import styles from "./SignIn.module.scss";
 import image from "~/assets/signin.jpg";
+import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
+import { supaClient } from "~/supa-client";
+import { UserContext } from "~/App";
 
 const SignIn = () => {
-  const [login, setLogin] = useState(true);
+  const { session } = useContext(UserContext);
 
-  const handleFormChange = () => {
-    setLogin(!login);
-  };
+  if (session) {
+    return <Navigate to="/dashboard/" />;
+  }
 
   return (
     <div className={styles.main}>
@@ -22,11 +20,19 @@ const SignIn = () => {
       </div>
       <div className={styles["form-container"]}>
         <h1 className={styles.header}>Simple Plan</h1>
-        {login ? (
-          <Login handleFormChange={() => handleFormChange()} />
-        ) : (
-          <Signup handleFormChange={() => handleFormChange()} />
-        )}
+        <Auth
+          supabaseClient={supaClient}
+          appearance={{
+            theme: ThemeSupa,
+            className: {
+              container: styles.container,
+              label: styles.label,
+              button: styles.button,
+              input: styles.input,
+            },
+          }}
+          view={"sign_in"}
+        />
       </div>
     </div>
   );
@@ -36,8 +42,29 @@ export default SignIn;
 
 /*
 
-1) Create signin
-2) Create signup
 
+
+
+
+
+{/* 
+
+import Login from "./Login/Login";
+import Signup from "./Signup/Signup";
+
+import { Button } from "~/shared/components";
+
+
+const [login, setLogin] = useState(true);
+
+  const handleFormChange = () => {
+    setLogin(!login);
+  };
+
+{login ? (
+          <Login handleFormChange={() => handleFormChange()} />
+        ) : (
+          <Signup handleFormChange={() => handleFormChange()} />
+        )} 
 
 */

@@ -41,6 +41,7 @@ const Login = ({ handleFormChange }: LoginProps) => {
         <input type="email" onChange={handleEmail} value={email} />
         <label htmlFor="Password">Password</label>
         <input type="password" onChange={handlePassword} value={password} />
+        <p className={styles.forgot}>Forgot Password</p>
         <div className={styles.buttons}>
           <button type="submit">Sign in</button>
           <button type="submit">Sign in with Google</button>
