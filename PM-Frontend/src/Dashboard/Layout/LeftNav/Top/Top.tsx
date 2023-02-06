@@ -23,14 +23,13 @@ const iconLinks = [
     name: "Profile",
     route: "/dashboard/profile/",
   },
-  // {
-  //   icon: <FaSignOutAlt />,
-  //   name: "Sign Out",
-  //   route: "/signin",
-  // },
 ];
 
 const Top = ({ expand }: TopProps) => {
+  const handleSignOut = () => {
+    supaClient.auth.signOut();
+  };
+
   return (
     <div className={styles.main}>
       <div
@@ -61,26 +60,17 @@ const Top = ({ expand }: TopProps) => {
             </div>
           </NavLink>
         ))}
-        <NavLink
-          to="/signin"
-          style={{
-            textDecoration: "none",
-            color: "white",
-            width: "100%",
-          }}
-          className={(navData) => (navData.isActive ? styles.activeLink : "")}
+
+        <div
+          className={styles["icon-link"]}
+          style={!expand ? { justifyContent: "center" } : {}}
+          onClick={() => handleSignOut()}
         >
-          <div
-            className={styles["icon-link"]}
-            style={!expand ? { justifyContent: "center" } : {}}
-            onClick={() => supaClient.auth.signOut()}
-          >
-            <div className={styles["link-icon"]}>
-              <FaSignOutAlt />
-            </div>
-            {expand && <div className={styles["link-name"]}>Sign Out</div>}
+          <div className={styles["link-icon"]}>
+            <FaSignOutAlt />
           </div>
-        </NavLink>
+          {expand && <div className={styles["link-name"]}>Sign Out</div>}
+        </div>
       </div>
     </div>
   );

@@ -6,9 +6,17 @@ import MainHub from "./MainHub/MainHub";
 import Board from "./Board/Board";
 import { ProjectLayout } from "./Board/ProjectLayout/ProjectLayout";
 import { RootState } from "./Store";
+import { useContext } from "react";
+import { UserContext } from "~/App";
 
 const Dashboard = () => {
   const projects = useSelector((state: RootState) => state.project.projects);
+
+  const { session } = useContext(UserContext);
+
+  if (!session) {
+    return <Navigate to="/signin" />;
+  }
 
   return (
     <div className="dashboard-container">
