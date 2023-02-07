@@ -50,23 +50,4 @@ export default SignIn;
 
 /*
 
-put user into redux store
-could make your own slice out here
-
-check the redux on signin to see if there is a jwt
-  redirect to dashboard if so
-
-check the redux on dashboard to see if there is a jwt
-  redirect to signin if not
-
-
-Maybe need to reset all redux state on logout
-  Have an action that is called in logout function the resets all state in stores
-
-
-  Have the token expire over time
-
-
-  Add in all of the data tables to strapi
-
 */

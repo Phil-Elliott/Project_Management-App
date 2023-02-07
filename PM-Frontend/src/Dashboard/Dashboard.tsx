@@ -10,6 +10,7 @@ import { RootState } from "~/Store";
 import { useDispatch } from "react-redux";
 import { setJwt, setUser } from "~/ProjectSlice";
 import axios from "axios";
+import Profile from "./Profile/Profile";
 
 const Dashboard = () => {
   const projects = useSelector((state: RootState) => state.project.projects);
@@ -50,6 +51,7 @@ const Dashboard = () => {
         <div className="content">
           <Routes>
             <Route path="/" element={<MainHub projects={projects} />} />
+            <Route path="/profile" element={<Profile />} />
             <Route
               path="/:id"
               element={<ProjectLayout projectsData={projects} />}

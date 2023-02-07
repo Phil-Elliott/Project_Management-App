@@ -65,6 +65,30 @@
     },
     "avatar": {
       "type": "string"
+    },
+    "member": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::member.member",
+      "inversedBy": "users_permissions_users"
+    },
+    "assigneds": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::assigned.assigned",
+      "mappedBy": "users_permissions_user"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "users_permissions_user"
+    },
+    "watchings": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::watching.watching",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

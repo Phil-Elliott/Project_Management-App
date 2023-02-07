@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "assigneds",
+  "info": {
+    "singularName": "assigned",
+    "pluralName": "assigneds",
+    "displayName": "Assigned"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "assigneds"
+    },
+    "task": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::task.task",
+      "inversedBy": "assigneds"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "assigneds"
+    }
+  }
+}

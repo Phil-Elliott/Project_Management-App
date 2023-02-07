@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tasks",
+  "info": {
+    "singularName": "task",
+    "pluralName": "tasks",
+    "displayName": "tasks",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "priority": {
+      "type": "string"
+    },
+    "due": {
+      "type": "date"
+    },
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "tasks"
+    },
+    "section": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::section.section",
+      "inversedBy": "tasks"
+    },
+    "assigneds": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::assigned.assigned",
+      "mappedBy": "task"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "task"
+    },
+    "watchings": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::watching.watching",
+      "mappedBy": "task"
+    }
+  }
+}
