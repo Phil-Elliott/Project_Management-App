@@ -7,7 +7,7 @@ import { FaEllipsisH } from "react-icons/fa";
 import { AddItem } from "~/shared/components";
 
 import { useSelector } from "react-redux";
-import { RootState } from "~/Dashboard/Store";
+import { RootState } from "~/Store";
 import { ProjectDataProps, TaskProps } from "~/shared/interfaces/Projects";
 
 type TaskSectionProps = {

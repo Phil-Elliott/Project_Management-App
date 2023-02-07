@@ -13,6 +13,7 @@ type ProjectState = {
   user: User;
   searchQuery: string;
   selectedProject: string;
+  jwt: string;
 };
 
 type AddTaskProps = {
@@ -271,21 +272,35 @@ const initialState: ProjectState = {
     },
   ],
   user: {
-    id: "1",
-    name: "John Doe",
-    avatar: "red",
-    watching: ["153454354367656gfdbdfbfdbre"],
+    id: "",
+    username: "",
+    avatar: "",
   },
   searchQuery: "",
   selectedProject: "2grgr3223r532rff3f",
+  jwt: "",
 };
 
 export const projectSlice = createSlice({
   name: "project",
   initialState,
   reducers: {
+    setJwt: (state, action: PayloadAction<string>) => {
+      state.jwt = action.payload;
+    },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setProject: (state, action: PayloadAction<string>) => {
       state.selectedProject = action.payload;
+    },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // user functions
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    setUser: (state, action: PayloadAction<User>) => {
+      state.user = {
+        id: action.payload.id,
+        username: action.payload.username,
+        avatar: action.payload.avatar,
+      };
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // project functions
@@ -449,18 +464,18 @@ export const projectSlice = createSlice({
       // };
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // User Functions
+    // Watching Functions
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     addWatchingTask: (state, action: PayloadAction<string>) => {
       state.user = {
         ...state.user,
-        watching: [...state.user.watching, action.payload],
+        // watching: [...state.user.watching, action.payload],
       };
     },
     removeWatchingTask: (state, action: PayloadAction<string>) => {
       state.user = {
         ...state.user,
-        watching: state.user.watching.filter((id) => id !== action.payload),
+        // watching: state.user.watching.filter((id) => id !== action.payload),
       };
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -473,6 +488,8 @@ export const projectSlice = createSlice({
 });
 
 export const {
+  setJwt,
+  setUser,
   addProject,
   setProject,
   addSection,

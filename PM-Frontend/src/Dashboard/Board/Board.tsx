@@ -8,13 +8,13 @@ import { NavOptions, TaskModal, Tasks, useProject } from ".";
 import { Modal } from "~/shared/components";
 
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "~/Dashboard/Store";
+import { RootState } from "~/Store";
 import {
   addSection,
   addTask,
   switchSectionOrder,
   switchTaskOrder,
-} from "~/Dashboard/ProjectSlice";
+} from "~/ProjectSlice";
 
 const Board = () => {
   const [modalTask, setModalTask] = useState<TaskProps>();
@@ -105,9 +105,9 @@ const Board = () => {
     );
   };
 
-  useEffect(() => {
-    console.log("newData", newData);
-  }, [newData, user]);
+  // useEffect(() => {
+  //   console.log("newData", newData);
+  // }, [newData, user]);
 
   return (
     <div

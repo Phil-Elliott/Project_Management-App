@@ -44,7 +44,6 @@ export type TaskProps = {
 
 export type User = {
   id: string;
-  name: string;
+  username: string;
   avatar: string;
-  watching: string[];
 };

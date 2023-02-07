@@ -10,7 +10,7 @@ import nightSky from "~/assets/backgrounds/nightSky.jpg";
 import scenicNight from "~/assets/backgrounds/scenicNight.jpg";
 
 import { useDispatch } from "react-redux";
-import { addProject } from "~/Dashboard/ProjectSlice";
+import { addProject } from "~/ProjectSlice";
 
 const backgrounds = [flowers, mountains, nightSky, scenicNight];
 const colors = ["blue", "red", "green", "orange"];

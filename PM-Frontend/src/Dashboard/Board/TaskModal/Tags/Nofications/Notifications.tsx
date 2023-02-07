@@ -4,7 +4,7 @@ import { User } from "~/shared/interfaces/Projects";
 import styles from "./Notifications.module.scss";
 
 import { useDispatch } from "react-redux";
-import { addWatchingTask, removeWatchingTask } from "~/Dashboard/ProjectSlice";
+import { addWatchingTask, removeWatchingTask } from "~/ProjectSlice";
 
 type NotificationProps = {
   user: User;

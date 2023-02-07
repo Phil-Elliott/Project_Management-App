@@ -5,7 +5,7 @@ import { Draggable } from "react-beautiful-dnd";
 import { Members } from "~/shared/components";
 import { TaskProps } from "~/shared/interfaces/Projects";
 import { useSelector } from "react-redux";
-import { RootState } from "~/Dashboard/Store";
+import { RootState } from "~/Store";
 
 type TaskComponentProps = {
   taskData: TaskProps;

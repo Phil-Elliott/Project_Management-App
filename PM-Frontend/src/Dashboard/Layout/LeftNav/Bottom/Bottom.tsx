@@ -5,7 +5,7 @@ import { FaAngleDown } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 import { useSelector } from "react-redux";
-import { RootState } from "~/Dashboard/Store";
+import { RootState } from "~/Store";
 
 type BottomProps = {
   expand: boolean;

@@ -1,12 +1,14 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { FaRegCircle } from "react-icons/fa";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { FaSignOutAlt } from "react-icons/fa";
 
 import styles from "./Top.module.scss";
-import { supaClient } from "~/supa-client";
+
+import { useDispatch } from "react-redux";
+import { setJwt } from "~/ProjectSlice";
 
 type TopProps = {
   expand: boolean;
@@ -26,8 +28,13 @@ const iconLinks = [
 ];
 
 const Top = ({ expand }: TopProps) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleSignOut = () => {
-    supaClient.auth.signOut();
+    localStorage.removeItem("jwt");
+    dispatch(setJwt(""));
+    navigate("/signin");
   };
 
   return (
@@ -62,9 +69,9 @@ const Top = ({ expand }: TopProps) => {
         ))}
 
         <div
+          onClick={() => handleSignOut()}
           className={styles["icon-link"]}
           style={!expand ? { justifyContent: "center" } : {}}
-          onClick={() => handleSignOut()}
         >
           <div className={styles["link-icon"]}>
             <FaSignOutAlt />
@@ -77,5 +84,3 @@ const Top = ({ expand }: TopProps) => {
 };
 
 export default Top;
-
-//onClick={() => supaClient.auth.signOut()}

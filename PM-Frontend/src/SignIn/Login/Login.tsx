@@ -1,17 +1,23 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import styles from "./Login.module.scss";
+import { useDispatch } from "react-redux";
+import { setJwt, setUser } from "~/ProjectSlice";
 
 type LoginProps = {
   handleFormChange: () => void;
 };
 
 const Login = ({ handleFormChange }: LoginProps) => {
-  // States for registration
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // States for checking the errors
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   // Handling the email change
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,13 +30,31 @@ const Login = ({ handleFormChange }: LoginProps) => {
   };
 
   // Handling the form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (email === "" || password === "") {
-      console.log("Please fill all the fields");
-    } else {
-      console.log("Form submitted");
-      console.log(email, password);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:1337/api/auth/local",
+        {
+          identifier: email,
+          password: password,
+        }
+      );
+      console.log("User profile", response.data.user);
+      console.log("User token", response.data.jwt);
+      // localStorage.setItem("jwt", response.data.jwt);
+      let jwt = response.data.jwt;
+      localStorage.setItem("jwt", jwt);
+
+      // Redirect to the dashboard
+      if (jwt) {
+        dispatch(setJwt(jwt));
+        dispatch(setUser(response.data.user));
+        navigate("/dashboard/");
+      }
+    } catch (error: any) {
+      setError(error.response.data.message);
     }
   };
 
@@ -44,7 +68,6 @@ const Login = ({ handleFormChange }: LoginProps) => {
         <p className={styles.forgot}>Forgot Password</p>
         <div className={styles.buttons}>
           <button type="submit">Sign in</button>
-          <button type="submit">Sign in with Google</button>
         </div>
       </form>
       <p className={styles.signup}>

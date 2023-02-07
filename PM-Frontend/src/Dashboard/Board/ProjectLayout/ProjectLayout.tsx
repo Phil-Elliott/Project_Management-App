@@ -7,7 +7,7 @@ import {
 import { ProjectDataProps } from "~/shared/interfaces/Projects";
 
 import { useDispatch } from "react-redux";
-import { setProject } from "~/Dashboard/ProjectSlice";
+import { setProject } from "~/ProjectSlice";
 
 type ProjectLayoutProps = {
   projectsData: ProjectDataProps[];

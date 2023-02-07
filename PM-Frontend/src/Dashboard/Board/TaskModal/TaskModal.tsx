@@ -5,7 +5,7 @@ import styles from "./TaskModal.module.scss";
 import { Comments, Description, Header, Tags } from ".";
 
 import { useDispatch } from "react-redux";
-import { updateTask, deleteTask } from "~/Dashboard/ProjectSlice";
+import { updateTask, deleteTask } from "~/ProjectSlice";
 
 type TaskModalProps = {
   user: User;

@@ -1,21 +1,47 @@
 import { useSelector } from "react-redux";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import "./Dashboard.scss";
+import { useEffect } from "react";
 import Layout from "./Layout/Layout";
 import MainHub from "./MainHub/MainHub";
 import Board from "./Board/Board";
 import { ProjectLayout } from "./Board/ProjectLayout/ProjectLayout";
-import { RootState } from "./Store";
-import { useContext } from "react";
-import { UserContext } from "~/App";
+import { RootState } from "~/Store";
+import { useDispatch } from "react-redux";
+import { setJwt, setUser } from "~/ProjectSlice";
+import axios from "axios";
 
 const Dashboard = () => {
   const projects = useSelector((state: RootState) => state.project.projects);
 
-  const { session } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  if (!session) {
-    return <Navigate to="/signin" />;
+  const jwt = useSelector((state: RootState) => state.project.jwt);
+  const user = useSelector((state: RootState) => state.project.user);
+
+  useEffect(() => {
+    if (localStorage.getItem("jwt") === null) {
+      navigate("/signin/");
+    } else if (jwt === "") {
+      dispatch(setJwt(localStorage.getItem("jwt")!));
+      getUser();
+    }
+  }, [jwt]);
+
+  function getUser() {
+    axios
+      .get("http://localhost:1337/api/users/me", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+      })
+      .then((res) => {
+        dispatch(setUser(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
