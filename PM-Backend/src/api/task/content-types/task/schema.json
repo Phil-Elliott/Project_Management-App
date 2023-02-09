@@ -36,23 +36,23 @@
       "target": "api::section.section",
       "inversedBy": "tasks"
     },
-    "assigneds": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::assigned.assigned",
-      "mappedBy": "task"
-    },
     "comments": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::comment.comment",
       "mappedBy": "task"
     },
-    "watchings": {
+    "assigned_users": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::watching.watching",
-      "mappedBy": "task"
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "assigned_tasks"
+    },
+    "watching_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "watching_tasks"
     }
   }
 }

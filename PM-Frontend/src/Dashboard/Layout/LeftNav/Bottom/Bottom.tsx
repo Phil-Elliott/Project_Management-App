@@ -38,13 +38,14 @@ const Bottom = ({ expand }: BottomProps) => {
               <div
                 style={{
                   backgroundImage: `url(${project.background})`,
+                  backgroundColor: project.background,
                 }}
                 className={styles["link-icon"]}
               >
-                {project.name[0]}
+                {project.title[0]}
               </div>
               {expand && (
-                <div className={styles["link-name"]}>{project.name}</div>
+                <div className={styles["link-name"]}>{project.title}</div>
               )}
             </div>
           </NavLink>

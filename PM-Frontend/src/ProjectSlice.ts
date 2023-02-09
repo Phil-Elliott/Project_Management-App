@@ -36,241 +36,279 @@ type AddProjectProps = {
   background: string;
 };
 
+/*
+  projects: {
+    id: string;
+    title: string;
+    background: string;
+  }
+  assigned: {
+    figure out later
+    should be located in the task
+    insert from data from members
+  }
+  members: {
+    figure out later
+    need to save the members details to this table
+  }
+  tasks: {
+    id: string;
+    title: string;
+    description: string;
+    priority: string;
+    due: string;
+    comments: {
+      id: string;
+      task: string;
+      member: string;
+  }
+  sections: {
+    id: string;
+    title: string;
+  }
+  watching: {
+    figure out later
+    should be located in the task
+  }
+
+*/
+
 const initialState: ProjectState = {
-  projects: [
-    {
-      name: "Do It",
-      id: "2grgr3223r532rff3f",
-      background:
-        "https://images.unsplash.com/photo-1673619739076-68ba2af9a66f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=877&q=80",
-      members: ["Meg Doe", "Jane Doe", "Addin Tyler"],
-      notes: [
-        {
-          id: "efefwegnynjmymkuk",
-          title: "Do It",
-          member: "Meg Doe",
-          description: "Transfer files from old computer to new computer",
-          urgency: "high",
-          comments: [
-            {
-              id: "124ntntrhnm4r5h",
-              member: "John Doe",
-              comment: "This is a comment",
-            },
-            {
-              id: "325r43ngrjbgnvkjerkv",
-              member: "John Doe",
-              comment: "This is a comment",
-            },
-          ],
-        },
-      ],
-      tasksSections: [
-        {
-          id: "1dfghdfghgt6",
-          name: "Marketing",
-          tasks: ["153454354367656gfdbdfbfdbre"],
-        },
-        {
-          id: "65u56ufghngfh2",
-          name: "Design",
-          tasks: [],
-        },
-        {
-          id: "3657u56fghhrf",
-          name: "Production",
-          tasks: [],
-        },
-        {
-          id: "465y765ytrhftgh",
-          name: "Done",
-          tasks: [],
-        },
-        {
-          id: "dfhkulil6i75",
-          name: "Testing",
-          tasks: ["2ggfhbfdgbghn6556", "3rhh5y67565uyhnghnfghfg"],
-        },
-        {
-          id: "235756hfgrt",
-          name: "Other",
-          tasks: [],
-        },
-      ],
-      tasks: [
-        {
-          id: "153454354367656gfdbdfbfdbre",
-          name: "Do Something",
-          assignedTo: ["John Doe", "Jane Doe"],
-          description: "Decide on what to transfer",
-          priority: "Low",
-          due: "2021-01-01",
-          comments: [
-            {
-              id: "1dff43456655755",
-              member: "John Doe",
-              date: "March 18, 2022 12:54 PM",
-              comment: "Decide on what to transfer comment",
-            },
-          ],
-        },
-        {
-          id: "2ggfhbfdgbghn6556",
-          name: "Slap someone, but playfully",
-          assignedTo: ["Jane Doe"],
-          description: "Decide on what to transfer",
-          priority: "Normal",
-          due: "2021-01-01",
-          comments: [
-            {
-              id: "15676556hfgh65rthrt",
-              member: "John Doe",
-              date: "March 18, 2022 12:54 PM",
-              comment: "Eat a pizza comment",
-            },
-          ],
-        },
-        {
-          id: "3rhh5y67565uyhnghnfghfg",
-          name: "Take out trash",
-          assignedTo: ["Forest Gump", "Jenny"],
-          description: "Take out trash",
-          priority: "High",
-          due: "2021-01-01",
-          comments: [
-            {
-              id: "1fghgfhhrt7657665765756",
-              member: "John Doe",
-              date: "December 19, 2022 12:54 PM",
-              comment: "Take out trash comment",
-            },
-            {
-              id: "efefekwbfkj35346534eufdb",
-              member: "Jane",
-              date: "November 15, 2022 1:54 AM",
-              comment: "I like trash",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: "Transfer Files",
-      id: "kuiluiokngfrgrg",
-      background:
-        "https://images.unsplash.com/photo-1673261077665-581069aac65d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1506&q=80",
-      members: ["John Doe", "Jane Doe", "Bob Tyler"],
-      notes: [
-        {
-          id: "nguij45y65yb",
-          title: "Transfer Files",
-          member: "John Doe",
-          description: "Transfer files from old computer to new computer",
-          urgency: "high",
-          comments: [
-            {
-              id: "gnruietbgi54i6y754ygrb",
-              member: "John Doe",
-              comment: "This is a comment",
-            },
-            {
-              id: "54n6t43bgrbeubg",
-              member: "John Doe",
-              comment: "This is a comment",
-            },
-          ],
-        },
-      ],
-      tasksSections: [
-        {
-          id: "1dfghdfghgt6",
-          name: "Marketing",
-          tasks: ["153454354367656gfdbdfbfdbre"],
-        },
-        {
-          id: "65u56ufghngfh2",
-          name: "Design",
-          tasks: [],
-        },
-        {
-          id: "3657u56fghhrf",
-          name: "Production",
-          tasks: [],
-        },
-        {
-          id: "465y765ytrhftgh",
-          name: "Done",
-          tasks: [],
-        },
-        {
-          id: "dfhkulil6i75",
-          name: "Testing",
-          tasks: ["2ggfhbfdgbghn6556", "3rhh5y67565uyhnghnfghfg"],
-        },
-        {
-          id: "235756hfgrt",
-          name: "Other",
-          tasks: [],
-        },
-      ],
-      tasks: [
-        {
-          id: "153454354367656gfdbdfbfdbre",
-          name: "Decide on what to transfer",
-          assignedTo: ["John Doe", "Jane Doe"],
-          description: "Decide on what to transfer",
-          priority: "Low",
-          due: "2021-01-01",
-          comments: [
-            {
-              id: "1dff43456655755",
-              member: "John Doe",
-              date: "March 18, 2022 12:54 PM",
-              comment: "Decide on what to transfer comment",
-            },
-          ],
-        },
-        {
-          id: "2ggfhbfdgbghn6556",
-          name: "Eat a pizza",
-          assignedTo: ["Jane Doe"],
-          description: "Decide on what to transfer",
-          priority: "Normal",
-          due: "2021-01-01",
-          comments: [
-            {
-              id: "15676556hfgh65rthrt",
-              member: "John Doe",
-              date: "March 18, 2022 12:54 PM",
-              comment: "Eat a pizza comment",
-            },
-          ],
-        },
-        {
-          id: "3rhh5y67565uyhnghnfghfg",
-          name: "Take out trash",
-          assignedTo: ["Forest Gump", "Jenny"],
-          description: "Take out trash",
-          priority: "High",
-          due: "2021-01-01",
-          comments: [
-            {
-              id: "1fghgfhhrt7657665765756",
-              member: "John Doe",
-              date: "December 19, 2022 12:54 PM",
-              comment: "Take out trash comment",
-            },
-            {
-              id: "efefekwbfkj35346534eufdb",
-              member: "Jane",
-              date: "November 15, 2022 1:54 AM",
-              comment: "I like trash",
-            },
-          ],
-        },
-      ],
-    },
-  ],
+  // projects: [
+  //   {
+  //     name: "Do It",
+  //     id: "2grgr3223r532rff3f",
+  //     background:
+  //       "https://images.unsplash.com/photo-1673619739076-68ba2af9a66f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=877&q=80",
+  //     members: ["Meg Doe", "Jane Doe", "Addin Tyler"],
+  //     notes: [
+  //       {
+  //         id: "efefwegnynjmymkuk",
+  //         title: "Do It",
+  //         member: "Meg Doe",
+  //         description: "Transfer files from old computer to new computer",
+  //         urgency: "high",
+  //         comments: [
+  //           {
+  //             id: "124ntntrhnm4r5h",
+  //             member: "John Doe",
+  //             comment: "This is a comment",
+  //           },
+  //           {
+  //             id: "325r43ngrjbgnvkjerkv",
+  //             member: "John Doe",
+  //             comment: "This is a comment",
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //     tasksSections: [
+  //       {
+  //         id: "1dfghdfghgt6",
+  //         name: "Marketing",
+  //         tasks: ["153454354367656gfdbdfbfdbre"],
+  //       },
+  //       {
+  //         id: "65u56ufghngfh2",
+  //         name: "Design",
+  //         tasks: [],
+  //       },
+  //       {
+  //         id: "3657u56fghhrf",
+  //         name: "Production",
+  //         tasks: [],
+  //       },
+  //       {
+  //         id: "465y765ytrhftgh",
+  //         name: "Done",
+  //         tasks: [],
+  //       },
+  //       {
+  //         id: "dfhkulil6i75",
+  //         name: "Testing",
+  //         tasks: ["2ggfhbfdgbghn6556", "3rhh5y67565uyhnghnfghfg"],
+  //       },
+  //       {
+  //         id: "235756hfgrt",
+  //         name: "Other",
+  //         tasks: [],
+  //       },
+  //     ],
+  //     tasks: [
+  //       {
+  //         id: "153454354367656gfdbdfbfdbre",
+  //         name: "Do Something",
+  //         assignedTo: ["John Doe", "Jane Doe"],
+  //         description: "Decide on what to transfer",
+  //         priority: "Low",
+  //         due: "2021-01-01",
+  //         comments: [
+  //           {
+  //             id: "1dff43456655755",
+  //             member: "John Doe",
+  //             date: "March 18, 2022 12:54 PM",
+  //             comment: "Decide on what to transfer comment",
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         id: "2ggfhbfdgbghn6556",
+  //         name: "Slap someone, but playfully",
+  //         assignedTo: ["Jane Doe"],
+  //         description: "Decide on what to transfer",
+  //         priority: "Normal",
+  //         due: "2021-01-01",
+  //         comments: [
+  //           {
+  //             id: "15676556hfgh65rthrt",
+  //             member: "John Doe",
+  //             date: "March 18, 2022 12:54 PM",
+  //             comment: "Eat a pizza comment",
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         id: "3rhh5y67565uyhnghnfghfg",
+  //         name: "Take out trash",
+  //         assignedTo: ["Forest Gump", "Jenny"],
+  //         description: "Take out trash",
+  //         priority: "High",
+  //         due: "2021-01-01",
+  //         comments: [
+  //           {
+  //             id: "1fghgfhhrt7657665765756",
+  //             member: "John Doe",
+  //             date: "December 19, 2022 12:54 PM",
+  //             comment: "Take out trash comment",
+  //           },
+  //           {
+  //             id: "efefekwbfkj35346534eufdb",
+  //             member: "Jane",
+  //             date: "November 15, 2022 1:54 AM",
+  //             comment: "I like trash",
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "Transfer Files",
+  //     id: "kuiluiokngfrgrg",
+  //     background:
+  //       "https://images.unsplash.com/photo-1673261077665-581069aac65d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1506&q=80",
+  //     members: ["John Doe", "Jane Doe", "Bob Tyler"],
+  //     notes: [
+  //       {
+  //         id: "nguij45y65yb",
+  //         title: "Transfer Files",
+  //         member: "John Doe",
+  //         description: "Transfer files from old computer to new computer",
+  //         urgency: "high",
+  //         comments: [
+  //           {
+  //             id: "gnruietbgi54i6y754ygrb",
+  //             member: "John Doe",
+  //             comment: "This is a comment",
+  //           },
+  //           {
+  //             id: "54n6t43bgrbeubg",
+  //             member: "John Doe",
+  //             comment: "This is a comment",
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //     tasksSections: [
+  //       {
+  //         id: "1dfghdfghgt6",
+  //         name: "Marketing",
+  //         tasks: ["153454354367656gfdbdfbfdbre"],
+  //       },
+  //       {
+  //         id: "65u56ufghngfh2",
+  //         name: "Design",
+  //         tasks: [],
+  //       },
+  //       {
+  //         id: "3657u56fghhrf",
+  //         name: "Production",
+  //         tasks: [],
+  //       },
+  //       {
+  //         id: "465y765ytrhftgh",
+  //         name: "Done",
+  //         tasks: [],
+  //       },
+  //       {
+  //         id: "dfhkulil6i75",
+  //         name: "Testing",
+  //         tasks: ["2ggfhbfdgbghn6556", "3rhh5y67565uyhnghnfghfg"],
+  //       },
+  //       {
+  //         id: "235756hfgrt",
+  //         name: "Other",
+  //         tasks: [],
+  //       },
+  //     ],
+  //     tasks: [
+  //       {
+  //         id: "153454354367656gfdbdfbfdbre",
+  //         name: "Decide on what to transfer",
+  //         assignedTo: ["John Doe", "Jane Doe"],
+  //         description: "Decide on what to transfer",
+  //         priority: "Low",
+  //         due: "2021-01-01",
+  //         comments: [
+  //           {
+  //             id: "1dff43456655755",
+  //             member: "John Doe",
+  //             date: "March 18, 2022 12:54 PM",
+  //             comment: "Decide on what to transfer comment",
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         id: "2ggfhbfdgbghn6556",
+  //         name: "Eat a pizza",
+  //         assignedTo: ["Jane Doe"],
+  //         description: "Decide on what to transfer",
+  //         priority: "Normal",
+  //         due: "2021-01-01",
+  //         comments: [
+  //           {
+  //             id: "15676556hfgh65rthrt",
+  //             member: "John Doe",
+  //             date: "March 18, 2022 12:54 PM",
+  //             comment: "Eat a pizza comment",
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         id: "3rhh5y67565uyhnghnfghfg",
+  //         name: "Take out trash",
+  //         assignedTo: ["Forest Gump", "Jenny"],
+  //         description: "Take out trash",
+  //         priority: "High",
+  //         due: "2021-01-01",
+  //         comments: [
+  //           {
+  //             id: "1fghgfhhrt7657665765756",
+  //             member: "John Doe",
+  //             date: "December 19, 2022 12:54 PM",
+  //             comment: "Take out trash comment",
+  //           },
+  //           {
+  //             id: "efefekwbfkj35346534eufdb",
+  //             member: "Jane",
+  //             date: "November 15, 2022 1:54 AM",
+  //             comment: "I like trash",
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  // ],
+  projects: [],
   user: {
     id: "",
     username: "",
@@ -289,8 +327,17 @@ export const projectSlice = createSlice({
       state.jwt = action.payload;
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    setProject: (state, action: PayloadAction<string>) => {
-      state.selectedProject = action.payload;
+    setProjects: (state, action: PayloadAction<ProjectDataProps[]>) => {
+      state.projects = action.payload;
+    },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    setProject: (state, action: PayloadAction<string | undefined>) => {
+      if (action.payload) {
+        state.selectedProject = action.payload;
+      }
+
+      // state.selectedProject = action.payload;
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // user functions
@@ -306,34 +353,33 @@ export const projectSlice = createSlice({
     // project functions
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     addProject: (state, action: PayloadAction<AddProjectProps>) => {
-      const newProject = {
-        name: action.payload.name,
-        id: uuid(),
-        background: action.payload.background,
-        members: [],
-        notes: [],
-        tasksSections: [],
-        tasks: [],
-      };
-
-      state.projects = [...state.projects, newProject];
+      // const newProject = {
+      //   name: action.payload.name,
+      //   id: uuid(),
+      //   background: action.payload.background,
+      //   members: [],
+      //   notes: [],
+      //   tasksSections: [],
+      //   tasks: [],
+      // };
+      // state.projects = [...state.projects, newProject];
     },
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // section functions
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     addSection: (state, action: PayloadAction<string>) => {
-      const newSection = {
-        id: uuid(),
-        name: action.payload,
-        tasks: [],
-      };
-      state.projects = state.projects.map((project) => {
-        if (project.id === state.selectedProject) {
-          project.tasksSections = [...project.tasksSections, newSection];
-        }
-        return project;
-      });
+      // const newSection = {
+      //   id: uuid(),
+      //   name: action.payload,
+      //   tasks: [],
+      // };
+      // state.projects = state.projects.map((project) => {
+      //   if (project.id === state.selectedProject) {
+      //     project.tasksSections = [...project.tasksSections, newSection];
+      //   }
+      //   return project;
+      // });
     },
     addTask: (state, action: PayloadAction<AddTaskProps>) => {
       // creates the new task to be added
@@ -348,18 +394,18 @@ export const projectSlice = createSlice({
       };
 
       // adds the new task to the tasks section
-      state.projects = state.projects.map((project) => {
-        if (project.id === state.selectedProject) {
-          project.tasksSections = project.tasksSections.map((section) => {
-            if (section.id === action.payload.tasksSection) {
-              section.tasks = [...section.tasks, newTask.id];
-            }
-            return section;
-          });
-          project.tasks = [...project.tasks, newTask];
-        }
-        return project;
-      });
+      // state.projects = state.projects.map((project) => {
+      //   if (project.id === state.selectedProject) {
+      //     project.tasksSections = project.tasksSections.map((section) => {
+      //       if (section.id === action.payload.tasksSection) {
+      //         section.tasks = [...section.tasks, newTask.id];
+      //       }
+      //       return section;
+      //     });
+      //     project.tasks = [...project.tasks, newTask];
+      //   }
+      //   return project;
+      // });
     },
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // drag and drop functions
@@ -368,35 +414,31 @@ export const projectSlice = createSlice({
       state,
       action: PayloadAction<SwitchSectionOrderProps>
     ) => {
-      const { id, order, source } = action.payload;
-
-      const sectionObj = state.projects
-        .find((project) => project.id === state.selectedProject)
-        ?.tasksSections.find((section) => section.id === id);
-
-      const sections = _.cloneDeep(
-        state.projects.find((project) => project.id === state.selectedProject)
-          ?.tasksSections
-      );
-      sections!.splice(source, 1)[0];
-      sections!.splice(order, 0, sectionObj!);
-
-      state.projects = state.projects.map((project) => {
-        if (project.id === state.selectedProject) {
-          project.tasksSections = sections!;
-        }
-        return project;
-      });
+      // const { id, order, source } = action.payload;
+      // const sectionObj = state.projects
+      //   .find((project) => project.id === state.selectedProject)
+      //   ?.tasksSections.find((section) => section.id === id);
+      // const sections = _.cloneDeep(
+      //   state.projects.find((project) => project.id === state.selectedProject)
+      //     ?.tasksSections
+      // );
+      // sections!.splice(source, 1)[0];
+      // sections!.splice(order, 0, sectionObj!);
+      // state.projects = state.projects.map((project) => {
+      //   if (project.id === state.selectedProject) {
+      //     project.tasksSections = sections!;
+      //   }
+      //   return project;
+      // });
     },
 
     switchTaskOrder: (state, action: PayloadAction<SwitchTaskOrderProps>) => {
-      state.projects = state.projects.map((project) => {
-        if (project.id === state.selectedProject) {
-          project.tasksSections = action.payload.taskSections;
-        }
-        return project;
-      });
-
+      // state.projects = state.projects.map((project) => {
+      //   if (project.id === state.selectedProject) {
+      //     project.tasksSections = action.payload.taskSections;
+      //   }
+      //   return project;
+      // });
       // const { id, order, taskSection, source, sourceIndex } = action.payload;
       // console.log(action.payload);
       // const sameSection = taskSection === source;
@@ -426,18 +468,18 @@ export const projectSlice = createSlice({
     // task functions (from the modal)
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     updateTask: (state, action: PayloadAction<TaskProps>) => {
-      state.projects = state.projects.map((project) => {
-        if (project.id === state.selectedProject) {
-          project.tasks = project.tasks.map((task) => {
-            if (task.id === action.payload.id) {
-              return action.payload;
-            } else {
-              return task;
-            }
-          });
-        }
-        return project;
-      });
+      // state.projects = state.projects.map((project) => {
+      //   if (project.id === state.selectedProject) {
+      //     project.tasks = project.tasks.map((task) => {
+      //       if (task.id === action.payload.id) {
+      //         return action.payload;
+      //       } else {
+      //         return task;
+      //       }
+      //     });
+      //   }
+      //   return project;
+      // });
       // state.project = {
       //   ...state.project,
       //   tasks: state.project.tasks.map((task) => {
@@ -450,14 +492,14 @@ export const projectSlice = createSlice({
       // };
     },
     deleteTask: (state, action: PayloadAction<string>) => {
-      state.projects = state.projects.map((project) => {
-        if (project.id === state.selectedProject) {
-          project.tasks = project.tasks.filter(
-            (task) => task.id !== action.payload
-          );
-        }
-        return project;
-      });
+      // state.projects = state.projects.map((project) => {
+      // if (project.id === state.selectedProject) {
+      //   project.tasks = project.tasks.filter(
+      //     (task) => task.id !== action.payload
+      //   );
+      // }
+      // return project;
+      // });
       // state.project = {
       //   ...state.project,
       //   tasks: state.project.tasks.filter((task) => task.id !== action.payload),
@@ -489,9 +531,11 @@ export const projectSlice = createSlice({
 
 export const {
   setJwt,
-  setUser,
-  addProject,
+  setProjects,
   setProject,
+  setUser,
+
+  addProject,
   addSection,
   addTask,
   switchSectionOrder,

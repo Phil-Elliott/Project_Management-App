@@ -30,17 +30,17 @@
       "target": "api::section.section",
       "mappedBy": "project"
     },
-    "assigneds": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::assigned.assigned",
-      "mappedBy": "project"
-    },
     "comments": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::comment.comment",
       "mappedBy": "project"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "projects"
     }
   }
 }

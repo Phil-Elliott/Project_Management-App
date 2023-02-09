@@ -3,15 +3,20 @@ import { Avatar } from "~/shared/components";
 import styles from "./Members.module.scss";
 
 type MembersProps = {
-  members: NavOptionsProps["members"];
+  members: any;
   size?: string;
 };
 
 const Members = ({ members, size }: MembersProps) => {
   return (
     <div className={styles["members-container"]}>
-      {members.map((member, i) => {
-        return <Avatar user={member} size={size} index={i} key={i} />;
+      {members.map((member: any, i: number) => {
+        let image = member.attributes.avatar;
+        if (image === null) {
+          image = member.attributes.username[0].toUpperCase();
+        }
+        console.log(image);
+        return <Avatar avatar={image} size={size} index={i} key={i} />;
       })}
     </div>
   );

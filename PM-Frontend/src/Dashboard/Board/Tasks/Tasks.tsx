@@ -4,11 +4,12 @@ import TasksSection from "./TaskSection/TaskSection";
 import ScrollContainer from "react-indiana-drag-scroll";
 import "./Tasks.scss";
 
-import { ProjectDataProps } from "~/shared/interfaces/Projects";
+import { ProjectDataProps, SectionProps } from "~/shared/interfaces/Projects";
 import { AddItem } from "~/shared/components";
 
 type TasksProps = {
   fakeData: ProjectDataProps;
+  sections: SectionProps[];
   addNewSection: any;
   addNewTask: (name: string, section: string) => void;
   changeSectionOrder: (id: string, order: number, source: number) => void;
@@ -24,6 +25,7 @@ type TasksProps = {
 
 const Tasks = ({
   fakeData,
+  sections,
   addNewSection,
   addNewTask,
   changeSectionOrder,
@@ -65,18 +67,19 @@ const Tasks = ({
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {fakeData.tasksSections.map((section, index) => {
-                return (
-                  <TasksSection
-                    key={section.id}
-                    section={section}
-                    fakeData={fakeData}
-                    addNewTask={addNewTask}
-                    index={index}
-                    changeModalDisplay={changeModalDisplay}
-                  />
-                );
-              })}
+              {sections &&
+                sections.map((section, index) => {
+                  return (
+                    <TasksSection
+                      key={section.id}
+                      section={section}
+                      fakeData={fakeData}
+                      addNewTask={addNewTask}
+                      index={index}
+                      changeModalDisplay={changeModalDisplay}
+                    />
+                  );
+                })}
               {provided.placeholder}
               <div className="add-item-btn-container">
                 <AddItem addNewItem={addNewSection} item={"list"} />

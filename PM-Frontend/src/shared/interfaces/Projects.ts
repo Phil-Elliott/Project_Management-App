@@ -1,11 +1,35 @@
+// export type ProjectDataProps = {
+//   name: string;
+//   id: string;
+//   background: string;
+//   members: string[];
+//   notes: Note[];
+//   tasksSections: TasksSections[];
+//   tasks: TaskProps[];
+// };
+
 export type ProjectDataProps = {
-  name: string;
   id: string;
+  title: string;
   background: string;
-  members: string[];
-  notes: Note[];
-  tasksSections: TasksSections[];
-  tasks: TaskProps[];
+};
+
+export type ProjectProps = {
+  id: string;
+  title: string;
+  background: string;
+  // comments
+};
+
+export type Comments = {
+  content: string;
+};
+
+export type SectionProps = {
+  attributes: {
+    title: string;
+  };
+  id: string;
 };
 
 export type Note = {
@@ -28,18 +52,10 @@ export type TasksSections = {
 };
 
 export type TaskProps = {
-  id: string;
-  name: string;
-  assignedTo: string[];
+  title: string;
   description: string;
-  priority: string;
   due: string;
-  comments: {
-    id: string;
-    member: string;
-    date: string;
-    comment: string;
-  }[];
+  priority: string;
 };
 
 export type User = {

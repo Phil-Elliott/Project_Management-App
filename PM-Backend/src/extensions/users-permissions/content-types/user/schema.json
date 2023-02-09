@@ -66,29 +66,29 @@
     "avatar": {
       "type": "string"
     },
-    "member": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::member.member",
-      "inversedBy": "users_permissions_users"
-    },
-    "assigneds": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::assigned.assigned",
-      "mappedBy": "users_permissions_user"
-    },
     "comments": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::comment.comment",
       "mappedBy": "users_permissions_user"
     },
-    "watchings": {
+    "projects": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::watching.watching",
-      "mappedBy": "users_permissions_user"
+      "relation": "manyToMany",
+      "target": "api::project.project",
+      "mappedBy": "users"
+    },
+    "assigned_tasks": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::task.task",
+      "inversedBy": "assigned_users"
+    },
+    "watching_tasks": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::task.task",
+      "inversedBy": "watching_users"
     }
   }
 }

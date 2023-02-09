@@ -6,15 +6,16 @@ import styles from "./MainHub.module.scss";
 
 type MainHubProps = {
   projects: ProjectDataProps[];
+  getProjects: () => void;
 };
 
-const MainHub = ({ projects }: MainHubProps) => {
+const MainHub = ({ projects, getProjects }: MainHubProps) => {
   return (
     <div className={styles.main}>
       {projects.map((project, i) => {
         return <ProjectCard key={i} project={project} />;
       })}
-      <CreateBoard />
+      <CreateBoard getProjects={getProjects} />
     </div>
   );
 };

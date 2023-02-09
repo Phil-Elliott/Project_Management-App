@@ -18,7 +18,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
         backgroundColor: project.background,
       }}
     >
-      <h1>{project.name}</h1>
+      <h1>{project.title}</h1>
     </Link>
   );
 };

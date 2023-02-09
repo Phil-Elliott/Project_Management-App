@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Popup, Loader } from "~/shared/components";
 
 import styles from "./CreateBoard.module.scss";
@@ -9,13 +9,18 @@ import mountains from "~/assets/backgrounds/mountains.jpg";
 import nightSky from "~/assets/backgrounds/nightSky.jpg";
 import scenicNight from "~/assets/backgrounds/scenicNight.jpg";
 
-import { useDispatch } from "react-redux";
-import { addProject } from "~/ProjectSlice";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "~/Store";
 
 const backgrounds = [flowers, mountains, nightSky, scenicNight];
 const colors = ["blue", "red", "green", "orange"];
 
-const CreateBoard = () => {
+type CreateBoardProps = {
+  getProjects: () => void;
+};
+
+const CreateBoard = ({ getProjects }: CreateBoardProps) => {
   const [display, setDisplay] = useState<boolean>(false);
   const [backgroundState, setBackgroundState] = useState<string>("");
   const [activeBackground, setActiveBackground] = useState<number>(10);
@@ -23,7 +28,7 @@ const CreateBoard = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [attempted, setAttempted] = useState<boolean>(false);
 
-  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.project.user);
 
   const handleBackground = (index: number, e: any) => {
     if (e.currentTarget.src) {
@@ -47,7 +52,25 @@ const CreateBoard = () => {
       setAttempted(true);
       return;
     }
-    dispatch(addProject({ name: title, background: backgroundState }));
+    // post the project here to strapi
+    axios
+      .post("http://localhost:1337/api/projects", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+        data: {
+          title: title,
+          background: backgroundState,
+          users: [user.id],
+        },
+      })
+      .then((res) => {
+        getProjects();
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     reset();
   };
 

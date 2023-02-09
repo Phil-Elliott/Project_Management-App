@@ -21,7 +21,16 @@ const Board = () => {
   const [display, setDisplay] = useState<boolean>(false);
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
 
-  const newData = useProject();
+  const data = useProject();
+  const newData = data[0];
+  const users = data[1];
+  const sections = data[2];
+
+  useEffect(() => {
+    console.log(newData, "newData");
+    console.log(users, "users");
+    console.log(sections, "sections");
+  }, [newData]);
 
   const user = useSelector((state: RootState) => state.project.user);
   const dispatch = useDispatch();
@@ -37,7 +46,7 @@ const Board = () => {
 
   // displays the modal
   const changeModalDisplay = (id: string) => {
-    setModalTask(newData!.tasks.find((task) => task.id === id));
+    // setModalTask(newData!.tasks.find((task) => task.id === id));
     setDisplay(!display);
   };
 
@@ -105,10 +114,6 @@ const Board = () => {
     );
   };
 
-  // useEffect(() => {
-  //   console.log("newData", newData);
-  // }, [newData, user]);
-
   return (
     <div
       className={styles.main}
@@ -117,10 +122,11 @@ const Board = () => {
         backgroundColor: newData.background,
       }}
     >
-      <NavOptions members={newData!.members} />
+      {/* <NavOptions members={newData!.members} /> */}
       <Tasks
         changeSectionOrder={changeSectionOrder}
         fakeData={newData}
+        sections={sections}
         addNewSection={addNewSection}
         addNewTask={addNewTask}
         changeTaskPosition={changeTaskPosition}
