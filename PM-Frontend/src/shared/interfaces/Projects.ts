@@ -25,12 +25,12 @@ export type Comments = {
   content: string;
 };
 
-export type SectionProps = {
-  attributes: {
-    title: string;
-  };
-  id: string;
-};
+// export type SectionProps = {
+//   attributes: {
+//     title: string;
+//   };
+//   id: string;
+// };
 
 export type Note = {
   id: string;
@@ -47,15 +47,17 @@ export type Note = {
 
 export type TasksSections = {
   id: string;
-  name: string;
-  tasks: string[];
+  title: string;
+  order: number;
 };
 
 export type TaskProps = {
+  id: string;
   title: string;
   description: string;
   due: string;
   priority: string;
+  order: number;
 };
 
 export type ModalTaskProps = {
@@ -68,3 +70,8 @@ export type User = {
   username: string;
   avatar: string;
 };
+
+// export type UsersProps = {
+//   attributes: User;
+//   id: string;
+// };

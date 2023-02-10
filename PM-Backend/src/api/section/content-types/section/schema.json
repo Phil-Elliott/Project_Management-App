@@ -4,7 +4,8 @@
   "info": {
     "singularName": "section",
     "pluralName": "sections",
-    "displayName": "Sections"
+    "displayName": "Sections",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -26,6 +27,9 @@
       "relation": "oneToMany",
       "target": "api::task.task",
       "mappedBy": "section"
+    },
+    "order": {
+      "type": "integer"
     }
   }
 }

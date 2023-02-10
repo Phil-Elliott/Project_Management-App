@@ -10,9 +10,9 @@ const Members = ({ members, size }: MembersProps) => {
   return (
     <div className={styles["members-container"]}>
       {members.map((member: any, i: number) => {
-        let image = member.attributes.avatar;
+        let image = member.avatar;
         if (image === null) {
-          image = member.attributes.username[0].toUpperCase();
+          image = member.username[0].toUpperCase();
         }
         return <Avatar avatar={image} size={size} index={i} key={i} />;
       })}

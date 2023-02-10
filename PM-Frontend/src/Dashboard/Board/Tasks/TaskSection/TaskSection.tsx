@@ -10,23 +10,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "~/Store";
 import {
   ProjectDataProps,
-  SectionProps,
   TaskProps,
+  TasksSections,
 } from "~/shared/interfaces/Projects";
 import axios from "axios";
 
-type SectionTaskProps = {
-  attributes: {
-    title: string;
-    description: string;
-    due: string;
-    priority: string;
-  };
-  id: string;
-};
-
 type TaskSectionProps = {
-  section: SectionProps;
+  section: TasksSections;
   fakeData: ProjectDataProps;
   addNewTask: (name: string, section: string) => void;
   index: number;
@@ -40,9 +30,17 @@ const TaskSection = ({
   index,
   changeModalDisplay,
 }: TaskSectionProps) => {
-  // const [orderedTasks, setOrderedTasks] = useState<TaskProps[]>([]);
-  const [tasks, setTasks] = useState<SectionTaskProps[]>([]);
+  const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const [orderedTasks, setOrderedTasks] = useState<TaskProps[]>([]);
   const search = useSelector((state: RootState) => state.project.searchQuery);
+
+  useEffect(() => {
+    let sortedArray = tasks.slice().sort((a, b) => {
+      return a.order - b.order;
+    });
+    setOrderedTasks(sortedArray);
+    console.log(orderedTasks);
+  }, [tasks]);
 
   async function fetchProject() {
     try {
@@ -54,7 +52,19 @@ const TaskSection = ({
           },
         }
       );
-      setTasks(res.data.data.attributes.tasks.data);
+      // setTasks(res.data.data.attributes.tasks.data);
+      setTasks(
+        res.data.data.attributes.tasks.data.map((task: any) => {
+          return {
+            id: task.id,
+            title: task.attributes.title,
+            description: task.attributes.description,
+            due: task.attributes.due,
+            priority: task.attributes.priority,
+            order: task.attributes.order,
+          };
+        })
+      );
     } catch (err) {
       console.log(err);
     }
@@ -63,6 +73,10 @@ const TaskSection = ({
   useEffect(() => {
     fetchProject();
   }, [section]);
+
+  // useEffect(() => {
+  //   console.log(tasks);
+  // }, [tasks]);
 
   // useEffect(() => {
   //   setOrderedTasks(
@@ -91,23 +105,20 @@ const TaskSection = ({
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
                 <div className="taskSection-header">
-                  <p>{section.attributes.title}</p>
+                  <p>{section.title}</p>
                   <FaEllipsisH className="ellipsis" />
                 </div>
 
                 <div className="taskSection-tasks">
-                  {tasks.map((task, index) => {
+                  {orderedTasks.map((task, index) => {
                     if (
                       search === "" ||
-                      task.attributes.title
-                        .toLowerCase()
-                        .includes(search.toLowerCase())
+                      task.title.toLowerCase().includes(search.toLowerCase())
                     ) {
                       return (
                         <Task
                           key={task.id}
-                          id={task.id}
-                          taskData={task.attributes}
+                          taskData={task}
                           index={index}
                           changeModalDisplay={changeModalDisplay}
                         />

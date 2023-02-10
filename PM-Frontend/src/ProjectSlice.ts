@@ -12,8 +12,10 @@ type ProjectState = {
   projects: ProjectDataProps[];
   user: User;
   searchQuery: string;
-  selectedProject: string;
   jwt: string;
+  project: ProjectDataProps;
+  projectUsers: User[];
+  sections: TasksSections[];
 };
 
 type AddTaskProps = {
@@ -315,8 +317,14 @@ const initialState: ProjectState = {
     avatar: "",
   },
   searchQuery: "",
-  selectedProject: "2grgr3223r532rff3f",
   jwt: "",
+  project: {
+    id: "",
+    title: "",
+    background: "",
+  },
+  projectUsers: [],
+  sections: [],
 };
 
 export const projectSlice = createSlice({
@@ -331,13 +339,16 @@ export const projectSlice = createSlice({
       state.projects = action.payload;
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    setProject: (state, action: PayloadAction<ProjectDataProps>) => {
+      state.project = action.payload;
+    },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    setProject: (state, action: PayloadAction<string | undefined>) => {
-      if (action.payload) {
-        state.selectedProject = action.payload;
-      }
-
-      // state.selectedProject = action.payload;
+    setProjectUsers: (state, action: PayloadAction<User[]>) => {
+      state.projectUsers = action.payload;
+    },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    setSections: (state, action: PayloadAction<TasksSections[]>) => {
+      state.sections = action.payload;
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // user functions
@@ -532,8 +543,10 @@ export const projectSlice = createSlice({
 export const {
   setJwt,
   setProjects,
-  setProject,
   setUser,
+  setProject,
+  setProjectUsers,
+  setSections,
 
   addProject,
   addSection,

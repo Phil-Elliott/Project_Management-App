@@ -4,33 +4,17 @@ import {
   useOutletContext,
   useParams,
 } from "react-router-dom";
-import {
-  ProjectDataProps,
-  User,
-  SectionProps,
-} from "~/shared/interfaces/Projects";
+import { ProjectDataProps } from "~/shared/interfaces/Projects";
 
 import { useDispatch } from "react-redux";
-import { setProject } from "~/ProjectSlice";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-type UsersProps = {
-  attributes: User;
-  id: string;
-};
-
-type OutletProps = [ProjectDataProps, UsersProps[], SectionProps[]];
+import { setProject, setProjectUsers, setSections } from "~/ProjectSlice";
 
 export function ProjectLayout() {
   const { id } = useParams();
-  const [newProject, setNewProject] = useState<ProjectDataProps>({
-    id: "",
-    title: "",
-    background: "",
-  });
-  const [users, setUsers] = useState<UsersProps[]>();
-  const [sections, setSections] = useState<SectionProps[]>();
+
+  const dispatch = useDispatch();
 
   async function fetchProject() {
     try {
@@ -42,11 +26,39 @@ export function ProjectLayout() {
           },
         }
       );
-      setNewProject(res.data.data.attributes);
-      setUsers(res.data.data.attributes.users.data);
-      setSections(res.data.data.attributes.sections.data);
+      dispatch(
+        setProject({
+          id: id,
+          title: res.data.data.attributes.title,
+          background: res.data.data.attributes.background,
+        } as ProjectDataProps)
+      );
+
+      dispatch(
+        setProjectUsers(
+          res.data.data.attributes.users.data.map((user: any) => {
+            return {
+              id: user.id,
+              username: user.attributes.username,
+              avatar: user.attributes.avatar,
+            };
+          })
+        )
+      );
+      dispatch(
+        setSections(
+          res.data.data.attributes.sections.data.map((section: any) => {
+            return {
+              id: section.id,
+              title: section.attributes.title,
+              order: section.attributes.order,
+            };
+          })
+        )
+      );
     } catch (err) {
       console.log(err);
+      <Navigate to="/dashboard/" replace />;
     }
   }
 
@@ -54,21 +66,16 @@ export function ProjectLayout() {
     fetchProject();
   }, [id]);
 
-  const dispatch = useDispatch();
-
-  if (newProject) dispatch(setProject(id));
-
-  if (newProject == null) return <Navigate to="/dashboard/" replace />;
-
-  return <Outlet context={[newProject, users, sections]} />;
+  return <Outlet />;
 }
 
 export function useProject() {
-  return useOutletContext<OutletProps>();
+  return useOutletContext();
 }
 
 /*
 
+// if (newProject == null) return <Navigate to="/dashboard/" replace />;
 project (get here)
 users (get here)
 tasks (maybe get when you call for a section)

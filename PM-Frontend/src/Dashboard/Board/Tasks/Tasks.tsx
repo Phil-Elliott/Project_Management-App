@@ -4,12 +4,12 @@ import TasksSection from "./TaskSection/TaskSection";
 import ScrollContainer from "react-indiana-drag-scroll";
 import "./Tasks.scss";
 
-import { ProjectDataProps, SectionProps } from "~/shared/interfaces/Projects";
+import { ProjectDataProps, TasksSections } from "~/shared/interfaces/Projects";
 import { AddItem } from "~/shared/components";
 
 type TasksProps = {
   fakeData: ProjectDataProps;
-  sections: SectionProps[];
+  sections: TasksSections[];
   addNewSection: any;
   addNewTask: (name: string, section: string) => void;
   changeSectionOrder: (id: string, order: number, source: number) => void;
@@ -32,6 +32,15 @@ const Tasks = ({
   changeTaskPosition,
   changeModalDisplay,
 }: TasksProps) => {
+  const [orderedSections, setOrderedSections] = useState<TasksSections[]>([]);
+
+  useEffect(() => {
+    let sortedArray = sections.slice().sort((a, b) => {
+      return a.order - b.order;
+    });
+    setOrderedSections(sortedArray);
+  }, [sections]);
+
   // handles the drag and drop
   const handleOnDrageEnd = (result: any) => {
     // const { type, source, destination } = result;
@@ -68,7 +77,7 @@ const Tasks = ({
               ref={provided.innerRef}
             >
               {sections &&
-                sections.map((section, index) => {
+                orderedSections.map((section, index) => {
                   return (
                     <TasksSection
                       key={section.id}

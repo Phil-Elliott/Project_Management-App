@@ -7,13 +7,8 @@ import Filter from "./Filter/Filter";
 import Settings from "./Settings/Settings";
 import { User } from "~/shared/interfaces/Projects";
 
-type UsersProps = {
-  attributes: User;
-  id: string;
-};
-
 type NavOptionsProps = {
-  members: UsersProps[];
+  members: User[];
 };
 
 const NavOptions = ({ members }: NavOptionsProps) => {

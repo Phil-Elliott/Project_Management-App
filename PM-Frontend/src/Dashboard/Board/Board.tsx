@@ -21,18 +21,10 @@ const Board = () => {
   const [display, setDisplay] = useState<boolean>(false);
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
 
-  const data = useProject();
-  const newData = data[0];
-  const users = data[1];
-  const sections = data[2];
-
-  // useEffect(() => {
-  //   console.log(newData, "newData");
-  //   console.log(users, "users");
-  //   console.log(sections, "sections");
-  // }, [newData]);
-
+  const newData = useSelector((state: RootState) => state.project.project);
   const user = useSelector((state: RootState) => state.project.user);
+  const users = useSelector((state: RootState) => state.project.projectUsers);
+  const sections = useSelector((state: RootState) => state.project.sections);
   const dispatch = useDispatch();
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -132,7 +124,7 @@ const Board = () => {
         changeTaskPosition={changeTaskPosition}
         changeModalDisplay={changeModalDisplay}
       />
-      {modalTask && (
+      {/* {modalTask && (
         <Modal
           display={display}
           closeModal={closeModal}
@@ -147,7 +139,7 @@ const Board = () => {
             toggleDisableCloseModal={toggleDisableCloseModal}
           />
         </Modal>
-      )}
+      )} */}
     </div>
   );
 };
@@ -155,6 +147,15 @@ const Board = () => {
 export default Board;
 
 /*
+  add order to task
+
+
+  Add a task 
+  Add a section 
+  Move a section 
+  Move a task
+
+
   1) Make api calls and store data from api calls in redux store
 
   Maybe pass basic project data from outlet using that find method and then make api calls in the board component
