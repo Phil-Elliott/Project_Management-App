@@ -1,4 +1,3 @@
-import { NavOptionsProps } from "~/Dashboard/Board/NavOptions/NavOptions";
 import { Avatar } from "~/shared/components";
 import styles from "./Members.module.scss";
 
@@ -15,7 +14,6 @@ const Members = ({ members, size }: MembersProps) => {
         if (image === null) {
           image = member.attributes.username[0].toUpperCase();
         }
-        console.log(image);
         return <Avatar avatar={image} size={size} index={i} key={i} />;
       })}
     </div>

@@ -7,10 +7,15 @@ import { Comments, Description, Header, Tags } from ".";
 import { useDispatch } from "react-redux";
 import { updateTask, deleteTask } from "~/ProjectSlice";
 
+type UsersProps = {
+  attributes: User;
+  id: string;
+};
+
 type TaskModalProps = {
   user: User;
   modalTask: any;
-  members: string[];
+  members: UsersProps[];
   display: boolean;
   closeModal: () => void;
   toggleDisableCloseModal: (disable: boolean) => void;
@@ -37,23 +42,23 @@ const TaskModal = ({
 
   // deletes the task
   const deleteTaskData = () => {
-    dispatch(deleteTask(taskData.id));
+    // dispatch(deleteTask(taskData.id));
     toggleDeleteModal();
     closeModal();
   };
 
   // updates the members assigned to the task
   const updateMembers = (member: string, add: boolean) => {
-    setTaskData((prevTaskData) => {
-      return {
-        ...prevTaskData,
-        assignedTo: add
-          ? [...prevTaskData.assignedTo, member]
-          : prevTaskData.assignedTo.filter(
-              (memberName: string) => memberName !== member
-            ),
-      };
-    });
+    // setTaskData((prevTaskData) => {
+    //   return {
+    //     ...prevTaskData,
+    //     assignedTo: add
+    //       ? [...prevTaskData.assignedTo, member]
+    //       : prevTaskData.assignedTo.filter(
+    //           (memberName: string) => memberName !== member
+    //         ),
+    //   };
+    // });
   };
 
   // updates the task data based off of user inputs
@@ -71,7 +76,7 @@ const TaskModal = ({
 
   // changes the input data when a new task is selected
   useEffect(() => {
-    setTaskData(modalTask);
+    setTaskData(modalTask.task);
   }, [modalTask]);
 
   // saves the changes to the task when the modal is closed
@@ -98,7 +103,7 @@ const TaskModal = ({
           <Comments
             taskData={taskData}
             updateTaskData={updateTaskData}
-            user={user.name}
+            user={user.username}
             display={display}
           />
         </div>

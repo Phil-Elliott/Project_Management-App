@@ -17,11 +17,11 @@ const Notifications = ({ user, taskData }: NotificationProps) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user.watching.includes(taskData.id)) {
-      setWatching("Watching");
-    } else {
-      setWatching("Watch");
-    }
+    // if (user.watching.includes(taskData.id)) {
+    //   setWatching("Watching");
+    // } else {
+    //   setWatching("Watch");
+    // }
   }, [taskData.id]);
 
   const toggleWatching = () => {

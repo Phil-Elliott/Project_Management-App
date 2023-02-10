@@ -17,7 +17,7 @@ import {
 } from "~/ProjectSlice";
 
 const Board = () => {
-  const [modalTask, setModalTask] = useState<TaskProps>();
+  const [modalTask, setModalTask] = useState<any>();
   const [display, setDisplay] = useState<boolean>(false);
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
 
@@ -26,11 +26,11 @@ const Board = () => {
   const users = data[1];
   const sections = data[2];
 
-  useEffect(() => {
-    console.log(newData, "newData");
-    console.log(users, "users");
-    console.log(sections, "sections");
-  }, [newData]);
+  // useEffect(() => {
+  //   console.log(newData, "newData");
+  //   console.log(users, "users");
+  //   console.log(sections, "sections");
+  // }, [newData]);
 
   const user = useSelector((state: RootState) => state.project.user);
   const dispatch = useDispatch();
@@ -45,8 +45,8 @@ const Board = () => {
   };
 
   // displays the modal
-  const changeModalDisplay = (id: string) => {
-    // setModalTask(newData!.tasks.find((task) => task.id === id));
+  const changeModalDisplay = (task: any, id: string) => {
+    setModalTask({ task, id });
     setDisplay(!display);
   };
 
@@ -88,30 +88,30 @@ const Board = () => {
     sourceIndex: number
   ) => {
     const sameSection = taskSection === source;
-    const tasksSections = _.cloneDeep(newData!.tasksSections);
+    // const tasksSections = _.cloneDeep(newData!.tasksSections);
 
-    if (sameSection) {
-      let tasks = tasksSections.find(
-        (section) => section.id === taskSection
-      )?.tasks;
-      tasks?.splice(sourceIndex, 1)[0];
-      tasks?.splice(order, 0, id);
-    }
+    // if (sameSection) {
+    //   let tasks = tasksSections.find(
+    //     (section) => section.id === taskSection
+    //   )?.tasks;
+    //   tasks?.splice(sourceIndex, 1)[0];
+    //   tasks?.splice(order, 0, id);
+    // }
 
-    if (!sameSection) {
-      let tasks = tasksSections.find((section) => section.id === source)?.tasks;
-      tasks?.splice(sourceIndex, 1)[0];
-      tasks = tasksSections.find(
-        (section) => section.id === taskSection
-      )?.tasks;
-      tasks?.splice(order, 0, id);
-    }
+    // if (!sameSection) {
+    //   let tasks = tasksSections.find((section) => section.id === source)?.tasks;
+    //   tasks?.splice(sourceIndex, 1)[0];
+    //   tasks = tasksSections.find(
+    //     (section) => section.id === taskSection
+    //   )?.tasks;
+    //   tasks?.splice(order, 0, id);
+    // }
 
-    dispatch(
-      switchTaskOrder({
-        taskSections: tasksSections,
-      })
-    );
+    // dispatch(
+    //   switchTaskOrder({
+    //     taskSections: tasksSections,
+    //   })
+    // );
   };
 
   return (
@@ -122,7 +122,7 @@ const Board = () => {
         backgroundColor: newData.background,
       }}
     >
-      {/* <NavOptions members={newData!.members} /> */}
+      <NavOptions members={users} />
       <Tasks
         changeSectionOrder={changeSectionOrder}
         fakeData={newData}
@@ -141,7 +141,7 @@ const Board = () => {
           <TaskModal
             user={user}
             modalTask={modalTask}
-            members={newData.members}
+            members={users}
             display={display}
             closeModal={closeModal}
             toggleDisableCloseModal={toggleDisableCloseModal}
@@ -153,3 +153,19 @@ const Board = () => {
 };
 
 export default Board;
+
+/*
+  1) Make api calls and store data from api calls in redux store
+
+  Maybe pass basic project data from outlet using that find method and then make api calls in the board component
+
+
+  1) Get modal working 
+  2) Get drag and drop working
+  3) Have data on database change
+  4) Add a profile page
+  5) Fix styles 
+  6) Test
+
+
+*/

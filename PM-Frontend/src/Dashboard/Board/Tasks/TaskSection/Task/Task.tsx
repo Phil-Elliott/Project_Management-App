@@ -12,7 +12,7 @@ type TaskComponentProps = {
   taskData: TaskProps;
   id: string;
   index: number;
-  changeModalDisplay: (id: string) => void;
+  changeModalDisplay: (task: any, id: string) => void;
 };
 
 const Task = ({
@@ -24,6 +24,7 @@ const Task = ({
   const [comments, setComments] = useState<any>([]);
   const [watching, setWatching] = useState<any>([]);
   const [assigned, setAssigned] = useState<any>([]);
+  const [task, setTask] = useState<any>();
 
   const user = useSelector((state: RootState) => state.project.user);
 
@@ -40,10 +41,10 @@ const Task = ({
           },
         }
       );
+      setTask(res.data.data.attributes);
       setComments(res.data.data.attributes.comments.data);
       setWatching(res.data.data.attributes.watching_users.data);
       setAssigned(res.data.data.attributes.assigned_users.data);
-      console.log(res.data.data.attributes, "yead");
     } catch (err) {
       console.log(err);
     }
@@ -57,14 +58,14 @@ const Task = ({
   const isWatched = watching.some((member: any) => member.id === user.id);
 
   return (
-    <Draggable draggableId={id} index={index} key={id}>
+    <Draggable draggableId={id.toString()} index={index} key={id}>
       {(provided) => (
         <div
           className={styles.main}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          onClick={() => changeModalDisplay(id)}
+          onClick={() => changeModalDisplay(task, id)}
         >
           <p className={styles.name}>{taskData.title}</p>
           <div className={styles.bottom}>

@@ -5,10 +5,15 @@ import { DueDate, Members, Notifications, Priority } from ".";
 
 import { TaskProps, User } from "~/shared/interfaces/Projects";
 
+type UsersProps = {
+  attributes: User;
+  id: string;
+};
+
 type TagsProps = {
   user: User;
   taskData: any;
-  members: string[];
+  members: UsersProps[];
   updateMembers: (member: string, add: boolean) => void;
   updateTaskData: <T extends keyof TaskProps>(
     type: T,

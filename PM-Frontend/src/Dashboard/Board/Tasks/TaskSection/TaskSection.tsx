@@ -30,7 +30,7 @@ type TaskSectionProps = {
   fakeData: ProjectDataProps;
   addNewTask: (name: string, section: string) => void;
   index: number;
-  changeModalDisplay: (id: string) => void;
+  changeModalDisplay: (task: any, id: string) => void;
 };
 
 const TaskSection = ({
@@ -55,7 +55,6 @@ const TaskSection = ({
         }
       );
       setTasks(res.data.data.attributes.tasks.data);
-      console.log(res.data.data.attributes.tasks.data);
     } catch (err) {
       console.log(err);
     }
@@ -76,7 +75,11 @@ const TaskSection = ({
   // }, [section, section.tasks, fakeData]);
 
   return (
-    <Draggable draggableId={section.id} index={index} key={section.id}>
+    <Draggable
+      draggableId={section.id.toString()}
+      index={index}
+      key={section.id}
+    >
       {(provided) => (
         <div
           className="taskSection-container"
@@ -84,7 +87,7 @@ const TaskSection = ({
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <Droppable droppableId={section.id} type="droppable-item">
+          <Droppable droppableId={section.id.toString()} type="droppable-item">
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
                 <div className="taskSection-header">

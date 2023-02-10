@@ -20,7 +20,7 @@ type TasksProps = {
     source: string,
     sourceIndex: number
   ) => void;
-  changeModalDisplay: (id: string) => void;
+  changeModalDisplay: (task: any, id: string) => void;
 };
 
 const Tasks = ({
@@ -34,19 +34,19 @@ const Tasks = ({
 }: TasksProps) => {
   // handles the drag and drop
   const handleOnDrageEnd = (result: any) => {
-    const { type, source, destination } = result;
-    if (type === "droppable-category") {
-      changeSectionOrder(result.draggableId, destination.index, source.index);
-    } else if (type === "droppable-item") {
-      console.log(result, "result");
-      changeTaskPosition(
-        result.draggableId,
-        result.destination.droppableId,
-        result.destination.index,
-        source.droppableId,
-        result.source.index
-      );
-    }
+    // const { type, source, destination } = result;
+    // if (type === "droppable-category") {
+    //   changeSectionOrder(result.draggableId, destination.index, source.index);
+    // } else if (type === "droppable-item") {
+    //   console.log(result, "result");
+    //   changeTaskPosition(
+    //     result.draggableId,
+    //     result.destination.droppableId,
+    //     result.destination.index,
+    //     source.droppableId,
+    //     result.source.index
+    //   );
+    // }
   };
 
   return (

@@ -11,24 +11,23 @@
     flex-direction: column;
     padding-top: 10%;
   }
-}
+  label {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
 
-label {
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-}
+  input {
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid $primary-light;
+    font-size: 1rem;
+    margin-bottom: 1rem;
 
-input {
-  width: 100%;
-  border-radius: 3px;
-  border: 1px solid $primary-light;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-
-  &:focus {
-    outline: none;
-    border: 1px solid $primary;
+    &:focus {
+      outline: none;
+      border: 1px solid $primary;
+    }
   }
 }
 

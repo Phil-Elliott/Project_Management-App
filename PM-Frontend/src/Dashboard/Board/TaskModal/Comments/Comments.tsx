@@ -33,7 +33,7 @@ const Comments = ({
       date: moment().format("MMM Do YYYY"),
       comment: comment,
     };
-    updateTaskData("comments", [...taskData.comments, commentData]);
+    // updateTaskData("comments", [...taskData.comments, commentData]);
     setComment("");
   };
 
@@ -55,7 +55,7 @@ const Comments = ({
       </div>
       <div className={styles.input}>
         <div className={styles.user}>
-          <Avatar user={"Bob"} />
+          <Avatar avatar={"B"} />
         </div>
         <input
           type="text"
@@ -80,9 +80,9 @@ const Comments = ({
         </div>
       ) : null}
       <div className={styles.comments}>
-        {taskData.comments.map((comment) => {
+        {/* {taskData.comments.map((comment) => {
           return <CommentData comment={comment} />;
-        })}
+        })} */}
       </div>
     </div>
   );

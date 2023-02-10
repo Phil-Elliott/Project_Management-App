@@ -58,6 +58,11 @@ export type TaskProps = {
   priority: string;
 };
 
+export type ModalTaskProps = {
+  id: string;
+  task: TaskProps;
+};
+
 export type User = {
   id: string;
   username: string;

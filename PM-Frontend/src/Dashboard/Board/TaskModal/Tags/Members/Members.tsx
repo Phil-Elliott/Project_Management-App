@@ -1,12 +1,18 @@
 import React, { useRef, useState } from "react";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import { Avatar, Popup } from "~/shared/components";
+import { User } from "~/shared/interfaces/Projects";
 
 import styles from "./Members.module.scss";
 
+type UsersProps = {
+  attributes: User;
+  id: string;
+};
+
 type MemberProps = {
   taskData: any;
-  members: string[];
+  members: UsersProps[];
   updateMembers: (member: string, add: boolean) => void;
 };
 
@@ -23,14 +29,20 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
       <h5>Members</h5>
       <div className={styles["members-content"]}>
         <div className={styles["members-selected"]}>
-          {taskData.assignedTo.map((member: string) => {
+          {members.map((member) => {
+            let image = member.attributes.avatar;
+            if (image === null) {
+              image = member.attributes.username[0].toUpperCase();
+            }
             return (
               <div
                 className={styles.member}
-                onClick={() => updateMembers(member, false)}
+                // onClick={() => updateMembers(member, false)}
               >
-                <Avatar user={member[0]} size="med" />
-                <p className={styles["member-name"]}>{member}</p>
+                <Avatar avatar={image} size="med" />
+                <p className={styles["member-name"]}>
+                  {member.attributes.username}
+                </p>
                 <FaTimes className={styles["cross-icon"]} />
               </div>
             );
@@ -55,17 +67,27 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
             {members.map((member) => {
               if (taskData.assignedTo.includes(member)) {
                 return null;
-              } else if (member.toLowerCase().includes(search.toLowerCase())) {
+              } else if (
+                member.attributes.username
+                  .toLowerCase()
+                  .includes(search.toLowerCase())
+              ) {
+                let image = member.attributes.avatar;
+                if (image === null) {
+                  image = member.attributes.username[0].toUpperCase();
+                }
                 return (
                   <div
                     className={styles["member-select-container"]}
                     onClick={() => {
-                      updateMembers(member, true);
+                      // updateMembers(member, true);
                       setShowSelect(false);
                     }}
                   >
-                    <Avatar user={member[0]} size="med" />
-                    <p className={styles["member-name"]}>{member}</p>
+                    <Avatar avatar={image} size="med" />
+                    <p className={styles["member-name"]}>
+                      {member.attributes.username}
+                    </p>
                   </div>
                 );
               }

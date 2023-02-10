@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Button } from "~/shared/components";
-import { TaskProps } from "~/shared/interfaces/Projects";
+import { ModalTaskProps, TaskProps } from "~/shared/interfaces/Projects";
 
 import styles from "./Description.module.scss";
 import { AiOutlineAlignLeft } from "react-icons/ai";

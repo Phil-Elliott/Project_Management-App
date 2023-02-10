@@ -22,14 +22,16 @@ const Header = ({
   deleteTask,
   updateTaskData,
 }: HeaderProps) => {
+  // console.log(taskData.task.title);
+
   return (
     <div className={styles.main}>
       <div className={styles.left}>
         <TiThLarge className={styles.icon} />
         <textarea
           rows={1}
-          value={taskData.name}
-          onChange={(e) => updateTaskData("name", e.target.value)}
+          value={taskData.title}
+          // onChange={(e) => updateTaskData("name", e.target.value)}
         />
       </div>
       <div className={styles.right}>

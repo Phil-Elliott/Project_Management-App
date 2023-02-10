@@ -5,9 +5,15 @@ import Search from "./Search/Search";
 import Invite from "./Invite/Invite";
 import Filter from "./Filter/Filter";
 import Settings from "./Settings/Settings";
+import { User } from "~/shared/interfaces/Projects";
 
-export type NavOptionsProps = {
-  members: string[];
+type UsersProps = {
+  attributes: User;
+  id: string;
+};
+
+type NavOptionsProps = {
+  members: UsersProps[];
 };
 
 const NavOptions = ({ members }: NavOptionsProps) => {
@@ -15,7 +21,7 @@ const NavOptions = ({ members }: NavOptionsProps) => {
     <div className={styles.main}>
       {/* <div className={styles.left}> */}
       <Search />
-      <Members members={members} />
+      {members && <Members members={members} />}
       <Invite />
       <Filter />
       {/* </div> */}

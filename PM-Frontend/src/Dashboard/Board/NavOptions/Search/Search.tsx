@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Search.scss";
+import styles from "./Search.module.scss";
 import { FaSearch } from "react-icons/fa";
 import { useDebounce } from "usehooks-ts";
 import { useDispatch } from "react-redux";
@@ -16,8 +16,8 @@ const Search = () => {
   }, [debouncedValue]);
 
   return (
-    <div className="search-container">
-      <FaSearch className="search-icon" />
+    <div className={styles["search-container"]}>
+      <FaSearch className={styles["search-icon"]} />
       <input
         type="text"
         placeholder="Search"
