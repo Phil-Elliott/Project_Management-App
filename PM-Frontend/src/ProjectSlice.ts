@@ -16,6 +16,7 @@ type ProjectState = {
   project: ProjectDataProps;
   projectUsers: User[];
   sections: TasksSections[];
+  tasks: AddTaskProps[];
 };
 
 type AddTaskProps = {
@@ -325,6 +326,7 @@ const initialState: ProjectState = {
   },
   projectUsers: [],
   sections: [],
+  tasks: [],
 };
 
 export const projectSlice = createSlice({
@@ -379,31 +381,22 @@ export const projectSlice = createSlice({
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // section functions
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    addSection: (state, action: PayloadAction<string>) => {
-      // const newSection = {
-      //   id: uuid(),
-      //   name: action.payload,
-      //   tasks: [],
-      // };
-      // state.projects = state.projects.map((project) => {
-      //   if (project.id === state.selectedProject) {
-      //     project.tasksSections = [...project.tasksSections, newSection];
-      //   }
-      //   return project;
-      // });
+    addSection: (state, action: PayloadAction<TasksSections>) => {
+      state.sections = [...state.sections, action.payload];
     },
     addTask: (state, action: PayloadAction<AddTaskProps>) => {
-      // creates the new task to be added
-      const newTask = {
-        id: uuid(),
-        name: action.payload.name,
-        assignedTo: [],
-        description: "",
-        priority: "Low",
-        due: "",
-        comments: [],
-      };
+      state.tasks = [...state.tasks, action.payload];
 
+      // creates the new task to be added
+      // const newTask = {
+      //   id: uuid(),
+      //   name: action.payload.name,
+      //   assignedTo: [],
+      //   description: "",
+      //   priority: "Low",
+      //   due: "",
+      //   comments: [],
+      // };
       // adds the new task to the tasks section
       // state.projects = state.projects.map((project) => {
       //   if (project.id === state.selectedProject) {

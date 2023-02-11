@@ -15,6 +15,7 @@ import {
   switchSectionOrder,
   switchTaskOrder,
 } from "~/ProjectSlice";
+import axios from "axios";
 
 const Board = () => {
   const [modalTask, setModalTask] = useState<any>();
@@ -52,13 +53,100 @@ const Board = () => {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // adds a new section to the data - triggered by addList btn
-  const addNewSection = (name: string) => {
-    dispatch(addSection(name));
+  const addNewSection = async (name: string, orderedArr: number[]) => {
+    // adds the new section to the database
+    try {
+      const res = await axios.post(`http://localhost:1337/api/sections`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+        data: {
+          title: name,
+          order: 1,
+          project: newData!.id,
+        },
+      });
+      orderedArr.push(res.data.data.id);
+      addSectionOrder();
+      dispatch(
+        addSection({
+          id: res.data.data.id,
+          title: res.data.data.attributes.title,
+          order: res.data.data.attributes.order,
+        })
+      );
+    } catch (err) {
+      console.log(err);
+    }
+    async function addSectionOrder() {
+      try {
+        const res = await axios.put(
+          `http://localhost:1337/api/projects/${newData!.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+            data: {
+              ordered_sections: orderedArr,
+            },
+          }
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   // adds a new task to the section
-  const addNewTask = (name: string, taskSection: string) => {
-    dispatch(addTask({ name: name, tasksSection: taskSection }));
+  const addNewTask = async (
+    name: string,
+    taskSection: string,
+    orderedArr: number[]
+  ) => {
+    // adds the new task to the database
+    try {
+      const res = await axios.post(`http://localhost:1337/api/tasks`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+        data: {
+          title: name,
+          section: taskSection,
+          order: 1,
+          project: newData!.id,
+        },
+      });
+      orderedArr.push(res.data.data.id);
+      addTaskOrder();
+      dispatch(
+        addTask({
+          name: "test",
+          tasksSection: "to-do",
+        })
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
+    // adds the new task to the ordered tasks array inside of sections
+    async function addTaskOrder() {
+      try {
+        const res = await axios.put(
+          `http://localhost:1337/api/sections/${taskSection}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+            data: {
+              ordered_tasks: orderedArr,
+            },
+          }
+        );
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,11 +235,6 @@ const Board = () => {
 export default Board;
 
 /*
-  add order to task
-
-
-  Add a task 
-  Add a section 
   Move a section 
   Move a task
 
@@ -167,6 +250,17 @@ export default Board;
   4) Add a profile page
   5) Fix styles 
   6) Test
+
+
+  
+  
+  4) Work on changing that order when a section is moved
+    - First make sure the drag is working on the individual sections and tasks
+    - Then fix up the function to change the order of the sections (changeSectionOrder)
+  5) Work on changing the order of the tasks when a task is moved
+      - fix up the function to change the order of the sections (changeTaskPosition)
+  6) Delete the order part of the task and section objects
+
 
 
 */

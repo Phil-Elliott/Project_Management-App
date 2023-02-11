@@ -19,13 +19,14 @@ export function ProjectLayout() {
   async function fetchProject() {
     try {
       const res = await axios.get(
-        `http://localhost:1337/api/projects/${id}?populate[0]=sections&populate[1]=users`,
+        `http://localhost:1337/api/projects/${id}?populate[0]=ordered_sections&populate[1]=users`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
           },
         }
       );
+      console.log(res);
       dispatch(
         setProject({
           id: id,
@@ -47,7 +48,7 @@ export function ProjectLayout() {
       );
       dispatch(
         setSections(
-          res.data.data.attributes.sections.data.map((section: any) => {
+          res.data.data.attributes.ordered_sections.data.map((section: any) => {
             return {
               id: section.id,
               title: section.attributes.title,

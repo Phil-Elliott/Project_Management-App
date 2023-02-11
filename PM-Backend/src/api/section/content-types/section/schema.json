@@ -30,6 +30,11 @@
     },
     "order": {
       "type": "integer"
+    },
+    "ordered_tasks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::task.task"
     }
   }
 }

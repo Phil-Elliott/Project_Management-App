@@ -41,6 +41,11 @@
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "inversedBy": "projects"
+    },
+    "ordered_sections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::section.section"
     }
   }
 }

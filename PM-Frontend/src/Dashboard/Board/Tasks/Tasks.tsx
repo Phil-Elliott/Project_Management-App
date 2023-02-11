@@ -10,8 +10,8 @@ import { AddItem } from "~/shared/components";
 type TasksProps = {
   fakeData: ProjectDataProps;
   sections: TasksSections[];
-  addNewSection: any;
-  addNewTask: (name: string, section: string) => void;
+  addNewSection: (name: string, orderedArr: number[]) => void;
+  addNewTask: (name: string, section: string, orderedArr: number[]) => void;
   changeSectionOrder: (id: string, order: number, source: number) => void;
   changeTaskPosition: (
     id: string,
@@ -32,30 +32,32 @@ const Tasks = ({
   changeTaskPosition,
   changeModalDisplay,
 }: TasksProps) => {
-  const [orderedSections, setOrderedSections] = useState<TasksSections[]>([]);
+  const [orderedSectionsArr, setOrderedSectionsArr] = useState<number[]>([]);
 
+  // Gets an array of the order of the sections by id
   useEffect(() => {
-    let sortedArray = sections.slice().sort((a, b) => {
-      return a.order - b.order;
-    });
-    setOrderedSections(sortedArray);
+    setOrderedSectionsArr(
+      sections.map((section: any) => {
+        return section.id;
+      })
+    );
   }, [sections]);
 
   // handles the drag and drop
   const handleOnDrageEnd = (result: any) => {
-    // const { type, source, destination } = result;
-    // if (type === "droppable-category") {
-    //   changeSectionOrder(result.draggableId, destination.index, source.index);
-    // } else if (type === "droppable-item") {
-    //   console.log(result, "result");
-    //   changeTaskPosition(
-    //     result.draggableId,
-    //     result.destination.droppableId,
-    //     result.destination.index,
-    //     source.droppableId,
-    //     result.source.index
-    //   );
-    // }
+    const { type, source, destination } = result;
+    if (type === "droppable-category") {
+      // changeSectionOrder(result.draggableId, destination.index, source.index);
+    } else if (type === "droppable-item") {
+      console.log(result, "result");
+      // changeTaskPosition(
+      //   result.draggableId,
+      //   result.destination.droppableId,
+      //   result.destination.index,
+      //   source.droppableId,
+      //   result.source.index
+      // );
+    }
   };
 
   return (
@@ -77,7 +79,7 @@ const Tasks = ({
               ref={provided.innerRef}
             >
               {sections &&
-                orderedSections.map((section, index) => {
+                sections.map((section, index) => {
                   return (
                     <TasksSection
                       key={section.id}
@@ -91,7 +93,11 @@ const Tasks = ({
                 })}
               {provided.placeholder}
               <div className="add-item-btn-container">
-                <AddItem addNewItem={addNewSection} item={"list"} />
+                <AddItem
+                  addNewItem={addNewSection}
+                  item={"list"}
+                  orderedArr={orderedSectionsArr}
+                />
               </div>
             </div>
           )}
@@ -104,29 +110,36 @@ const Tasks = ({
 export default Tasks;
 
 /*  
-  make indiana scroll only work on empty space outside of tasks sections
+make indiana scroll only work on empty space outside of tasks sections
 
 
 
-  for loop 
+for loop 
     put in order 
 
-
-  add one to each order after the order of the one you are adding
-
-  could make a custom hook or function for putting things in order
-  also make a hook for changing the order of all based off of movement
-
-
-
+    
+    add one to each order after the order of the one you are adding
+    
+    could make a custom hook or function for putting things in order
+    also make a hook for changing the order of all based off of movement
+    
+    
+    
   fix up the styling for the tasks section
   fix up the add button at the end 
   make sure you can scroll left
+  
+  
+  Map through sections and create a taskSection component for each one
+  Need an AddTaskSectionComponent at end
+  Could be a button 
+  Use additem component when it is clicked
+  
+  */
 
-
-    Map through sections and create a taskSection component for each one
-    Need an AddTaskSectionComponent at end
-        Could be a button 
-        Use additem component when it is clicked
-
-*/
+// useEffect(() => {
+//   let sortedArray = sections.slice().sort((a, b) => {
+//     return a.order - b.order;
+//   });
+//   setOrderedSections(sortedArray);
+// }, [sections]);

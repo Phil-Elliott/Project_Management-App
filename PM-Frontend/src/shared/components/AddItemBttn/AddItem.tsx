@@ -8,9 +8,10 @@ type AddItemProps = {
   addNewItem: any;
   item: string;
   section?: string;
+  orderedArr?: number[];
 };
 
-const AddItem = ({ addNewItem, item, section }: AddItemProps) => {
+const AddItem = ({ addNewItem, item, section, orderedArr }: AddItemProps) => {
   const [showForm, setShowForm] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const ref = useRef(null);
@@ -27,8 +28,8 @@ const AddItem = ({ addNewItem, item, section }: AddItemProps) => {
   const addItem = () => {
     const add = () => {
       item === "list"
-        ? addNewItem(inputRef.current!.value)
-        : addNewItem(inputRef.current!.value, section);
+        ? addNewItem(inputRef.current!.value, orderedArr)
+        : addNewItem(inputRef.current!.value, section, orderedArr);
       toggleForm();
     };
     inputRef.current!.value ? add() : null;

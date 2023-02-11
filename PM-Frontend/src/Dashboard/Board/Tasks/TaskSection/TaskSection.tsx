@@ -18,7 +18,7 @@ import axios from "axios";
 type TaskSectionProps = {
   section: TasksSections;
   fakeData: ProjectDataProps;
-  addNewTask: (name: string, section: string) => void;
+  addNewTask: (name: string, section: string, orderArr: number[]) => void;
   index: number;
   changeModalDisplay: (task: any, id: string) => void;
 };
@@ -31,21 +31,14 @@ const TaskSection = ({
   changeModalDisplay,
 }: TaskSectionProps) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
-  const [orderedTasks, setOrderedTasks] = useState<TaskProps[]>([]);
+  const [orderedArr, setOrderedArr] = useState<number[]>([]);
   const search = useSelector((state: RootState) => state.project.searchQuery);
+  const tasksTest = useSelector((state: RootState) => state.project.tasks);
 
-  useEffect(() => {
-    let sortedArray = tasks.slice().sort((a, b) => {
-      return a.order - b.order;
-    });
-    setOrderedTasks(sortedArray);
-    console.log(orderedTasks);
-  }, [tasks]);
-
-  async function fetchProject() {
+  async function fetchTasks() {
     try {
       const res = await axios.get(
-        `http://localhost:1337/api/sections/${section.id}?populate=tasks`,
+        `http://localhost:1337/api/sections/${section.id}?populate=ordered_tasks`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -53,8 +46,9 @@ const TaskSection = ({
         }
       );
       // setTasks(res.data.data.attributes.tasks.data);
+
       setTasks(
-        res.data.data.attributes.tasks.data.map((task: any) => {
+        res.data.data.attributes.ordered_tasks.data.map((task: any) => {
           return {
             id: task.id,
             title: task.attributes.title,
@@ -65,32 +59,24 @@ const TaskSection = ({
           };
         })
       );
+      // Gets an array of the order of the tasks by id
+      setOrderedArr(
+        res.data.data.attributes.ordered_tasks.data.map((task: any) => {
+          return task.id;
+        })
+      );
     } catch (err) {
       console.log(err);
     }
   }
 
   useEffect(() => {
-    fetchProject();
-  }, [section]);
-
-  // useEffect(() => {
-  //   console.log(tasks);
-  // }, [tasks]);
-
-  // useEffect(() => {
-  //   setOrderedTasks(
-  //     section.tasks
-  //       .map((task) => {
-  //         return fakeData.tasks.find((t) => t.id === task);
-  //       })
-  //       .filter((task) => task !== undefined) as TaskProps[]
-  //   );
-  // }, [section, section.tasks, fakeData]);
+    fetchTasks();
+  }, [section, tasksTest]);
 
   return (
     <Draggable
-      draggableId={section.id.toString()}
+      draggableId={`s${section.id.toString()}`}
       index={index}
       key={section.id}
     >
@@ -101,7 +87,10 @@ const TaskSection = ({
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <Droppable droppableId={section.id.toString()} type="droppable-item">
+          <Droppable
+            droppableId={`s${section.id.toString()}`}
+            type="droppable-item"
+          >
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
                 <div className="taskSection-header">
@@ -110,7 +99,7 @@ const TaskSection = ({
                 </div>
 
                 <div className="taskSection-tasks">
-                  {orderedTasks.map((task, index) => {
+                  {tasks.map((task, index) => {
                     if (
                       search === "" ||
                       task.title.toLowerCase().includes(search.toLowerCase())
@@ -130,7 +119,12 @@ const TaskSection = ({
               </div>
             )}
           </Droppable>
-          <AddItem addNewItem={addNewTask} item={"task"} section={section.id} />
+          <AddItem
+            addNewItem={addNewTask}
+            item={"task"}
+            section={section.id}
+            orderedArr={orderedArr}
+          />
         </div>
       )}
     </Draggable>
@@ -138,3 +132,22 @@ const TaskSection = ({
 };
 
 export default TaskSection;
+
+// let sortedArray = tasks.slice().sort((a, b) => {
+//   return a.order - b.order;
+// });
+// setOrderedTasks(sortedArray);
+// console.log(orderedTasks);
+// useEffect(() => {
+//   console.log(tasks);
+// }, [tasks]);
+
+// useEffect(() => {
+//   setOrderedTasks(
+//     section.tasks
+//       .map((task) => {
+//         return fakeData.tasks.find((t) => t.id === task);
+//       })
+//       .filter((task) => task !== undefined) as TaskProps[]
+//   );
+// }, [section, section.tasks, fakeData]);
