@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Task from "./Task/Task";
 import "./TaskSection.scss";
@@ -6,7 +6,7 @@ import { FaEllipsisH } from "react-icons/fa";
 
 import { AddItem } from "~/shared/components";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~/Store";
 import {
   ProjectDataProps,
@@ -14,6 +14,7 @@ import {
   TasksSections,
 } from "~/shared/interfaces/Projects";
 import axios from "axios";
+import { setOrderedTasks, setProjectTasks } from "~/ProjectSlice";
 
 type TaskSectionProps = {
   section: TasksSections;
@@ -32,8 +33,16 @@ const TaskSection = ({
 }: TaskSectionProps) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const [orderedArr, setOrderedArr] = useState<number[]>([]);
+  const orderedTasksArr = useSelector(
+    (state: RootState) => state.project.orderedTasks
+  );
+  const projectTasks = useSelector(
+    (state: RootState) => state.project.projectTasks
+  );
   const search = useSelector((state: RootState) => state.project.searchQuery);
   const tasksTest = useSelector((state: RootState) => state.project.tasks);
+
+  const dispatch = useDispatch();
 
   async function fetchTasks() {
     try {
@@ -72,7 +81,25 @@ const TaskSection = ({
 
   useEffect(() => {
     fetchTasks();
-  }, [section, tasksTest]);
+  }, [section]);
+
+  useEffect(() => {
+    console.log(tasksTest.tasksSection, section.id);
+    let id = section.id.toString();
+    if (tasksTest.tasksSection === id) {
+      fetchTasks();
+    }
+  }, [tasksTest]);
+
+  useEffect(() => {
+    dispatch(
+      setOrderedTasks({ section: section.id.toString(), tasks: orderedArr })
+    );
+  }, [orderedArr]);
+
+  useEffect(() => {
+    dispatch(setProjectTasks({ tasks: tasks, section: section.id.toString() }));
+  }, [tasks]);
 
   return (
     <Draggable
@@ -99,21 +126,22 @@ const TaskSection = ({
                 </div>
 
                 <div className="taskSection-tasks">
-                  {tasks.map((task, index) => {
-                    if (
-                      search === "" ||
-                      task.title.toLowerCase().includes(search.toLowerCase())
-                    ) {
-                      return (
-                        <Task
-                          key={task.id}
-                          taskData={task}
-                          index={index}
-                          changeModalDisplay={changeModalDisplay}
-                        />
-                      );
-                    }
-                  })}
+                  {projectTasks[index] &&
+                    projectTasks[index].tasks.map((task, index) => {
+                      if (
+                        search === "" ||
+                        task.title.toLowerCase().includes(search.toLowerCase())
+                      ) {
+                        return (
+                          <Task
+                            key={task.id}
+                            taskData={task}
+                            index={index}
+                            changeModalDisplay={changeModalDisplay}
+                          />
+                        );
+                      }
+                    })}
                   {provided.placeholder}
                 </div>
               </div>
@@ -151,3 +179,26 @@ export default TaskSection;
 //       .filter((task) => task !== undefined) as TaskProps[]
 //   );
 // }, [section, section.tasks, fakeData]);
+
+// // sort tasks by orderedTasksArr
+// function sortTasks() {
+//   console.log("sort tasks");
+//   let id = section.id.toString();
+
+//   let sectionOrder = orderedTasksArr.find(
+//     (section) => section.section === id
+//   );
+
+//   if (sectionOrder) {
+//     console.log("sort");
+//     let sortedArray = tasks.slice().sort((a, b) => {
+//       return (
+//         sectionOrder!.tasks.indexOf(parseInt(a.id)) -
+//         sectionOrder!.tasks.indexOf(parseInt(b.id))
+//       );
+//     });
+//     setTasks(sortedArray);
+//   } else {
+//     console.log("other section");
+//   }
+// }

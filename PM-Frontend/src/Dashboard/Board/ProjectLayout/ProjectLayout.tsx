@@ -26,7 +26,6 @@ export function ProjectLayout() {
           },
         }
       );
-      console.log(res);
       dispatch(
         setProject({
           id: id,

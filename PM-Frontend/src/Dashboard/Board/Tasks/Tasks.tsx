@@ -12,7 +12,12 @@ type TasksProps = {
   sections: TasksSections[];
   addNewSection: (name: string, orderedArr: number[]) => void;
   addNewTask: (name: string, section: string, orderedArr: number[]) => void;
-  changeSectionOrder: (id: string, order: number, source: number) => void;
+  changeSectionOrder: (
+    id: string,
+    destination: number,
+    source: number,
+    orderArr: number[]
+  ) => void;
   changeTaskPosition: (
     id: string,
     section: string,
@@ -44,19 +49,28 @@ const Tasks = ({
   }, [sections]);
 
   // handles the drag and drop
-  const handleOnDrageEnd = (result: any) => {
+  const handleOnDrageEnd = async (result: any) => {
     const { type, source, destination } = result;
-    if (type === "droppable-category") {
-      // changeSectionOrder(result.draggableId, destination.index, source.index);
+
+    if (type === "droppable-category" && source.index !== destination.index) {
+      changeSectionOrder(
+        result.draggableId,
+        destination.index,
+        source.index,
+        orderedSectionsArr
+      );
     } else if (type === "droppable-item") {
-      console.log(result, "result");
-      // changeTaskPosition(
-      //   result.draggableId,
-      //   result.destination.droppableId,
-      //   result.destination.index,
-      //   source.droppableId,
-      //   result.source.index
-      // );
+      changeTaskPosition(
+        result.draggableId,
+        // section where it is going
+        destination.droppableId,
+        // where it is going in the order
+        destination.index,
+        // section where it came from
+        source.droppableId,
+        // where it came from in the order
+        source.index
+      );
     }
   };
 

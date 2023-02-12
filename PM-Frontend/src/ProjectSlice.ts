@@ -16,7 +16,25 @@ type ProjectState = {
   project: ProjectDataProps;
   projectUsers: User[];
   sections: TasksSections[];
-  tasks: AddTaskProps[];
+  tasks: AddTaskProps;
+  orderedTasks: OrderedTasks[];
+  changeOrder: ChangeOrderProps;
+  projectTasks: ProjectTaskProps[];
+};
+
+type ProjectTaskProps = {
+  section: string;
+  tasks: TaskProps[];
+};
+
+type ChangeOrderProps = {
+  change: boolean;
+  section: string;
+};
+
+type OrderedTasks = {
+  section: string;
+  tasks: number[];
 };
 
 type AddTaskProps = {
@@ -326,7 +344,10 @@ const initialState: ProjectState = {
   },
   projectUsers: [],
   sections: [],
-  tasks: [],
+  tasks: { name: " ", tasksSection: " " },
+  orderedTasks: [],
+  changeOrder: { change: false, section: "0" },
+  projectTasks: [],
 };
 
 export const projectSlice = createSlice({
@@ -352,6 +373,43 @@ export const projectSlice = createSlice({
     setSections: (state, action: PayloadAction<TasksSections[]>) => {
       state.sections = action.payload;
     },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    setProjectTasks: (state, action: PayloadAction<ProjectTaskProps>) => {
+      // see if task is already in array
+      const taskIndex = state.projectTasks.findIndex(
+        (taskObj) => taskObj.section === action.payload.section
+      );
+      // if section is not in array, add it
+      if (taskIndex === -1) {
+        state.projectTasks = [...state.projectTasks, action.payload];
+      } else {
+        // if section is in array, add task to it
+        state.projectTasks[taskIndex].tasks = action.payload.tasks;
+      }
+    },
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    setOrderedTasks: (state, action: PayloadAction<OrderedTasks>) => {
+      // see section is already in array
+      const sectionIndex = state.orderedTasks.findIndex(
+        (sectionObj) => sectionObj.section === action.payload.section
+      );
+      // if section is not in array, add it
+      if (sectionIndex === -1) {
+        state.orderedTasks = [...state.orderedTasks, action.payload];
+      } else {
+        // if section is in array, add task to it
+        state.orderedTasks[sectionIndex].tasks = action.payload.tasks;
+      }
+    },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    setChangeOrder: (state, action: PayloadAction<string>) => {
+      state.changeOrder = {
+        change: !state.changeOrder.change,
+        section: action.payload,
+      };
+    },
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // user functions
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -385,7 +443,7 @@ export const projectSlice = createSlice({
       state.sections = [...state.sections, action.payload];
     },
     addTask: (state, action: PayloadAction<AddTaskProps>) => {
-      state.tasks = [...state.tasks, action.payload];
+      state.tasks = action.payload;
 
       // creates the new task to be added
       // const newTask = {
@@ -536,10 +594,13 @@ export const projectSlice = createSlice({
 export const {
   setJwt,
   setProjects,
+  setOrderedTasks,
   setUser,
   setProject,
   setProjectUsers,
   setSections,
+  setChangeOrder,
+  setProjectTasks,
 
   addProject,
   addSection,

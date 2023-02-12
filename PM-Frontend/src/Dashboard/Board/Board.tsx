@@ -12,8 +12,10 @@ import { RootState } from "~/Store";
 import {
   addSection,
   addTask,
-  switchSectionOrder,
-  switchTaskOrder,
+  setChangeOrder,
+  setOrderedTasks,
+  setProjectTasks,
+  setSections,
 } from "~/ProjectSlice";
 import axios from "axios";
 
@@ -26,11 +28,20 @@ const Board = () => {
   const user = useSelector((state: RootState) => state.project.user);
   const users = useSelector((state: RootState) => state.project.projectUsers);
   const sections = useSelector((state: RootState) => state.project.sections);
+  const orderedTasks = useSelector(
+    (state: RootState) => state.project.orderedTasks
+  );
+  const projectTasks = useSelector(
+    (state: RootState) => state.project.projectTasks
+  );
   const dispatch = useDispatch();
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // modal functions
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  useEffect(() => {
+    console.log("project tasks", projectTasks);
+  }, [projectTasks]);
 
   // closes modal
   const closeModal = () => {
@@ -67,7 +78,7 @@ const Board = () => {
         },
       });
       orderedArr.push(res.data.data.id);
-      addSectionOrder();
+      addSectionOrder(orderedArr);
       dispatch(
         addSection({
           id: res.data.data.id,
@@ -78,25 +89,57 @@ const Board = () => {
     } catch (err) {
       console.log(err);
     }
-    async function addSectionOrder() {
+  };
+  // adds the new section order to the project
+  async function addSectionOrder(ordered: number[]) {
+    try {
+      const res = await axios.put(
+        `http://localhost:1337/api/projects/${newData!.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+          data: {
+            ordered_sections: ordered,
+          },
+        }
+      );
+      // fetchSections();
+    } catch (err) {
+      console.log(err);
+    }
+
+    // gets the orderedsections from the project
+    async function fetchSections() {
       try {
-        const res = await axios.put(
-          `http://localhost:1337/api/projects/${newData!.id}`,
+        const res = await axios.get(
+          `http://localhost:1337/api/projects/${
+            newData!.id
+          }?populate=ordered_sections`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("jwt")}`,
             },
-            data: {
-              ordered_sections: orderedArr,
-            },
           }
+        );
+        dispatch(
+          setSections(
+            res.data.data.attributes.ordered_sections.data.map(
+              (section: any) => {
+                return {
+                  id: section.id,
+                  title: section.attributes.title,
+                  order: section.attributes.order,
+                };
+              }
+            )
+          )
         );
       } catch (err) {
         console.log(err);
       }
     }
-  };
-
+  }
   // adds a new task to the section
   const addNewTask = async (
     name: string,
@@ -116,82 +159,162 @@ const Board = () => {
           project: newData!.id,
         },
       });
-      orderedArr.push(res.data.data.id);
-      addTaskOrder();
+      let taskArr = [...orderedArr];
+      taskArr.push(res.data.data.id);
+      addTaskOrder(taskArr, taskSection);
       dispatch(
         addTask({
-          name: "test",
-          tasksSection: "to-do",
+          name: name,
+          tasksSection: taskSection,
         })
       );
     } catch (err) {
       console.log(err);
     }
-
-    // adds the new task to the ordered tasks array inside of sections
-    async function addTaskOrder() {
-      try {
-        const res = await axios.put(
-          `http://localhost:1337/api/sections/${taskSection}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-            },
-            data: {
-              ordered_tasks: orderedArr,
-            },
-          }
-        );
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      }
-    }
   };
 
+  // adds the new task to the ordered tasks array inside of sections
+  async function addTaskOrder(orderedArr: number[], taskSection: string) {
+    console.log("task section", orderedArr);
+    try {
+      const res = await axios.put(
+        `http://localhost:1337/api/sections/${taskSection}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+          data: {
+            ordered_tasks: orderedArr,
+          },
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // drag and drop functions
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // changes the order of the sections
-  const changeSectionOrder = (id: string, order: number, source: number) => {
-    dispatch(switchSectionOrder({ id: id, order: order, source: source }));
+  const changeSectionOrder = (
+    id: string,
+    destination: number,
+    source: number,
+    orderedArr: number[]
+  ) => {
+    // dispatch(switchSectionOrder({ id: id, order: order, source: source }));
+    orderedArr.splice(source, 1);
+    orderedArr.splice(destination, 0, parseInt(id.replace(/[^0-9]/g, "")));
+    addSectionOrder(orderedArr);
+
+    let sectionsCopy = [...sections];
+    let movedSection = sectionsCopy[source];
+    sectionsCopy.splice(source, 1);
+    sectionsCopy.splice(destination, 0, movedSection);
+    dispatch(setSections(sectionsCopy));
   };
 
   // changes the task section and order within the task object - triggered by drag and drop
-
   const changeTaskPosition = (
     id: string,
-    taskSection: string,
-    order: number,
-    source: string,
-    sourceIndex: number
+    movedTo: string,
+    movedToOrder: number,
+    movedFrom: string,
+    movedFromOrder: number
   ) => {
-    const sameSection = taskSection === source;
-    // const tasksSections = _.cloneDeep(newData!.tasksSections);
+    const sameSection = movedTo === movedFrom;
+    // same section
+    if (sameSection) {
+      // change the projectTasks array
+      let taskSection = projectTasks.find(
+        (sectionObj) => sectionObj.section.toString() === movedTo.slice(1)
+      );
+      let taskArr = [...taskSection!.tasks];
+      let sectionId = taskSection!.section;
+      const movedTask = taskArr[movedFromOrder];
+      taskArr.splice(movedFromOrder, 1);
+      taskArr.splice(movedToOrder, 0, movedTask);
 
-    // if (sameSection) {
-    //   let tasks = tasksSections.find(
-    //     (section) => section.id === taskSection
-    //   )?.tasks;
-    //   tasks?.splice(sourceIndex, 1)[0];
-    //   tasks?.splice(order, 0, id);
-    // }
+      dispatch(
+        setProjectTasks({
+          section: sectionId,
+          tasks: taskArr,
+        })
+      );
+      // change the ordered tasks array and update to the database
+      let ordered_task = orderedTasks.find(
+        (sectionObj) => sectionObj.section.toString() === movedTo.slice(1)
+      );
+      let taskIdArr = [...ordered_task!.tasks];
+      taskIdArr.splice(movedFromOrder, 1);
+      taskIdArr.splice(movedToOrder, 0, parseInt(id.replace(/[^0-9]/g, "")));
+      addTaskOrder(taskIdArr, sectionId);
+      // need to also change the ordered takss and dispatch it
+      dispatch(
+        setOrderedTasks({
+          section: sectionId,
+          tasks: taskIdArr,
+        })
+      );
+    } else if (!sameSection) {
+      // change the projectTasks array
+      // remove from current section
+      let taskSection = projectTasks.find(
+        (sectionObj) => sectionObj.section.toString() === movedFrom.slice(1)
+      );
 
-    // if (!sameSection) {
-    //   let tasks = tasksSections.find((section) => section.id === source)?.tasks;
-    //   tasks?.splice(sourceIndex, 1)[0];
-    //   tasks = tasksSections.find(
-    //     (section) => section.id === taskSection
-    //   )?.tasks;
-    //   tasks?.splice(order, 0, id);
-    // }
-
-    // dispatch(
-    //   switchTaskOrder({
-    //     taskSections: tasksSections,
-    //   })
-    // );
+      let taskArr = [...taskSection!.tasks];
+      let sectionId = taskSection!.section;
+      const movedTask = taskArr[movedFromOrder];
+      taskArr.splice(movedFromOrder, 1);
+      dispatch(
+        setProjectTasks({
+          section: sectionId,
+          tasks: taskArr,
+        })
+      );
+      // add to new section
+      taskSection = projectTasks.find(
+        (sectionObj) => sectionObj.section.toString() === movedTo.slice(1)
+      );
+      taskArr = [...taskSection!.tasks];
+      let newSectionId = taskSection!.section;
+      taskArr.splice(movedToOrder, 0, movedTask);
+      dispatch(
+        setProjectTasks({
+          section: newSectionId,
+          tasks: taskArr,
+        })
+      );
+      // change the ordered tasks array and update to the database
+      // remove from current section
+      let ordered_task = orderedTasks.find(
+        (sectionObj) => sectionObj.section.toString() === movedFrom.slice(1)
+      );
+      let taskIdArr = [...ordered_task!.tasks];
+      taskIdArr.splice(movedFromOrder, 1);
+      addTaskOrder(taskIdArr, sectionId);
+      dispatch(
+        setOrderedTasks({
+          section: sectionId,
+          tasks: taskIdArr,
+        })
+      );
+      // add to new section
+      ordered_task = orderedTasks.find(
+        (sectionObj) => sectionObj.section.toString() === movedTo.slice(1)
+      );
+      taskIdArr = [...ordered_task!.tasks];
+      taskIdArr.splice(movedToOrder, 0, parseInt(id.replace(/[^0-9]/g, "")));
+      addTaskOrder(taskIdArr, newSectionId);
+      dispatch(
+        setOrderedTasks({
+          section: newSectionId,
+          tasks: taskIdArr,
+        })
+      );
+    }
   };
 
   return (
@@ -235,32 +358,10 @@ const Board = () => {
 export default Board;
 
 /*
-  Move a section 
-  Move a task
-
-
-  1) Make api calls and store data from api calls in redux store
-
-  Maybe pass basic project data from outlet using that find method and then make api calls in the board component
-
-
-  1) Get modal working 
-  2) Get drag and drop working
-  3) Have data on database change
-  4) Add a profile page
-  5) Fix styles 
-  6) Test
-
-
-  
-  
-  4) Work on changing that order when a section is moved
-    - First make sure the drag is working on the individual sections and tasks
-    - Then fix up the function to change the order of the sections (changeSectionOrder)
-  5) Work on changing the order of the tasks when a task is moved
-      - fix up the function to change the order of the sections (changeTaskPosition)
-  6) Delete the order part of the task and section objects
-
+ 
+  Make a task object
+      Same as you did with the order
+  Change the tasks from that and dispatch it
 
 
 */
