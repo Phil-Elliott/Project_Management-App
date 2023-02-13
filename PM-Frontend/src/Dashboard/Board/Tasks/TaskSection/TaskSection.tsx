@@ -18,7 +18,6 @@ import { setOrderedTasks, setProjectTasks } from "~/ProjectSlice";
 
 type TaskSectionProps = {
   section: TasksSections;
-  fakeData: ProjectDataProps;
   addNewTask: (name: string, section: string, orderArr: number[]) => void;
   index: number;
   changeModalDisplay: (task: any, id: string) => void;
@@ -26,16 +25,12 @@ type TaskSectionProps = {
 
 const TaskSection = ({
   section,
-  fakeData,
   addNewTask,
   index,
   changeModalDisplay,
 }: TaskSectionProps) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const [orderedArr, setOrderedArr] = useState<number[]>([]);
-  const orderedTasksArr = useSelector(
-    (state: RootState) => state.project.orderedTasks
-  );
   const projectTasks = useSelector(
     (state: RootState) => state.project.projectTasks
   );
@@ -43,6 +38,7 @@ const TaskSection = ({
 
   const dispatch = useDispatch();
 
+  // gets all of the tasks on render
   async function fetchTasks() {
     try {
       const res = await axios.get(

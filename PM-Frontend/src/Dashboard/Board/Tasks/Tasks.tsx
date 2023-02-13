@@ -4,11 +4,10 @@ import TasksSection from "./TaskSection/TaskSection";
 import ScrollContainer from "react-indiana-drag-scroll";
 import "./Tasks.scss";
 
-import { ProjectDataProps, TasksSections } from "~/shared/interfaces/Projects";
+import { TasksSections } from "~/shared/interfaces/Projects";
 import { AddItem } from "~/shared/components";
 
 type TasksProps = {
-  fakeData: ProjectDataProps;
   sections: TasksSections[];
   addNewSection: (name: string, orderedArr: number[]) => void;
   addNewTask: (name: string, section: string, orderedArr: number[]) => void;
@@ -29,7 +28,6 @@ type TasksProps = {
 };
 
 const Tasks = ({
-  fakeData,
   sections,
   addNewSection,
   addNewTask,
@@ -94,7 +92,6 @@ const Tasks = ({
                     <TasksSection
                       key={section.id}
                       section={section}
-                      fakeData={fakeData}
                       addNewTask={addNewTask}
                       index={index}
                       changeModalDisplay={changeModalDisplay}
@@ -118,38 +115,3 @@ const Tasks = ({
 };
 
 export default Tasks;
-
-/*  
-make indiana scroll only work on empty space outside of tasks sections
-
-
-
-for loop 
-    put in order 
-
-    
-    add one to each order after the order of the one you are adding
-    
-    could make a custom hook or function for putting things in order
-    also make a hook for changing the order of all based off of movement
-    
-    
-    
-  fix up the styling for the tasks section
-  fix up the add button at the end 
-  make sure you can scroll left
-  
-  
-  Map through sections and create a taskSection component for each one
-  Need an AddTaskSectionComponent at end
-  Could be a button 
-  Use additem component when it is clicked
-  
-  */
-
-// useEffect(() => {
-//   let sortedArray = sections.slice().sort((a, b) => {
-//     return a.order - b.order;
-//   });
-//   setOrderedSections(sortedArray);
-// }, [sections]);

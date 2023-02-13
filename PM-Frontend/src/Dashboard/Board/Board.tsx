@@ -24,14 +24,14 @@ const Board = () => {
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
 
   const projectData = useSelector((state: RootState) => state.project.project);
-  // const user = useSelector((state: RootState) => state.project.user);
+  const user = useSelector((state: RootState) => state.project.user);
   const users = useSelector((state: RootState) => state.project.projectUsers);
   const sections = useSelector((state: RootState) => state.project.sections);
-  const orderedTasks = useSelector(
-    (state: RootState) => state.project.orderedTasks
-  );
   const projectTasks = useSelector(
     (state: RootState) => state.project.projectTasks
+  );
+  const orderedTasks = useSelector(
+    (state: RootState) => state.project.orderedTasks
   );
 
   const dispatch = useDispatch();
@@ -87,6 +87,7 @@ const Board = () => {
       console.log(err);
     }
   };
+
   // adds the new section order to the project
   async function addSectionOrder(ordered: number[]) {
     try {
@@ -137,6 +138,7 @@ const Board = () => {
       }
     }
   }
+
   // changes the order of the sections
   const changeSectionOrder = (
     id: string,
@@ -163,6 +165,7 @@ const Board = () => {
     projectTasksCopy.splice(destination, 0, movedSectionTasks);
     dispatch(setProjectTasksOrder(projectTasksCopy));
   };
+
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // task functions
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -347,7 +350,6 @@ const Board = () => {
       <NavOptions members={users} />
       <Tasks
         changeSectionOrder={changeSectionOrder}
-        fakeData={projectData}
         sections={sections}
         addNewSection={addNewSection}
         addNewTask={addNewTask}
@@ -375,12 +377,3 @@ const Board = () => {
 };
 
 export default Board;
-
-/*
- 
-  Make a task object
-      Same as you did with the order
-  Change the tasks from that and dispatch it
-
-
-*/

@@ -23,7 +23,7 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
   const user = useSelector((state: RootState) => state.project.user);
 
   // Fetches the data to know if there are comments and if it is being watched by the user
-  async function fetchProject() {
+  async function fetchTask() {
     try {
       const res = await axios.get(
         `http://localhost:1337/api/tasks/${taskData.id}?populate=*`,
@@ -51,7 +51,7 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
   }
 
   useEffect(() => {
-    fetchProject();
+    fetchTask();
   }, [taskData]);
 
   // checks if the task id is in the user's watched tasks
