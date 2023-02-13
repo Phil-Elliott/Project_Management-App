@@ -11,10 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~/Store";
 import {
   addSection,
-  addTask,
-  setChangeOrder,
   setOrderedTasks,
   setProjectTasks,
+  setProjectTasksOrder,
   setSections,
 } from "~/ProjectSlice";
 import axios from "axios";
@@ -24,8 +23,8 @@ const Board = () => {
   const [display, setDisplay] = useState<boolean>(false);
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
 
-  const newData = useSelector((state: RootState) => state.project.project);
-  const user = useSelector((state: RootState) => state.project.user);
+  const projectData = useSelector((state: RootState) => state.project.project);
+  // const user = useSelector((state: RootState) => state.project.user);
   const users = useSelector((state: RootState) => state.project.projectUsers);
   const sections = useSelector((state: RootState) => state.project.sections);
   const orderedTasks = useSelector(
@@ -34,14 +33,12 @@ const Board = () => {
   const projectTasks = useSelector(
     (state: RootState) => state.project.projectTasks
   );
+
   const dispatch = useDispatch();
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // modal functions
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  useEffect(() => {
-    console.log("project tasks", projectTasks);
-  }, [projectTasks]);
 
   // closes modal
   const closeModal = () => {
@@ -74,7 +71,7 @@ const Board = () => {
         data: {
           title: name,
           order: 1,
-          project: newData!.id,
+          project: projectData!.id,
         },
       });
       orderedArr.push(res.data.data.id);
@@ -94,7 +91,7 @@ const Board = () => {
   async function addSectionOrder(ordered: number[]) {
     try {
       const res = await axios.put(
-        `http://localhost:1337/api/projects/${newData!.id}`,
+        `http://localhost:1337/api/projects/${projectData!.id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -114,7 +111,7 @@ const Board = () => {
       try {
         const res = await axios.get(
           `http://localhost:1337/api/projects/${
-            newData!.id
+            projectData!.id
           }?populate=ordered_sections`,
           {
             headers: {
@@ -140,6 +137,35 @@ const Board = () => {
       }
     }
   }
+  // changes the order of the sections
+  const changeSectionOrder = (
+    id: string,
+    destination: number,
+    source: number,
+    orderedArr: number[]
+  ) => {
+    // change order in the database
+    orderedArr.splice(source, 1);
+    orderedArr.splice(destination, 0, parseInt(id.replace(/[^0-9]/g, "")));
+    addSectionOrder(orderedArr);
+
+    // change order in the redux store
+    let sectionsCopy = [...sections];
+    let movedSection = sectionsCopy[source];
+    sectionsCopy.splice(source, 1);
+    sectionsCopy.splice(destination, 0, movedSection);
+    dispatch(setSections(sectionsCopy));
+
+    // change order in the projectTasks array
+    let projectTasksCopy = [...projectTasks];
+    let movedSectionTasks = projectTasksCopy[source];
+    projectTasksCopy.splice(source, 1);
+    projectTasksCopy.splice(destination, 0, movedSectionTasks);
+    dispatch(setProjectTasksOrder(projectTasksCopy));
+  };
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // task functions
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // adds a new task to the section
   const addNewTask = async (
     name: string,
@@ -156,16 +182,31 @@ const Board = () => {
           title: name,
           section: taskSection,
           order: 1,
-          project: newData!.id,
+          project: projectData!.id,
         },
       });
       let taskArr = [...orderedArr];
       taskArr.push(res.data.data.id);
       addTaskOrder(taskArr, taskSection);
+
+      let section = projectTasks.find(
+        (section) => section.section === taskSection.toString()
+      )!;
+      let taskSectionArr = [...section.tasks];
+      taskSectionArr.push({
+        id: res.data.data.id,
+        description: "",
+        title: name,
+        order: 1,
+        priority: "",
+        due: "",
+      });
+
+      // add to projectTasks array
       dispatch(
-        addTask({
-          name: name,
-          tasksSection: taskSection,
+        setProjectTasks({
+          section: section.section,
+          tasks: taskSectionArr,
         })
       );
     } catch (err) {
@@ -192,28 +233,6 @@ const Board = () => {
       console.log(err);
     }
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // drag and drop functions
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  // changes the order of the sections
-  const changeSectionOrder = (
-    id: string,
-    destination: number,
-    source: number,
-    orderedArr: number[]
-  ) => {
-    // dispatch(switchSectionOrder({ id: id, order: order, source: source }));
-    orderedArr.splice(source, 1);
-    orderedArr.splice(destination, 0, parseInt(id.replace(/[^0-9]/g, "")));
-    addSectionOrder(orderedArr);
-
-    let sectionsCopy = [...sections];
-    let movedSection = sectionsCopy[source];
-    sectionsCopy.splice(source, 1);
-    sectionsCopy.splice(destination, 0, movedSection);
-    dispatch(setSections(sectionsCopy));
-  };
 
   // changes the task section and order within the task object - triggered by drag and drop
   const changeTaskPosition = (
@@ -321,14 +340,14 @@ const Board = () => {
     <div
       className={styles.main}
       style={{
-        backgroundImage: `url(${newData.background})`,
-        backgroundColor: newData.background,
+        backgroundImage: `url(${projectData.background})`,
+        backgroundColor: projectData.background,
       }}
     >
       <NavOptions members={users} />
       <Tasks
         changeSectionOrder={changeSectionOrder}
-        fakeData={newData}
+        fakeData={projectData}
         sections={sections}
         addNewSection={addNewSection}
         addNewTask={addNewTask}

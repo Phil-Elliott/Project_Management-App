@@ -62,13 +62,9 @@ const Tasks = ({
     } else if (type === "droppable-item") {
       changeTaskPosition(
         result.draggableId,
-        // section where it is going
         destination.droppableId,
-        // where it is going in the order
         destination.index,
-        // section where it came from
         source.droppableId,
-        // where it came from in the order
         source.index
       );
     }

@@ -40,7 +40,6 @@ const TaskSection = ({
     (state: RootState) => state.project.projectTasks
   );
   const search = useSelector((state: RootState) => state.project.searchQuery);
-  const tasksTest = useSelector((state: RootState) => state.project.tasks);
 
   const dispatch = useDispatch();
 
@@ -82,14 +81,6 @@ const TaskSection = ({
   useEffect(() => {
     fetchTasks();
   }, [section]);
-
-  useEffect(() => {
-    console.log(tasksTest.tasksSection, section.id);
-    let id = section.id.toString();
-    if (tasksTest.tasksSection === id) {
-      fetchTasks();
-    }
-  }, [tasksTest]);
 
   useEffect(() => {
     dispatch(

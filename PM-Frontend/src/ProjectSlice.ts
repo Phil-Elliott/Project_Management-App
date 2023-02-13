@@ -16,9 +16,7 @@ type ProjectState = {
   project: ProjectDataProps;
   projectUsers: User[];
   sections: TasksSections[];
-  tasks: AddTaskProps;
   orderedTasks: OrderedTasks[];
-  changeOrder: ChangeOrderProps;
   projectTasks: ProjectTaskProps[];
 };
 
@@ -344,9 +342,7 @@ const initialState: ProjectState = {
   },
   projectUsers: [],
   sections: [],
-  tasks: { name: " ", tasksSection: " " },
   orderedTasks: [],
-  changeOrder: { change: false, section: "0" },
   projectTasks: [],
 };
 
@@ -387,6 +383,13 @@ export const projectSlice = createSlice({
         state.projectTasks[taskIndex].tasks = action.payload.tasks;
       }
     },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    setProjectTasksOrder: (
+      state,
+      action: PayloadAction<ProjectTaskProps[]>
+    ) => {
+      state.projectTasks = action.payload;
+    },
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setOrderedTasks: (state, action: PayloadAction<OrderedTasks>) => {
@@ -401,13 +404,6 @@ export const projectSlice = createSlice({
         // if section is in array, add task to it
         state.orderedTasks[sectionIndex].tasks = action.payload.tasks;
       }
-    },
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    setChangeOrder: (state, action: PayloadAction<string>) => {
-      state.changeOrder = {
-        change: !state.changeOrder.change,
-        section: action.payload,
-      };
     },
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -441,33 +437,6 @@ export const projectSlice = createSlice({
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     addSection: (state, action: PayloadAction<TasksSections>) => {
       state.sections = [...state.sections, action.payload];
-    },
-    addTask: (state, action: PayloadAction<AddTaskProps>) => {
-      state.tasks = action.payload;
-
-      // creates the new task to be added
-      // const newTask = {
-      //   id: uuid(),
-      //   name: action.payload.name,
-      //   assignedTo: [],
-      //   description: "",
-      //   priority: "Low",
-      //   due: "",
-      //   comments: [],
-      // };
-      // adds the new task to the tasks section
-      // state.projects = state.projects.map((project) => {
-      //   if (project.id === state.selectedProject) {
-      //     project.tasksSections = project.tasksSections.map((section) => {
-      //       if (section.id === action.payload.tasksSection) {
-      //         section.tasks = [...section.tasks, newTask.id];
-      //       }
-      //       return section;
-      //     });
-      //     project.tasks = [...project.tasks, newTask];
-      //   }
-      //   return project;
-      // });
     },
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // drag and drop functions
@@ -599,12 +568,11 @@ export const {
   setProject,
   setProjectUsers,
   setSections,
-  setChangeOrder,
   setProjectTasks,
+  setProjectTasksOrder,
 
   addProject,
   addSection,
-  addTask,
   switchSectionOrder,
   switchTaskOrder,
   updateTask,
