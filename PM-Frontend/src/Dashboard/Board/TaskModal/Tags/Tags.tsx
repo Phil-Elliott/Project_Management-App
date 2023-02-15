@@ -36,7 +36,11 @@ const Tags = ({
         members={members}
         updateMembers={updateTaskData}
       />
-      <Notifications user={user} taskData={taskData} />
+      <Notifications
+        updateTaskData={updateTaskData}
+        user={user}
+        taskData={taskData}
+      />
       <Priority updateTaskData={updateTaskData} priority={taskData.priority} />
       <DueDate updateTaskData={updateTaskData} due={taskData.due} />
     </div>

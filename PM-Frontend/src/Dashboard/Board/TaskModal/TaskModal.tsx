@@ -24,6 +24,7 @@ export type TaskDataProps = {
   priority: string;
   due: string;
   assigned_users: number[];
+  watching_users: number[];
 };
 
 const TaskModal = ({

@@ -48,10 +48,6 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
     }
   }, [taskData]);
 
-  useEffect(() => {
-    console.log(assignedUsers);
-  }, [assignedUsers]);
-
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
