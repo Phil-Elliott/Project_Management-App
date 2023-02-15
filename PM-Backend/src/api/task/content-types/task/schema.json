@@ -45,8 +45,7 @@
     "assigned_users": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "assigned_tasks"
+      "target": "plugin::users-permissions.user"
     },
     "watching_users": {
       "type": "relation",

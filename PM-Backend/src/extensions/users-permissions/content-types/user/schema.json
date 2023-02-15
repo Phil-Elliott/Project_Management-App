@@ -78,12 +78,6 @@
       "target": "api::project.project",
       "mappedBy": "users"
     },
-    "assigned_tasks": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::task.task",
-      "inversedBy": "assigned_users"
-    },
     "watching_tasks": {
       "type": "relation",
       "relation": "manyToOne",

@@ -3,6 +3,7 @@ import styles from "./Priority.module.scss";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import { Popup } from "~/shared/components";
 import { TaskProps } from "~/shared/interfaces/Projects";
+import { TaskDataProps } from "../../TaskModal";
 
 type OptionProps = {
   name: string;
@@ -12,9 +13,9 @@ type OptionProps = {
 
 type PriorityProps = {
   priority: string;
-  updateTaskData: <T extends keyof TaskProps>(
+  updateTaskData: <T extends keyof TaskDataProps>(
     type: T,
-    value: TaskProps[T]
+    value: TaskDataProps[T]
   ) => void;
 };
 

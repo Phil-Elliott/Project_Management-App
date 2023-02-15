@@ -17,6 +17,15 @@ type TaskModalProps = {
   toggleDisableCloseModal: (disable: boolean) => void;
 };
 
+export type TaskDataProps = {
+  id: string;
+  title: string;
+  description: string;
+  priority: string;
+  due: string;
+  assigned_users: number[];
+};
+
 const TaskModal = ({
   user,
   modalTask,
@@ -80,9 +89,9 @@ const TaskModal = ({
   };
 
   // updates the task data based off of user inputs
-  const updateTaskData = async <T extends keyof TaskProps>(
+  const updateTaskData = async <T extends keyof TaskDataProps>(
     type: T,
-    value: TaskProps[T]
+    value: TaskDataProps[T]
   ) => {
     try {
       const res = await axios.put(
@@ -96,7 +105,6 @@ const TaskModal = ({
           },
         }
       );
-      console.log(res, "might have worked");
     } catch (err) {
       console.log(err);
     }
@@ -128,12 +136,12 @@ const TaskModal = ({
             descriptionData={taskData.description}
             updateTaskData={updateTaskData}
           />
-          <Comments
+          {/* <Comments
             taskData={taskData}
             updateTaskData={updateTaskData}
             user={user.username}
             display={display}
-          />
+          /> */}
         </div>
         <div className={styles.left}>
           <Tags

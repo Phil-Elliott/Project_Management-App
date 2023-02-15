@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { TaskProps } from "~/shared/interfaces/Projects";
+import { TaskDataProps } from "../../TaskModal";
 import styles from "./DueDate.module.scss";
 
 type DueDateProps = {
   due: string;
-  updateTaskData: <T extends keyof TaskProps>(
+  updateTaskData: <T extends keyof TaskDataProps>(
     type: T,
-    value: TaskProps[T]
+    value: TaskDataProps[T]
   ) => void;
 };
 

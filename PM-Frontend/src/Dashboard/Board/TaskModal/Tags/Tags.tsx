@@ -4,6 +4,7 @@ import styles from "./Tags.module.scss";
 import { DueDate, Members, Notifications, Priority } from ".";
 
 import { TaskProps, User } from "~/shared/interfaces/Projects";
+import { TaskDataProps } from "../TaskModal";
 
 type UsersProps = {
   attributes: User;
@@ -15,9 +16,9 @@ type TagsProps = {
   taskData: any;
   members: User[];
   updateMembers: (member: string, add: boolean) => void;
-  updateTaskData: <T extends keyof TaskProps>(
+  updateTaskData: <T extends keyof TaskDataProps>(
     type: T,
-    value: TaskProps[T]
+    value: TaskDataProps[T]
   ) => void;
 };
 
@@ -33,7 +34,7 @@ const Tags = ({
       <Members
         taskData={taskData}
         members={members}
-        updateMembers={updateMembers}
+        updateMembers={updateTaskData}
       />
       <Notifications user={user} taskData={taskData} />
       <Priority updateTaskData={updateTaskData} priority={taskData.priority} />

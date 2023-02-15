@@ -6,12 +6,13 @@ import { ModalTaskProps, TaskProps } from "~/shared/interfaces/Projects";
 
 import styles from "./Description.module.scss";
 import { AiOutlineAlignLeft } from "react-icons/ai";
+import { TaskDataProps } from "../TaskModal";
 
 type DescriptionProps = {
   descriptionData: string;
-  updateTaskData: <T extends keyof TaskProps>(
+  updateTaskData: <T extends keyof TaskDataProps>(
     type: T,
-    value: TaskProps[T]
+    value: TaskDataProps[T]
   ) => void;
 };
 
@@ -33,7 +34,6 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
     if (descriptionData === "" || descriptionData === null) {
       setOpenEditor(true);
     } else {
-      console.log("descriptionData", descriptionData);
       setDescriptionValue(descriptionData);
       setOpenEditor(false);
     }

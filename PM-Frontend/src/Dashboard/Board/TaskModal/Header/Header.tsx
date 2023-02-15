@@ -7,6 +7,7 @@ import { TiThLarge } from "react-icons/ti";
 
 import { TaskProps } from "~/shared/interfaces/Projects";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
+import { TaskDataProps } from "../TaskModal";
 
 type HeaderProps = {
   taskData: any;
@@ -14,7 +15,7 @@ type HeaderProps = {
   closeModal: () => void;
   displayConfirm: boolean;
   deleteTask: () => void;
-  updateTaskData: (key: keyof TaskProps, value: any) => void;
+  updateTaskData: (key: keyof TaskDataProps, value: any) => void;
 };
 
 const Header = ({

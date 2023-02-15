@@ -53,15 +53,15 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
     }
   }
 
-  // useEffect(() => {
-  //   console.log(task);
-  // }, [task]);
-
   useEffect(() => {
     fetchTask();
-    console.log(currentTask);
-    console.log(task);
-  }, [taskData, currentTask.closed]);
+  }, [taskData]);
+
+  useEffect(() => {
+    if (currentTask.id === taskData.id) {
+      fetchTask();
+    }
+  }, [currentTask.closed]);
 
   // checks if the task id is in the user's watched tasks
   const isWatched = watching.some((member: any) => member.id === user.id);
