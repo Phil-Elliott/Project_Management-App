@@ -1,0 +1,15 @@
+@use "~/styles" as *;
+
+.main {
+  background-color: $modal-background;
+  border-radius: $border-radius;
+  padding: 1rem;
+  min-height: 80vh;
+  overflow-y: auto;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 3fr 1.5fr;
+  grid-gap: 2rem;
+}

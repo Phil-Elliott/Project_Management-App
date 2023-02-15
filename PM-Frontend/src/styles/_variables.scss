@@ -1,0 +1,40 @@
+// Colors
+//==================================================
+$primary: #1c4e80;
+$secondary: #4cb5f5;
+
+// $primary: #27629c;
+// $secondary: #ff7f50;
+
+$background-color: #dadada;
+$modal-background: #f5f5f5;
+$primary-light: #091e4214;
+$primary-dark: #5e6c84;
+$popup-background: white;
+$border-color: lightgrey;
+$white: white;
+
+//==================================================
+// Box Shadows
+//==================================================
+$box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+$box-shadow-light: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+//==================================================
+// Transitions
+//==================================================
+$transistion-ease: all 0.5s ease-in-out;
+//==================================================
+// Font Sizes
+//==================================================
+$h5: clamp(0.9rem, 1rem, 2vw);
+$small: clamp(0.8rem, 0.9rem, 2vw);
+$med: clamp(0.9rem, 1rem, 2vw);
+
+$title: clamp(1.25rem, 1.25vw, 1.25vw);
+$small-text: 0.8rem;
+//==================================================
+// Other
+//==================================================
+$grid-gap: 1rem;
+$content-padding: 1.25rem;
+$border-radius: 3px;

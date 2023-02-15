@@ -1,0 +1,75 @@
+@use "/src/styles/" as *;
+
+.add-task-btn {
+  width: 17rem;
+
+  button {
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .add-task-btn-add {
+    background-color: transparent;
+    color: gray;
+    @extend %flex-align;
+    width: 100%;
+    padding: 0.5rem 0.5rem;
+
+    .plus-button {
+      margin-right: 1rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    &:hover {
+      background-color: #e6e6e6;
+      color: black;
+    }
+  }
+}
+
+.add-task-form {
+  input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 3px;
+
+    &:focus {
+      outline: blue 1px solid;
+    }
+  }
+
+  .add-task-form-btns {
+    width: 100%;
+    @extend %flex-between;
+
+    button {
+      font-size: 1rem;
+      width: auto;
+    }
+    .add-task-form-btns-add {
+      background-color: blue;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      &:hover {
+        background-color: #1a73e8;
+      }
+    }
+
+    .add-task-form-btns-cancel {
+      background-color: transparent;
+      color: gray;
+      &:hover {
+        color: black;
+      }
+    }
+  }
+}

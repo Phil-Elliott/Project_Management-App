@@ -1,0 +1,44 @@
+@use "~/styles" as *;
+
+.main {
+  // margin-top: 1.5rem;
+  // margin-left: 0.25rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .icon {
+    margin-right: 0.5rem;
+    color: $primary-dark;
+  }
+
+  h3 {
+    font-size: 1rem;
+    // margin-bottom: 1rem;
+  }
+}
+
+.quill {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  background-color: white;
+  max-width: 100%;
+  word-break: break-all;
+  margin-left: 1.5rem;
+}
+
+.description-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  margin-left: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.buttons {
+  margin-left: 1.5rem;
+}

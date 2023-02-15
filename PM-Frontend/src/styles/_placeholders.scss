@@ -1,0 +1,53 @@
+@use "variables.scss" as *;
+
+//==================================================
+// Flex
+//==================================================
+%flex-align {
+  display: flex;
+  align-items: center;
+}
+
+%flex-align-wrap {
+  @extend %flex-align;
+  flex-wrap: wrap;
+}
+
+%flex-between {
+  @extend %flex-align;
+  justify-content: space-between;
+}
+
+%flex-between-column {
+  @extend %flex-between;
+  flex-direction: column;
+}
+
+%flex-center {
+  @extend %flex-align;
+  justify-content: center;
+}
+
+%center {
+  @extend %flex-align;
+  justify-content: center;
+}
+
+%flex-column {
+  @extend %flex-align;
+  flex-direction: column;
+}
+
+//==================================================
+// Modal
+//==================================================
+%modalItem {
+  @extend %flex-align;
+  font-size: $med;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-light;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  background-color: $primary-light;
+  width: 100%;
+}

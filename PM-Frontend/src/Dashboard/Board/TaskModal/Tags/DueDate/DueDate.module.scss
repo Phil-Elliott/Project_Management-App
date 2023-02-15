@@ -1,0 +1,32 @@
+@use "/src/styles/" as *;
+
+.main {
+  margin-bottom: 1rem;
+
+  h5 {
+    @include h5($primary-dark);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .content {
+    // @extend %modalItem;
+    // padding: 0.5rem;
+    // background-color: $primary-light;
+
+    input {
+      padding: 0.5rem;
+      outline: none;
+      color: black;
+      @extend %flex-align;
+      font-size: $med;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow-light;
+      margin-top: 0.5rem;
+      cursor: pointer;
+      background-color: $primary-light;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+  }
+}

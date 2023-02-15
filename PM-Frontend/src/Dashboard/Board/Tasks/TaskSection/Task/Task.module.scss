@@ -1,0 +1,41 @@
+@use "~/styles" as *;
+
+.main {
+  font-size: 0.8rem;
+  font-weight: 500;
+  background-color: white;
+  border-radius: $border-radius;
+  padding: 0.5rem 0.5rem;
+  box-shadow: $box-shadow-light;
+  cursor: pointer;
+  margin-top: 0.75rem;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  .name {
+    word-break: break-all;
+    font-weight: 600;
+  }
+}
+
+.bottom {
+  @extend %flex-between;
+  align-items: center;
+  margin-top: 0.5rem;
+
+  .bottom-left {
+    display: flex;
+
+    .icon {
+      margin-right: 0.75rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+  }
+
+  .bottom-right {
+    display: flex;
+  }
+}

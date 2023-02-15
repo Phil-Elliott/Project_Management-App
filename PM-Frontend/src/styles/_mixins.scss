@@ -1,0 +1,39 @@
+@use "variables.scss" as *;
+
+@mixin popup {
+  position: absolute;
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+  width: 100%;
+  z-index: 1000;
+  background-color: $popup-background;
+}
+
+@mixin icon($size, $margin) {
+  font-size: $size;
+  font-weight: 500;
+  margin-left: $margin;
+}
+
+@mixin textBox($margin) {
+  @extend %flex-between;
+  background-color: $primary-light;
+  box-shadow: $box-shadow-light;
+  opacity: 0.8;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  margin: $margin;
+  border-radius: $border-radius;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+//==================================================
+// Typography
+//==================================================
+@mixin h5($color) {
+  font-size: $h5;
+  font-weight: 600;
+  color: $color;
+}

@@ -1,0 +1,23 @@
+@use "src/styles" as *;
+
+.card {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: $box-shadow-light;
+
+  @extend %flex-between;
+
+  padding: 0.5rem 1rem;
+  // padding-bottom: 8rem;
+  border-radius: $border-radius;
+  color: white;
+  cursor: pointer;
+  height: 16vh;
+  width: 100%;
+
+  h1 {
+    align-self: baseline;
+    font-size: $title;
+  }
+}

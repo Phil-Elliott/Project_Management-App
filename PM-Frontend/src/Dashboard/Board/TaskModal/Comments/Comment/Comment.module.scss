@@ -1,0 +1,26 @@
+.main {
+  display: flex;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.user {
+  margin-right: 0.5rem;
+}
+
+.comment-container {
+  //   display: flex;
+  //   flex-direction: column;
+  //   width: 100%;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .name {
+    font-weight: 600;
+    margin-right: 10px;
+  }
+}
