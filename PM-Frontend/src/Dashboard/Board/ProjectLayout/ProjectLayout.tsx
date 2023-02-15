@@ -9,7 +9,12 @@ import { ProjectDataProps } from "~/shared/interfaces/Projects";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { setProject, setProjectUsers, setSections } from "~/ProjectSlice";
+import {
+  setRefresh,
+  setProject,
+  setProjectUsers,
+  setSections,
+} from "~/ProjectSlice";
 
 export function ProjectLayout() {
   const { id } = useParams();
@@ -26,6 +31,7 @@ export function ProjectLayout() {
           },
         }
       );
+      dispatch(setRefresh());
       dispatch(
         setProject({
           id: id,

@@ -13,7 +13,7 @@ type UsersProps = {
 type TagsProps = {
   user: User;
   taskData: any;
-  members: UsersProps[];
+  members: User[];
   updateMembers: (member: string, add: boolean) => void;
   updateTaskData: <T extends keyof TaskProps>(
     type: T,

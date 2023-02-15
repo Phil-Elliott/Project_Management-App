@@ -12,7 +12,7 @@ type UsersProps = {
 
 type MemberProps = {
   taskData: any;
-  members: UsersProps[];
+  members: User[];
   updateMembers: (member: string, add: boolean) => void;
 };
 
@@ -30,19 +30,18 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
       <div className={styles["members-content"]}>
         <div className={styles["members-selected"]}>
           {members.map((member) => {
-            let image = member.attributes.avatar;
+            let image = member.avatar;
             if (image === null) {
-              image = member.attributes.username[0].toUpperCase();
+              image = member.username[0].toUpperCase();
             }
             return (
               <div
+                key={member.username}
                 className={styles.member}
                 // onClick={() => updateMembers(member, false)}
               >
                 <Avatar avatar={image} size="med" />
-                <p className={styles["member-name"]}>
-                  {member.attributes.username}
-                </p>
+                <p className={styles["member-name"]}>{member.username}</p>
                 <FaTimes className={styles["cross-icon"]} />
               </div>
             );
@@ -68,13 +67,11 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
               if (taskData.assignedTo.includes(member)) {
                 return null;
               } else if (
-                member.attributes.username
-                  .toLowerCase()
-                  .includes(search.toLowerCase())
+                member.username.toLowerCase().includes(search.toLowerCase())
               ) {
-                let image = member.attributes.avatar;
+                let image = member.avatar;
                 if (image === null) {
-                  image = member.attributes.username[0].toUpperCase();
+                  image = member.username[0].toUpperCase();
                 }
                 return (
                   <div
@@ -85,9 +82,7 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
                     }}
                   >
                     <Avatar avatar={image} size="med" />
-                    <p className={styles["member-name"]}>
-                      {member.attributes.username}
-                    </p>
+                    <p className={styles["member-name"]}>{member.username}</p>
                   </div>
                 );
               }

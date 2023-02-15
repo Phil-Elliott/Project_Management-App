@@ -17,7 +17,7 @@ type DescriptionProps = {
 
 const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
   const [descriptionValue, setDescriptionValue] = useState("");
-  const [openEditor, setOpenEditor] = useState(false);
+  const [openEditor, setOpenEditor] = useState(true);
 
   const handleSave = () => {
     updateTaskData("description", descriptionValue);
@@ -30,10 +30,10 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
   };
 
   useEffect(() => {
-    if (descriptionData === "") {
-      setDescriptionValue("<p>Enter description</p>");
+    if (descriptionData === "" || descriptionData === null) {
       setOpenEditor(true);
     } else {
+      console.log("descriptionData", descriptionData);
       setDescriptionValue(descriptionData);
       setOpenEditor(false);
     }
@@ -52,6 +52,7 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
             theme="snow"
             value={descriptionValue}
             onChange={setDescriptionValue}
+            placeholder="Enter description"
           />
           <div className={styles.buttons}>
             <Button space={true} variant={"primary"} handleClick={handleSave}>
@@ -66,8 +67,14 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
         <div
           className={styles["description-container"]}
           onClick={() => setOpenEditor(true)}
-          dangerouslySetInnerHTML={{ __html: descriptionValue }}
-        ></div>
+          // dangerouslySetInnerHTML={{ __html: descriptionValue }}
+        >
+          {descriptionValue ? (
+            <div dangerouslySetInnerHTML={{ __html: descriptionValue }} />
+          ) : (
+            <p>Enter description</p>
+          )}
+        </div>
       )}
     </div>
   );

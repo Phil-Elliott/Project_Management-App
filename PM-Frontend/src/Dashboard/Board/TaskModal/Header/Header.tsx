@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDebounce } from "usehooks-ts";
+
+import styles from "./Header.module.scss";
 import { FaTimes, FaRegTrashAlt } from "react-icons/fa";
+import { TiThLarge } from "react-icons/ti";
+
 import { TaskProps } from "~/shared/interfaces/Projects";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
-import styles from "./Header.module.scss";
-import { TiThLarge } from "react-icons/ti";
 
 type HeaderProps = {
   taskData: any;
@@ -22,7 +25,21 @@ const Header = ({
   deleteTask,
   updateTaskData,
 }: HeaderProps) => {
-  // console.log(taskData.task.title);
+  const [title, setTitle] = useState<string>("");
+  const debouncedValue = useDebounce<string>(title, 1000);
+
+  useEffect(() => {
+    setTitle(taskData.title);
+  }, [taskData]);
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTitle(e.target.value);
+    updateTaskData("title", e.target.value);
+  };
+
+  useEffect(() => {
+    updateTaskData("title", title);
+  }, [debouncedValue]);
 
   return (
     <div className={styles.main}>
@@ -30,8 +47,8 @@ const Header = ({
         <TiThLarge className={styles.icon} />
         <textarea
           rows={1}
-          value={taskData.title}
-          // onChange={(e) => updateTaskData("name", e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </div>
       <div className={styles.right}>
@@ -51,3 +68,8 @@ const Header = ({
 };
 
 export default Header;
+
+/*
+   use a debounce or an outside click to update api
+
+*/

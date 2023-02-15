@@ -27,7 +27,11 @@ const DueDate = ({ due, updateTaskData }: DueDateProps) => {
     <div className={styles.main}>
       <h5>Due Date</h5>
       <div className={styles.content}>
-        <input type="date" value={due} onChange={(e) => handleChange(e)} />
+        <input
+          type="date"
+          value={due ? due : ""}
+          onChange={(e) => handleChange(e)}
+        />
       </div>
     </div>
   );

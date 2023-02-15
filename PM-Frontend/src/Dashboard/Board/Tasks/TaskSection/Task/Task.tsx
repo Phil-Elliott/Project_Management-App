@@ -18,9 +18,12 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
   const [comments, setComments] = useState<any>([]);
   const [watching, setWatching] = useState<any>([]);
   const [assigned, setAssigned] = useState<any>([]);
-  // const [task, setTask] = useState<any>();
+  const [task, setTask] = useState<any>();
 
   const user = useSelector((state: RootState) => state.project.user);
+  const currentTask = useSelector(
+    (state: RootState) => state.project.currentTask
+  );
 
   // Fetches the data to know if there are comments and if it is being watched by the user
   async function fetchTask() {
@@ -33,7 +36,7 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
           },
         }
       );
-      // setTask(res.data.data.attributes);
+      setTask(res.data.data.attributes);
       setComments(res.data.data.attributes.comments.data);
       setWatching(res.data.data.attributes.watching_users.data);
       setAssigned(
@@ -50,9 +53,15 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
     }
   }
 
+  // useEffect(() => {
+  //   console.log(task);
+  // }, [task]);
+
   useEffect(() => {
     fetchTask();
-  }, [taskData]);
+    console.log(currentTask);
+    console.log(task);
+  }, [taskData, currentTask.closed]);
 
   // checks if the task id is in the user's watched tasks
   const isWatched = watching.some((member: any) => member.id === user.id);
@@ -69,9 +78,9 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          // onClick={() => changeModalDisplay(task)}
+          onClick={() => changeModalDisplay(task, taskData.id)}
         >
-          <p className={styles.name}>{taskData.title}</p>
+          <p className={styles.name}>{task && task.title}</p>
           <div className={styles.bottom}>
             <div className={styles["bottom-left"]}>
               {isWatched && <FaEye className={styles.icon} />}

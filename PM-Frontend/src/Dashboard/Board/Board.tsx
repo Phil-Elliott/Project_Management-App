@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import styles from "./Board.module.scss";
-
-import { TaskProps } from "~/shared/interfaces/Projects";
 import _ from "lodash";
 
 import { NavOptions, TaskModal, Tasks, useProject } from ".";
@@ -11,12 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~/Store";
 import {
   addSection,
+  setCurrentTask,
   setOrderedTasks,
   setProjectTasks,
   setProjectTasksOrder,
   setSections,
 } from "~/ProjectSlice";
 import axios from "axios";
+import { TaskProps } from "~/shared/interfaces/Projects";
 
 const Board = () => {
   const [modalTask, setModalTask] = useState<any>();
@@ -42,11 +42,12 @@ const Board = () => {
 
   // closes modal
   const closeModal = () => {
+    dispatch(setCurrentTask(""));
     setDisplay(false);
   };
 
   // displays the modal
-  const changeModalDisplay = (task: any, id: string) => {
+  const changeModalDisplay = (task: TaskProps, id: string) => {
     setModalTask({ task, id });
     setDisplay(!display);
   };
@@ -188,9 +189,12 @@ const Board = () => {
           project: projectData!.id,
         },
       });
-      let taskArr = [...orderedArr];
-      taskArr.push(res.data.data.id);
-      addTaskOrder(taskArr, taskSection);
+      let ordered_task = orderedTasks.find(
+        (sectionObj) => sectionObj.section.toString() === taskSection.toString()
+      );
+      let taskIdArr = [...ordered_task!.tasks];
+      taskIdArr.push(res.data.data.id);
+      addTaskOrder(taskIdArr, taskSection);
 
       let section = projectTasks.find(
         (section) => section.section === taskSection.toString()
@@ -210,6 +214,14 @@ const Board = () => {
         setProjectTasks({
           section: section.section,
           tasks: taskSectionArr,
+        })
+      );
+
+      // add to orderedTasks
+      dispatch(
+        setOrderedTasks({
+          section: section.section,
+          tasks: taskIdArr,
         })
       );
     } catch (err) {
@@ -356,7 +368,7 @@ const Board = () => {
         changeTaskPosition={changeTaskPosition}
         changeModalDisplay={changeModalDisplay}
       />
-      {/* {modalTask && (
+      {modalTask && (
         <Modal
           display={display}
           closeModal={closeModal}
@@ -371,7 +383,7 @@ const Board = () => {
             toggleDisableCloseModal={toggleDisableCloseModal}
           />
         </Modal>
-      )} */}
+      )}
     </div>
   );
 };

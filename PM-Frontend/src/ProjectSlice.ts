@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 import _ from "lodash";
-import uuid from "react-uuid";
 import {
   ProjectDataProps,
   TaskProps,
@@ -18,6 +17,12 @@ type ProjectState = {
   sections: TasksSections[];
   orderedTasks: OrderedTasks[];
   projectTasks: ProjectTaskProps[];
+  currentTask: currentTaskProps;
+};
+
+type currentTaskProps = {
+  id: string;
+  closed: boolean;
 };
 
 type ProjectTaskProps = {
@@ -25,19 +30,9 @@ type ProjectTaskProps = {
   tasks: TaskProps[];
 };
 
-type ChangeOrderProps = {
-  change: boolean;
-  section: string;
-};
-
 type OrderedTasks = {
   section: string;
   tasks: number[];
-};
-
-type AddTaskProps = {
-  name: string;
-  tasksSection: string;
 };
 
 type SwitchSectionOrderProps = {
@@ -53,6 +48,11 @@ type SwitchTaskOrderProps = {
 type AddProjectProps = {
   name: string;
   background: string;
+};
+
+type DeleteTaskProps = {
+  section: string;
+  taskId: string;
 };
 
 /*
@@ -110,6 +110,10 @@ const initialState: ProjectState = {
   sections: [],
   orderedTasks: [],
   projectTasks: [],
+  currentTask: {
+    id: "",
+    closed: false,
+  },
 };
 
 export const projectSlice = createSlice({
@@ -122,6 +126,11 @@ export const projectSlice = createSlice({
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setProjects: (state, action: PayloadAction<ProjectDataProps[]>) => {
       state.projects = action.payload;
+    },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    setRefresh(state) {
+      state.orderedTasks = [];
+      state.projectTasks = [];
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setProject: (state, action: PayloadAction<ProjectDataProps>) => {
@@ -170,6 +179,13 @@ export const projectSlice = createSlice({
         // if section is in array, add task to it
         state.orderedTasks[sectionIndex].tasks = action.payload.tasks;
       }
+    },
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    setCurrentTask: (state, action: PayloadAction<string>) => {
+      action.payload !== ""
+        ? (state.currentTask.id = action.payload)
+        : (state.currentTask.closed = !state.currentTask.closed);
     },
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -288,19 +304,28 @@ export const projectSlice = createSlice({
       //   }),
       // };
     },
-    deleteTask: (state, action: PayloadAction<string>) => {
-      // state.projects = state.projects.map((project) => {
-      // if (project.id === state.selectedProject) {
-      //   project.tasks = project.tasks.filter(
-      //     (task) => task.id !== action.payload
-      //   );
-      // }
-      // return project;
-      // });
-      // state.project = {
-      //   ...state.project,
-      //   tasks: state.project.tasks.filter((task) => task.id !== action.payload),
-      // };
+    deleteTask: (state, action: PayloadAction<DeleteTaskProps>) => {
+      console.log(action.payload);
+      // delete from projectTasks
+      state.projectTasks = state.projectTasks.map((section) => {
+        if (section.section === action.payload.section.toString()) {
+          console.log(section.section, action.payload.section.toString());
+          section.tasks = section.tasks.filter(
+            (task) => task.id !== action.payload.taskId
+          );
+        }
+
+        return section;
+      });
+
+      // delete from orderedTasks
+      let numberId = parseInt(action.payload.taskId);
+      state.orderedTasks = state.orderedTasks.map((section) => {
+        if (section.section === action.payload.section.toString()) {
+          section.tasks = section.tasks.filter((task) => task !== numberId);
+        }
+        return section;
+      });
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Watching Functions
@@ -334,6 +359,8 @@ export const {
   setProject,
   setProjectUsers,
   setSections,
+  setRefresh,
+  setCurrentTask,
 
   setProjectTasks,
   setProjectTasksOrder,
