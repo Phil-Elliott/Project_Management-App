@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import styles from "./Priority.module.scss";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import { Popup } from "~/shared/components";
-import { TaskProps } from "~/shared/interfaces/Projects";
 import { TaskDataProps } from "../../TaskModal";
 
 type OptionProps = {

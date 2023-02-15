@@ -4,25 +4,24 @@ import { TaskDataProps } from "../../TaskModal";
 import styles from "./DueDate.module.scss";
 
 type DueDateProps = {
-  due: string;
+  taskData: any;
   updateTaskData: <T extends keyof TaskDataProps>(
     type: T,
     value: TaskDataProps[T]
   ) => void;
 };
 
-const DueDate = ({ due, updateTaskData }: DueDateProps) => {
-  const [date, setDate] = useState<string | null>(null);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(e.target.value);
-  };
+const DueDate = ({ taskData, updateTaskData }: DueDateProps) => {
+  const [date, setDate] = useState<string>("");
 
   useEffect(() => {
-    if (date) {
-      updateTaskData("due", date);
-    }
-  }, [date]);
+    setDate(taskData.due);
+  }, [taskData]);
+
+  const handleDateChange = (e: any) => {
+    setDate(e);
+    updateTaskData("due", e);
+  };
 
   return (
     <div className={styles.main}>
@@ -30,8 +29,8 @@ const DueDate = ({ due, updateTaskData }: DueDateProps) => {
       <div className={styles.content}>
         <input
           type="date"
-          value={due ? due : ""}
-          onChange={(e) => handleChange(e)}
+          value={date ? date : ""}
+          onChange={(e) => handleDateChange(e.target.value)}
         />
       </div>
     </div>

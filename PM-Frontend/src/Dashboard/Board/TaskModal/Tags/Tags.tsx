@@ -42,7 +42,7 @@ const Tags = ({
         taskData={taskData}
       />
       <Priority updateTaskData={updateTaskData} priority={taskData.priority} />
-      <DueDate updateTaskData={updateTaskData} due={taskData.due} />
+      <DueDate updateTaskData={updateTaskData} taskData={taskData} />
     </div>
   );
 };
