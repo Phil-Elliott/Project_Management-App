@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TaskProps, User } from "~/shared/interfaces/Projects";
+import { User } from "~/shared/interfaces/Projects";
 import styles from "./TaskModal.module.scss";
 
 import { Comments, Description, Header, Tags } from ".";
@@ -75,20 +75,6 @@ const TaskModal = ({
     }
   };
 
-  // updates the members assigned to the task
-  const updateMembers = async (member: string, add: boolean) => {
-    // setTaskData((prevTaskData) => {
-    //   return {
-    //     ...prevTaskData,
-    //     assignedTo: add
-    //       ? [...prevTaskData.assignedTo, member]
-    //       : prevTaskData.assignedTo.filter(
-    //           (memberName: string) => memberName !== member
-    //         ),
-    //   };
-    // });
-  };
-
   // updates the task data based off of user inputs
   const updateTaskData = async <T extends keyof TaskDataProps>(
     type: T,
@@ -110,6 +96,23 @@ const TaskModal = ({
       console.log(err);
     }
   };
+
+  // updates comments data when something is done in comments
+  async function fetchTask() {
+    try {
+      const res = await axios.get(
+        `http://localhost:1337/api/tasks/${modalTask.id}?populate=*`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      );
+      setTaskData(res.data.data.attributes);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   // changes the input data when a new task is selected
   useEffect(() => {
@@ -137,19 +140,20 @@ const TaskModal = ({
             descriptionData={taskData.description}
             updateTaskData={updateTaskData}
           />
-          {/* <Comments
+          <Comments
             taskData={taskData}
             updateTaskData={updateTaskData}
-            user={user.username}
+            user={user}
             display={display}
-          /> */}
+            id={modalTask.id}
+            fetchTask={fetchTask}
+          />
         </div>
         <div className={styles.left}>
           <Tags
             user={user}
             taskData={taskData}
             members={members}
-            updateMembers={updateMembers}
             updateTaskData={updateTaskData}
           />
         </div>

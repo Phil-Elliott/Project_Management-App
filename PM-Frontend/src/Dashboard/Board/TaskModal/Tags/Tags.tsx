@@ -15,20 +15,13 @@ type TagsProps = {
   user: User;
   taskData: any;
   members: User[];
-  updateMembers: (member: string, add: boolean) => void;
   updateTaskData: <T extends keyof TaskDataProps>(
     type: T,
     value: TaskDataProps[T]
   ) => void;
 };
 
-const Tags = ({
-  user,
-  taskData,
-  members,
-  updateMembers,
-  updateTaskData,
-}: TagsProps) => {
+const Tags = ({ user, taskData, members, updateTaskData }: TagsProps) => {
   return (
     <div className={styles.main}>
       <Members

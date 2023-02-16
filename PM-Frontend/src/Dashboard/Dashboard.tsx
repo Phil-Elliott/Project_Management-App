@@ -104,21 +104,21 @@ export default Dashboard;
 
 /*
   
-  1) Handle the main hub
-         1) Grab projects data and user data and set in the redux store
-         2) Be able to create a project and add to redux store
+  1) Board
+    - Finish comment section
+    - Add (change name and delete section for sections elipsis)
+    - Add project settings (delete project, change name, change background)
+    - Add filter functionality
+    - add invite members functionality
+    - Fix all styles
 
-              - Look at using redux thunk to handle async actions (database and then redux store)
+  2) User profile
+    - Make a modal for editing the user profile (change name, change avatar, change password, change username, delete account)
 
-  2) Handle the board
-          1) Grab and display everything in the board
-          2) Start adding functionality to the board
+  3) Stylings
+    - add loader screens
+    - Fix signin and signup pages
 
-  3) User profile
-    - Make a page for editing the user profile or maybe just a modal
-
-
-
-    -airtutors
+    
 
 */
