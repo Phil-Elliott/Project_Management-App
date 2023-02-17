@@ -3,4 +3,5 @@
 .main {
   @include popup;
   margin-top: 0.5rem;
+  z-index: 1;
 }

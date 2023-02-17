@@ -18,6 +18,7 @@ import {
 } from "~/ProjectSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ConfirmModal from "~/shared/components/ConfirmModal/ConfirmModal";
 
 type SettingsProps = {
   projectData: ProjectDataProps;
@@ -34,9 +35,23 @@ const Settings = ({ projectData }: SettingsProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [attempted, setAttempted] = useState<boolean>(false);
 
+  const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
+  const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  // disables ability to close modal when clicked outside of modal (when confirm modal is open)
+  const toggleDisableCloseModal = (disable: boolean) => {
+    setDisableCloseModal(disable);
+  };
+
+  // toggles the confirm modal
+  const toggleDeleteModal = () => {
+    setDisplayConfirm(!displayConfirm);
+    toggleDisableCloseModal(!displayConfirm);
+  };
 
   function handleClick() {
     setDisplay(true);
@@ -57,6 +72,7 @@ const Settings = ({ projectData }: SettingsProps) => {
   }, [display]);
 
   const reset = () => {
+    if (disableCloseModal) return;
     setDisplay(false);
     setTitle("");
     setBackgroundState("");
@@ -214,7 +230,7 @@ const Settings = ({ projectData }: SettingsProps) => {
               <Button
                 widthFull
                 variant="danger"
-                handleClick={() => handleDeleteBoard()}
+                handleClick={() => toggleDeleteModal()}
               >
                 Delete
               </Button>
@@ -222,6 +238,11 @@ const Settings = ({ projectData }: SettingsProps) => {
           </Popup>
         )}
       </div>
+      <ConfirmModal
+        display={displayConfirm}
+        closeModal={toggleDeleteModal}
+        deleteTask={handleDeleteBoard}
+      />
     </div>
   );
 };
@@ -229,6 +250,12 @@ const Settings = ({ projectData }: SettingsProps) => {
 export default Settings;
 
 /*
+  Maybe can you use same confirm modal when deleting
+  Make it a shared component
+
+
+
+
   1) Get update board to work
   2) Get delete board to work
   3) Have the image highlight if active

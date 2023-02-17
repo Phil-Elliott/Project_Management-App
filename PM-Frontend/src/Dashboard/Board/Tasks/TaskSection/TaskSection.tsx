@@ -148,44 +148,14 @@ const TaskSection = ({
 
 export default TaskSection;
 
-// let sortedArray = tasks.slice().sort((a, b) => {
-//   return a.order - b.order;
-// });
-// setOrderedTasks(sortedArray);
-// console.log(orderedTasks);
-// useEffect(() => {
-//   console.log(tasks);
-// }, [tasks]);
+/*
 
-// useEffect(() => {
-//   setOrderedTasks(
-//     section.tasks
-//       .map((task) => {
-//         return fakeData.tasks.find((t) => t.id === task);
-//       })
-//       .filter((task) => task !== undefined) as TaskProps[]
-//   );
-// }, [section, section.tasks, fakeData]);
+  Elipsis
+     1) Rename Section (Maybe just click on it to rename) and rename button does it for you
+     2) Delete Section
+    //  3) Sort Section
+    //  4) Watch Section
 
-// // sort tasks by orderedTasksArr
-// function sortTasks() {
-//   console.log("sort tasks");
-//   let id = section.id.toString();
 
-//   let sectionOrder = orderedTasksArr.find(
-//     (section) => section.section === id
-//   );
 
-//   if (sectionOrder) {
-//     console.log("sort");
-//     let sortedArray = tasks.slice().sort((a, b) => {
-//       return (
-//         sectionOrder!.tasks.indexOf(parseInt(a.id)) -
-//         sectionOrder!.tasks.indexOf(parseInt(b.id))
-//       );
-//     });
-//     setTasks(sortedArray);
-//   } else {
-//     console.log("other section");
-//   }
-// }
+*/

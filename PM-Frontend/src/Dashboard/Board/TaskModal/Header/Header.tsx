@@ -6,8 +6,9 @@ import { FaTimes, FaRegTrashAlt } from "react-icons/fa";
 import { TiThLarge } from "react-icons/ti";
 
 import { TaskProps } from "~/shared/interfaces/Projects";
-import ConfirmModal from "../ConfirmModal/ConfirmModal";
+
 import { TaskDataProps } from "../TaskModal";
+import ConfirmModal from "~/shared/components/ConfirmModal/ConfirmModal";
 
 type HeaderProps = {
   taskData: any;
@@ -32,11 +33,6 @@ const Header = ({
   useEffect(() => {
     setTitle(taskData.title);
   }, [taskData]);
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTitle(e.target.value);
-    updateTaskData("title", e.target.value);
-  };
 
   useEffect(() => {
     updateTaskData("title", title);
