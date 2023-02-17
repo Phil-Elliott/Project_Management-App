@@ -5,7 +5,6 @@ import CommentData from "./Comment/Comment";
 import styles from "./Comments.module.scss";
 import { MdInsertComment } from "react-icons/md";
 
-import uuid from "react-uuid";
 import moment from "moment";
 import { TaskProps, User } from "~/shared/interfaces/Projects";
 import { TaskDataProps } from "../TaskModal";
@@ -112,6 +111,8 @@ const Comments = ({
     image = user.username[0].toUpperCase();
   }
 
+  // change the order of the comments. last one first
+
   return (
     <div className={styles.main}>
       <div className={styles.header}>
@@ -145,7 +146,7 @@ const Comments = ({
         </div>
       ) : null}
       <div className={styles.comments}>
-        {taskData.comments?.data.map((comment: any) => {
+        {taskData.comments?.data.reverse().map((comment: any) => {
           return (
             <CommentData
               comment={comment}
@@ -166,17 +167,6 @@ export default Comments;
 /*
   2) Have comment get updated in the database
 
-
-  1) Get the data right
-        - if today (show time and Today)
-        - if yesterday (show time and Yesterday)
-        - everything else just show date and time
-
-        How can i show time based on users location?
-
-        Could also show if it was edited
-
-  2) Have an edit and delete button for your own comments
   3) Have a reply button for other comments (just puts you into input with @username)
   4) Add things to comment box
         mention a member

@@ -32,6 +32,7 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
 
   useEffect(() => {
     if (descriptionData === "" || descriptionData === null) {
+      setDescriptionValue("");
       setOpenEditor(true);
     } else {
       setDescriptionValue(descriptionData);
@@ -67,7 +68,6 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
         <div
           className={styles["description-container"]}
           onClick={() => setOpenEditor(true)}
-          // dangerouslySetInnerHTML={{ __html: descriptionValue }}
         >
           {descriptionValue ? (
             <div dangerouslySetInnerHTML={{ __html: descriptionValue }} />

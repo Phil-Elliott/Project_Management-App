@@ -9,15 +9,16 @@ import { User } from "~/shared/interfaces/Projects";
 
 type NavOptionsProps = {
   members: User[];
+  projectId: string;
 };
 
-const NavOptions = ({ members }: NavOptionsProps) => {
+const NavOptions = ({ members, projectId }: NavOptionsProps) => {
   return (
     <div className={styles.main}>
       {/* <div className={styles.left}> */}
       <Search />
       {members && <Members members={members} />}
-      <Invite />
+      <Invite members={members} projectId={projectId} />
       <Filter />
       {/* </div> */}
       <div className={styles.right}>

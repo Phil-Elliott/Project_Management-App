@@ -46,8 +46,18 @@ const CommentData = ({
     image = user.username[0].toUpperCase();
   }
 
-  // convert the date to a mm/dd/yyyy format
-  const date = moment(comment.attributes.publishedAt).format("MMM Do YYYY");
+  // convert the date to a mm/dd/yyyy format and show the time it was done from this 2023-02-16T04:19:40.734Z
+  // const date = moment(comment.attributes.publishedAt).format("MMM Do YYYY");
+  let date = moment(comment.attributes.createdAt).fromNow();
+
+  // checks if the createdAt date is older than the publishedAt date
+  let wasEdited =
+    moment(comment.attributes.publishedAt) >
+    moment(comment.attributes.createdAt);
+
+  if (wasEdited) {
+    date = `${date} (edited)`;
+  }
 
   return (
     <div className={styles.main}>
