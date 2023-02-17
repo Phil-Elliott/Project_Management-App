@@ -359,7 +359,11 @@ const Board = () => {
         backgroundColor: projectData.background,
       }}
     >
-      <NavOptions members={users} projectId={projectData.id} />
+      <NavOptions
+        members={users}
+        projectId={projectData.id}
+        projectData={projectData}
+      />
       <Tasks
         changeSectionOrder={changeSectionOrder}
         sections={sections}

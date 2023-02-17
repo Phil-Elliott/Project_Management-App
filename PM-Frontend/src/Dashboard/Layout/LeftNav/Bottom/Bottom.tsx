@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Bottom.module.scss";
 import { FaAngleDown } from "react-icons/fa";
 
@@ -13,6 +13,10 @@ type BottomProps = {
 
 const Bottom = ({ expand }: BottomProps) => {
   const projects = useSelector((state: RootState) => state.project.projects);
+
+  useEffect(() => {
+    console.log(projects);
+  }, [projects]);
 
   return (
     <div className={styles.main}>
@@ -42,7 +46,7 @@ const Bottom = ({ expand }: BottomProps) => {
                 }}
                 className={styles["link-icon"]}
               >
-                {project.title[0]}
+                {project.title[0].toUpperCase()}
               </div>
               {expand && (
                 <div className={styles["link-name"]}>{project.title}</div>
