@@ -7,6 +7,7 @@ import { Comments, Description, Header, Tags } from ".";
 import { useDispatch } from "react-redux";
 import { updateTask, deleteTask, setCurrentTask } from "~/ProjectSlice";
 import axios from "axios";
+import { Loader } from "~/shared/components";
 
 type TaskModalProps = {
   user: User;
@@ -37,8 +38,16 @@ const TaskModal = ({
 }: TaskModalProps) => {
   const [taskData, setTaskData] = useState<any>(modalTask);
   const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setLoading(false);
+    setTimeout(() => {
+      setLoading(true);
+    }, 1000);
+  }, [modalTask]);
 
   useEffect(() => {
     dispatch(setCurrentTask(modalTask.id));
@@ -125,40 +134,50 @@ const TaskModal = ({
   }, [display]);
 
   return (
-    <div className={styles.main}>
-      <Header
-        taskData={taskData}
-        toggleDeleteModal={toggleDeleteModal}
-        closeModal={closeModal}
-        displayConfirm={displayConfirm}
-        deleteTask={deleteTaskData}
-        updateTaskData={updateTaskData}
-      />
-      <div className={styles.body}>
-        <div className={styles.right}>
-          <Description
-            descriptionData={taskData.description}
-            updateTaskData={updateTaskData}
-          />
-          <Comments
-            taskData={taskData}
-            updateTaskData={updateTaskData}
-            user={user}
-            display={display}
-            id={modalTask.id}
-            fetchTask={fetchTask}
-          />
-        </div>
-        <div className={styles.left}>
-          <Tags
-            user={user}
-            taskData={taskData}
-            members={members}
-            updateTaskData={updateTaskData}
-          />
+    <>
+      <div
+        className={styles.main}
+        style={loading ? { display: "" } : { display: "none" }}
+      >
+        <Header
+          taskData={taskData}
+          toggleDeleteModal={toggleDeleteModal}
+          closeModal={closeModal}
+          displayConfirm={displayConfirm}
+          deleteTask={deleteTaskData}
+          updateTaskData={updateTaskData}
+        />
+        <div className={styles.body}>
+          <div className={styles.right}>
+            <Description
+              descriptionData={taskData.description}
+              updateTaskData={updateTaskData}
+            />
+            <Comments
+              taskData={taskData}
+              updateTaskData={updateTaskData}
+              user={user}
+              display={display}
+              id={modalTask.id}
+              fetchTask={fetchTask}
+            />
+          </div>
+          <div className={styles.left}>
+            <Tags
+              user={user}
+              taskData={taskData}
+              members={members}
+              updateTaskData={updateTaskData}
+            />
+          </div>
         </div>
       </div>
-    </div>
+      {!loading && (
+        <div className={styles["loader-container"]}>
+          <Loader size={400} />
+        </div>
+      )}
+    </>
   );
 };
 

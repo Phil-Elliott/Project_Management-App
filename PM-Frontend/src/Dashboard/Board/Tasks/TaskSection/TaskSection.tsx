@@ -2,9 +2,10 @@ import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Task from "./Task/Task";
 import "./TaskSection.scss";
-import { FaEllipsisH } from "react-icons/fa";
+import { FaEllipsisH, FaTimes } from "react-icons/fa";
 
-import { AddItem } from "~/shared/components";
+import { AddItem, Popup } from "~/shared/components";
+import { useDebounce } from "usehooks-ts";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~/Store";
@@ -31,6 +32,18 @@ const TaskSection = ({
 }: TaskSectionProps) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const [orderedArr, setOrderedArr] = useState<number[]>([]);
+  const [displayPopup, setDisplayPopup] = useState<boolean>(false);
+  const [titleValue, setTitleValue] = useState<string>("");
+  const debouncedValue = useDebounce<string>(titleValue, 1000);
+
+  useEffect(() => {
+    setTitleValue(section.title);
+  }, [section]);
+
+  useEffect(() => {
+    updateSectionTitle();
+  }, [debouncedValue]);
+
   const projectTasks = useSelector(
     (state: RootState) => state.project.projectTasks
   );
@@ -74,6 +87,31 @@ const TaskSection = ({
     }
   }
 
+  // updates the title of the task section
+  async function updateSectionTitle() {
+    if (titleValue === section.title) return;
+    if (!titleValue || titleValue === "") return;
+    try {
+      const res = await axios.put(
+        `http://localhost:1337/api/sections/${section.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+          data: {
+            title: titleValue,
+          },
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const toggleDisplayPopup = () => {
+    setDisplayPopup(!displayPopup);
+  };
+
   useEffect(() => {
     fetchTasks();
   }, [section]);
@@ -108,9 +146,39 @@ const TaskSection = ({
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
                 <div className="taskSection-header">
-                  <p>{section.title}</p>
-                  <FaEllipsisH className="ellipsis" />
+                  <input
+                    type="text"
+                    value={titleValue}
+                    onChange={(e) => setTitleValue(e.target.value)}
+                  />
+                  <div
+                    className="ellipsis-container"
+                    onClick={() => toggleDisplayPopup()}
+                  >
+                    <FaEllipsisH className="ellipsis" />
+                  </div>
                 </div>
+                {displayPopup && (
+                  <Popup close={() => setDisplayPopup(!displayPopup)}>
+                    <div className="section-popup-container">
+                      <div className="popup-header">
+                        <h3>List Options</h3>
+                        <FaTimes
+                          onClick={() => setDisplayPopup(false)}
+                          className="popup-close-icon"
+                        />
+                      </div>
+                      <div className="popup-content">
+                        <div className="popup-item">
+                          <p>Rename List</p>
+                        </div>
+                        <div className="popup-item">
+                          <p>Delete List</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Popup>
+                )}
 
                 <div className="taskSection-tasks">
                   {projectTasks[index] &&

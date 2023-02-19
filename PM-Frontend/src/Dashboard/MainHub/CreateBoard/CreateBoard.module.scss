@@ -134,3 +134,7 @@
   color: $primary !important;
   font-size: 0.7rem !important;
 }
+
+.active {
+  border: 3px solid $secondary !important;
+}

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BsFilter } from "react-icons/bs";
 import { AiFillSetting } from "react-icons/ai";
 import { Button, Loader, Popup } from "~/shared/components";
 import styles from "./Settings.module.scss";
@@ -47,12 +46,26 @@ const Settings = ({ projectData }: SettingsProps) => {
     setDisableCloseModal(disable);
   };
 
+  // get the name of the background from this http://localhost:5173/src/assets/backgrounds/scenicNight.jpg
+  useEffect(() => {
+    if (backgroundState) {
+      const name = backgroundState.split("/").pop();
+      if (name) {
+        const index = backgrounds.findIndex((background) => {
+          return background.split("/").pop() === name;
+        });
+        setActiveBackground(index);
+      }
+    }
+  }, [backgroundState]);
+
   // toggles the confirm modal
   const toggleDeleteModal = () => {
     setDisplayConfirm(!displayConfirm);
     toggleDisableCloseModal(!displayConfirm);
   };
 
+  // Shows the popup when settings bttn is clicked
   function handleClick() {
     setDisplay(true);
   }
@@ -176,7 +189,9 @@ const Settings = ({ projectData }: SettingsProps) => {
                           onClick={(e) => handleBackground(index, e)}
                           onLoad={handleLoad}
                           className={
-                            activeBackground === index ? styles.active : ""
+                            activeBackground === index
+                              ? styles.active
+                              : styles.unActive
                           }
                           style={
                             loading ? { display: "block" } : { display: "none" }
@@ -195,7 +210,11 @@ const Settings = ({ projectData }: SettingsProps) => {
                     return (
                       <div
                         key={index}
-                        className={styles.color}
+                        className={`${styles.color} ${
+                          backgroundState === color
+                            ? styles.active
+                            : styles.unActive
+                        }`}
                         style={{ background: color }}
                         onClick={(e) => handleBackground(index, e)}
                       ></div>
@@ -227,13 +246,15 @@ const Settings = ({ projectData }: SettingsProps) => {
               >
                 Update
               </Button>
-              <Button
-                widthFull
-                variant="danger"
-                handleClick={() => toggleDeleteModal()}
-              >
-                Delete
-              </Button>
+              <div className={styles.delete}>
+                <Button
+                  widthFull
+                  variant="danger"
+                  handleClick={() => toggleDeleteModal()}
+                >
+                  Delete
+                </Button>
+              </div>
             </div>
           </Popup>
         )}

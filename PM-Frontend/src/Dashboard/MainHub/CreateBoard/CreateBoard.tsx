@@ -107,7 +107,9 @@ const CreateBoard = ({ getProjects }: CreateBoardProps) => {
                         onClick={(e) => handleBackground(index, e)}
                         onLoad={handleLoad}
                         className={
-                          activeBackground === index ? styles.active : ""
+                          activeBackground === index
+                            ? styles.active
+                            : styles.unActive
                         }
                         style={
                           loading ? { display: "block" } : { display: "none" }
@@ -126,7 +128,11 @@ const CreateBoard = ({ getProjects }: CreateBoardProps) => {
                   return (
                     <div
                       key={index}
-                      className={styles.color}
+                      className={`${styles.color} ${
+                        backgroundState === color
+                          ? styles.active
+                          : styles.unActive
+                      }`}
                       style={{ background: color }}
                       onClick={(e) => handleBackground(index, e)}
                     ></div>

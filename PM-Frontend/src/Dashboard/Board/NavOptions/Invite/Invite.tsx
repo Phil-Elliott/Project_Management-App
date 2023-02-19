@@ -25,7 +25,6 @@ const Invite = ({ members, projectId }: InviteProps) => {
   // make an array of the users id's
   useEffect(() => {
     setUsersArr(members.map((member) => member.id));
-    console.log(members);
   }, [members]);
 
   // Get the users details

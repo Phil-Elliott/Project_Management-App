@@ -135,3 +135,11 @@
   color: $primary !important;
   font-size: 0.7rem !important;
 }
+
+.delete {
+  margin-top: 0.5rem;
+}
+
+.active {
+  border: 3px solid $secondary !important;
+}

@@ -106,11 +106,12 @@ export default Dashboard;
   
   1) Board
     - Finish comment section
-    - Add (change name and delete section for sections elipsis)
-    - Add project settings (delete project, change name, change background)
-    - Add filter functionality
-    - add invite members functionality
-    - Fix all styles
+    - Fix styles of task modal
+    - Add functionality to section elipses
+    - Add profile settings modal and functionality
+    - Fix invite modal styles
+    - Add loaders to different screens
+    - Add hover tags
 
   2) User profile
     - Make a modal for editing the user profile (change name, change avatar, change password, change username, delete account)

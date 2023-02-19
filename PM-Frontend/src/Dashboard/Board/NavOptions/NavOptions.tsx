@@ -20,7 +20,7 @@ const NavOptions = ({ members, projectId, projectData }: NavOptionsProps) => {
       <Search />
       {members && <Members members={members} />}
       <Invite members={members} projectId={projectId} />
-      <Filter />
+      {/* <Filter /> */}
       {/* </div> */}
       <div className={styles.right}>
         <Settings projectData={projectData} />
