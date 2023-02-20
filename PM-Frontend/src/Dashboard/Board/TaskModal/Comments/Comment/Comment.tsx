@@ -70,13 +70,11 @@ const CommentData = ({
         <p className={styles.comment}>{comment.attributes.content}</p>
         {userId === commentUserId ? (
           <div className={styles["bottom-bttns"]}>
-            <p>Edit</p>
+            {/* <p>Edit</p> */}
             <p onClick={() => deleteComment(comment.id)}>Delete</p>
           </div>
         ) : (
-          <div className={styles["bottom-bttns"]}>
-            <p>Reply</p>
-          </div>
+          <div className={styles["bottom-bttns"]}>{/* <p>Reply</p> */}</div>
         )}
       </div>
     </div>

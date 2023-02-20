@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "~/Store";
 
 const backgrounds = [flowers, mountains, nightSky, scenicNight];
-const colors = ["blue", "red", "green", "orange"];
+const colors = ["#ff8c00", "#4682b4", "#8f00ff", "#333333"];
 
 type CreateBoardProps = {
   getProjects: () => void;
@@ -152,6 +152,7 @@ const CreateBoard = ({ getProjects }: CreateBoardProps) => {
                 placeholder="Board Name"
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
+                maxLength={20}
               />
               {title === "" && attempted && (
                 <p className={styles.errorText}>👋 Please enter a title</p>

@@ -24,3 +24,15 @@ const Layout = ({ children }: LayoutProps) => {
 };
 
 export default Layout;
+
+/*
+
+
+leftNav
+- Have arrows move when clicked
+- Fix overflow problem
+
+Fix background problem
+Fix create card active
+Bottom arrow should always show
+*/

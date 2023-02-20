@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Button } from "~/shared/components";
-import { ModalTaskProps, TaskProps } from "~/shared/interfaces/Projects";
 
 import styles from "./Description.module.scss";
 import { AiOutlineAlignLeft } from "react-icons/ai";
@@ -66,14 +65,16 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
         </div>
       ) : (
         <div
-          className={styles["description-container"]}
+          className={styles["quill-container"]}
           onClick={() => setOpenEditor(true)}
         >
-          {descriptionValue ? (
-            <div dangerouslySetInnerHTML={{ __html: descriptionValue }} />
-          ) : (
-            <p>Enter description</p>
-          )}
+          <ReactQuill
+            className={styles.quill}
+            theme="snow"
+            value={descriptionValue}
+            onChange={setDescriptionValue}
+            placeholder="Enter description"
+          />
         </div>
       )}
     </div>
@@ -81,3 +82,14 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
 };
 
 export default Description;
+
+// <div
+//   className={styles["description-container"]}
+//   onClick={() => setOpenEditor(true)}
+// >
+//   {descriptionValue ? (
+//     <div dangerouslySetInnerHTML={{ __html: descriptionValue }} />
+//   ) : (
+//     <p>Enter description</p>
+//   )}
+// </div>

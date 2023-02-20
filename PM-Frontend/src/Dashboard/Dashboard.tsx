@@ -110,7 +110,6 @@ export default Dashboard;
     - Add functionality to section elipses
     - Add profile settings modal and functionality
     - Fix invite modal styles
-    - Add loaders to different screens
     - Add hover tags
 
   2) User profile

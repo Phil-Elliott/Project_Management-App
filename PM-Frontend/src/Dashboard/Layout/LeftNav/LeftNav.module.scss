@@ -6,24 +6,28 @@
   @extend %flex-between-column;
   height: 100%;
   overflow-x: none;
-  overflow-y: auto;
   padding: 0.25rem 0 0 0;
   position: fixed;
   z-index: 2;
-  width: 3.5%;
 }
 
 .nav-container {
   width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .arrow-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 1rem;
+  padding-block: 1rem;
   width: 100%;
   cursor: pointer;
+}
+
+.rotate {
+  transform: rotateZ(180deg);
 }
 
 @media only screen and (max-width: 1100px) {

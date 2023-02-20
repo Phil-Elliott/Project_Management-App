@@ -16,14 +16,17 @@ const LeftNav = ({ hideNav }: LeftNavProps) => {
   return (
     <div
       className={hideNav ? `${styles.main} ${styles.hide}` : styles.main}
-      style={expand ? { width: "13rem" } : { width: "3.5rem" }}
+      style={expand ? { width: "16rem" } : { width: "4.5rem" }}
     >
       <div className={styles["nav-container"]}>
         <Top expand={expand} />
-        <Bottom expand={expand} />
+        <div className={styles["bottom-nav"]}>
+          <Bottom expand={expand} />
+        </div>
       </div>
       <div
-        className={styles["arrow-container"]}
+        // className={styles["arrow-container"]}
+        className={`${styles["arrow-container"]} ${expand && styles["rotate"]}`}
         onClick={() => setExpand(!expand)}
       >
         <FaAngleDoubleRight />

@@ -40,11 +40,7 @@ const Header = ({
     <div className={styles.main}>
       <div className={styles.left}>
         <TiThLarge className={styles.icon} />
-        <textarea
-          rows={1}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <input value={title} onChange={(e) => setTitle(e.target.value)} />
       </div>
       <div className={styles.right}>
         <FaRegTrashAlt
