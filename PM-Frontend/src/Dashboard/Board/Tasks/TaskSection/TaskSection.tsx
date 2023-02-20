@@ -15,13 +15,14 @@ import {
   TasksSections,
 } from "~/shared/interfaces/Projects";
 import axios from "axios";
-import { setOrderedTasks, setProjectTasks } from "~/ProjectSlice";
+import { setOrderedTasks, setProjectTasks, setSections } from "~/ProjectSlice";
 
 type TaskSectionProps = {
   section: TasksSections;
   addNewTask: (name: string, section: string, orderArr: number[]) => void;
   index: number;
   changeModalDisplay: (task: any, id: string) => void;
+  sections: TasksSections[];
 };
 
 const TaskSection = ({
@@ -29,12 +30,17 @@ const TaskSection = ({
   addNewTask,
   index,
   changeModalDisplay,
+  sections,
 }: TaskSectionProps) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const [orderedArr, setOrderedArr] = useState<number[]>([]);
   const [displayPopup, setDisplayPopup] = useState<boolean>(false);
   const [titleValue, setTitleValue] = useState<string>("");
   const debouncedValue = useDebounce<string>(titleValue, 1000);
+
+  useEffect(() => {
+    console.log(section, "section");
+  }, [section]);
 
   useEffect(() => {
     setTitleValue(section.title);
@@ -50,6 +56,29 @@ const TaskSection = ({
   const search = useSelector((state: RootState) => state.project.searchQuery);
 
   const dispatch = useDispatch();
+
+  // deletes the section
+  async function handleDeleteSection() {
+    try {
+      const res = await axios.delete(
+        `http://localhost:1337/api/sections/${section.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      );
+      dispatch(
+        setSections(
+          sections.filter((section: TasksSections) => {
+            return section.id !== res.data.data.id;
+          })
+        )
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   // gets all of the tasks on render
   async function fetchTasks() {
@@ -172,7 +201,10 @@ const TaskSection = ({
                         <div className="popup-item">
                           <p>Rename List</p>
                         </div>
-                        <div className="popup-item">
+                        <div
+                          className="popup-item"
+                          onClick={() => handleDeleteSection()}
+                        >
                           <p>Delete List</p>
                         </div>
                       </div>
@@ -217,12 +249,6 @@ const TaskSection = ({
 export default TaskSection;
 
 /*
-
-  Elipsis
-     1) Rename Section (Maybe just click on it to rename) and rename button does it for you
-     2) Delete Section
-    //  3) Sort Section
-    //  4) Watch Section
 
 
 

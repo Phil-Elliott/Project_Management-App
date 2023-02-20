@@ -138,8 +138,31 @@
 
 .delete {
   margin-top: 0.5rem;
+
+  button {
+    color: red;
+    background-color: white;
+    border: 1px solid red;
+
+    &:hover {
+      background-color: red;
+      color: white;
+    }
+  }
 }
 
 .active {
   border: 3px solid $secondary !important;
+}
+
+@media only screen and (max-width: 511px) {
+  .main-container {
+    left: 0;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .main-container {
+    left: -5rem;
+  }
 }

@@ -95,6 +95,7 @@ const Tasks = ({
                       addNewTask={addNewTask}
                       index={index}
                       changeModalDisplay={changeModalDisplay}
+                      sections={sections}
                     />
                   );
                 })}

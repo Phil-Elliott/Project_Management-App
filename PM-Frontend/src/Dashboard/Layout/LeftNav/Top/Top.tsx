@@ -12,6 +12,7 @@ import { setJwt } from "~/ProjectSlice";
 
 type TopProps = {
   expand: boolean;
+  toggleModal: () => void;
 };
 
 const iconLinks = [
@@ -20,14 +21,9 @@ const iconLinks = [
     name: "Projects",
     route: "/dashboard/",
   },
-  {
-    icon: <RiAccountCircleFill />,
-    name: "Profile",
-    route: "/dashboard/profile/",
-  },
 ];
 
-const Top = ({ expand }: TopProps) => {
+const Top = ({ expand, toggleModal }: TopProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -67,7 +63,16 @@ const Top = ({ expand }: TopProps) => {
             </div>
           </NavLink>
         ))}
-
+        <div
+          onClick={() => toggleModal()}
+          className={styles["icon-link"]}
+          style={!expand ? { justifyContent: "center" } : {}}
+        >
+          <div className={styles["link-icon"]}>
+            <RiAccountCircleFill />
+          </div>
+          {expand && <div className={styles["link-name"]}>Profile</div>}
+        </div>
         <div
           onClick={() => handleSignOut()}
           className={styles["icon-link"]}
@@ -84,3 +89,10 @@ const Top = ({ expand }: TopProps) => {
 };
 
 export default Top;
+
+/*
+
+  Can i put the model in this file or in the layout file so i can access it from the responsive
+
+
+*/

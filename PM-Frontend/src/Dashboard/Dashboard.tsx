@@ -10,7 +10,6 @@ import { RootState } from "~/Store";
 import { useDispatch } from "react-redux";
 import { setJwt, setUser, setProjects } from "~/ProjectSlice";
 import axios from "axios";
-import Profile from "./Profile/Profile";
 
 const Dashboard = () => {
   const projects = useSelector((state: RootState) => state.project.projects);
@@ -88,7 +87,6 @@ const Dashboard = () => {
                 <MainHub projects={projects} getProjects={getProjects} />
               }
             />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/:id" element={<ProjectLayout />}>
               <Route index element={<Board />} />
             </Route>
@@ -105,10 +103,8 @@ export default Dashboard;
 /*
   
   1) Board
-    - Fix styles of task modal and make responsive
     - Add functionality to section elipses
-    - Add profile settings modal and functionality
-    - Fix invite modal styles
+    - Add functionality to profile settings modal
     - Add hover tags
 
   2) User profile
