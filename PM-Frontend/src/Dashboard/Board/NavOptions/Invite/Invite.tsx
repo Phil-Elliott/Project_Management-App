@@ -101,7 +101,11 @@ const Invite = ({ members, projectId }: InviteProps) => {
         </div>
       </Button>
       <Modal display={display} closeModal={closeModal}>
-        <InviteModal members={members} getUserDetails={getUserDetails} />
+        <InviteModal
+          members={members}
+          getUserDetails={getUserDetails}
+          closeModal={closeModal}
+        />
       </Modal>
     </div>
   );

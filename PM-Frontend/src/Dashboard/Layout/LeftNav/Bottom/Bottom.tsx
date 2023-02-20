@@ -48,8 +48,16 @@ const Bottom = ({ expand }: BottomProps) => {
                 >
                   <div
                     style={{
-                      backgroundImage: `url(${project.background})`,
-                      backgroundColor: project.background,
+                      backgroundColor: /^http(s)?:\/\//i.test(
+                        project.background
+                      )
+                        ? ""
+                        : project.background,
+                      backgroundImage: /^http(s)?:\/\//i.test(
+                        project.background
+                      )
+                        ? `url(${project.background})`
+                        : "",
                     }}
                     className={styles["link-icon"]}
                   >

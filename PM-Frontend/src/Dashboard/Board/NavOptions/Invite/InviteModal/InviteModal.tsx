@@ -8,9 +8,14 @@ import styles from "./InviteModal.module.scss";
 type InviteModalProps = {
   members: User[];
   getUserDetails: (email: string) => void;
+  closeModal: () => void;
 };
 
-const InviteModal = ({ members, getUserDetails }: InviteModalProps) => {
+const InviteModal = ({
+  members,
+  getUserDetails,
+  closeModal,
+}: InviteModalProps) => {
   const [email, setEmail] = useState<string>("");
 
   useEffect(() => {
@@ -26,7 +31,7 @@ const InviteModal = ({ members, getUserDetails }: InviteModalProps) => {
     <div className={styles.main}>
       <div className={styles.header}>
         <h1>Share Board</h1>
-        <FaTimes className={styles.icon} onClick={() => console.log("close")} />
+        <FaTimes className={styles.icon} onClick={() => closeModal()} />
       </div>
       <div className={styles["email-input"]}>
         <input
@@ -35,9 +40,9 @@ const InviteModal = ({ members, getUserDetails }: InviteModalProps) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <Button variant={"primary"} handleClick={handleClick}>
-          Share
-        </Button>
+        <div className={styles["btn-container"]}>
+          <button onClick={() => handleClick()}>Share</button>
+        </div>
       </div>
       {/* <div className={styles.link}>
         <div className={styles["icon-container"]}>

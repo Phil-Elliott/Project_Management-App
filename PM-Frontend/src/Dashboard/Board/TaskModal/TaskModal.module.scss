@@ -22,3 +22,15 @@
   justify-content: center;
   min-height: 80vh;
 }
+
+@media only screen and (max-width: 850px) {
+  .main {
+    width: 90vw;
+  }
+  .body {
+    grid-template-columns: 1fr;
+  }
+  .left {
+    grid-row: 1;
+  }
+}

@@ -105,8 +105,7 @@ export default Dashboard;
 /*
   
   1) Board
-    - Finish comment section
-    - Fix styles of task modal
+    - Fix styles of task modal and make responsive
     - Add functionality to section elipses
     - Add profile settings modal and functionality
     - Fix invite modal styles
