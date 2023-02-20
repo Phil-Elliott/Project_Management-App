@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  useRef,
+} from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Task from "./Task/Task";
 import "./TaskSection.scss";
@@ -38,9 +44,7 @@ const TaskSection = ({
   const [titleValue, setTitleValue] = useState<string>("");
   const debouncedValue = useDebounce<string>(titleValue, 1000);
 
-  useEffect(() => {
-    console.log(section, "section");
-  }, [section]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setTitleValue(section.title);
@@ -179,6 +183,7 @@ const TaskSection = ({
                     type="text"
                     value={titleValue}
                     onChange={(e) => setTitleValue(e.target.value)}
+                    ref={inputRef}
                   />
                   <div
                     className="ellipsis-container"
@@ -198,7 +203,13 @@ const TaskSection = ({
                         />
                       </div>
                       <div className="popup-content">
-                        <div className="popup-item">
+                        <div
+                          className="popup-item"
+                          onClick={() => {
+                            setDisplayPopup(false);
+                            inputRef.current?.focus();
+                          }}
+                        >
                           <p>Rename List</p>
                         </div>
                         <div
