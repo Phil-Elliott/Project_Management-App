@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Popup, Loader } from "~/shared/components";
 
 import styles from "./CreateBoard.module.scss";
@@ -14,7 +14,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "~/Store";
 
 const backgrounds = [flowers, mountains, nightSky, scenicNight];
-const colors = ["#ff8c00", "#4682b4", "#8f00ff", "#333333"];
+const colors = [
+  "rgb(255, 140, 0)",
+  "rgb(70, 130, 180)",
+  "rgb(143, 0, 255)",
+  "rgb(51, 51, 51)",
+];
 
 type CreateBoardProps = {
   getProjects: () => void;
@@ -29,6 +34,18 @@ const CreateBoard = ({ getProjects }: CreateBoardProps) => {
   const [attempted, setAttempted] = useState<boolean>(false);
 
   const user = useSelector((state: RootState) => state.project.user);
+
+  useEffect(() => {
+    if (backgroundState) {
+      const name = backgroundState.split("/").pop();
+      if (name) {
+        const index = backgrounds.findIndex((background) => {
+          return background.split("/").pop() === name;
+        });
+        setActiveBackground(index);
+      }
+    }
+  }, [backgroundState]);
 
   const handleBackground = (index: number, e: any) => {
     if (e.currentTarget.src) {

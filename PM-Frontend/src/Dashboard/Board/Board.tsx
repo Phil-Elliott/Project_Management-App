@@ -364,8 +364,12 @@ const Board = () => {
       <div
         className={styles.main}
         style={{
-          backgroundImage: `url(${projectData.background})`,
-          backgroundColor: projectData.background,
+          backgroundColor: /^http(s)?:\/\//i.test(projectData.background)
+            ? ""
+            : projectData.background,
+          backgroundImage: /^http(s)?:\/\//i.test(projectData.background)
+            ? `url(${projectData.background})`
+            : "",
           display: loading ? "" : "none",
         }}
       >

@@ -24,7 +24,12 @@ type SettingsProps = {
 };
 
 const backgrounds = [flowers, mountains, nightSky, scenicNight];
-const colors = ["blue", "red", "green", "orange"];
+const colors = [
+  "rgb(255, 140, 0)",
+  "rgb(70, 130, 180)",
+  "rgb(143, 0, 255)",
+  "rgb(51, 51, 51)",
+];
 
 const Settings = ({ projectData }: SettingsProps) => {
   const [display, setDisplay] = useState<boolean>(false);
