@@ -18,7 +18,7 @@ const MainHub = ({ projects, getProjects }: MainHubProps) => {
     setLoading(false);
     setTimeout(() => {
       setLoading(true);
-    }, 1500);
+    }, 2000);
   }, []);
 
   return (
