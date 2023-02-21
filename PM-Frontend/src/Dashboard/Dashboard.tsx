@@ -103,16 +103,13 @@ export default Dashboard;
 /*
   
   1) Board
-    - Add functionality to section elipses
+    - Add confirm modal to delete section
     - Add functionality to profile settings modal
     - Add hover tags
 
-  2) User profile
-    - Make a modal for editing the user profile (change name, change avatar, change password, change username, delete account)
+  
 
-  3) Stylings
-    - add loader screens
-    - Fix signin and signup pages
+
 
     
 

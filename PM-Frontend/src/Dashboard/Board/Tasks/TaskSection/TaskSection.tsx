@@ -22,6 +22,7 @@ import {
 } from "~/shared/interfaces/Projects";
 import axios from "axios";
 import { setOrderedTasks, setProjectTasks, setSections } from "~/ProjectSlice";
+import ConfirmModal from "~/shared/components/ConfirmModal/ConfirmModal";
 
 type TaskSectionProps = {
   section: TasksSections;
@@ -43,6 +44,9 @@ const TaskSection = ({
   const [displayPopup, setDisplayPopup] = useState<boolean>(false);
   const [titleValue, setTitleValue] = useState<string>("");
   const debouncedValue = useDebounce<string>(titleValue, 1000);
+
+  const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
+  const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -159,6 +163,17 @@ const TaskSection = ({
     dispatch(setProjectTasks({ tasks: tasks, section: section.id.toString() }));
   }, [tasks]);
 
+  // disables ability to close modal when clicked outside of modal (when confirm modal is open)
+  const toggleDisableCloseModal = (disable: boolean) => {
+    setDisableCloseModal(disable);
+  };
+
+  // toggles the confirm modal
+  const toggleDeleteModal = () => {
+    setDisplayConfirm(!displayConfirm);
+    toggleDisableCloseModal(!displayConfirm);
+  };
+
   return (
     <Draggable
       draggableId={`s${section.id.toString()}`}
@@ -214,7 +229,7 @@ const TaskSection = ({
                         </div>
                         <div
                           className="popup-item"
-                          onClick={() => handleDeleteSection()}
+                          onClick={() => toggleDeleteModal()}
                         >
                           <p>Delete List</p>
                         </div>
@@ -222,6 +237,12 @@ const TaskSection = ({
                     </div>
                   </Popup>
                 )}
+                <ConfirmModal
+                  display={displayConfirm}
+                  closeModal={toggleDeleteModal}
+                  deleteTask={handleDeleteSection}
+                  item={"list"}
+                />
 
                 <div className="taskSection-tasks">
                   {projectTasks[index] &&

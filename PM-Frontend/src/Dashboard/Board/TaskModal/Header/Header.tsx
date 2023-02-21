@@ -52,6 +52,7 @@ const Header = ({
           display={displayConfirm}
           closeModal={toggleDeleteModal}
           deleteTask={deleteTask}
+          item="task"
         />
       </div>
     </div>

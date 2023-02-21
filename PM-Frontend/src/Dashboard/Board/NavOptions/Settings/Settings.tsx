@@ -268,6 +268,7 @@ const Settings = ({ projectData }: SettingsProps) => {
         display={displayConfirm}
         closeModal={toggleDeleteModal}
         deleteTask={handleDeleteBoard}
+        item="board"
       />
     </div>
   );
