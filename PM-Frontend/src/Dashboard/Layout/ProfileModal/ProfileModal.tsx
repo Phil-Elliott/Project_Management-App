@@ -8,7 +8,27 @@ import { RootState } from "~/Store";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ConfirmModal from "~/shared/components/ConfirmModal/ConfirmModal";
-import { setJwt } from "~/ProjectSlice";
+import { setJwt, setUser } from "~/ProjectSlice";
+
+import apple from "~/assets/avatars/apple.jpg";
+import cat from "~/assets/avatars/cat.jpg";
+import coffee from "~/assets/avatars/coffee.jpg";
+import dog from "~/assets/avatars/dog.jpg";
+import lightbulb from "~/assets/avatars/lightbulb.jpg";
+import puzzle from "~/assets/avatars/puzzle.jpg";
+import road from "~/assets/avatars/road.jpg";
+import tea from "~/assets/avatars/tea.jpg";
+
+const availableAvatars = [
+  apple,
+  cat,
+  coffee,
+  dog,
+  lightbulb,
+  puzzle,
+  road,
+  tea,
+];
 
 type ProfileModalProps = {
   closeModal: () => void;
@@ -17,6 +37,7 @@ type ProfileModalProps = {
 const ProfileModal = ({ closeModal }: ProfileModalProps) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [avatarState, setAvatarState] = useState<string>("");
 
   const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
@@ -25,6 +46,18 @@ const ProfileModal = ({ closeModal }: ProfileModalProps) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state: RootState) => state.project.user);
+
+  useEffect(() => {
+    if (user) {
+      if (user.avatar) {
+        setAvatarState(user.avatar);
+      }
+    }
+  }, [user]);
+
+  const handleBackground = (e: any) => {
+    setAvatarState(e.currentTarget.src);
+  };
 
   // disables ability to close modal when clicked outside of modal (when confirm modal is open)
   const toggleDisableCloseModal = (disable: boolean) => {
@@ -64,6 +97,14 @@ const ProfileModal = ({ closeModal }: ProfileModalProps) => {
     }
   }
 
+  // resets changes when closed
+  const resetChanges = () => {
+    setEmail(user.email);
+    setUsername(user.username);
+    user.avatar && setAvatarState(user.avatar);
+    closeModal();
+  };
+
   // updates the users data
   async function updateUser() {
     try {
@@ -76,9 +117,18 @@ const ProfileModal = ({ closeModal }: ProfileModalProps) => {
 
           email: email,
           username: username,
+          avatar: avatarState,
         }
       );
-      console.log(res);
+      dispatch(
+        setUser({
+          id: user.id,
+          email: email,
+          username: username,
+          avatar: avatarState,
+        })
+      );
+      resetChanges();
     } catch (err) {
       console.log(err);
     }
@@ -88,7 +138,7 @@ const ProfileModal = ({ closeModal }: ProfileModalProps) => {
     <div className={styles["modal-container"]}>
       <div className={styles["modal-header"]}>
         <h3>Edit Profile</h3>
-        <FaTimes className={styles.icon} onClick={() => closeModal()} />
+        <FaTimes className={styles.icon} onClick={() => resetChanges()} />
       </div>
       <div className={styles["modal-body"]}>
         <div className={styles.content}>
@@ -106,8 +156,29 @@ const ProfileModal = ({ closeModal }: ProfileModalProps) => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <h4>Change Avatar</h4>
-          <input type="file" />
+          <div className={styles.background}>
+            <p>Avatars</p>
+            <div className={styles.images}>
+              {availableAvatars.map((avatar, index) => {
+                const avatarSrc = avatar.split("/").pop();
+                const userAvatar = avatarState.split("/").pop();
+
+                return (
+                  <div key={index}>
+                    <img
+                      src={avatar}
+                      onClick={(e) => handleBackground(e)}
+                      style={
+                        avatarSrc === userAvatar
+                          ? { border: "2px solid #007bff" }
+                          : {}
+                      }
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
         <Button variant="primary" handleClick={() => updateUser()} widthFull>
           Save Changes
