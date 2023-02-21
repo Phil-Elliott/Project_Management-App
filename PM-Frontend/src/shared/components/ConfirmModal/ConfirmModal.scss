@@ -2,13 +2,13 @@
 
 .modal-confirm-content {
   width: clamp(10%, 35rem, 70%);
-  z-index: 100000000000;
+  z-index: 100000000000000;
 }
 
 .confirm-container {
   line-height: 2rem;
   padding: 1.5rem;
-  z-index: 100000000000;
+  z-index: 1000000000000000;
 
   .confirm-header {
     margin-bottom: 2rem;
@@ -40,7 +40,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   @extend %flex-align;
   justify-content: center;
-  z-index: 5;
+  z-index: 500;
   opacity: 0;
   transition: $transistion-ease;
   pointer-events: none;

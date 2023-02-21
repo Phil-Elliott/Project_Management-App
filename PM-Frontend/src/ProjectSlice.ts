@@ -98,6 +98,7 @@ const initialState: ProjectState = {
     id: "",
     username: "",
     avatar: "",
+    email: "",
   },
   searchQuery: "",
   jwt: "",
@@ -212,6 +213,7 @@ export const projectSlice = createSlice({
         id: action.payload.id,
         username: action.payload.username,
         avatar: action.payload.avatar,
+        email: action.payload.email,
       };
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////

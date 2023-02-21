@@ -26,7 +26,6 @@ const LeftNav = ({ hideNav, toggleModal }: LeftNavProps) => {
         </div>
       </div>
       <div
-        // className={styles["arrow-container"]}
         className={`${styles["arrow-container"]} ${expand && styles["rotate"]}`}
         onClick={() => setExpand(!expand)}
       >

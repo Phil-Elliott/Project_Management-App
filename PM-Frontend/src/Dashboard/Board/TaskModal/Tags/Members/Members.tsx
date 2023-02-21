@@ -80,6 +80,7 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
         id: member.id,
         username: member.username,
         avatar: member.avatar,
+        email: member.email,
       },
     ]);
   }

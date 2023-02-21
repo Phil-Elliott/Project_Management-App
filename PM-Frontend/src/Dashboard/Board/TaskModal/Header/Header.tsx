@@ -29,7 +29,9 @@ const Header = ({
   const debouncedValue = useDebounce<string>(title, 1000);
 
   useEffect(() => {
-    setTitle(taskData.title);
+    if (taskData.title) {
+      setTitle(taskData.title);
+    }
   }, [taskData]);
 
   useEffect(() => {

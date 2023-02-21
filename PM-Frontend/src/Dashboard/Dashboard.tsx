@@ -38,7 +38,6 @@ const Dashboard = () => {
       })
       .then((res) => {
         dispatch(setUser(res.data));
-        // console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -101,9 +100,6 @@ const Dashboard = () => {
 export default Dashboard;
 
 /*
-  
-  1) Board
-    - Add confirm modal to delete section
     - Add functionality to profile settings modal
     - Add hover tags
 
