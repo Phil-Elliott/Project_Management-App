@@ -83,7 +83,6 @@ const CreateBoard = ({ getProjects }: CreateBoardProps) => {
       })
       .then((res) => {
         getProjects();
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);

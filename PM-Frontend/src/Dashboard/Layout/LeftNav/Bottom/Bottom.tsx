@@ -19,12 +19,12 @@ const Bottom = ({ expand }: BottomProps) => {
   return (
     <div className={styles.main}>
       <div
-        className={`${styles["arrow-container"]} ${
-          showAll && styles["rotate"]
-        }`}
+        className={`${styles["arrow-container"]} `}
         onClick={() => setShowAll(!showAll)}
       >
-        <FaAngleDown />
+        <FaAngleDown
+          className={`${showAll && styles["rotate"]} ${styles.arrow}`}
+        />
       </div>
       <div className={styles["projects-container"]}>
         {projects.map((project, index) => {

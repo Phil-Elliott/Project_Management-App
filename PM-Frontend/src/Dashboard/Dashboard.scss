@@ -6,14 +6,14 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 4px;
   height: 7px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: grey;
-  // border-radius: 50px;
+  background: $secondary;
+  border-radius: 50px;
 }
 
 .dashboard-container {

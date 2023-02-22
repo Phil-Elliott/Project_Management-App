@@ -22,7 +22,10 @@ const Dashboard = () => {
   useEffect(() => {
     if (localStorage.getItem("jwt") === null) {
       navigate("/signin/");
-    } else if (jwt === "") {
+    } else if (jwt) {
+      getUser();
+      getProjects();
+    } else {
       dispatch(setJwt(localStorage.getItem("jwt")!));
       getUser();
       getProjects();
@@ -53,7 +56,6 @@ const Dashboard = () => {
       })
       .then((res) => {
         dispatch(setProjects(res.data.projects));
-        // console.log(res.data.projects, "projects");
       })
       .catch((err) => {
         console.log(err);
@@ -100,8 +102,12 @@ const Dashboard = () => {
 export default Dashboard;
 
 /*
-    - Add functionality to profile settings modal
     - Add hover tags
+    - Make forget password work
+    - Get filter to work
+    - Fix up comments
+
+    - could put avatar on the account icon for nav
 
   
 
