@@ -14,7 +14,15 @@ const Members = ({ members, size }: MembersProps) => {
         if (image === null) {
           image = member.username[0].toUpperCase();
         }
-        return <Avatar avatar={image} size={size} index={i} key={i} />;
+        return (
+          <Avatar
+            avatar={image}
+            size={size}
+            index={i}
+            key={i}
+            username={member.username}
+          />
+        );
       })}
     </div>
   );

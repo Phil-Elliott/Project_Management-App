@@ -17,6 +17,7 @@ const Signup = ({ handleFormChange }: SignupProps) => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [attempted, setAttempted] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -45,6 +46,19 @@ const Signup = ({ handleFormChange }: SignupProps) => {
   // Handling the form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      setAttempted(true);
+      return;
+    }
+    if (password.length < 6) {
+      setAttempted(true);
+      return;
+    }
+
+    if (username === "" || email === "") {
+      setAttempted(true);
+      return;
+    }
 
     axios
       .post("http://localhost:1337/api/auth/local/register", {
@@ -75,16 +89,31 @@ const Signup = ({ handleFormChange }: SignupProps) => {
       <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="username">Username</label>
         <input type="text" onChange={handleName} value={username} />
+        {username === "" && attempted && (
+          <p className={styles.error}>👋 Please enter a username</p>
+        )}
         <label htmlFor="Email">Email</label>
         <input type="email" onChange={handleEmail} value={email} />
-        <label htmlFor="Password">Password</label>
-        {/* <input
-          type="password"
-          onChange={handleConfirmPassword}
-          value={password}
-        /> */}
+        {email === "" && attempted && (
+          <p className={styles.error}>👋 Please enter an email</p>
+        )}
         <label htmlFor="Password">Password</label>
         <input type="password" onChange={handlePassword} value={password} />
+        {password.length < 6 && attempted && (
+          <p className={styles.error}>
+            👋 Passwords must be at least 6 characters
+          </p>
+        )}
+        {/* <p>Passwords must be at least 6 characters.</p> */}
+        <label htmlFor="Confirm Password">Re-enter password</label>
+        <input
+          type="password"
+          onChange={handleConfirmPassword}
+          value={confirmPassword}
+        />
+        {password !== confirmPassword && attempted && (
+          <p className={styles.error}>👋 Passwords do not match</p>
+        )}
         <div className={styles.buttons}>
           <button type="submit">Sign up</button>
         </div>
@@ -100,17 +129,8 @@ const Signup = ({ handleFormChange }: SignupProps) => {
 export default Signup;
 
 /*
-  Login user
-  1) Have a useEffect or a conditional
-  2) Check if the user is logged in
-  3) If the user is logged in, redirect to the dashboard
+  
 
-  Log out user
-  1) Allow user to log out and redirect to the signin page
-
-
-  Pass info around
-  1) Use context or redux
 
   
 

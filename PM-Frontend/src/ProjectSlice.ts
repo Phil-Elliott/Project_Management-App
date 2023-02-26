@@ -98,6 +98,7 @@ const initialState: ProjectState = {
     id: "",
     username: "",
     avatar: "",
+    email: "",
   },
   searchQuery: "",
   jwt: "",
@@ -126,6 +127,22 @@ export const projectSlice = createSlice({
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setProjects: (state, action: PayloadAction<ProjectDataProps[]>) => {
       state.projects = action.payload;
+    },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    setUpdateProjects: (state, action: PayloadAction<ProjectDataProps>) => {
+      const projectIndex = state.projects.findIndex(
+        (project) => project.id.toString() === action.payload.id
+      );
+
+      state.projects[projectIndex] = action.payload;
+    },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    setDeleteProject: (state, action: PayloadAction<string>) => {
+      const projectIndex = state.projects.findIndex(
+        (project) => project.id.toString() === action.payload
+      );
+
+      state.projects.splice(projectIndex, 1);
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setRefresh(state) {
@@ -196,6 +213,7 @@ export const projectSlice = createSlice({
         id: action.payload.id,
         username: action.payload.username,
         avatar: action.payload.avatar,
+        email: action.payload.email,
       };
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -361,6 +379,8 @@ export const {
   setSections,
   setRefresh,
   setCurrentTask,
+  setUpdateProjects,
+  setDeleteProject,
 
   setProjectTasks,
   setProjectTasksOrder,

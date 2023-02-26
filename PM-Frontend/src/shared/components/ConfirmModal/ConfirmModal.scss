@@ -1,0 +1,79 @@
+@use "~/styles" as *;
+
+.modal-confirm-content {
+  width: clamp(10%, 35rem, 70%);
+  z-index: 100000000000000;
+}
+
+.confirm-container {
+  line-height: 2rem;
+  padding: 1.5rem;
+  z-index: 1000000000000000;
+
+  .confirm-header {
+    margin-bottom: 2rem;
+
+    h3 {
+      font-size: 1.25rem;
+    }
+  }
+  .confirm-body {
+    margin-bottom: 2rem;
+
+    p {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+  }
+
+  .confirm-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  @extend %flex-align;
+  justify-content: center;
+  z-index: 500;
+  opacity: 0;
+  transition: $transistion-ease;
+  pointer-events: none;
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: visible;
+}
+
+.modal-content {
+  box-shadow: $box-shadow;
+  // width: clamp(20%, 40rem, 90%);
+  width: 30rem;
+  border-radius: 3px;
+  background-color: $white;
+  transform: translateY(-200px);
+  transition: $transistion-ease;
+}
+
+.modal.show .modal-content {
+  transform: translateY(0);
+}
+
+@media only screen and (max-width: 550px) {
+  .modal-content {
+    width: 90vw;
+  }
+  .confirm-container {
+    padding: 1rem;
+  }
+
+  .confirm-header {
+    margin-bottom: 1rem !important;
+  }
+}

@@ -14,6 +14,7 @@
 
 .toggle {
   cursor: pointer;
+  @extend %flex-align;
 }
 
 .left {

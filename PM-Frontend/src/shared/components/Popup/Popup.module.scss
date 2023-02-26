@@ -3,4 +3,7 @@
 .main {
   @include popup;
   margin-top: 0.5rem;
+  z-index: 5;
+  cursor: default;
+  min-width: 13rem;
 }

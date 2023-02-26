@@ -3,7 +3,7 @@ import styles from "./Board.module.scss";
 import _ from "lodash";
 
 import { NavOptions, TaskModal, Tasks, useProject } from ".";
-import { Modal } from "~/shared/components";
+import { Loader, Modal } from "~/shared/components";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~/Store";
@@ -22,6 +22,7 @@ const Board = () => {
   const [modalTask, setModalTask] = useState<any>();
   const [display, setDisplay] = useState<boolean>(false);
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const projectData = useSelector((state: RootState) => state.project.project);
   const user = useSelector((state: RootState) => state.project.user);
@@ -35,6 +36,13 @@ const Board = () => {
   );
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setLoading(false);
+    setTimeout(() => {
+      setLoading(true);
+    }, 1500);
+  }, [projectData]);
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // modal functions
@@ -352,39 +360,55 @@ const Board = () => {
   };
 
   return (
-    <div
-      className={styles.main}
-      style={{
-        backgroundImage: `url(${projectData.background})`,
-        backgroundColor: projectData.background,
-      }}
-    >
-      <NavOptions members={users} />
-      <Tasks
-        changeSectionOrder={changeSectionOrder}
-        sections={sections}
-        addNewSection={addNewSection}
-        addNewTask={addNewTask}
-        changeTaskPosition={changeTaskPosition}
-        changeModalDisplay={changeModalDisplay}
-      />
-      {modalTask && (
-        <Modal
-          display={display}
-          closeModal={closeModal}
-          disableCloseModal={disableCloseModal}
-        >
-          <TaskModal
-            user={user}
-            modalTask={modalTask}
-            members={users}
+    <>
+      <div
+        className={styles.main}
+        style={{
+          backgroundColor: /^http(s)?:\/\//i.test(projectData.background)
+            ? ""
+            : projectData.background,
+          backgroundImage: /^http(s)?:\/\//i.test(projectData.background)
+            ? `url(${projectData.background})`
+            : "",
+          display: loading ? "" : "none",
+        }}
+      >
+        <NavOptions
+          members={users}
+          projectId={projectData.id}
+          projectData={projectData}
+        />
+        <Tasks
+          changeSectionOrder={changeSectionOrder}
+          sections={sections}
+          addNewSection={addNewSection}
+          addNewTask={addNewTask}
+          changeTaskPosition={changeTaskPosition}
+          changeModalDisplay={changeModalDisplay}
+        />
+        {modalTask && (
+          <Modal
             display={display}
             closeModal={closeModal}
-            toggleDisableCloseModal={toggleDisableCloseModal}
-          />
-        </Modal>
+            disableCloseModal={disableCloseModal}
+          >
+            <TaskModal
+              user={user}
+              modalTask={modalTask}
+              members={users}
+              display={display}
+              closeModal={closeModal}
+              toggleDisableCloseModal={toggleDisableCloseModal}
+            />
+          </Modal>
+        )}
+      </div>
+      {!loading && (
+        <div className={styles["loader-container"]}>
+          <Loader size={500} />
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

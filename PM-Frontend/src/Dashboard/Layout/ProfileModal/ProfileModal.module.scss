@@ -1,0 +1,131 @@
+@use "~/styles" as *;
+
+.modal-container {
+  padding: 1rem;
+  width: 23rem;
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $primary-light;
+    padding-bottom: 0.5rem;
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .icon {
+      cursor: pointer;
+      font-size: 1.25rem;
+      color: $primary-dark;
+
+      &:hover {
+        color: $primary;
+      }
+    }
+  }
+}
+
+.content {
+  padding-block: 0.5rem;
+
+  input {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    border: 1px solid $primary-dark;
+    border-radius: 0.25rem;
+    margin-right: 1rem;
+    margin-bottom: 0.75rem;
+    &:focus {
+      outline: none;
+      border-color: $primary;
+    }
+  }
+
+  h4 {
+    // font-size: 1rem;
+    // font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $primary-dark;
+  }
+}
+
+.danger-btn {
+  padding-top: 0.5rem;
+
+  button {
+    color: red;
+    background-color: white;
+    border: 1px solid red;
+
+    &:hover {
+      background-color: red;
+      color: white;
+    }
+  }
+}
+
+.background {
+  padding-bottom: 0.5rem;
+
+  p {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $primary-dark;
+    padding-bottom: 0.5rem;
+  }
+
+  .images {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    justify-items: center;
+    gap: 7.5px;
+    padding: 7.5px;
+    padding-bottom: 4px;
+    border: 1px solid $border-color;
+    border-radius: 0.25rem;
+    font-size: $small-text;
+    font-weight: 400;
+    color: $primary-dark;
+
+    img {
+      cursor: pointer;
+      height: 3rem;
+      width: 3rem;
+      border-radius: 100px;
+      justify-self: center;
+      border: 2px solid transparent;
+      object-fit: cover;
+
+      &:hover {
+        border: 2px solid $secondary;
+      }
+    }
+
+    .loader {
+      width: 100%;
+      height: 2.5rem;
+      border-radius: 0.25rem;
+      border: 1px solid $border-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .selected {
+    border: 2px solid $secondary;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .modal-container {
+    width: 90vw;
+  }
+}

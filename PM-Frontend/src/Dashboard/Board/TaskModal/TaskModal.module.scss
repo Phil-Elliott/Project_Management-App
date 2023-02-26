@@ -4,12 +4,35 @@
   background-color: $modal-background;
   border-radius: $border-radius;
   padding: 1rem;
-  min-height: 80vh;
+  height: 80vh;
   overflow-y: auto;
+  width: 50rem;
 }
 
 .body {
   display: grid;
   grid-template-columns: 3fr 1.5fr;
   grid-gap: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+.loader-container {
+  background-color: $modal-background;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  width: 50rem;
+}
+
+@media only screen and (max-width: 850px) {
+  .main {
+    width: 90vw;
+  }
+  .body {
+    grid-template-columns: 1fr;
+  }
+  .left {
+    grid-row: 1;
+  }
 }

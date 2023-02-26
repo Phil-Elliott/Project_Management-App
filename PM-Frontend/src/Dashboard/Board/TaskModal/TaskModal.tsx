@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TaskProps, User } from "~/shared/interfaces/Projects";
+import { User } from "~/shared/interfaces/Projects";
 import styles from "./TaskModal.module.scss";
 
 import { Comments, Description, Header, Tags } from ".";
@@ -7,6 +7,7 @@ import { Comments, Description, Header, Tags } from ".";
 import { useDispatch } from "react-redux";
 import { updateTask, deleteTask, setCurrentTask } from "~/ProjectSlice";
 import axios from "axios";
+import { Loader } from "~/shared/components";
 
 type TaskModalProps = {
   user: User;
@@ -24,6 +25,7 @@ export type TaskDataProps = {
   priority: string;
   due: string;
   assigned_users: number[];
+  watching_users: number[];
 };
 
 const TaskModal = ({
@@ -36,8 +38,16 @@ const TaskModal = ({
 }: TaskModalProps) => {
   const [taskData, setTaskData] = useState<any>(modalTask);
   const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setLoading(false);
+    setTimeout(() => {
+      setLoading(true);
+    }, 1000);
+  }, [modalTask]);
 
   useEffect(() => {
     dispatch(setCurrentTask(modalTask.id));
@@ -74,20 +84,6 @@ const TaskModal = ({
     }
   };
 
-  // updates the members assigned to the task
-  const updateMembers = async (member: string, add: boolean) => {
-    // setTaskData((prevTaskData) => {
-    //   return {
-    //     ...prevTaskData,
-    //     assignedTo: add
-    //       ? [...prevTaskData.assignedTo, member]
-    //       : prevTaskData.assignedTo.filter(
-    //           (memberName: string) => memberName !== member
-    //         ),
-    //   };
-    // });
-  };
-
   // updates the task data based off of user inputs
   const updateTaskData = async <T extends keyof TaskDataProps>(
     type: T,
@@ -110,6 +106,23 @@ const TaskModal = ({
     }
   };
 
+  // updates comments data when something is done in comments
+  async function fetchTask() {
+    try {
+      const res = await axios.get(
+        `http://localhost:1337/api/tasks/${modalTask.id}?populate=*`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      );
+      setTaskData(res.data.data.attributes);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   // changes the input data when a new task is selected
   useEffect(() => {
     setTaskData(modalTask.task);
@@ -121,39 +134,50 @@ const TaskModal = ({
   }, [display]);
 
   return (
-    <div className={styles.main}>
-      <Header
-        taskData={taskData}
-        toggleDeleteModal={toggleDeleteModal}
-        closeModal={closeModal}
-        displayConfirm={displayConfirm}
-        deleteTask={deleteTaskData}
-        updateTaskData={updateTaskData}
-      />
-      <div className={styles.body}>
-        <div className={styles.right}>
-          <Description
-            descriptionData={taskData.description}
-            updateTaskData={updateTaskData}
-          />
-          {/* <Comments
-            taskData={taskData}
-            updateTaskData={updateTaskData}
-            user={user.username}
-            display={display}
-          /> */}
-        </div>
-        <div className={styles.left}>
-          <Tags
-            user={user}
-            taskData={taskData}
-            members={members}
-            updateMembers={updateMembers}
-            updateTaskData={updateTaskData}
-          />
+    <>
+      <div
+        className={styles.main}
+        style={loading ? { display: "" } : { display: "none" }}
+      >
+        <Header
+          taskData={taskData}
+          toggleDeleteModal={toggleDeleteModal}
+          closeModal={closeModal}
+          displayConfirm={displayConfirm}
+          deleteTask={deleteTaskData}
+          updateTaskData={updateTaskData}
+        />
+        <div className={styles.body}>
+          <div className={styles.right}>
+            <Description
+              descriptionData={taskData.description}
+              updateTaskData={updateTaskData}
+            />
+            <Comments
+              taskData={taskData}
+              updateTaskData={updateTaskData}
+              user={user}
+              display={display}
+              id={modalTask.id}
+              fetchTask={fetchTask}
+            />
+          </div>
+          <div className={styles.left}>
+            <Tags
+              user={user}
+              taskData={taskData}
+              members={members}
+              updateTaskData={updateTaskData}
+            />
+          </div>
         </div>
       </div>
-    </div>
+      {!loading && (
+        <div className={styles["loader-container"]}>
+          <Loader size={400} />
+        </div>
+      )}
+    </>
   );
 };
 

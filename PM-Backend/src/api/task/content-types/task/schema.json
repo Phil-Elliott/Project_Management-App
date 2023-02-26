@@ -50,8 +50,7 @@
     "watching_users": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "watching_tasks"
+      "target": "plugin::users-permissions.user"
     },
     "order": {
       "type": "integer"

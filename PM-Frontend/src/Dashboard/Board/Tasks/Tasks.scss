@@ -2,15 +2,14 @@
 
 .scroll-container {
   padding-block: 1rem;
-  // min-height: calc(100vh - 1rem);
-  overflow: scroll;
-  // margin-right: 1rem;
   min-height: calc(100vh - 3.7rem);
+  // margin-right: 1rem;
 }
 
 .tasks-container {
   display: flex;
   padding-inline: 1rem;
+  gap: 1rem;
 }
 
 .add-item-btn-container {

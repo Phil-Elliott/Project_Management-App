@@ -1,10 +1,17 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  useRef,
+} from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Task from "./Task/Task";
 import "./TaskSection.scss";
-import { FaEllipsisH } from "react-icons/fa";
+import { FaEllipsisH, FaTimes } from "react-icons/fa";
 
-import { AddItem } from "~/shared/components";
+import { AddItem, Popup } from "~/shared/components";
+import { useDebounce } from "usehooks-ts";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~/Store";
@@ -14,13 +21,15 @@ import {
   TasksSections,
 } from "~/shared/interfaces/Projects";
 import axios from "axios";
-import { setOrderedTasks, setProjectTasks } from "~/ProjectSlice";
+import { setOrderedTasks, setProjectTasks, setSections } from "~/ProjectSlice";
+import ConfirmModal from "~/shared/components/ConfirmModal/ConfirmModal";
 
 type TaskSectionProps = {
   section: TasksSections;
   addNewTask: (name: string, section: string, orderArr: number[]) => void;
   index: number;
   changeModalDisplay: (task: any, id: string) => void;
+  sections: TasksSections[];
 };
 
 const TaskSection = ({
@@ -28,15 +37,56 @@ const TaskSection = ({
   addNewTask,
   index,
   changeModalDisplay,
+  sections,
 }: TaskSectionProps) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const [orderedArr, setOrderedArr] = useState<number[]>([]);
+  const [displayPopup, setDisplayPopup] = useState<boolean>(false);
+  const [titleValue, setTitleValue] = useState<string>("");
+  const debouncedValue = useDebounce<string>(titleValue, 1000);
+
+  const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
+  const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setTitleValue(section.title);
+  }, [section]);
+
+  useEffect(() => {
+    updateSectionTitle();
+  }, [debouncedValue]);
+
   const projectTasks = useSelector(
     (state: RootState) => state.project.projectTasks
   );
   const search = useSelector((state: RootState) => state.project.searchQuery);
 
   const dispatch = useDispatch();
+
+  // deletes the section
+  async function handleDeleteSection() {
+    try {
+      const res = await axios.delete(
+        `http://localhost:1337/api/sections/${section.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      );
+      dispatch(
+        setSections(
+          sections.filter((section: TasksSections) => {
+            return section.id !== res.data.data.id;
+          })
+        )
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   // gets all of the tasks on render
   async function fetchTasks() {
@@ -74,6 +124,31 @@ const TaskSection = ({
     }
   }
 
+  // updates the title of the task section
+  async function updateSectionTitle() {
+    if (titleValue === section.title) return;
+    if (!titleValue || titleValue === "") return;
+    try {
+      const res = await axios.put(
+        `http://localhost:1337/api/sections/${section.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+          data: {
+            title: titleValue,
+          },
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const toggleDisplayPopup = () => {
+    setDisplayPopup(!displayPopup);
+  };
+
   useEffect(() => {
     fetchTasks();
   }, [section]);
@@ -87,6 +162,17 @@ const TaskSection = ({
   useEffect(() => {
     dispatch(setProjectTasks({ tasks: tasks, section: section.id.toString() }));
   }, [tasks]);
+
+  // disables ability to close modal when clicked outside of modal (when confirm modal is open)
+  const toggleDisableCloseModal = (disable: boolean) => {
+    setDisableCloseModal(disable);
+  };
+
+  // toggles the confirm modal
+  const toggleDeleteModal = () => {
+    setDisplayConfirm(!displayConfirm);
+    toggleDisableCloseModal(!displayConfirm);
+  };
 
   return (
     <Draggable
@@ -108,9 +194,55 @@ const TaskSection = ({
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
                 <div className="taskSection-header">
-                  <p>{section.title}</p>
-                  <FaEllipsisH className="ellipsis" />
+                  <input
+                    type="text"
+                    value={titleValue}
+                    onChange={(e) => setTitleValue(e.target.value)}
+                    ref={inputRef}
+                  />
+                  <div
+                    className="ellipsis-container"
+                    onClick={() => toggleDisplayPopup()}
+                  >
+                    <FaEllipsisH className="ellipsis" />
+                  </div>
                 </div>
+                {displayPopup && (
+                  <Popup close={() => setDisplayPopup(!displayPopup)}>
+                    <div className="section-popup-container">
+                      <div className="popup-header">
+                        <h3>List Options</h3>
+                        <FaTimes
+                          onClick={() => setDisplayPopup(false)}
+                          className="popup-close-icon"
+                        />
+                      </div>
+                      <div className="popup-content">
+                        <div
+                          className="popup-item"
+                          onClick={() => {
+                            setDisplayPopup(false);
+                            inputRef.current?.focus();
+                          }}
+                        >
+                          <p>Rename List</p>
+                        </div>
+                        <div
+                          className="popup-item"
+                          onClick={() => toggleDeleteModal()}
+                        >
+                          <p>Delete List</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Popup>
+                )}
+                <ConfirmModal
+                  display={displayConfirm}
+                  closeModal={toggleDeleteModal}
+                  deleteTask={handleDeleteSection}
+                  item={"list"}
+                />
 
                 <div className="taskSection-tasks">
                   {projectTasks[index] &&
@@ -148,44 +280,8 @@ const TaskSection = ({
 
 export default TaskSection;
 
-// let sortedArray = tasks.slice().sort((a, b) => {
-//   return a.order - b.order;
-// });
-// setOrderedTasks(sortedArray);
-// console.log(orderedTasks);
-// useEffect(() => {
-//   console.log(tasks);
-// }, [tasks]);
+/*
 
-// useEffect(() => {
-//   setOrderedTasks(
-//     section.tasks
-//       .map((task) => {
-//         return fakeData.tasks.find((t) => t.id === task);
-//       })
-//       .filter((task) => task !== undefined) as TaskProps[]
-//   );
-// }, [section, section.tasks, fakeData]);
 
-// // sort tasks by orderedTasksArr
-// function sortTasks() {
-//   console.log("sort tasks");
-//   let id = section.id.toString();
 
-//   let sectionOrder = orderedTasksArr.find(
-//     (section) => section.section === id
-//   );
-
-//   if (sectionOrder) {
-//     console.log("sort");
-//     let sortedArray = tasks.slice().sort((a, b) => {
-//       return (
-//         sectionOrder!.tasks.indexOf(parseInt(a.id)) -
-//         sectionOrder!.tasks.indexOf(parseInt(b.id))
-//       );
-//     });
-//     setTasks(sortedArray);
-//   } else {
-//     console.log("other section");
-//   }
-// }
+*/

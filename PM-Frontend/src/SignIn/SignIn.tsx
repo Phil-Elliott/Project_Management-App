@@ -23,7 +23,7 @@ const SignIn = () => {
     }
   }, [jwt]);
 
-  console.log(jwt);
+  console.log(jwt, "signin jwt");
 
   const handleFormChange = () => {
     setLogin(!login);

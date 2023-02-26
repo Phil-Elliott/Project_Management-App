@@ -61,10 +61,18 @@ input {
   &:hover {
     background: $primary-light;
   }
+  .member-name {
+    margin: 0.5rem 0rem 0.5rem 1rem;
+  }
 }
 
 .member-name {
   font-size: $med;
   font-weight: 500;
-  margin: 0.5rem 0rem 0.5rem 1rem;
+}
+
+@media only screen and (max-width: 850px) {
+  .members-container {
+    margin-bottom: 0;
+  }
 }

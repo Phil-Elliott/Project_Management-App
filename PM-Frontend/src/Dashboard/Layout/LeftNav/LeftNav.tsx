@@ -8,22 +8,25 @@ import { FaAngleDoubleRight } from "react-icons/fa";
 
 type LeftNavProps = {
   hideNav: boolean;
+  toggleModal: () => void;
 };
 
-const LeftNav = ({ hideNav }: LeftNavProps) => {
+const LeftNav = ({ hideNav, toggleModal }: LeftNavProps) => {
   const [expand, setExpand] = useState<boolean>(false);
 
   return (
     <div
       className={hideNav ? `${styles.main} ${styles.hide}` : styles.main}
-      style={expand ? { width: "13rem" } : { width: "3.5rem" }}
+      style={expand ? { width: "16rem" } : { width: "4.5rem" }}
     >
       <div className={styles["nav-container"]}>
-        <Top expand={expand} />
-        <Bottom expand={expand} />
+        <Top expand={expand} toggleModal={toggleModal} />
+        <div className={styles["bottom-nav"]}>
+          <Bottom expand={expand} />
+        </div>
       </div>
       <div
-        className={styles["arrow-container"]}
+        className={`${styles["arrow-container"]} ${expand && styles["rotate"]}`}
         onClick={() => setExpand(!expand)}
       >
         <FaAngleDoubleRight />

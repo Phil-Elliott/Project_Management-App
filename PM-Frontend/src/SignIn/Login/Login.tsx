@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -14,6 +14,10 @@ const Login = ({ handleFormChange }: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
 
   const navigate = useNavigate();
 
@@ -41,9 +45,6 @@ const Login = ({ handleFormChange }: LoginProps) => {
           password: password,
         }
       );
-      console.log("User profile", response.data.user);
-      console.log("User token", response.data.jwt);
-      // localStorage.setItem("jwt", response.data.jwt);
       let jwt = response.data.jwt;
       localStorage.setItem("jwt", jwt);
 
@@ -54,7 +55,7 @@ const Login = ({ handleFormChange }: LoginProps) => {
         navigate("/dashboard/");
       }
     } catch (error: any) {
-      setError(error.response.data.message);
+      setError("error");
     }
   };
 
@@ -63,9 +64,10 @@ const Login = ({ handleFormChange }: LoginProps) => {
       <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="Email">Email</label>
         <input type="email" onChange={handleEmail} value={email} />
+        {error && <p className={styles.error}>👋 Invalid email or password</p>}
         <label htmlFor="Password">Password</label>
         <input type="password" onChange={handlePassword} value={password} />
-        <p className={styles.forgot}>Forgot Password</p>
+        {/* <p className={styles.forgot}>Forgot Password</p> */}
         <div className={styles.buttons}>
           <button type="submit">Sign in</button>
         </div>

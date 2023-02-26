@@ -5,6 +5,14 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 2rem;
   padding: 2rem;
+  width: 100%;
+}
+
+.loader-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 1300px) {
@@ -29,7 +37,7 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .main {
     grid-template-columns: 1fr;
     padding: 0.5rem;
