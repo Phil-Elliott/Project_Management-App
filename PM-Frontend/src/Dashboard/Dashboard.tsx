@@ -21,7 +21,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (localStorage.getItem("jwt") === null) {
-      navigate("/signin/");
+      navigate("/");
     } else if (jwt) {
       getUser();
       getProjects();
@@ -62,21 +62,6 @@ const Dashboard = () => {
       });
   }
 
-  // function getProject() {
-  //   axios
-  //     .get(`http://localhost:1337/api/projects/4?populate=*`, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res.data.data.attributes);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
-
   return (
     <div className="dashboard-container">
       <Layout>
@@ -102,10 +87,18 @@ const Dashboard = () => {
 export default Dashboard;
 
 /*
+  - tooltip to avatar
+  - pencil icon
+  - Show image in nav
+
+
     - Add hover tags
     - Make forget password work
     - Get filter to work
     - Fix up comments
+    - launch project
+    - put on portfolio website
+    - add to resume
 
     - could put avatar on the account icon for nav
 

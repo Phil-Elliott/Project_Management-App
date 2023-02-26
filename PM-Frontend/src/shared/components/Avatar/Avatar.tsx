@@ -1,13 +1,15 @@
 import React from "react";
 import styles from "./Avatar.module.scss";
+import { StyledTooltip } from "~/shared/components/Tooltips/Tooltip";
 
 type AvatarProps = {
   avatar: string;
   size?: string;
   index?: number;
+  username?: string;
 };
 
-const Avatar = ({ avatar, size, index }: AvatarProps) => {
+const Avatar = ({ avatar, size, index, username }: AvatarProps) => {
   const myStyle = {
     fontSize: size === "med" ? ".75rem" : ".9rem",
     width: size === "med" ? "1.5rem" : "1.75rem",
@@ -15,16 +17,18 @@ const Avatar = ({ avatar, size, index }: AvatarProps) => {
   };
 
   return (
-    <div
-      className={styles.avatar}
-      style={index ? { ...myStyle, zIndex: index + 1 } : { ...myStyle }}
-    >
-      {avatar.length === 1 ? (
-        <p>{avatar}</p>
-      ) : (
-        <img src={avatar} alt="user avatar" />
-      )}
-    </div>
+    <StyledTooltip title={username}>
+      <div
+        className={styles.avatar}
+        style={index ? { ...myStyle, zIndex: index + 1 } : { ...myStyle }}
+      >
+        {avatar.length === 1 ? (
+          <p>{avatar}</p>
+        ) : (
+          <img src={avatar} alt="user avatar" />
+        )}
+      </div>
+    </StyledTooltip>
   );
 };
 

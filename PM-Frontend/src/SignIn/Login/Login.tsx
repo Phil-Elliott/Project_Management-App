@@ -67,7 +67,7 @@ const Login = ({ handleFormChange }: LoginProps) => {
         {error && <p className={styles.error}>👋 Invalid email or password</p>}
         <label htmlFor="Password">Password</label>
         <input type="password" onChange={handlePassword} value={password} />
-        <p className={styles.forgot}>Forgot Password</p>
+        {/* <p className={styles.forgot}>Forgot Password</p> */}
         <div className={styles.buttons}>
           <button type="submit">Sign in</button>
         </div>
