@@ -103,21 +103,9 @@ export default Dashboard;
   There is a blur when editing description
 
 
-  - tooltip to avatar
-  - pencil icon
-  - Show image in nav
 
 
-    - Add hover tags
-    - Make forget password work
-    - Get filter to work
-    - Fix up comments
-    - launch project
-    - put on portfolio website
-    - add to resume
-
-    - could put avatar on the account icon for nav
-
+    
   
 
 
