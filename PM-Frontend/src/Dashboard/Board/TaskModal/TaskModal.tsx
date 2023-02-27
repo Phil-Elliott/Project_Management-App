@@ -70,7 +70,7 @@ const TaskModal = ({
     async function deleteTaskCall() {
       try {
         const res = await axios.delete(
-          `http://localhost:1337/api/tasks/${modalTask.id}`,
+          `https://strapi-production-7520.up.railway.app/api/tasks/${modalTask.id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -91,7 +91,7 @@ const TaskModal = ({
   ) => {
     try {
       const res = await axios.put(
-        `http://localhost:1337/api/tasks/${modalTask.id}`,
+        `https://strapi-production-7520.up.railway.app/api/tasks/${modalTask.id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -110,7 +110,7 @@ const TaskModal = ({
   async function fetchTask() {
     try {
       const res = await axios.get(
-        `http://localhost:1337/api/tasks/${modalTask.id}?populate=*`,
+        `https://strapi-production-7520.up.railway.app/api/tasks/${modalTask.id}?populate=*`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,

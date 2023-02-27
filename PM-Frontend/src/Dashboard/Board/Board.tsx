@@ -73,16 +73,19 @@ const Board = () => {
   const addNewSection = async (name: string, orderedArr: number[]) => {
     // adds the new section to the database
     try {
-      const res = await axios.post(`http://localhost:1337/api/sections`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-        data: {
-          title: name,
-          order: 1,
-          project: projectData!.id,
-        },
-      });
+      const res = await axios.post(
+        `https://strapi-production-7520.up.railway.app/api/sections`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+          data: {
+            title: name,
+            order: 1,
+            project: projectData!.id,
+          },
+        }
+      );
       orderedArr.push(res.data.data.id);
       addSectionOrder(orderedArr);
       dispatch(
@@ -101,7 +104,9 @@ const Board = () => {
   async function addSectionOrder(ordered: number[]) {
     try {
       const res = await axios.put(
-        `http://localhost:1337/api/projects/${projectData!.id}`,
+        `https://strapi-production-7520.up.railway.app/api/projects/${
+          projectData!.id
+        }`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -120,7 +125,7 @@ const Board = () => {
     async function fetchSections() {
       try {
         const res = await axios.get(
-          `http://localhost:1337/api/projects/${
+          `https://strapi-production-7520.up.railway.app/api/projects/${
             projectData!.id
           }?populate=ordered_sections`,
           {
@@ -186,17 +191,20 @@ const Board = () => {
   ) => {
     // adds the new task to the database
     try {
-      const res = await axios.post(`http://localhost:1337/api/tasks`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-        data: {
-          title: name,
-          section: taskSection,
-          order: 1,
-          project: projectData!.id,
-        },
-      });
+      const res = await axios.post(
+        `https://strapi-production-7520.up.railway.app/api/tasks`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+          data: {
+            title: name,
+            section: taskSection,
+            order: 1,
+            project: projectData!.id,
+          },
+        }
+      );
       let ordered_task = orderedTasks.find(
         (sectionObj) => sectionObj.section.toString() === taskSection.toString()
       );
@@ -242,7 +250,7 @@ const Board = () => {
     console.log("task section", orderedArr);
     try {
       const res = await axios.put(
-        `http://localhost:1337/api/sections/${taskSection}`,
+        `https://strapi-production-7520.up.railway.app/api/sections/${taskSection}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,

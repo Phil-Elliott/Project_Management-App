@@ -82,6 +82,7 @@ const Priority = ({ updateTaskData, priority }: PriorityProps) => {
             {priorityOptions.map((option) => {
               return (
                 <div
+                  key={option.name}
                   className={styles["option"]}
                   onClick={() => handlePriority(option)}
                 >

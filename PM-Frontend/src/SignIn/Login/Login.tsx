@@ -39,7 +39,7 @@ const Login = ({ handleFormChange }: LoginProps) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:1337/api/auth/local",
+        "https://strapi-production-7520.up.railway.app/api/auth/local",
         {
           identifier: email,
           password: password,

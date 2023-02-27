@@ -23,7 +23,7 @@ const CommentData = ({
   const fetchComment = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:1337/api/comments/${comment.id}?populate=*`,
+        `https://strapi-production-7520.up.railway.app/api/comments/${comment.id}?populate=*`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -83,17 +83,16 @@ const CommentData = ({
 
 export default CommentData;
 
-// const getDays = () => {
-//   const current = moment();
-//   const diff = current.diff(comment.date, "days");
-//   console.log(diff);
-//   if (diff === 0) {
-//     return "Today";
-//   } else if (diff === 1) {
-//     return "Yesterday";
-//   } else {
-//     return `${diff} days ago`;
-//   }
-// };
+/*
 
-// const date = getDays();
+  Edit
+       Needs to 
+        1) Highlight
+
+
+
+
+
+
+
+*/

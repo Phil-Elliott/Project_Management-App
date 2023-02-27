@@ -34,7 +34,7 @@ const Dashboard = () => {
 
   function getUser() {
     axios
-      .get("http://localhost:1337/api/users/me", {
+      .get("https://strapi-production-7520.up.railway.app/api/users/me", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
@@ -49,11 +49,14 @@ const Dashboard = () => {
 
   function getProjects() {
     axios
-      .get(`http://localhost:1337/api/users/me?populate=*`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      })
+      .get(
+        `https://strapi-production-7520.up.railway.app/api/users/me?populate=*`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      )
       .then((res) => {
         dispatch(setProjects(res.data.projects));
       })
@@ -87,6 +90,19 @@ const Dashboard = () => {
 export default Dashboard;
 
 /*
+
+  
+  2) Add reply to comment
+  3) Maybe have loader while adding new comments or updating comments
+  4) Work on filter modal
+  5) Get a new logo
+  7) Add forget password
+  8) Figure out why task data taking so long to load (maybe cant do anything)
+
+
+  There is a blur when editing description
+
+
   - tooltip to avatar
   - pencil icon
   - Show image in nav

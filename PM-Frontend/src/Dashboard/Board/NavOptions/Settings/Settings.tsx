@@ -104,15 +104,18 @@ const Settings = ({ projectData }: SettingsProps) => {
       return;
     }
     axios
-      .put(`http://localhost:1337/api/projects/${projectData.id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-        data: {
-          title: title,
-          background: backgroundState,
-        },
-      })
+      .put(
+        `https://strapi-production-7520.up.railway.app/api/projects/${projectData.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+          data: {
+            title: title,
+            background: backgroundState,
+          },
+        }
+      )
       .then((res) => {
         dispatch(
           setProject({
@@ -139,7 +142,7 @@ const Settings = ({ projectData }: SettingsProps) => {
   async function handleDeleteBoard() {
     try {
       const res = await axios.delete(
-        `http://localhost:1337/api/projects/${projectData.id}`,
+        `https://strapi-production-7520.up.railway.app/api/projects/${projectData.id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,

@@ -25,7 +25,7 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
   };
 
   const handleCancel = () => {
-    setDescriptionValue(descriptionData);
+    // setDescriptionValue(descriptionData);
     setOpenEditor(false);
   };
 
@@ -44,6 +44,11 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
       <div className={styles.header}>
         <AiOutlineAlignLeft className={styles.icon} />
         <h3>Description</h3>
+        {!openEditor && (
+          <Button variant={"secondary"} handleClick={() => setOpenEditor(true)}>
+            Edit
+          </Button>
+        )}
       </div>
       {openEditor ? (
         <div className={styles["quill-container"]}>
@@ -65,16 +70,14 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
         </div>
       ) : (
         <div
-          className={styles["quill-container"]}
+          className={styles["description-container"]}
           onClick={() => setOpenEditor(true)}
         >
-          <ReactQuill
-            className={styles.quill}
-            theme="snow"
-            value={descriptionValue}
-            onChange={setDescriptionValue}
-            placeholder="Enter description"
-          />
+          {descriptionValue ? (
+            <div dangerouslySetInnerHTML={{ __html: descriptionValue }} />
+          ) : (
+            <p>Enter description</p>
+          )}
         </div>
       )}
     </div>
@@ -84,12 +87,14 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
 export default Description;
 
 // <div
-//   className={styles["description-container"]}
+//   className={styles["quill-container"]}
 //   onClick={() => setOpenEditor(true)}
 // >
-//   {descriptionValue ? (
-//     <div dangerouslySetInnerHTML={{ __html: descriptionValue }} />
-//   ) : (
-//     <p>Enter description</p>
-//   )}
+//   <ReactQuill
+//     className={styles.quill}
+//     theme="snow"
+//     value={descriptionValue}
+//     onChange={setDescriptionValue}
+//     placeholder="Enter description"
+//   />
 // </div>

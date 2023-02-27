@@ -61,11 +61,14 @@ const Signup = ({ handleFormChange }: SignupProps) => {
     }
 
     axios
-      .post("http://localhost:1337/api/auth/local/register", {
-        username: username,
-        email: email,
-        password: password,
-      })
+      .post(
+        "https://strapi-production-7520.up.railway.app/api/auth/local/register",
+        {
+          username: username,
+          email: email,
+          password: password,
+        }
+      )
       .then((response) => {
         console.log("User profile", response.data.user);
         console.log("User token", response.data.jwt);
