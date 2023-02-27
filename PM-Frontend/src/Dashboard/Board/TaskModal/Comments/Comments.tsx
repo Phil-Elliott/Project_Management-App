@@ -114,10 +114,14 @@ const Comments = ({
     image = user.username[0].toUpperCase();
   }
 
-  // change the order of the comments. last one first
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key === "Enter" && displayButtons === true && comment !== "") {
+      handleSave();
+    }
+  }
 
   return (
-    <div className={styles.main}>
+    <div className={styles.main} onKeyDown={(e) => handleKeyDown(e)}>
       <div className={styles.header}>
         <MdInsertComment className={styles.icon} />
         <h3>Comments</h3>

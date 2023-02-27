@@ -91,15 +91,14 @@ export default Dashboard;
 
 /*
 
-  1) Fix description
+  
   2) Add reply to comment
   3) Maybe have loader while adding new comments or updating comments
   4) Work on filter modal
   5) Get a new logo
   7) Add forget password
-  8) Get all enters to work (comments)
   8) Figure out why task data taking so long to load (maybe cant do anything)
-  9) Make buttons smaller in task modal
+
 
   There is a blur when editing description
 

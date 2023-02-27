@@ -44,6 +44,11 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
       <div className={styles.header}>
         <AiOutlineAlignLeft className={styles.icon} />
         <h3>Description</h3>
+        {!openEditor && (
+          <Button variant={"secondary"} handleClick={() => setOpenEditor(true)}>
+            Edit
+          </Button>
+        )}
       </div>
       {openEditor ? (
         <div className={styles["quill-container"]}>
@@ -74,21 +79,22 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
             <p>Enter description</p>
           )}
         </div>
-        // <div
-        //   className={styles["quill-container"]}
-        //   onClick={() => setOpenEditor(true)}
-        // >
-        //   <ReactQuill
-        //     className={styles.quill}
-        //     theme="snow"
-        //     value={descriptionValue}
-        //     onChange={setDescriptionValue}
-        //     placeholder="Enter description"
-        //   />
-        // </div>
       )}
     </div>
   );
 };
 
 export default Description;
+
+// <div
+//   className={styles["quill-container"]}
+//   onClick={() => setOpenEditor(true)}
+// >
+//   <ReactQuill
+//     className={styles.quill}
+//     theme="snow"
+//     value={descriptionValue}
+//     onChange={setDescriptionValue}
+//     placeholder="Enter description"
+//   />
+// </div>
