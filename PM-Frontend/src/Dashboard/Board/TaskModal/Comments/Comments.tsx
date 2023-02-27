@@ -32,6 +32,13 @@ const Comments = ({
 }: CommentsProps) => {
   const [displayButtons, setDisplayButtons] = useState(false);
   const [comment, setComment] = useState<string>("");
+  const [reverseComments, setReverseComments] = useState<any>([]);
+
+  useEffect(() => {
+    if (taskData.comments) {
+      setReverseComments(taskData.comments.data.reverse());
+    }
+  }, [taskData.comments]);
 
   // add a comment to the database
   async function addComment() {
@@ -153,7 +160,7 @@ const Comments = ({
         </div>
       ) : null}
       <div className={styles.comments}>
-        {taskData.comments?.data.reverse().map((comment: any) => {
+        {reverseComments.map((comment: any) => {
           return (
             <CommentData
               comment={comment}
