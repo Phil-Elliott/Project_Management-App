@@ -69,7 +69,7 @@ const TaskSection = ({
   async function handleDeleteSection() {
     try {
       const res = await axios.delete(
-        `http://localhost:1337/api/sections/${section.id}`,
+        `https://strapi-production-7520.up.railway.app/api/sections/${section.id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -92,7 +92,7 @@ const TaskSection = ({
   async function fetchTasks() {
     try {
       const res = await axios.get(
-        `http://localhost:1337/api/sections/${section.id}?populate=ordered_tasks`,
+        `https://strapi-production-7520.up.railway.app/api/sections/${section.id}?populate=ordered_tasks`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -130,7 +130,7 @@ const TaskSection = ({
     if (!titleValue || titleValue === "") return;
     try {
       const res = await axios.put(
-        `http://localhost:1337/api/sections/${section.id}`,
+        `https://strapi-production-7520.up.railway.app/api/sections/${section.id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,

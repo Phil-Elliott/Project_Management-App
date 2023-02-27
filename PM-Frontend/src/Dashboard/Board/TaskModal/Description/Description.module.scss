@@ -38,13 +38,14 @@
   margin-left: 1.5rem;
   font-size: 0.9rem;
 
-  // ol,
-  // ul {
-  //   padding-left: 0.5rem;
-  //   padding: 0;
-  //   margin: 0;
-  //   list-style-position: inside;
-  // }
+  ol,
+  ul {
+    padding-left: 0.5rem;
+    padding: 0;
+    margin: 0;
+    list-style-position: inside;
+    text-indent: 1rem;
+  }
 }
 
 .buttons {

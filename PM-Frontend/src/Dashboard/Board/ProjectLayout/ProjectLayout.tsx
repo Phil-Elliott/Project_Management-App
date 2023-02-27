@@ -24,7 +24,7 @@ export function ProjectLayout() {
   async function fetchProject() {
     try {
       const res = await axios.get(
-        `http://localhost:1337/api/projects/${id}?populate[0]=ordered_sections&populate[1]=users`,
+        `https://strapi-production-7520.up.railway.app/api/projects/${id}?populate[0]=ordered_sections&populate[1]=users`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,

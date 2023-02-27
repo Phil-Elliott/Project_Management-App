@@ -82,7 +82,7 @@ const ProfileModal = ({ closeModal }: ProfileModalProps) => {
   async function handleDeleteUser() {
     try {
       const res = await axios.delete(
-        `http://localhost:1337/api/users/${user.id}`,
+        `https://strapi-production-7520.up.railway.app/api/users/${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -109,7 +109,7 @@ const ProfileModal = ({ closeModal }: ProfileModalProps) => {
   async function updateUser() {
     try {
       const res = await axios.put(
-        `http://localhost:1337/api/users/${user.id}`,
+        `https://strapi-production-7520.up.railway.app/api/users/${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,

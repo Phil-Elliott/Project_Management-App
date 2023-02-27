@@ -71,7 +71,7 @@ const CreateBoard = ({ getProjects }: CreateBoardProps) => {
     }
     // post the project here to strapi
     axios
-      .post("http://localhost:1337/api/projects", {
+      .post("https://strapi-production-7520.up.railway.app/api/projects", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },

@@ -23,7 +23,9 @@ const Bottom = ({ expand }: BottomProps) => {
         onClick={() => setShowAll(!showAll)}
       >
         <FaAngleDown
-          className={`${showAll && styles["rotate"]} ${styles.arrow}`}
+          className={`${showAll && projects.length > 3 && styles["rotate"]} ${
+            styles.arrow
+          }`}
         />
       </div>
       <div className={styles["projects-container"]}>

@@ -36,17 +36,20 @@ const Comments = ({
   // add a comment to the database
   async function addComment() {
     try {
-      const res = await axios.post(`http://localhost:1337/api/comments`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-        data: {
-          content: comment,
-          project: taskData.project.data.id,
-          task: id,
-          users_permissions_user: user!.id,
-        },
-      });
+      const res = await axios.post(
+        `https://strapi-production-7520.up.railway.app/api/comments`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+          data: {
+            content: comment,
+            project: taskData.project.data.id,
+            task: id,
+            users_permissions_user: user!.id,
+          },
+        }
+      );
       fetchTask();
     } catch (err) {
       console.log(err);
@@ -57,7 +60,7 @@ const Comments = ({
   async function updateComment(commentId: string) {
     try {
       const res = await axios.put(
-        `http://localhost:1337/api/comments/${commentId}`,
+        `https://strapi-production-7520.up.railway.app/api/comments/${commentId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -77,7 +80,7 @@ const Comments = ({
   async function deleteComment(commentId: string) {
     try {
       const res = await axios.delete(
-        `http://localhost:1337/api/comments/${commentId}`,
+        `https://strapi-production-7520.up.railway.app/api/comments/${commentId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,

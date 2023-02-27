@@ -23,7 +23,7 @@ const CommentData = ({
   const fetchComment = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:1337/api/comments/${comment.id}?populate=*`,
+        `https://strapi-production-7520.up.railway.app/api/comments/${comment.id}?populate=*`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,

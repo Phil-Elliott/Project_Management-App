@@ -31,7 +31,7 @@ const Invite = ({ members, projectId }: InviteProps) => {
   async function getUserDetails(email: string) {
     try {
       const res = await axios.get(
-        `http://localhost:1337/api/users?filters[email][$eq]=${email}`,
+        `https://strapi-production-7520.up.railway.app/api/users?filters[email][$eq]=${email}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -57,7 +57,7 @@ const Invite = ({ members, projectId }: InviteProps) => {
   ) {
     try {
       const res = await axios.put(
-        `http://localhost:1337/api/projects/${projectId}`,
+        `https://strapi-production-7520.up.railway.app/api/projects/${projectId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -74,6 +74,7 @@ const Invite = ({ members, projectId }: InviteProps) => {
             id: userId,
             username: usename,
             avatar: avatar,
+            email: "",
           },
         ])
       );
