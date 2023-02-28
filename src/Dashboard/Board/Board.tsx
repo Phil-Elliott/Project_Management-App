@@ -247,7 +247,6 @@ const Board = () => {
 
   // adds the new task to the ordered tasks array inside of sections
   async function addTaskOrder(orderedArr: number[], taskSection: string) {
-    console.log("task section", orderedArr);
     try {
       const res = await axios.put(
         `https://strapi-production-7520.up.railway.app/api/sections/${taskSection}`,
