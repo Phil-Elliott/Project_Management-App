@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Avatar.module.scss";
 import { StyledTooltip } from "~/shared/components/Tooltips/Tooltip";
 
@@ -33,3 +33,10 @@ const Avatar = ({ avatar, size, index, username }: AvatarProps) => {
 };
 
 export default Avatar;
+
+/*
+
+Show background until image is loaded
+
+
+*/

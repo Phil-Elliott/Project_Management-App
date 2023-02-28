@@ -80,7 +80,7 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
           ref={provided.innerRef}
           onClick={() => changeModalDisplay(task, taskData.id)}
         >
-          <p className={styles.name}>{task && task.title}</p>
+          <p className={styles.name}>{taskData.title}</p>
           <div className={styles.bottom}>
             <div className={styles["bottom-left"]}>
               {isWatched && <FaEye className={styles.icon} />}

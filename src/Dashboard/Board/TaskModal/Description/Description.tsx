@@ -13,9 +13,14 @@ type DescriptionProps = {
     type: T,
     value: TaskDataProps[T]
   ) => void;
+  task: TaskDataProps;
 };
 
-const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
+const Description = ({
+  descriptionData,
+  updateTaskData,
+  task,
+}: DescriptionProps) => {
   const [descriptionValue, setDescriptionValue] = useState("");
   const [openEditor, setOpenEditor] = useState(true);
 
@@ -37,7 +42,7 @@ const Description = ({ descriptionData, updateTaskData }: DescriptionProps) => {
       setDescriptionValue(descriptionData);
       setOpenEditor(false);
     }
-  }, [descriptionData]);
+  }, [task]);
 
   return (
     <div className={styles.main}>

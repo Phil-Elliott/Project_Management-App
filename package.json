@@ -1,6 +1,5 @@
 {
   "name": "pm-frontend",
-  "homepage": "http://Phil-Elliott.github.io/Project_Management-App",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,9 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "test": "vitest"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
