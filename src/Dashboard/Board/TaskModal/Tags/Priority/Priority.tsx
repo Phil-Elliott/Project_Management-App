@@ -16,6 +16,7 @@ type PriorityProps = {
     type: T,
     value: TaskDataProps[T]
   ) => void;
+  task: TaskDataProps;
 };
 
 const priorityOptions = [
@@ -37,7 +38,7 @@ const priorityOptions = [
   { name: "Low", color: "#00B87C", icon: <AiOutlineArrowDown /> },
 ];
 
-const Priority = ({ updateTaskData, priority }: PriorityProps) => {
+const Priority = ({ updateTaskData, priority, task }: PriorityProps) => {
   const [priorityData, setPriorityData] = useState<OptionProps>({
     name: "Normal",
     color: "#FFC107",
@@ -57,8 +58,14 @@ const Priority = ({ updateTaskData, priority }: PriorityProps) => {
     );
     if (PriorityObject) {
       setPriorityData(PriorityObject);
+    } else {
+      setPriorityData({
+        name: "Normal",
+        color: "#FFC107",
+        icon: <AiOutlineArrowDown />,
+      });
     }
-  }, [priority]);
+  }, [task]);
 
   return (
     <div className={styles["main"]}>

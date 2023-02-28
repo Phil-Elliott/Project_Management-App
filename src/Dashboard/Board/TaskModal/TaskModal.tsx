@@ -152,6 +152,7 @@ const TaskModal = ({
             <Description
               descriptionData={taskData.description}
               updateTaskData={updateTaskData}
+              task={taskData}
             />
             <Comments
               taskData={taskData}

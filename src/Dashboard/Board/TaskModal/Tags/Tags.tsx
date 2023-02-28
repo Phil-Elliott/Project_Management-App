@@ -34,7 +34,11 @@ const Tags = ({ user, taskData, members, updateTaskData }: TagsProps) => {
         user={user}
         taskData={taskData}
       />
-      <Priority updateTaskData={updateTaskData} priority={taskData.priority} />
+      <Priority
+        updateTaskData={updateTaskData}
+        priority={taskData.priority}
+        task={taskData}
+      />
       <DueDate updateTaskData={updateTaskData} taskData={taskData} />
     </div>
   );

@@ -90,7 +90,18 @@ const Dashboard = () => {
 export default Dashboard;
 
 /*
+  Might need to try hosting on github pages (maybe will run faster)
 
+
+
+  Looks like the old description is coming from the last task
+  
+
+  The above only happens when the task doesnt have it saved
+
+  drag and drop is not working right
+
+  need to delete all of the comments
   
   2) Add reply to comment
   3) Maybe have loader while adding new comments or updating comments
