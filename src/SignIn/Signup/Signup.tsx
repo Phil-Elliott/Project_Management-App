@@ -90,25 +90,32 @@ const Signup = ({ handleFormChange }: SignupProps) => {
   return (
     <div className={styles.main}>
       <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="username">Username</label>
+        <label className={styles.label} htmlFor="username">
+          Username
+        </label>
         <input type="text" onChange={handleName} value={username} />
         {username === "" && attempted && (
           <p className={styles.error}>👋 Please enter a username</p>
         )}
-        <label htmlFor="Email">Email</label>
+        <label className={styles.label} htmlFor="Email">
+          Email
+        </label>
         <input type="email" onChange={handleEmail} value={email} />
         {email === "" && attempted && (
           <p className={styles.error}>👋 Please enter an email</p>
         )}
-        <label htmlFor="Password">Password</label>
+        <label className={styles.label} htmlFor="Password">
+          Password
+        </label>
         <input type="password" onChange={handlePassword} value={password} />
         {password.length < 6 && attempted && (
           <p className={styles.error}>
             👋 Passwords must be at least 6 characters
           </p>
         )}
-        {/* <p>Passwords must be at least 6 characters.</p> */}
-        <label htmlFor="Confirm Password">Re-enter password</label>
+        <label className={styles.label} htmlFor="Confirm Password">
+          Re-enter password
+        </label>
         <input
           type="password"
           onChange={handleConfirmPassword}

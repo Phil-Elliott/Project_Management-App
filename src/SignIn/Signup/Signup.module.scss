@@ -11,14 +11,14 @@
     flex-direction: column;
     padding-top: 10%;
   }
-  label {
+  .label {
     font-size: 1rem;
     font-weight: 500;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
   }
 
   input {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
     width: 100%;
     border-radius: 3px;
     border: 1px solid $primary-light;
@@ -63,7 +63,7 @@
 .signup {
   font-size: 1rem;
   font-weight: 500;
-  //   padding-bottom: 1rem;
+  // padding-bottom: 1rem;
 
   span {
     // text-decoration: underline;
@@ -75,7 +75,8 @@
 .error {
   color: red;
   font-size: 0.85rem;
-  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  margin-top: -0.5rem;
 }
 
 @media only screen and (min-width: 600px) {
