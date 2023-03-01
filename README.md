@@ -4,25 +4,45 @@ This is a React-based application designed for task tracking within a project. I
 
 ## How it works
 
-Sign up: Create an account to get started. Once you're signed in, you'll be directed to your dashboard.
+### Sign up
 
-Projects page: At first, you'll see the projects page. Here, you can create a new project or choose from an existing one. You can select a project either from this screen or from the navigation menu on the left.
+Create an account to get started. Once you're signed in, you'll be directed to your dashboard.
 
-Board component: Once you've selected a project, you'll be taken to the board component. This is where you can create task lists and tasks for those lists. You can move all the lists and tasks with drag and drop.
+### Projects page
 
-List management: You can change the name of a list or delete it by pressing on the list's name or the ellipsis by the list's name.
+At first, you'll see the projects page. Here, you can create a new project or choose from an existing one. You can select a project either from this screen or from the navigation menu on the left.
 
-Task details: Each task can be clicked on to display a modal with the task's information. This includes the task's name, description, comments section, assigned members, watching, priority, and due date.
+### Board component
 
-Top section of the board: You'll find a search bar, invite button, and a settings button at the top section of the board.
+Once you've selected a project, you'll be taken to the board component. This is where you can create task lists and tasks for those lists. You can move all the lists and tasks with drag and drop.
 
-Search bar: Use the search bar to filter the tasks related to your search query.
+### List management
 
-Invite button: Use the invite button to share the project with other users. This can be done by entering their email addresses.
+You can change the name of a list or delete it by pressing on the list's name or the ellipsis by the list's name.
 
-Settings button: The settings button is used to change the name or background of the project, as well as delete the project.
+### Task details
 
-Navigation menu: In the navigation menu on the left, you'll also see a profile button. This can be used to give or change your avatar, change your name, change your email, or delete your account.
+Each task can be clicked on to display a modal with the task's information. This includes the task's name, description, comments section, assigned members, watching, priority, and due date.
+
+### Top section of the board
+
+You'll find a search bar, invite button, and a settings button at the top section of the board.
+
+### Search bar
+
+Use the search bar to filter the tasks related to your search query.
+
+### Invite button
+
+Use the invite button to share the project with other users. This can be done by entering their email addresses.
+
+### Settings button
+
+The settings button is used to change the name or background of the project, as well as delete the project.
+
+### Navigation menu
+
+In the navigation menu on the left, you'll also see a profile button. This can be used to give or change your avatar, change your name, change your email, or delete your account.
 
 ## Software used
 
