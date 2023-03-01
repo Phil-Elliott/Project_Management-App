@@ -36,7 +36,6 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
           },
         }
       );
-      console.log(taskData.title);
       setTask(res.data.data.attributes);
       setComments(res.data.data.attributes.comments.data);
       setWatching(res.data.data.attributes.watching_users.data);
@@ -83,9 +82,7 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
           ref={provided.innerRef}
           onClick={() => changeModalDisplay(task, taskData.id)}
         >
-          <p className={styles.name}>
-            {task?.title ? task?.title : taskData.title}
-          </p>
+          <p className={styles.name}>{task?.title}</p>
           <div className={styles.bottom}>
             <div className={styles["bottom-left"]}>
               {isWatched && <FaEye className={styles.icon} />}
