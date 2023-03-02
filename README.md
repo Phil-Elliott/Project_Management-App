@@ -8,7 +8,13 @@ This is a React-based application designed for task tracking within a project. I
 
 ### Sign up
 
-Create an account to get started. Once you're signed in, you'll be directed to your dashboard.
+![SignIn-PM-App](https://user-images.githubusercontent.com/89685937/222330487-8401d4dd-45cd-4968-aa8c-180d2647711b.png)
+
+Create an account or you can sign in with the demo account to get started. Once you're signed in, you'll be directed to your dashboard.
+
+Demo Account:
+Email: user@gmail.com
+Password: user1234
 
 ### Projects page
 
