@@ -18,6 +18,8 @@ Password: user1234
 
 ### Projects page
 
+![MainHub](https://user-images.githubusercontent.com/89685937/222331050-ede48efa-bc4f-41e9-b1de-757c0743baa1.gif)
+
 At first, you'll see the projects page. Here, you can create a new project or choose from an existing one. You can select a project either from this screen or from the navigation menu on the left.
 
 ### Board component
