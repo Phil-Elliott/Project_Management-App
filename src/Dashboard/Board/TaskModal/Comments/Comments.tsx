@@ -9,6 +9,8 @@ import moment from "moment";
 import { TaskProps, User } from "~/shared/interfaces/Projects";
 import { TaskDataProps } from "../TaskModal";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { updateTask } from "~/ProjectSlice";
 
 type CommentsProps = {
   taskData: any;
@@ -34,6 +36,8 @@ const Comments = ({
   const [comment, setComment] = useState<string>("");
   const [reverseComments, setReverseComments] = useState<any>([]);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (taskData.comments) {
       setReverseComments(taskData.comments.data.reverse());
@@ -58,6 +62,14 @@ const Comments = ({
         }
       );
       fetchTask();
+      dispatch(
+        updateTask({
+          section: taskData.section.data.id,
+          taskId: id,
+          type: "comments",
+          value: comment,
+        })
+      );
     } catch (err) {
       console.log(err);
     }
@@ -78,6 +90,15 @@ const Comments = ({
         }
       );
       fetchTask();
+
+      dispatch(
+        updateTask({
+          section: taskData.section.data.id,
+          taskId: id,
+          type: "comments",
+          value: comment,
+        })
+      );
     } catch (err) {
       console.log(err);
     }
@@ -95,6 +116,14 @@ const Comments = ({
         }
       );
       fetchTask();
+      dispatch(
+        updateTask({
+          section: taskData.section.data.id,
+          taskId: id,
+          type: "comments",
+          value: comment,
+        })
+      );
     } catch (err) {
       console.log(err);
     }

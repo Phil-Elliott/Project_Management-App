@@ -23,7 +23,8 @@ type ProjectState = {
 type updateTaskProps = {
   section: string;
   taskId: string;
-  title: any;
+  type: string;
+  value: any;
 };
 
 type currentTaskProps = {
@@ -60,43 +61,6 @@ type DeleteTaskProps = {
   section: string;
   taskId: string;
 };
-
-/*
-  projects: {
-    id: string;
-    title: string;
-    background: string;
-  }
-  assigned: {
-    figure out later
-    should be located in the task
-    insert from data from members
-  }
-  members: {
-    figure out later
-    need to save the members details to this table
-  }
-  tasks: {
-    id: string;
-    title: string;
-    description: string;
-    priority: string;
-    due: string;
-    comments: {
-      id: string;
-      task: string;
-      member: string;
-  }
-  sections: {
-    id: string;
-    title: string;
-  }
-  watching: {
-    figure out later
-    should be located in the task
-  }
-
-*/
 
 const initialState: ProjectState = {
   projects: [],
@@ -331,7 +295,7 @@ export const projectSlice = createSlice({
         if (section.section === action.payload.section.toString()) {
           section.tasks = section.tasks.map((task) => {
             if (task.id === action.payload.taskId) {
-              task.title = action.payload.title;
+              (task as any)[action.payload.type] = action.payload.value;
             }
             return task;
           });

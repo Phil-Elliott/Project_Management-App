@@ -58,6 +58,9 @@ export type TaskProps = {
   due: string;
   priority: string;
   order: number;
+  comments: any;
+  watching: any;
+  assigned: any;
 };
 
 export type ModalTaskProps = {

@@ -4,9 +4,10 @@ import styles from "./Task.module.scss";
 import { Draggable } from "react-beautiful-dnd";
 import { Members } from "~/shared/components";
 import { TaskProps } from "~/shared/interfaces/Projects";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~/Store";
 import axios from "axios";
+import { updateTask } from "~/ProjectSlice";
 
 type TaskComponentProps = {
   taskData: TaskProps;
@@ -21,9 +22,9 @@ const Task = ({
   changeModalDisplay,
   sectionId,
 }: TaskComponentProps) => {
-  const [comments, setComments] = useState<any>([]);
-  const [watching, setWatching] = useState<any>([]);
-  const [assigned, setAssigned] = useState<any>([]);
+  const [comments, setComments] = useState<any>(taskData.comments);
+  const [watching, setWatching] = useState<any>(taskData.watching);
+  const [assigned, setAssigned] = useState<any>(taskData.assigned);
   const [task, setTask] = useState<any>();
   const [taskTitle, setTaskTitle] = useState<string>(taskData.title);
 
@@ -31,6 +32,8 @@ const Task = ({
   const currentTask = useSelector(
     (state: RootState) => state.project.currentTask
   );
+
+  const dispatch = useDispatch();
 
   // Fetches the data to know if there are comments and if it is being watched by the user
   async function fetchTask() {
@@ -47,26 +50,57 @@ const Task = ({
         setTaskTitle(res.data.data.attributes.title);
       }
       setTask(res.data.data.attributes);
-      setComments(res.data.data.attributes.comments.data);
-      setWatching(res.data.data.attributes.watching_users.data);
-      setAssigned(
-        res.data.data.attributes.assigned_users.data.map((user: any) => {
+      if (res.data.data.attributes.comments.data.length !== comments) {
+        setComments(res.data.data.attributes.comments.data);
+        dispatch(
+          updateTask({
+            section: sectionId,
+            taskId: taskData.id,
+            type: "comments",
+            value: res.data.data.attributes.comments.data,
+          })
+        );
+      }
+      if (res.data.data.attributes.watching_users.data !== watching) {
+        setWatching(res.data.data.attributes.watching_users.data);
+        dispatch(
+          updateTask({
+            section: sectionId,
+            taskId: taskData.id,
+            type: "watching",
+            value: res.data.data.attributes.watching_users.data,
+          })
+        );
+      }
+      let assignedUsers = res.data.data.attributes.assigned_users.data.map(
+        (user: any) => {
           return {
             id: user.id,
             username: user.attributes.username,
             avatar: user.attributes.avatar,
           };
-        })
+        }
       );
+
+      if (assignedUsers !== assigned) {
+        setAssigned(assignedUsers);
+        dispatch(
+          updateTask({
+            section: sectionId,
+            taskId: taskData.id,
+            type: "assigned",
+            value: assignedUsers,
+          })
+        );
+      }
     } catch (err) {
       console.log(err);
     }
   }
 
   useEffect(() => {
-    // setTaskTitle(taskData.title);
     fetchTask();
-  }, [taskData]);
+  }, []);
 
   useEffect(() => {
     if (currentTask) {
@@ -113,9 +147,10 @@ export default Task;
 
 /*
 
-Name is not persisting when it is moved 
-
-Problem is in project tasks
+Need to do the same with 
+1) Comments
+2) Watching
+3) Assigned
 
 
 

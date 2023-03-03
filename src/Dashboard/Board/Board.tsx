@@ -35,17 +35,17 @@ const Board = () => {
     (state: RootState) => state.project.orderedTasks
   );
 
-  useEffect(() => {
-    console.log(orderedTasks, "ordered tasks");
-  }, [orderedTasks]);
+  // useEffect(() => {
+  //   console.log(orderedTasks, "ordered tasks");
+  // }, [orderedTasks]);
 
   useEffect(() => {
     console.log(projectTasks, "project tasks");
   }, [projectTasks]);
 
-  useEffect(() => {
-    console.log(sections, "sections");
-  }, [sections]);
+  // useEffect(() => {
+  //   console.log(sections, "sections");
+  // }, [sections]);
 
   const dispatch = useDispatch();
 
@@ -239,6 +239,9 @@ const Board = () => {
         order: 1,
         priority: "",
         due: "",
+        comments: [],
+        assigned: [],
+        watching: [],
       });
 
       // add to projectTasks array

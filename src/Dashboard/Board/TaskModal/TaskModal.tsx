@@ -41,10 +41,6 @@ const TaskModal = ({
   const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // const projectTasks = useSelector(
-  //   (state: RootState) => state.project.projectTasks
-  // );
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -107,13 +103,25 @@ const TaskModal = ({
           },
         }
       );
-      // need to change name in projecttasks where that task is
-      if (type === "title") {
+
+      if (
+        type === "title" ||
+        type === "watching_users" ||
+        type === "assigned_users"
+      ) {
+        let newType: string = type;
+        if (type === "watching_users") {
+          newType = "watching";
+        } else if (type === "assigned_users") {
+          newType = "assigned";
+        }
+
         dispatch(
           updateTask({
             section: modalTask.sectionId,
             taskId: modalTask.id,
-            title: value,
+            type: newType,
+            value: value,
           })
         );
       }

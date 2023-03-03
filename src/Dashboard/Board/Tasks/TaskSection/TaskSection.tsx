@@ -119,6 +119,9 @@ const TaskSection = ({
             due: task.attributes.due,
             priority: task.attributes.priority,
             order: task.attributes.order,
+            comments: [],
+            watching: [],
+            assigned: [],
           };
         })
       );
