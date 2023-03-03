@@ -107,6 +107,7 @@ const Tasks = ({
                   orderedArr={orderedSectionsArr}
                 />
               </div>
+              <div className="hidden-margin">P</div>
             </div>
           )}
         </Droppable>
