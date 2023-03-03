@@ -24,13 +24,19 @@ At first, you'll see the projects page. Here, you can create a new project or ch
 
 ### Board component
 
+![Board1](https://user-images.githubusercontent.com/89685937/222659584-b2729c08-06dd-4b73-a761-7967d69ecedd.gif)
+
 Once you've selected a project, you'll be taken to the board component. This is where you can create task lists and tasks for those lists. You can move all the lists and tasks with drag and drop.
 
 ### List management
 
+![Board2](https://user-images.githubusercontent.com/89685937/222659896-a0c1e72c-8c5b-4720-a4b8-24004bebe826.gif)
+
 You can change the name of a list or delete it by pressing on the list's name or the ellipsis by the list's name.
 
 ### Task details
+
+![Board3](https://user-images.githubusercontent.com/89685937/222660382-8bf191e4-5b92-4ce7-9a1b-bee9dd236f05.gif)
 
 Each task can be clicked on to display a modal with the task's information. This includes the task's name, description, comments section, assigned members, watching, priority, and due date.
 
