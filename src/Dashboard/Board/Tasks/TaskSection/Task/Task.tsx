@@ -25,6 +25,7 @@ const Task = ({
   const [watching, setWatching] = useState<any>([]);
   const [assigned, setAssigned] = useState<any>([]);
   const [task, setTask] = useState<any>();
+  const [taskTitle, setTaskTitle] = useState<string>("");
 
   const user = useSelector((state: RootState) => state.project.user);
   const currentTask = useSelector(
@@ -42,6 +43,7 @@ const Task = ({
           },
         }
       );
+      setTaskTitle(res.data.data.attributes.title);
       setTask(res.data.data.attributes);
       setComments(res.data.data.attributes.comments.data);
       setWatching(res.data.data.attributes.watching_users.data);
@@ -61,6 +63,7 @@ const Task = ({
 
   useEffect(() => {
     fetchTask();
+    setTaskTitle(taskData.title);
   }, [taskData]);
 
   useEffect(() => {
@@ -88,7 +91,7 @@ const Task = ({
           ref={provided.innerRef}
           onClick={() => changeModalDisplay(task, taskData.id, sectionId)}
         >
-          <p className={styles.name}>{task?.title}</p>
+          <p className={styles.name}>{taskTitle}</p>
           <div className={styles.bottom}>
             <div className={styles["bottom-left"]}>
               {isWatched && <FaEye className={styles.icon} />}
@@ -106,4 +109,11 @@ const Task = ({
 
 export default Task;
 
-// need to pass the section id to the modal (you are passing the wrong one )
+/*
+
+
+  Maybe pass the task data back to hear or into a state to be picked up if the id is matching
+
+
+  Need to cut the name and put it into the other section or something
+*/
