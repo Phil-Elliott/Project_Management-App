@@ -4,10 +4,11 @@ import styles from "./TaskModal.module.scss";
 
 import { Comments, Description, Header, Tags } from ".";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateTask, deleteTask, setCurrentTask } from "~/ProjectSlice";
 import axios from "axios";
 import { Loader } from "~/shared/components";
+import { RootState } from "~/Store";
 
 type TaskModalProps = {
   user: User;
@@ -39,6 +40,10 @@ const TaskModal = ({
   const [taskData, setTaskData] = useState<any>(modalTask);
   const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+
+  // const projectTasks = useSelector(
+  //   (state: RootState) => state.project.projectTasks
+  // );
 
   const dispatch = useDispatch();
 
@@ -79,8 +84,6 @@ const TaskModal = ({
             },
           }
         );
-        // console.log(res);
-        // need to change orderedtasks and projecttasks
       } catch (err) {
         console.log(err);
       }
@@ -104,6 +107,16 @@ const TaskModal = ({
           },
         }
       );
+      // need to change name in projecttasks where that task is
+      if (type === "title") {
+        dispatch(
+          updateTask({
+            section: modalTask.sectionId,
+            taskId: modalTask.id,
+            title: value,
+          })
+        );
+      }
     } catch (err) {
       console.log(err);
     }
@@ -131,10 +144,10 @@ const TaskModal = ({
     setTaskData(modalTask.task);
   }, [modalTask]);
 
-  // saves the changes to the task when the modal is closed
-  useEffect(() => {
-    dispatch(updateTask(taskData));
-  }, [display]);
+  // // saves the changes to the task when the modal is closed
+  // useEffect(() => {
+  //   dispatch(updateTask(taskData));
+  // }, [display]);
 
   return (
     <>

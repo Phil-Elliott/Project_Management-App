@@ -20,6 +20,12 @@ type ProjectState = {
   currentTask: currentTaskProps;
 };
 
+type updateTaskProps = {
+  section: string;
+  taskId: string;
+  title: any;
+};
+
 type currentTaskProps = {
   id: string;
   closed: boolean;
@@ -176,6 +182,10 @@ export const projectSlice = createSlice({
       }
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // updateProjectTasks: (state, action: PayloadAction<ProjectTaskProps>) => {
+
+    // }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setProjectTasksOrder: (
       state,
       action: PayloadAction<ProjectTaskProps[]>
@@ -315,29 +325,19 @@ export const projectSlice = createSlice({
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // task functions (from the modal)
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    updateTask: (state, action: PayloadAction<TaskProps>) => {
-      // state.projects = state.projects.map((project) => {
-      //   if (project.id === state.selectedProject) {
-      //     project.tasks = project.tasks.map((task) => {
-      //       if (task.id === action.payload.id) {
-      //         return action.payload;
-      //       } else {
-      //         return task;
-      //       }
-      //     });
-      //   }
-      //   return project;
-      // });
-      // state.project = {
-      //   ...state.project,
-      //   tasks: state.project.tasks.map((task) => {
-      //     if (task.id === action.payload.id) {
-      //       return action.payload;
-      //     } else {
-      //       return task;
-      //     }
-      //   }),
-      // };
+    updateTask: (state, action: PayloadAction<updateTaskProps>) => {
+      // adds the new title to the projectTasks state
+      state.projectTasks = state.projectTasks.map((section) => {
+        if (section.section === action.payload.section.toString()) {
+          section.tasks = section.tasks.map((task) => {
+            if (task.id === action.payload.taskId) {
+              task.title = action.payload.title;
+            }
+            return task;
+          });
+        }
+        return section;
+      });
     },
     deleteTask: (state, action: PayloadAction<DeleteTaskProps>) => {
       // delete from projectTasks

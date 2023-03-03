@@ -25,7 +25,7 @@ const Task = ({
   const [watching, setWatching] = useState<any>([]);
   const [assigned, setAssigned] = useState<any>([]);
   const [task, setTask] = useState<any>();
-  const [taskTitle, setTaskTitle] = useState<string>("");
+  const [taskTitle, setTaskTitle] = useState<string>(taskData.title);
 
   const user = useSelector((state: RootState) => state.project.user);
   const currentTask = useSelector(
@@ -43,7 +43,9 @@ const Task = ({
           },
         }
       );
-      setTaskTitle(res.data.data.attributes.title);
+      if (taskTitle !== res.data.data.attributes.title) {
+        setTaskTitle(res.data.data.attributes.title);
+      }
       setTask(res.data.data.attributes);
       setComments(res.data.data.attributes.comments.data);
       setWatching(res.data.data.attributes.watching_users.data);
@@ -62,8 +64,8 @@ const Task = ({
   }
 
   useEffect(() => {
+    // setTaskTitle(taskData.title);
     fetchTask();
-    setTaskTitle(taskData.title);
   }, [taskData]);
 
   useEffect(() => {
@@ -111,9 +113,11 @@ export default Task;
 
 /*
 
+Name is not persisting when it is moved 
 
-  Maybe pass the task data back to hear or into a state to be picked up if the id is matching
+Problem is in project tasks
 
 
-  Need to cut the name and put it into the other section or something
+
+
 */
