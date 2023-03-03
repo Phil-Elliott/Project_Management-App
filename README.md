@@ -46,17 +46,25 @@ You'll find a search bar, invite button, and a settings button at the top sectio
 
 ### Search bar
 
+![Board4](https://user-images.githubusercontent.com/89685937/222660934-d1af913f-28f6-4127-ab4e-17106fca6ec6.gif)
+
 Use the search bar to filter the tasks related to your search query.
 
 ### Invite button
+
+![Board5](https://user-images.githubusercontent.com/89685937/222661212-c9e95f91-f835-4342-bb93-5a9513e61048.gif)
 
 Use the invite button to share the project with other users. This can be done by entering their email addresses.
 
 ### Settings button
 
+![Board6](https://user-images.githubusercontent.com/89685937/222661459-f125ab98-c4b9-48fd-b01b-9767bfc5f54e.gif)
+
 The settings button is used to change the name or background of the project, as well as delete the project.
 
-### Navigation menu
+### Profile Settings
+
+![Board7](https://user-images.githubusercontent.com/89685937/222661831-e0b71608-2f7f-4255-b5ee-2a9a984dbf3b.gif)
 
 In the navigation menu on the left, you'll also see a profile button. This can be used to give or change your avatar, change your name, change your email, or delete your account.
 
