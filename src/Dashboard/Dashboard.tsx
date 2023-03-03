@@ -92,7 +92,6 @@ export default Dashboard;
 /*
   1) Figure out what is wrong with deployed site and dragging and dropping
   2) Fix image problem
-  3) Fix space with sections being dragged
   4) Fix api call when being dragged (maybe can save to local storage somehow)
   
 
@@ -115,8 +114,6 @@ export default Dashboard;
 
 
 
-  Deleting a section
-   - Once deleted the section next to it will have the same tasks as the row deleted
 
 
     
