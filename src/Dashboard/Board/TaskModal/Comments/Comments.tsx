@@ -34,13 +34,15 @@ const Comments = ({
 }: CommentsProps) => {
   const [displayButtons, setDisplayButtons] = useState(false);
   const [comment, setComment] = useState<string>("");
-  const [reverseComments, setReverseComments] = useState<any>([]);
+  const [reverseComments, setReverseComments] = useState<any>();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (taskData.comments) {
-      setReverseComments(taskData.comments.data.reverse());
+      let commentsArr = [...taskData.comments.data];
+
+      setReverseComments(commentsArr.reverse());
     }
   }, [taskData.comments]);
 
@@ -189,7 +191,7 @@ const Comments = ({
         </div>
       ) : null}
       <div className={styles.comments}>
-        {reverseComments.map((comment: any) => {
+        {reverseComments?.map((comment: any) => {
           return (
             <CommentData
               comment={comment}
