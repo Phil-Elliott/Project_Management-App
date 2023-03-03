@@ -43,6 +43,8 @@ const TaskModal = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("modalTask", modalTask);
+    setTaskData(modalTask);
     setLoading(false);
     setTimeout(() => {
       setLoading(true);
@@ -62,7 +64,7 @@ const TaskModal = ({
   // deletes the task
   const deleteTaskData = () => {
     dispatch(
-      deleteTask({ taskId: modalTask.id, section: taskData.section.data.id })
+      deleteTask({ taskId: modalTask.id, section: modalTask.sectionId })
     );
     toggleDeleteModal();
     closeModal();
@@ -77,7 +79,8 @@ const TaskModal = ({
             },
           }
         );
-        console.log(res);
+        // console.log(res);
+        // need to change orderedtasks and projecttasks
       } catch (err) {
         console.log(err);
       }

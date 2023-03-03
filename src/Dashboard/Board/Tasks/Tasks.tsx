@@ -24,7 +24,7 @@ type TasksProps = {
     source: string,
     sourceIndex: number
   ) => void;
-  changeModalDisplay: (task: any, id: string) => void;
+  changeModalDisplay: (task: any, id: string, sectionId: string) => void;
 };
 
 const Tasks = ({

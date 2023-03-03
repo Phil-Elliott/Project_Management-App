@@ -35,6 +35,18 @@ const Board = () => {
     (state: RootState) => state.project.orderedTasks
   );
 
+  useEffect(() => {
+    console.log(orderedTasks, "ordered tasks");
+  }, [orderedTasks]);
+
+  useEffect(() => {
+    console.log(projectTasks, "project tasks");
+  }, [projectTasks]);
+
+  useEffect(() => {
+    console.log(sections, "sections");
+  }, [sections]);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,8 +67,12 @@ const Board = () => {
   };
 
   // displays the modal
-  const changeModalDisplay = (task: TaskProps, id: string) => {
-    setModalTask({ task, id });
+  const changeModalDisplay = (
+    task: TaskProps,
+    id: string,
+    sectionId: string
+  ) => {
+    setModalTask({ task, id, sectionId });
     setDisplay(!display);
   };
 

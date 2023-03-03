@@ -11,10 +11,16 @@ import axios from "axios";
 type TaskComponentProps = {
   taskData: TaskProps;
   index: number;
-  changeModalDisplay: (task: any, id: string) => void;
+  changeModalDisplay: (task: any, id: string, sectionId: string) => void;
+  sectionId: string;
 };
 
-const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
+const Task = ({
+  taskData,
+  index,
+  changeModalDisplay,
+  sectionId,
+}: TaskComponentProps) => {
   const [comments, setComments] = useState<any>([]);
   const [watching, setWatching] = useState<any>([]);
   const [assigned, setAssigned] = useState<any>([]);
@@ -80,7 +86,7 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          onClick={() => changeModalDisplay(task, taskData.id)}
+          onClick={() => changeModalDisplay(task, taskData.id, sectionId)}
         >
           <p className={styles.name}>{task?.title}</p>
           <div className={styles.bottom}>
@@ -99,3 +105,5 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
 };
 
 export default Task;
+
+// need to pass the section id to the modal (you are passing the wrong one )

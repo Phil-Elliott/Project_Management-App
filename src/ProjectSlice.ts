@@ -238,6 +238,23 @@ export const projectSlice = createSlice({
     addSection: (state, action: PayloadAction<TasksSections>) => {
       state.sections = [...state.sections, action.payload];
     },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    deleteSection: (state, action: PayloadAction<string>) => {
+      // delete section from section state
+      state.sections = state.sections.filter(
+        (section) => section.id !== action.payload
+      );
+
+      // delete section from projectTasks state
+      state.projectTasks = state.projectTasks.filter(
+        (section) => section.section !== action.payload
+      );
+
+      // delete section from orderedTasks state
+      state.orderedTasks = state.orderedTasks.filter(
+        (section) => section.section !== action.payload
+      );
+    },
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // drag and drop functions
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -323,11 +340,9 @@ export const projectSlice = createSlice({
       // };
     },
     deleteTask: (state, action: PayloadAction<DeleteTaskProps>) => {
-      console.log(action.payload);
       // delete from projectTasks
       state.projectTasks = state.projectTasks.map((section) => {
         if (section.section === action.payload.section.toString()) {
-          console.log(section.section, action.payload.section.toString());
           section.tasks = section.tasks.filter(
             (task) => task.id !== action.payload.taskId
           );
@@ -381,6 +396,7 @@ export const {
   setCurrentTask,
   setUpdateProjects,
   setDeleteProject,
+  deleteSection,
 
   setProjectTasks,
   setProjectTasksOrder,

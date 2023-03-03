@@ -21,14 +21,19 @@ import {
   TasksSections,
 } from "~/shared/interfaces/Projects";
 import axios from "axios";
-import { setOrderedTasks, setProjectTasks, setSections } from "~/ProjectSlice";
+import {
+  setOrderedTasks,
+  setProjectTasks,
+  setSections,
+  deleteSection,
+} from "~/ProjectSlice";
 import ConfirmModal from "~/shared/components/ConfirmModal/ConfirmModal";
 
 type TaskSectionProps = {
   section: TasksSections;
   addNewTask: (name: string, section: string, orderArr: number[]) => void;
   index: number;
-  changeModalDisplay: (task: any, id: string) => void;
+  changeModalDisplay: (task: any, id: string, sectionId: string) => void;
   sections: TasksSections[];
 };
 
@@ -83,6 +88,10 @@ const TaskSection = ({
           })
         )
       );
+      // need to handle local state here
+      // It would also be good to delete all tasks associated with the list
+      // Change sections, projectTasks, and  orderedTasks
+      dispatch(deleteSection(section.id.toString()));
     } catch (err) {
       console.log(err);
     }
@@ -246,7 +255,7 @@ const TaskSection = ({
 
                 <div className="taskSection-tasks">
                   {projectTasks[index] &&
-                    projectTasks[index].tasks.map((task, index) => {
+                    projectTasks[index].tasks.map((task, i) => {
                       if (
                         search === "" ||
                         task.title.toLowerCase().includes(search.toLowerCase())
@@ -255,8 +264,9 @@ const TaskSection = ({
                           <Task
                             key={task.id}
                             taskData={task}
-                            index={index}
+                            index={i}
                             changeModalDisplay={changeModalDisplay}
+                            sectionId={section.id}
                           />
                         );
                       }
