@@ -43,7 +43,13 @@
   }
 }
 
+.loader-container {
+  @extend %flex-center;
+  padding-top: 2rem;
+  height: 100%;
+}
+
 .buttons {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   margin-left: 2.5rem;
 }

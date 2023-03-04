@@ -34,7 +34,7 @@ const MainHub = ({ projects, getProjects }: MainHubProps) => {
       </div>
       {!loading && (
         <div className={styles["loader-container"]}>
-          <Loader size={500} />
+          <Loader size={300} />
         </div>
       )}
     </>

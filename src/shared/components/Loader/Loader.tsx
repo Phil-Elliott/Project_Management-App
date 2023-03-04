@@ -2,6 +2,7 @@ import React, { CSSProperties } from "react";
 import { CircleLoader, RingLoader } from "react-spinners";
 import BounceLoader from "react-spinners/BounceLoader";
 import PuffLoader from "react-spinners/PuffLoader";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const override: CSSProperties = {
   display: "block",
@@ -10,8 +11,26 @@ const override: CSSProperties = {
   color: "blue",
 };
 
-export default function Loading({ size }: { size: number }) {
+export default function Loading({
+  size,
+  scale,
+}: {
+  size: number;
+  scale?: boolean;
+}) {
   return (
-    <PuffLoader color="#1c4e80" cssOverride={override} size={size || 60} />
+    <div className="sweet-loading">
+      {scale ? (
+        <ScaleLoader cssOverride={override} color="#1c4e80" />
+      ) : (
+        <PuffLoader color="#1c4e80" cssOverride={override} size={size || 60} />
+      )}
+    </div>
   );
 }
+
+// {scale ? (
+//   <ScaleLoader color="#1c4e80" cssOverride={override} />
+// ) : (
+//   <PuffLoader color="#1c4e80" cssOverride={override} size={size || 60} />
+// )}

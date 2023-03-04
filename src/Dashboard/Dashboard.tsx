@@ -95,21 +95,6 @@ export default Dashboard;
 
 
   1) Take out comments
-  2) Make navbar zindex higher for responsiveness
-  3) Make sure there is padding on bottom of mainhub responsive
-
-
-
-  1) Figure out what is wrong with deployed site and dragging and dropping
-  2) Fix image problem
-  4) Fix api call when being dragged (maybe can save to local storage somehow)
-  
-
-  
-
-  drag and drop is not working right
-
-  need to delete all of the comments
   
   2) Add reply to comment
   3) Maybe have loader while adding new comments or updating comments

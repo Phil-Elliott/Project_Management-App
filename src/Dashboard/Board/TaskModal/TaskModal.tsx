@@ -44,7 +44,6 @@ const TaskModal = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("modalTask", modalTask);
     setTaskData(modalTask);
     setLoading(false);
     setTimeout(() => {
@@ -199,7 +198,7 @@ const TaskModal = ({
       </div>
       {!loading && (
         <div className={styles["loader-container"]}>
-          <Loader size={400} />
+          <Loader size={300} />
         </div>
       )}
     </>
