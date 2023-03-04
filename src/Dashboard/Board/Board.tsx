@@ -17,6 +17,7 @@ import {
 } from "~/ProjectSlice";
 import axios from "axios";
 import { TaskProps } from "~/shared/interfaces/Projects";
+import { useParams } from "react-router-dom";
 
 const Board = () => {
   const [modalTask, setModalTask] = useState<any>();
@@ -35,17 +36,7 @@ const Board = () => {
     (state: RootState) => state.project.orderedTasks
   );
 
-  // useEffect(() => {
-  //   console.log(orderedTasks, "ordered tasks");
-  // }, [orderedTasks]);
-
-  // useEffect(() => {
-  //   console.log(projectTasks, "project tasks");
-  // }, [projectTasks]);
-
-  // useEffect(() => {
-  //   console.log(sections, "sections");
-  // }, [sections]);
+  const { id } = useParams();
 
   const dispatch = useDispatch();
 
@@ -54,7 +45,7 @@ const Board = () => {
     setTimeout(() => {
       setLoading(true);
     }, 1500);
-  }, [projectData]);
+  }, [id]);
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // modal functions

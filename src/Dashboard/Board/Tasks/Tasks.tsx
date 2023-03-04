@@ -46,11 +46,6 @@ const Tasks = ({
     );
   }, [sections]);
 
-  useEffect(() => {
-    console.log(sections);
-    console.log(orderedSectionsArr);
-  }, [sections, orderedSectionsArr]);
-
   // handles the drag and drop
   const handleOnDrageEnd = async (result: any) => {
     const { type, source, destination } = result;

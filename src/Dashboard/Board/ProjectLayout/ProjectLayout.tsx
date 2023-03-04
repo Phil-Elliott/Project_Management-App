@@ -61,15 +61,6 @@ export function ProjectLayout() {
           })
         )
       );
-      // console.log(
-      //   res.data.data.attributes.ordered_sections.data.map((section: any) => {
-      //     return {
-      //       id: section.id,
-      //       title: section.attributes.title,
-      //       order: section.attributes.order,
-      //     };
-      //   })
-      // );
     } catch (err) {
       console.log(err);
       <Navigate to="/dashboard/" replace />;
