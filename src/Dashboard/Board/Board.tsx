@@ -39,9 +39,9 @@ const Board = () => {
   //   console.log(orderedTasks, "ordered tasks");
   // }, [orderedTasks]);
 
-  useEffect(() => {
-    console.log(projectTasks, "project tasks");
-  }, [projectTasks]);
+  // useEffect(() => {
+  //   console.log(projectTasks, "project tasks");
+  // }, [projectTasks]);
 
   // useEffect(() => {
   //   console.log(sections, "sections");

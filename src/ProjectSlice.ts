@@ -118,6 +118,12 @@ export const projectSlice = createSlice({
     setRefresh(state) {
       state.orderedTasks = [];
       state.projectTasks = [];
+      state.sections = [];
+      state.projectUsers = [];
+      state.currentTask = {
+        id: "",
+        closed: false,
+      };
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setProject: (state, action: PayloadAction<ProjectDataProps>) => {

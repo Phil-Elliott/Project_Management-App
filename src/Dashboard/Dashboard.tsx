@@ -90,6 +90,19 @@ const Dashboard = () => {
 export default Dashboard;
 
 /*
+
+  Go to project
+  Go to mainhub 
+  go back to project and tasks in wrong section or section and section name in wrong place
+  Think it has to do with the sections
+
+
+  1) Take out comments
+  2) Make navbar zindex higher for responsiveness
+  3) Make sure there is padding on bottom of mainhub responsive
+
+
+
   1) Figure out what is wrong with deployed site and dragging and dropping
   2) Fix image problem
   4) Fix api call when being dragged (maybe can save to local storage somehow)

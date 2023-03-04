@@ -45,6 +45,7 @@ const TaskSection = ({
   sections,
 }: TaskSectionProps) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const [currentSection, setCurrentSection] = useState<any>();
   const [orderedArr, setOrderedArr] = useState<number[]>([]);
   const [displayPopup, setDisplayPopup] = useState<boolean>(false);
   const [titleValue, setTitleValue] = useState<string>("");
@@ -175,6 +176,18 @@ const TaskSection = ({
     dispatch(setProjectTasks({ tasks: tasks, section: section.id.toString() }));
   }, [tasks]);
 
+  // set the current section to the section in projectTasks that has the same section id
+  useEffect(() => {
+    let sectionId = section.id.toString();
+    if (sectionId) {
+      setCurrentSection(
+        projectTasks.find((section: any) => {
+          return section.section === sectionId;
+        })
+      );
+    }
+  }, [projectTasks]);
+
   // disables ability to close modal when clicked outside of modal (when confirm modal is open)
   const toggleDisableCloseModal = (disable: boolean) => {
     setDisableCloseModal(disable);
@@ -257,23 +270,22 @@ const TaskSection = ({
                 />
 
                 <div className="taskSection-tasks">
-                  {projectTasks[index] &&
-                    projectTasks[index].tasks.map((task, i) => {
-                      if (
-                        search === "" ||
-                        task.title.toLowerCase().includes(search.toLowerCase())
-                      ) {
-                        return (
-                          <Task
-                            key={task.id}
-                            taskData={task}
-                            index={i}
-                            changeModalDisplay={changeModalDisplay}
-                            sectionId={section.id}
-                          />
-                        );
-                      }
-                    })}
+                  {currentSection?.tasks.map((task: any, i: any) => {
+                    if (
+                      search === "" ||
+                      task.title.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                      return (
+                        <Task
+                          key={task.id}
+                          taskData={task}
+                          index={i}
+                          changeModalDisplay={changeModalDisplay}
+                          sectionId={section.id}
+                        />
+                      );
+                    }
+                  })}
                   {provided.placeholder}
                 </div>
               </div>
