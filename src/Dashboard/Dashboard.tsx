@@ -91,10 +91,7 @@ export default Dashboard;
 
 /*
 
-  Go to project
-  Go to mainhub 
-  go back to project and tasks in wrong section or section and section name in wrong place
-  Think it has to do with the sections
+ 
 
 
   1) Take out comments
