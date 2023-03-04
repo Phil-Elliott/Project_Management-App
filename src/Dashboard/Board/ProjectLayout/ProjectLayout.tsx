@@ -31,7 +31,6 @@ export function ProjectLayout() {
           },
         }
       );
-      dispatch(setRefresh());
       dispatch(
         setProject({
           id: id,
@@ -78,6 +77,7 @@ export function ProjectLayout() {
   }
 
   useEffect(() => {
+    dispatch(setRefresh());
     fetchProject();
   }, [id]);
 

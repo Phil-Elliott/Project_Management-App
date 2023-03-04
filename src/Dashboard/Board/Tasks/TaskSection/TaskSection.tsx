@@ -24,6 +24,7 @@ import axios from "axios";
 import {
   setOrderedTasks,
   setProjectTasks,
+  setProjectTasksOrder,
   setSections,
   deleteSection,
 } from "~/ProjectSlice";
@@ -45,7 +46,7 @@ const TaskSection = ({
   sections,
 }: TaskSectionProps) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
-  const [currentSection, setCurrentSection] = useState<any>();
+
   const [orderedArr, setOrderedArr] = useState<number[]>([]);
   const [displayPopup, setDisplayPopup] = useState<boolean>(false);
   const [titleValue, setTitleValue] = useState<string>("");
@@ -176,18 +177,6 @@ const TaskSection = ({
     dispatch(setProjectTasks({ tasks: tasks, section: section.id.toString() }));
   }, [tasks]);
 
-  // set the current section to the section in projectTasks that has the same section id
-  useEffect(() => {
-    let sectionId = section.id.toString();
-    if (sectionId) {
-      setCurrentSection(
-        projectTasks.find((section: any) => {
-          return section.section === sectionId;
-        })
-      );
-    }
-  }, [projectTasks]);
-
   // disables ability to close modal when clicked outside of modal (when confirm modal is open)
   const toggleDisableCloseModal = (disable: boolean) => {
     setDisableCloseModal(disable);
@@ -270,7 +259,7 @@ const TaskSection = ({
                 />
 
                 <div className="taskSection-tasks">
-                  {currentSection?.tasks.map((task: any, i: any) => {
+                  {projectTasks[index]?.tasks.map((task: any, i: any) => {
                     if (
                       search === "" ||
                       task.title.toLowerCase().includes(search.toLowerCase())
@@ -307,6 +296,6 @@ export default TaskSection;
 
 /*
 
-
+  Could just set the projectTasks just once when the project first loads
 
 */
