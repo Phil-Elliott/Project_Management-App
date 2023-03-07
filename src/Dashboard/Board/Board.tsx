@@ -391,6 +391,7 @@ const Board = () => {
         }}
       >
         <NavOptions
+          user={user}
           members={users}
           projectId={projectData.id}
           projectData={projectData}

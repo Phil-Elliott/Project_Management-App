@@ -155,14 +155,9 @@
   border: 3px solid $secondary !important;
 }
 
-@media only screen and (max-width: 511px) {
+@media only screen and (max-width: 650px) {
   .main-container {
     left: 0;
-  }
-}
-
-@media only screen and (max-width: 390px) {
-  .main-container {
-    left: -5rem;
+    position: relative;
   }
 }
