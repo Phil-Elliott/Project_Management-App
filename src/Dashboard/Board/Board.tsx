@@ -17,6 +17,7 @@ import {
 } from "~/ProjectSlice";
 import axios from "axios";
 import { TaskProps } from "~/shared/interfaces/Projects";
+import { useParams } from "react-router-dom";
 
 const Board = () => {
   const [modalTask, setModalTask] = useState<any>();
@@ -35,6 +36,8 @@ const Board = () => {
     (state: RootState) => state.project.orderedTasks
   );
 
+  const { id } = useParams();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,7 +45,7 @@ const Board = () => {
     setTimeout(() => {
       setLoading(true);
     }, 1500);
-  }, [projectData]);
+  }, [id]);
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // modal functions
@@ -55,8 +58,12 @@ const Board = () => {
   };
 
   // displays the modal
-  const changeModalDisplay = (task: TaskProps, id: string) => {
-    setModalTask({ task, id });
+  const changeModalDisplay = (
+    task: TaskProps,
+    id: string,
+    sectionId: string
+  ) => {
+    setModalTask({ task, id, sectionId });
     setDisplay(!display);
   };
 
@@ -223,6 +230,9 @@ const Board = () => {
         order: 1,
         priority: "",
         due: "",
+        comments: [],
+        assigned: [],
+        watching: [],
       });
 
       // add to projectTasks array
@@ -381,6 +391,7 @@ const Board = () => {
         }}
       >
         <NavOptions
+          user={user}
           members={users}
           projectId={projectData.id}
           projectData={projectData}
@@ -412,7 +423,7 @@ const Board = () => {
       </div>
       {!loading && (
         <div className={styles["loader-container"]}>
-          <Loader size={500} />
+          <Loader size={300} />
         </div>
       )}
     </>

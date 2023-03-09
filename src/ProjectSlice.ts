@@ -20,6 +20,13 @@ type ProjectState = {
   currentTask: currentTaskProps;
 };
 
+type updateTaskProps = {
+  section: string;
+  taskId: string;
+  type: string;
+  value: any;
+};
+
 type currentTaskProps = {
   id: string;
   closed: boolean;
@@ -54,43 +61,6 @@ type DeleteTaskProps = {
   section: string;
   taskId: string;
 };
-
-/*
-  projects: {
-    id: string;
-    title: string;
-    background: string;
-  }
-  assigned: {
-    figure out later
-    should be located in the task
-    insert from data from members
-  }
-  members: {
-    figure out later
-    need to save the members details to this table
-  }
-  tasks: {
-    id: string;
-    title: string;
-    description: string;
-    priority: string;
-    due: string;
-    comments: {
-      id: string;
-      task: string;
-      member: string;
-  }
-  sections: {
-    id: string;
-    title: string;
-  }
-  watching: {
-    figure out later
-    should be located in the task
-  }
-
-*/
 
 const initialState: ProjectState = {
   projects: [],
@@ -148,6 +118,12 @@ export const projectSlice = createSlice({
     setRefresh(state) {
       state.orderedTasks = [];
       state.projectTasks = [];
+      state.sections = [];
+      state.projectUsers = [];
+      state.currentTask = {
+        id: "",
+        closed: false,
+      };
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setProject: (state, action: PayloadAction<ProjectDataProps>) => {
@@ -175,6 +151,10 @@ export const projectSlice = createSlice({
         state.projectTasks[taskIndex].tasks = action.payload.tasks;
       }
     },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // updateProjectTasks: (state, action: PayloadAction<ProjectTaskProps>) => {
+
+    // }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setProjectTasksOrder: (
       state,
@@ -238,6 +218,23 @@ export const projectSlice = createSlice({
     addSection: (state, action: PayloadAction<TasksSections>) => {
       state.sections = [...state.sections, action.payload];
     },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    deleteSection: (state, action: PayloadAction<string>) => {
+      // delete section from section state
+      state.sections = state.sections.filter(
+        (section) => section.id !== action.payload
+      );
+
+      // delete section from projectTasks state
+      state.projectTasks = state.projectTasks.filter(
+        (section) => section.section !== action.payload
+      );
+
+      // delete section from orderedTasks state
+      state.orderedTasks = state.orderedTasks.filter(
+        (section) => section.section !== action.payload
+      );
+    },
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // drag and drop functions
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -298,36 +295,24 @@ export const projectSlice = createSlice({
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // task functions (from the modal)
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    updateTask: (state, action: PayloadAction<TaskProps>) => {
-      // state.projects = state.projects.map((project) => {
-      //   if (project.id === state.selectedProject) {
-      //     project.tasks = project.tasks.map((task) => {
-      //       if (task.id === action.payload.id) {
-      //         return action.payload;
-      //       } else {
-      //         return task;
-      //       }
-      //     });
-      //   }
-      //   return project;
-      // });
-      // state.project = {
-      //   ...state.project,
-      //   tasks: state.project.tasks.map((task) => {
-      //     if (task.id === action.payload.id) {
-      //       return action.payload;
-      //     } else {
-      //       return task;
-      //     }
-      //   }),
-      // };
+    updateTask: (state, action: PayloadAction<updateTaskProps>) => {
+      // adds the new title to the projectTasks state
+      state.projectTasks = state.projectTasks.map((section) => {
+        if (section.section === action.payload.section.toString()) {
+          section.tasks = section.tasks.map((task) => {
+            if (task.id === action.payload.taskId) {
+              (task as any)[action.payload.type] = action.payload.value;
+            }
+            return task;
+          });
+        }
+        return section;
+      });
     },
     deleteTask: (state, action: PayloadAction<DeleteTaskProps>) => {
-      console.log(action.payload);
       // delete from projectTasks
       state.projectTasks = state.projectTasks.map((section) => {
         if (section.section === action.payload.section.toString()) {
-          console.log(section.section, action.payload.section.toString());
           section.tasks = section.tasks.filter(
             (task) => task.id !== action.payload.taskId
           );
@@ -381,6 +366,7 @@ export const {
   setCurrentTask,
   setUpdateProjects,
   setDeleteProject,
+  deleteSection,
 
   setProjectTasks,
   setProjectTasksOrder,

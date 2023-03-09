@@ -26,7 +26,8 @@
 }
 
 @media only screen and (max-width: 850px) {
-  .main {
+  .main,
+  .loader-container {
     width: 90vw;
   }
   .body {

@@ -8,19 +8,25 @@ import Settings from "./Settings/Settings";
 import { ProjectDataProps, User } from "~/shared/interfaces/Projects";
 
 type NavOptionsProps = {
+  user: User;
   members: User[];
   projectId: string;
   projectData: ProjectDataProps;
 };
 
-const NavOptions = ({ members, projectId, projectData }: NavOptionsProps) => {
+const NavOptions = ({
+  members,
+  projectId,
+  projectData,
+  user,
+}: NavOptionsProps) => {
   return (
     <div className={styles.main}>
       {/* <div className={styles.left}> */}
       <Search />
       {members && <Members members={members} />}
       <Invite members={members} projectId={projectId} />
-      {/* <Filter /> */}
+      <Filter members={members} user={user} />
       {/* </div> */}
       <div className={styles.right}>
         <Settings projectData={projectData} />

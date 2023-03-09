@@ -21,14 +21,20 @@ import {
   TasksSections,
 } from "~/shared/interfaces/Projects";
 import axios from "axios";
-import { setOrderedTasks, setProjectTasks, setSections } from "~/ProjectSlice";
+import {
+  setOrderedTasks,
+  setProjectTasks,
+  setProjectTasksOrder,
+  setSections,
+  deleteSection,
+} from "~/ProjectSlice";
 import ConfirmModal from "~/shared/components/ConfirmModal/ConfirmModal";
 
 type TaskSectionProps = {
   section: TasksSections;
   addNewTask: (name: string, section: string, orderArr: number[]) => void;
   index: number;
-  changeModalDisplay: (task: any, id: string) => void;
+  changeModalDisplay: (task: any, id: string, sectionId: string) => void;
   sections: TasksSections[];
 };
 
@@ -40,6 +46,7 @@ const TaskSection = ({
   sections,
 }: TaskSectionProps) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
+
   const [orderedArr, setOrderedArr] = useState<number[]>([]);
   const [displayPopup, setDisplayPopup] = useState<boolean>(false);
   const [titleValue, setTitleValue] = useState<string>("");
@@ -83,6 +90,10 @@ const TaskSection = ({
           })
         )
       );
+      // need to handle local state here
+      // It would also be good to delete all tasks associated with the list
+      // Change sections, projectTasks, and  orderedTasks
+      dispatch(deleteSection(section.id.toString()));
     } catch (err) {
       console.log(err);
     }
@@ -110,6 +121,9 @@ const TaskSection = ({
             due: task.attributes.due,
             priority: task.attributes.priority,
             order: task.attributes.order,
+            comments: [],
+            watching: [],
+            assigned: [],
           };
         })
       );
@@ -245,22 +259,22 @@ const TaskSection = ({
                 />
 
                 <div className="taskSection-tasks">
-                  {projectTasks[index] &&
-                    projectTasks[index].tasks.map((task, index) => {
-                      if (
-                        search === "" ||
-                        task.title.toLowerCase().includes(search.toLowerCase())
-                      ) {
-                        return (
-                          <Task
-                            key={task.id}
-                            taskData={task}
-                            index={index}
-                            changeModalDisplay={changeModalDisplay}
-                          />
-                        );
-                      }
-                    })}
+                  {projectTasks[index]?.tasks.map((task: any, i: any) => {
+                    if (
+                      search === "" ||
+                      task.title.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                      return (
+                        <Task
+                          key={task.id}
+                          taskData={task}
+                          index={i}
+                          changeModalDisplay={changeModalDisplay}
+                          sectionId={section.id}
+                        />
+                      );
+                    }
+                  })}
                   {provided.placeholder}
                 </div>
               </div>
@@ -282,6 +296,6 @@ export default TaskSection;
 
 /*
 
-
+  Could just set the projectTasks just once when the project first loads
 
 */

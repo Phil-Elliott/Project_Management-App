@@ -12,7 +12,7 @@ type AvatarProps = {
 const Avatar = ({ avatar, size, index, username }: AvatarProps) => {
   const myStyle = {
     fontSize: size === "med" ? ".75rem" : ".9rem",
-    width: size === "med" ? "1.5rem" : "1.75rem",
+    width: size === "med" ? "1.75rem" : "1.75rem",
     height: size === "med" ? "1.5rem" : "1.75rem",
   };
 

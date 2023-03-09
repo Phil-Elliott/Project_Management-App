@@ -3,6 +3,10 @@
 .main {
   margin-right: 1rem;
   padding-block: 0.5rem;
+  position: relative;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 .btn {
@@ -11,5 +15,177 @@
 
   p {
     margin-left: 0.5rem;
+  }
+}
+
+.popup-container {
+  position: absolute;
+  width: 20rem;
+  // left: 0;  (good for when screen is small)
+  right: 0;
+}
+
+.popup {
+  padding: 0.75rem 1rem;
+  overflow: scroll;
+  max-height: 85vh;
+  position: relative;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+
+    .closeBtn {
+      cursor: pointer;
+      color: $primary-dark;
+    }
+  }
+}
+
+.body {
+  position: relative;
+}
+
+.section {
+  @include h5($primary-dark);
+  padding-block: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.check {
+  position: relative;
+  padding-top: 1rem;
+  @extend %flex-align;
+  cursor: pointer;
+
+  input {
+    cursor: pointer;
+    width: 0.9rem;
+    height: 0.9rem;
+    border: 1px solid $border-color;
+    border-radius: 0.25rem;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    accent-color: $primary;
+  }
+
+  label {
+    @extend %flex-align;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .check-icon {
+    // font-size: 0.8rem;
+    margin-right: 1rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+}
+
+.select-container {
+  width: 100%;
+}
+
+.select {
+  @extend %flex-align;
+  justify-content: space-between;
+  width: 100%;
+  background-color: $primary-light;
+  border-radius: 3px;
+  padding: 0.25rem 0.5rem;
+  position: relative;
+  cursor: pointer;
+
+  p {
+    font-size: 0.9rem;
+  }
+}
+
+.pop {
+  position: relative;
+}
+
+.pop-bottom {
+  // position: absolute;
+  position: relative;
+  bottom: 10rem;
+}
+
+.select-popup-container {
+  width: 100%;
+  z-index: 10000000;
+}
+
+.footer {
+  border-top: 1px solid $border-color;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+.member-select-container {
+  @extend %flex-align;
+  cursor: pointer;
+  padding: 0.25rem 1rem;
+
+  &:hover {
+    background: $primary-light;
+  }
+  .member-name {
+    margin: 0.5rem 0rem 0.5rem 1rem;
+  }
+}
+
+.member-name {
+  font-size: $med;
+  font-weight: 500;
+}
+
+.footer-select-container {
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+
+  h5 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding-bottom: 0.25rem;
+  }
+
+  p {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  &:hover {
+    background: $primary-light;
+  }
+}
+
+@media only screen and (max-width: 565px) {
+  .popup-container {
+    left: 0;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .popup-container {
+    left: -5rem;
+  }
+}
+
+@media only screen and (max-width: 367px) {
+  .popup-container {
+    left: -12rem;
   }
 }

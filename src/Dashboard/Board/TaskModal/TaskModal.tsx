@@ -4,10 +4,11 @@ import styles from "./TaskModal.module.scss";
 
 import { Comments, Description, Header, Tags } from ".";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateTask, deleteTask, setCurrentTask } from "~/ProjectSlice";
 import axios from "axios";
 import { Loader } from "~/shared/components";
+import { RootState } from "~/Store";
 
 type TaskModalProps = {
   user: User;
@@ -43,6 +44,7 @@ const TaskModal = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setTaskData(modalTask);
     setLoading(false);
     setTimeout(() => {
       setLoading(true);
@@ -62,7 +64,7 @@ const TaskModal = ({
   // deletes the task
   const deleteTaskData = () => {
     dispatch(
-      deleteTask({ taskId: modalTask.id, section: taskData.section.data.id })
+      deleteTask({ taskId: modalTask.id, section: modalTask.sectionId })
     );
     toggleDeleteModal();
     closeModal();
@@ -77,7 +79,6 @@ const TaskModal = ({
             },
           }
         );
-        console.log(res);
       } catch (err) {
         console.log(err);
       }
@@ -101,6 +102,28 @@ const TaskModal = ({
           },
         }
       );
+
+      if (
+        type === "title" ||
+        type === "watching_users" ||
+        type === "assigned_users"
+      ) {
+        let newType: string = type;
+        if (type === "watching_users") {
+          newType = "watching";
+        } else if (type === "assigned_users") {
+          newType = "assigned";
+        }
+
+        dispatch(
+          updateTask({
+            section: modalTask.sectionId,
+            taskId: modalTask.id,
+            type: newType,
+            value: value,
+          })
+        );
+      }
     } catch (err) {
       console.log(err);
     }
@@ -128,10 +151,10 @@ const TaskModal = ({
     setTaskData(modalTask.task);
   }, [modalTask]);
 
-  // saves the changes to the task when the modal is closed
-  useEffect(() => {
-    dispatch(updateTask(taskData));
-  }, [display]);
+  // // saves the changes to the task when the modal is closed
+  // useEffect(() => {
+  //   dispatch(updateTask(taskData));
+  // }, [display]);
 
   return (
     <>
@@ -175,7 +198,7 @@ const TaskModal = ({
       </div>
       {!loading && (
         <div className={styles["loader-container"]}>
-          <Loader size={400} />
+          <Loader size={300} />
         </div>
       )}
     </>

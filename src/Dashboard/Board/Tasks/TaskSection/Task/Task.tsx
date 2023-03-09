@@ -4,26 +4,36 @@ import styles from "./Task.module.scss";
 import { Draggable } from "react-beautiful-dnd";
 import { Members } from "~/shared/components";
 import { TaskProps } from "~/shared/interfaces/Projects";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "~/Store";
 import axios from "axios";
+import { updateTask } from "~/ProjectSlice";
 
 type TaskComponentProps = {
   taskData: TaskProps;
   index: number;
-  changeModalDisplay: (task: any, id: string) => void;
+  changeModalDisplay: (task: any, id: string, sectionId: string) => void;
+  sectionId: string;
 };
 
-const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
-  const [comments, setComments] = useState<any>([]);
-  const [watching, setWatching] = useState<any>([]);
-  const [assigned, setAssigned] = useState<any>([]);
+const Task = ({
+  taskData,
+  index,
+  changeModalDisplay,
+  sectionId,
+}: TaskComponentProps) => {
+  const [comments, setComments] = useState<any>(taskData.comments);
+  const [watching, setWatching] = useState<any>(taskData.watching);
+  const [assigned, setAssigned] = useState<any>(taskData.assigned);
   const [task, setTask] = useState<any>();
+  const [taskTitle, setTaskTitle] = useState<string>(taskData.title);
 
   const user = useSelector((state: RootState) => state.project.user);
   const currentTask = useSelector(
     (state: RootState) => state.project.currentTask
   );
+
+  const dispatch = useDispatch();
 
   // Fetches the data to know if there are comments and if it is being watched by the user
   async function fetchTask() {
@@ -36,18 +46,53 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
           },
         }
       );
+      if (taskTitle !== res.data.data.attributes.title) {
+        setTaskTitle(res.data.data.attributes.title);
+      }
       setTask(res.data.data.attributes);
-      setComments(res.data.data.attributes.comments.data);
-      setWatching(res.data.data.attributes.watching_users.data);
-      setAssigned(
-        res.data.data.attributes.assigned_users.data.map((user: any) => {
+      if (res.data.data.attributes.comments.data.length !== comments) {
+        setComments(res.data.data.attributes.comments.data);
+        dispatch(
+          updateTask({
+            section: sectionId,
+            taskId: taskData.id,
+            type: "comments",
+            value: res.data.data.attributes.comments.data,
+          })
+        );
+      }
+      if (res.data.data.attributes.watching_users.data !== watching) {
+        setWatching(res.data.data.attributes.watching_users.data);
+        dispatch(
+          updateTask({
+            section: sectionId,
+            taskId: taskData.id,
+            type: "watching",
+            value: res.data.data.attributes.watching_users.data,
+          })
+        );
+      }
+      let assignedUsers = res.data.data.attributes.assigned_users.data.map(
+        (user: any) => {
           return {
             id: user.id,
             username: user.attributes.username,
             avatar: user.attributes.avatar,
           };
-        })
+        }
       );
+
+      if (assignedUsers !== assigned) {
+        setAssigned(assignedUsers);
+        dispatch(
+          updateTask({
+            section: sectionId,
+            taskId: taskData.id,
+            type: "assigned",
+            value: assignedUsers,
+          })
+        );
+      }
     } catch (err) {
       console.log(err);
     }
@@ -55,13 +100,15 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
 
   useEffect(() => {
     fetchTask();
-  }, [taskData]);
+  }, []);
 
   useEffect(() => {
-    if (currentTask.id === taskData.id) {
-      fetchTask();
+    if (currentTask) {
+      if (currentTask.id === taskData.id) {
+        fetchTask();
+      }
     }
-  }, [currentTask.closed]);
+  }, [currentTask]);
 
   // checks if the task id is in the user's watched tasks
   const isWatched = watching.some((member: any) => member.id === user.id);
@@ -78,9 +125,9 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          onClick={() => changeModalDisplay(task, taskData.id)}
+          onClick={() => changeModalDisplay(task, taskData.id, sectionId)}
         >
-          <p className={styles.name}>{taskData.title}</p>
+          <p className={styles.name}>{taskTitle}</p>
           <div className={styles.bottom}>
             <div className={styles["bottom-left"]}>
               {isWatched && <FaEye className={styles.icon} />}
@@ -97,3 +144,15 @@ const Task = ({ taskData, index, changeModalDisplay }: TaskComponentProps) => {
 };
 
 export default Task;
+
+/*
+
+Need to do the same with 
+1) Comments
+2) Watching
+3) Assigned
+
+
+
+
+*/

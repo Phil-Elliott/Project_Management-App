@@ -98,7 +98,7 @@ const Invite = ({ members, projectId }: InviteProps) => {
       <Button variant="danger" handleClick={() => changeModalDisplay()}>
         <div className={styles.btn}>
           <BsFillPeopleFill />
-          <p>Invite</p>
+          <p>Share</p>
         </div>
       </Button>
       <Modal display={display} closeModal={closeModal}>

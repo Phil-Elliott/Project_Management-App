@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Avatar, Button } from "~/shared/components";
+import React, { useEffect, useRef, useState } from "react";
+import { Avatar, Button, Loader } from "~/shared/components";
 
 import CommentData from "./Comment/Comment";
 import styles from "./Comments.module.scss";
@@ -9,6 +9,8 @@ import moment from "moment";
 import { TaskProps, User } from "~/shared/interfaces/Projects";
 import { TaskDataProps } from "../TaskModal";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { updateTask } from "~/ProjectSlice";
 
 type CommentsProps = {
   taskData: any;
@@ -32,11 +34,29 @@ const Comments = ({
 }: CommentsProps) => {
   const [displayButtons, setDisplayButtons] = useState(false);
   const [comment, setComment] = useState<string>("");
-  const [reverseComments, setReverseComments] = useState<any>([]);
+  const [reverseComments, setReverseComments] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    handleLoader();
+  }, []);
+
+  function handleLoader() {
+    setLoading(false);
+    setTimeout(() => {
+      setLoading(true);
+    }, 1000);
+  }
 
   useEffect(() => {
     if (taskData.comments) {
-      setReverseComments(taskData.comments.data.reverse());
+      let commentsArr = [...taskData.comments.data];
+
+      setReverseComments(commentsArr.reverse());
     }
   }, [taskData.comments]);
 
@@ -57,14 +77,23 @@ const Comments = ({
           },
         }
       );
+      handleLoader();
       fetchTask();
+      dispatch(
+        updateTask({
+          section: taskData.section.data.id,
+          taskId: id,
+          type: "comments",
+          value: comment,
+        })
+      );
     } catch (err) {
       console.log(err);
     }
   }
 
   // update a user's comment
-  async function updateComment(commentId: string) {
+  async function updateComment(commentId: string, content: string) {
     try {
       const res = await axios.put(
         `https://strapi-production-7520.up.railway.app/api/comments/${commentId}`,
@@ -73,11 +102,20 @@ const Comments = ({
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
           },
           data: {
-            content: comment,
+            content: content,
           },
         }
       );
       fetchTask();
+
+      dispatch(
+        updateTask({
+          section: taskData.section.data.id,
+          taskId: id,
+          type: "comments",
+          value: content,
+        })
+      );
     } catch (err) {
       console.log(err);
     }
@@ -95,6 +133,14 @@ const Comments = ({
         }
       );
       fetchTask();
+      dispatch(
+        updateTask({
+          section: taskData.section.data.id,
+          taskId: id,
+          type: "comments",
+          value: comment,
+        })
+      );
     } catch (err) {
       console.log(err);
     }
@@ -104,11 +150,13 @@ const Comments = ({
     setDisplayButtons(false);
     addComment();
     setComment("");
+    handleBlur();
   };
 
   const handleCancel = () => {
     setDisplayButtons(false);
     setComment("");
+    handleBlur();
   };
 
   useEffect(() => {
@@ -121,9 +169,18 @@ const Comments = ({
     image = user.username[0].toUpperCase();
   }
 
+  function handleBlur() {
+    if (inputRef.current !== null) {
+      inputRef.current.blur();
+    }
+  }
+
   function handleKeyDown(e: React.KeyboardEvent) {
     if (e.key === "Enter" && displayButtons === true && comment !== "") {
       handleSave();
+    }
+    if (e.key === "Escape" && displayButtons === true) {
+      handleCancel();
     }
   }
 
@@ -143,6 +200,7 @@ const Comments = ({
           value={comment}
           onClick={() => setDisplayButtons(true)}
           onChange={(e) => setComment(e.target.value)}
+          ref={inputRef}
         />
       </div>
       {displayButtons ? (
@@ -159,8 +217,11 @@ const Comments = ({
           </Button>
         </div>
       ) : null}
-      <div className={styles.comments}>
-        {reverseComments.map((comment: any) => {
+      <div
+        className={styles.comments}
+        style={loading ? { display: "" } : { display: "none" }}
+      >
+        {reverseComments?.map((comment: any) => {
           return (
             <CommentData
               comment={comment}
@@ -172,6 +233,11 @@ const Comments = ({
           );
         })}
       </div>
+      {!loading && (
+        <div className={styles["loader-container"]}>
+          <Loader size={200} scale />
+        </div>
+      )}
     </div>
   );
 };

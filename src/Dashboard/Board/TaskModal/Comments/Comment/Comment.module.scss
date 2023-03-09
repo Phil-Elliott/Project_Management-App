@@ -8,6 +8,7 @@
 
 .user {
   margin-right: 0.5rem;
+  min-width: 1rem;
 }
 
 .comment-container {
@@ -58,4 +59,8 @@
     margin-right: 10px;
     cursor: pointer;
   }
+}
+
+.buttons {
+  padding-top: 0.5rem;
 }
