@@ -2,7 +2,7 @@
 
 @mixin popup {
   position: absolute;
-  box-shadow: $box-shadow;
+  box-shadow: $box-shadow-light;
   border-radius: $border-radius;
   width: 100%;
   z-index: 1000;

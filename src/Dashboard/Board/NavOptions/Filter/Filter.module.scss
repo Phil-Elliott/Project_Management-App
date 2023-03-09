@@ -4,6 +4,9 @@
   margin-right: 1rem;
   padding-block: 0.5rem;
   position: relative;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 .btn {
@@ -103,6 +106,7 @@
   border-radius: 3px;
   padding: 0.25rem 0.5rem;
   position: relative;
+  cursor: pointer;
 
   p {
     font-size: 0.9rem;
@@ -112,6 +116,13 @@
 .pop {
   position: relative;
 }
+
+.pop-bottom {
+  // position: absolute;
+  position: relative;
+  bottom: 10rem;
+}
+
 .select-popup-container {
   width: 100%;
   z-index: 10000000;
@@ -139,6 +150,26 @@
 .member-name {
   font-size: $med;
   font-weight: 500;
+}
+
+.footer-select-container {
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+
+  h5 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding-bottom: 0.25rem;
+  }
+
+  p {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  &:hover {
+    background: $primary-light;
+  }
 }
 
 @media only screen and (max-width: 565px) {
