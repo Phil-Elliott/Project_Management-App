@@ -403,6 +403,7 @@ const Board = () => {
           addNewTask={addNewTask}
           changeTaskPosition={changeTaskPosition}
           changeModalDisplay={changeModalDisplay}
+          user={user}
         />
         {modalTask && (
           <Modal

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 import _ from "lodash";
 import {
+  FilterData,
   ProjectDataProps,
   TaskProps,
   TasksSections,
@@ -18,6 +19,7 @@ type ProjectState = {
   orderedTasks: OrderedTasks[];
   projectTasks: ProjectTaskProps[];
   currentTask: currentTaskProps;
+  filterData: FilterData;
 };
 
 type updateTaskProps = {
@@ -84,6 +86,22 @@ const initialState: ProjectState = {
   currentTask: {
     id: "",
     closed: false,
+  },
+  filterData: {
+    watching: false,
+    noMembers: false,
+    assignedToMe: false,
+    assignedToUsers: [],
+    noDates: false,
+    overdue: false,
+    nextDay: false,
+    nextWeek: false,
+    nextMonth: false,
+    urgent: false,
+    high: false,
+    normal: false,
+    low: false,
+    exact: false,
   },
 };
 
@@ -351,6 +369,10 @@ export const projectSlice = createSlice({
     changeSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
     },
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    updateFilterData: (state, action: PayloadAction<FilterData>) => {
+      state.filterData = action.payload;
+    },
   },
 });
 
@@ -380,6 +402,7 @@ export const {
   addWatchingTask,
   removeWatchingTask,
   changeSearchQuery,
+  updateFilterData,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

@@ -25,6 +25,7 @@ type TasksProps = {
     sourceIndex: number
   ) => void;
   changeModalDisplay: (task: any, id: string, sectionId: string) => void;
+  user: any;
 };
 
 const Tasks = ({
@@ -34,6 +35,7 @@ const Tasks = ({
   changeSectionOrder,
   changeTaskPosition,
   changeModalDisplay,
+  user,
 }: TasksProps) => {
   const [orderedSectionsArr, setOrderedSectionsArr] = useState<number[]>([]);
 
@@ -96,6 +98,7 @@ const Tasks = ({
                       index={index}
                       changeModalDisplay={changeModalDisplay}
                       sections={sections}
+                      user={user}
                     />
                   );
                 })}

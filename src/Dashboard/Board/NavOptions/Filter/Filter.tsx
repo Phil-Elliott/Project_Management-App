@@ -14,28 +14,13 @@ import {
 import { BsPerson } from "react-icons/bs";
 import { Avatar, Button, Popup } from "~/shared/components";
 import styles from "./Filter.module.scss";
-import { User } from "~/shared/interfaces/Projects";
+import { FilterData, User } from "~/shared/interfaces/Projects";
+import { useDispatch } from "react-redux";
+import { updateFilterData } from "~/ProjectSlice";
 
 type FilterProps = {
   user: User;
   members: User[];
-};
-
-type FilterData = {
-  watching: boolean;
-  noMembers: boolean;
-  assignedToMe: boolean;
-  assignedToUsers: string[];
-  noDates: boolean;
-  overdue: boolean;
-  nextDay: boolean;
-  nextWeek: boolean;
-  nextMonth: boolean;
-  urgent: boolean;
-  high: boolean;
-  normal: boolean;
-  low: boolean;
-  exact: boolean;
 };
 
 const Filter = ({ members, user }: FilterProps) => {
@@ -59,8 +44,10 @@ const Filter = ({ members, user }: FilterProps) => {
     exact: false,
   });
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    console.log(filterData);
+    dispatch(updateFilterData(filterData));
   }, [filterData]);
 
   const toggleSelect = () => {
@@ -164,13 +151,35 @@ const Filter = ({ members, user }: FilterProps) => {
                       type="checkbox"
                       name="assigned to users"
                       id="assigned to users"
+                      checked={filterData.assignedToUsers.length > 0}
+                      onChange={(e) => {
+                        if (filterData.assignedToUsers.length > 0) {
+                          setFilterData({
+                            ...filterData,
+                            assignedToUsers: [],
+                          });
+                        } else {
+                          setFilterData({
+                            ...filterData,
+                            assignedToUsers: members
+                              .filter((member) => member.id !== user.id)
+                              .map((member) => member.id),
+                          });
+                        }
+                      }}
                     />
                     <div className={styles["select-container"]}>
                       <div
                         className={styles.select}
                         onClick={() => toggleSelect()}
                       >
-                        <p>Select Members</p>
+                        <p>
+                          {filterData.assignedToUsers.length > 1
+                            ? `${filterData.assignedToUsers.length} members selected`
+                            : filterData.assignedToUsers.length === 1
+                            ? `${filterData.assignedToUsers.length} member selected`
+                            : "Select Members"}
+                        </p>
                         <BsChevronDown />
                       </div>
                       <div className={styles.pop}>
@@ -493,13 +502,7 @@ export default Filter;
 
 /*
 
-Collect Data
-  Could have a state for each one of these
-  Could also have a state with an object that includes each one of these
-  Work on getting the selects to work last
 
-  Any matches - Just make sure the tasks match at least of of them and include the search in some way
-  Exact match - Make sure the tasks match all of them and include the search in some way
 
 
 Select members menu

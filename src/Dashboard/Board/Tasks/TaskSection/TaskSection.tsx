@@ -36,6 +36,7 @@ type TaskSectionProps = {
   index: number;
   changeModalDisplay: (task: any, id: string, sectionId: string) => void;
   sections: TasksSections[];
+  user: any;
 };
 
 const TaskSection = ({
@@ -44,6 +45,7 @@ const TaskSection = ({
   index,
   changeModalDisplay,
   sections,
+  user,
 }: TaskSectionProps) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
 
@@ -54,6 +56,8 @@ const TaskSection = ({
 
   const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
+
+  const [filteredTasks, setFilteredTasks] = useState<TaskProps[]>([]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -69,6 +73,78 @@ const TaskSection = ({
     (state: RootState) => state.project.projectTasks
   );
   const search = useSelector((state: RootState) => state.project.searchQuery);
+  const filterData = useSelector(
+    (state: RootState) => state.project.filterData
+  );
+
+  useEffect(() => {
+    if (filterData) {
+      getFilteredTasks();
+    }
+  }, [projectTasks, filterData]);
+
+  /*
+      Do a ternary on the bottom to show filterTasks when it is not empty
+      and show tasks when it is empty
+
+      Exact
+        - Need to filter the tasks based of of the options in the filterData
+        - Should match each option chosen
+
+      Not Exact
+        - Need to filter the tasks based of of the options in the filterData
+        - Should match at least one option chosen
+
+       Could use a switch statement for not exact
+       could also maybe write out the conditions as variables and then use those
+       Will need to pass the users info to do the watching part
+
+
+       maybe map through the filterData and see what needs to be applied to the filter function
+
+  */
+
+  function getFilteredTasks() {
+    // exact check
+    const checkExact = (task: TaskProps) => {
+      // console.log("check exact", task);
+      if (filterData.noMembers && task.assigned.length > 0) {
+        return false;
+      }
+      return true;
+    };
+
+    const checkNotExact = (task: TaskProps) => {
+      // console.log("check not exact", task);
+      if (filterData.noMembers && task.assigned.length > 0) {
+        return false;
+      }
+      return true;
+    };
+
+    if (filterData.exact) {
+      setFilteredTasks(
+        projectTasks[index]?.tasks.filter((task) => {
+          if (checkExact(task)) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
+    } else if (!filterData.exact) {
+      console.log("not exact");
+      setFilteredTasks(
+        projectTasks[index]?.tasks.filter((task) => {
+          if (checkNotExact(task)) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
+    }
+  }
 
   const dispatch = useDispatch();
 
@@ -259,7 +335,7 @@ const TaskSection = ({
                 />
 
                 <div className="taskSection-tasks">
-                  {projectTasks[index]?.tasks.map((task: any, i: any) => {
+                  {filteredTasks.map((task: any, i: any) => {
                     if (
                       search === "" ||
                       task.title.toLowerCase().includes(search.toLowerCase())
