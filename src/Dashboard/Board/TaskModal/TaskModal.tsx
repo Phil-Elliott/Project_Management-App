@@ -106,7 +106,9 @@ const TaskModal = ({
       if (
         type === "title" ||
         type === "watching_users" ||
-        type === "assigned_users"
+        type === "assigned_users" ||
+        type === "priority" ||
+        type === "due"
       ) {
         let newType: string = type;
         if (type === "watching_users") {
