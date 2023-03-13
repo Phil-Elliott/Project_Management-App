@@ -23,10 +23,10 @@ const NavOptions = ({
   return (
     <div className={styles.main}>
       {/* <div className={styles.left}> */}
-      <Search />
+      <Search projectId={projectId} />
       {members && <Members members={members} />}
       <Invite members={members} projectId={projectId} />
-      <Filter members={members} user={user} />
+      <Filter members={members} user={user} projectId={projectId} />
       {/* </div> */}
       <div className={styles.right}>
         <Settings projectData={projectData} />

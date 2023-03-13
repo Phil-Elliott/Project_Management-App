@@ -5,9 +5,17 @@ import { useDebounce } from "usehooks-ts";
 import { useDispatch } from "react-redux";
 import { changeSearchQuery } from "~/ProjectSlice";
 
-const Search = () => {
+type SearchProps = {
+  projectId: string;
+};
+
+const Search = ({ projectId }: SearchProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const debouncedValue = useDebounce<string>(searchQuery, 500);
+
+  useEffect(() => {
+    setSearchQuery("");
+  }, [projectId]);
 
   const dispatch = useDispatch();
 

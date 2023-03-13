@@ -173,7 +173,7 @@ const TaskModal = ({
         <div className={styles.body}>
           <div className={styles.right}>
             <Description
-              descriptionData={taskData.description}
+              descriptionData={taskData?.description}
               updateTaskData={updateTaskData}
               task={taskData}
             />

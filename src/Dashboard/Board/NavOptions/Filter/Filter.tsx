@@ -15,15 +15,17 @@ import { BsPerson } from "react-icons/bs";
 import { Avatar, Button, Popup } from "~/shared/components";
 import styles from "./Filter.module.scss";
 import { FilterData, User } from "~/shared/interfaces/Projects";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateFilterData } from "~/ProjectSlice";
+import { RootState } from "~/Store";
 
 type FilterProps = {
   user: User;
   members: User[];
+  projectId: string;
 };
 
-const Filter = ({ members, user }: FilterProps) => {
+const Filter = ({ members, user, projectId }: FilterProps) => {
   const [display, setDisplay] = useState<boolean>(false);
   const [showSelect, setShowSelect] = useState<boolean>(false);
   const [showSelect2, setShowSelect2] = useState<boolean>(false);
@@ -43,6 +45,25 @@ const Filter = ({ members, user }: FilterProps) => {
     low: false,
     exact: false,
   });
+
+  useEffect(() => {
+    setFilterData({
+      watching: false,
+      noMembers: false,
+      assignedToMe: false,
+      assignedToUsers: [],
+      noDates: false,
+      overdue: false,
+      nextDay: false,
+      nextWeek: false,
+      nextMonth: false,
+      urgent: false,
+      high: false,
+      normal: false,
+      low: false,
+      exact: false,
+    });
+  }, [projectId]);
 
   const dispatch = useDispatch();
 

@@ -134,6 +134,8 @@ export const projectSlice = createSlice({
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setRefresh(state) {
+      console.log("refresh");
+
       state.orderedTasks = [];
       state.projectTasks = [];
       state.sections = [];
@@ -141,6 +143,22 @@ export const projectSlice = createSlice({
       state.currentTask = {
         id: "",
         closed: false,
+      };
+      state.filterData = {
+        watching: false,
+        noMembers: false,
+        assignedToMe: false,
+        assignedToUsers: [],
+        noDates: false,
+        overdue: false,
+        nextDay: false,
+        nextWeek: false,
+        nextMonth: false,
+        urgent: false,
+        high: false,
+        normal: false,
+        low: false,
+        exact: false,
       };
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////

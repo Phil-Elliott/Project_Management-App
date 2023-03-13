@@ -10,6 +10,8 @@ import Task from "./Task/Task";
 import "./TaskSection.scss";
 import { FaEllipsisH, FaTimes } from "react-icons/fa";
 
+import moment from "moment";
+
 import { AddItem, Popup } from "~/shared/components";
 import { useDebounce } from "usehooks-ts";
 
@@ -78,6 +80,8 @@ const TaskSection = ({
   );
 
   useEffect(() => {
+    // console.log(projectTasks);
+    // console.log(user);
     if (filterData) {
       getFilteredTasks();
     }
@@ -102,19 +106,100 @@ const TaskSection = ({
 
        maybe map through the filterData and see what needs to be applied to the filter function
 
+
+
   */
 
   function getFilteredTasks() {
+    function isPastDate(date: string) {
+      const today = moment().format("YYYY-MM-DD");
+      return moment(date).isBefore(today);
+    }
+    // Should only be able to select one date option at a time
+    function isNextDay(date: string) {
+      const today = moment().format("YYYY-MM-DD");
+      const tomorrow = moment(today).add(1, "days").format("YYYY-MM-DD");
+      return moment(date).isSame(tomorrow) || moment(date).isSame(today);
+    }
+    function isNextWeek(date: string) {
+      const today = moment().format("YYYY-MM-DD");
+      const nextWeek = moment(today).add(7, "days").format("YYYY-MM-DD");
+      return !isPastDate(date) && moment(date).isBefore(nextWeek);
+    }
+    function isNextMonth(date: string) {
+      const today = moment().format("YYYY-MM-DD");
+      const nextMonth = moment(today).add(1, "months").format("YYYY-MM-DD");
+      return !isPastDate(date) && moment(date).isBefore(nextMonth);
+    }
     // exact check
-    const checkExact = (task: TaskProps) => {
+    const checkNotExact = (task: TaskProps) => {
       // console.log("check exact", task);
+      // console.log(filterData);
+
+      if (
+        filterData.watching &&
+        task.watching.filter((userWatching: any) => userWatching.id === user.id)
+          .length === 0
+      ) {
+        return false;
+      }
+
       if (filterData.noMembers && task.assigned.length > 0) {
         return false;
       }
+      if (
+        filterData.assignedToMe &&
+        task.assigned.filter((userAssigned: any) => userAssigned.id === user.id)
+          .length === 0
+      ) {
+        return false;
+      }
+      // Wont work for exact showing if any are chosen
+      if (
+        filterData.assignedToUsers.length > 0 &&
+        task.assigned.filter((userAssigned: any) =>
+          filterData.assignedToUsers.includes(userAssigned.id)
+        ).length === 0
+      ) {
+        return false;
+      }
+      // need dates to update when changed ***
+      if (filterData.noDates && task.due !== null) {
+        return false;
+      }
+
+      if (filterData.overdue && !isPastDate(task.due)) {
+        return false;
+      }
+
+      if (filterData.nextDay && !isNextDay(task.due)) {
+        return false;
+      }
+      if (filterData.nextWeek && !isNextWeek(task.due)) {
+        return false;
+      }
+      if (filterData.nextMonth && !isNextMonth(task.due)) {
+        return false;
+      }
+      // need priority to update when changed ***
+      if (filterData.urgent && task.priority !== "Urgent") {
+        return false;
+      }
+      if (filterData.high && task.priority !== "High") {
+        return false;
+      }
+      // need to start all tasks as normal
+      if (filterData.normal && task.priority !== "Normal") {
+        return false;
+      }
+      if (filterData.low && task.priority !== "Low") {
+        return false;
+      }
+
       return true;
     };
 
-    const checkNotExact = (task: TaskProps) => {
+    const checkExact = (task: TaskProps) => {
       // console.log("check not exact", task);
       if (filterData.noMembers && task.assigned.length > 0) {
         return false;
@@ -374,4 +459,53 @@ export default TaskSection;
 
   Could just set the projectTasks just once when the project first loads
 
+
+
+
+
+  const filteredTasks = tasks.filter(task => {
+  if (filterData.watching && !task.watching) {
+    return false;
+  }
+  if (filterData.noMembers && task.assigned.length > 0) {
+    return false;
+  }
+  if (filterData.assignedToMe && !task.assigned.includes(currentUser)) {
+    return false;
+  }
+  if (filterData.assignedToUsers.length > 0 && !filterData.assignedToUsers.includes(task.assigned)) {
+    return false;
+  }
+  if (filterData.noDates && task.due !== "") {
+    return false;
+  }
+  if (filterData.overdue && isPastDate(task.due)) {
+    return false;
+  }
+  if (filterData.nextDay && !isNextDay(task.due)) {
+    return false;
+  }
+  if (filterData.nextWeek && !isNextWeek(task.due)) {
+    return false;
+  }
+  if (filterData.nextMonth && !isNextMonth(task.due)) {
+    return false;
+  }
+  if (filterData.urgent && task.priority !== "Urgent") {
+    return false;
+  }
+  if (filterData.high && task.priority !== "High") {
+    return false;
+  }
+  if (filterData.normal && task.priority !== "Normal") {
+    return false;
+  }
+  if (filterData.low && task.priority !== "Low") {
+    return false;
+  }
+  if (filterData.exact && task.title.toLowerCase() !== filterData.exactTitle.toLowerCase()) {
+    return false;
+  }
+  return true;
+});
 */
