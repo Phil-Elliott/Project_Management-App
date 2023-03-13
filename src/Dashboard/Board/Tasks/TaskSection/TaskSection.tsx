@@ -87,35 +87,11 @@ const TaskSection = ({
     }
   }, [projectTasks, filterData]);
 
-  /*
-      Do a ternary on the bottom to show filterTasks when it is not empty
-      and show tasks when it is empty
-
-      Exact
-        - Need to filter the tasks based of of the options in the filterData
-        - Should match each option chosen
-
-      Not Exact
-        - Need to filter the tasks based of of the options in the filterData
-        - Should match at least one option chosen
-
-       Could use a switch statement for not exact
-       could also maybe write out the conditions as variables and then use those
-       Will need to pass the users info to do the watching part
-
-
-       maybe map through the filterData and see what needs to be applied to the filter function
-
-
-
-  */
-
   function getFilteredTasks() {
     function isPastDate(date: string) {
       const today = moment().format("YYYY-MM-DD");
       return moment(date).isBefore(today);
     }
-    // Should only be able to select one date option at a time
     function isNextDay(date: string) {
       const today = moment().format("YYYY-MM-DD");
       const tomorrow = moment(today).add(1, "days").format("YYYY-MM-DD");
@@ -132,10 +108,7 @@ const TaskSection = ({
       return !isPastDate(date) && moment(date).isBefore(nextMonth);
     }
     // exact check
-    const checkNotExact = (task: TaskProps) => {
-      // console.log("check exact", task);
-      // console.log(filterData);
-
+    const checkExact = (task: TaskProps) => {
       if (
         filterData.watching &&
         task.watching.filter((userWatching: any) => userWatching.id === user.id)
@@ -181,30 +154,91 @@ const TaskSection = ({
       if (filterData.nextMonth && !isNextMonth(task.due)) {
         return false;
       }
-      // need priority to update when changed ***
       if (filterData.urgent && task.priority !== "Urgent") {
         return false;
       }
       if (filterData.high && task.priority !== "High") {
         return false;
       }
-      // need to start all tasks as normal
       if (filterData.normal && task.priority !== "Normal") {
         return false;
       }
       if (filterData.low && task.priority !== "Low") {
         return false;
       }
-
       return true;
     };
 
-    const checkExact = (task: TaskProps) => {
-      // console.log("check not exact", task);
-      if (filterData.noMembers && task.assigned.length > 0) {
-        return false;
+    function checkFilter(filter: any) {
+      return (
+        Object.values(filter).some((value: any) => value === true) ||
+        filter.assignedToUsers.length > 0
+      );
+    }
+
+    const checkNotExact = (task: TaskProps) => {
+      if (!checkFilter(filterData)) {
+        return true;
       }
-      return true;
+
+      if (
+        filterData.watching &&
+        task.watching.filter((userWatching: any) => userWatching.id === user.id)
+          .length === 1
+      ) {
+        return true;
+      }
+
+      if (filterData.noMembers && task.assigned.length === 0) {
+        return true;
+      }
+      if (
+        filterData.assignedToMe &&
+        task.assigned.filter((userAssigned: any) => userAssigned.id === user.id)
+          .length !== 0
+      ) {
+        return true;
+      }
+      // Wont work for exact showing if any are chosen
+      if (
+        filterData.assignedToUsers.length > 0 &&
+        task.assigned.filter((userAssigned: any) =>
+          filterData.assignedToUsers.includes(userAssigned.id)
+        ).length !== 0
+      ) {
+        return true;
+      }
+      // need dates to update when changed ***
+      if (filterData.noDates && task.due === null) {
+        return true;
+      }
+
+      if (filterData.overdue && isPastDate(task.due)) {
+        return true;
+      }
+
+      if (filterData.nextDay && isNextDay(task.due)) {
+        return true;
+      }
+      if (filterData.nextWeek && isNextWeek(task.due)) {
+        return true;
+      }
+      if (filterData.nextMonth && isNextMonth(task.due)) {
+        return true;
+      }
+      if (filterData.urgent && task.priority === "Urgent") {
+        return true;
+      }
+      if (filterData.high && task.priority === "High") {
+        return true;
+      }
+      if (filterData.normal && task.priority === "Normal") {
+        return true;
+      }
+      if (filterData.low && task.priority === "Low") {
+        return true;
+      }
+      return false;
     };
 
     if (filterData.exact) {

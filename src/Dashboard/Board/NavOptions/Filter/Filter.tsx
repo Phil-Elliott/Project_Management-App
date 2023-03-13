@@ -321,6 +321,8 @@ const Filter = ({ members, user, projectId }: FilterProps) => {
                         setFilterData({
                           ...filterData,
                           nextDay: e.target.checked,
+                          nextWeek: false,
+                          nextMonth: false,
                         })
                       }
                       checked={filterData.nextDay}
@@ -341,7 +343,9 @@ const Filter = ({ members, user, projectId }: FilterProps) => {
                       onChange={(e) =>
                         setFilterData({
                           ...filterData,
+                          nextDay: false,
                           nextWeek: e.target.checked,
+                          nextMonth: false,
                         })
                       }
                       checked={filterData.nextWeek}
@@ -362,6 +366,8 @@ const Filter = ({ members, user, projectId }: FilterProps) => {
                       onChange={(e) =>
                         setFilterData({
                           ...filterData,
+                          nextDay: false,
+                          nextWeek: false,
                           nextMonth: e.target.checked,
                         })
                       }
@@ -467,7 +473,7 @@ const Filter = ({ members, user, projectId }: FilterProps) => {
 
               <div className={styles.footer}>
                 <div className={styles.select} onClick={() => toggleSelect2()}>
-                  <p>Any match</p>
+                  <p>{filterData.exact ? "Exact matches" : "Any matches"}</p>
                   <BsChevronDown />
                 </div>
                 <div className={styles["pop-bottom"]}>
@@ -481,6 +487,7 @@ const Filter = ({ members, user, projectId }: FilterProps) => {
                             : {}
                         }
                         onClick={() => {
+                          toggleSelect2();
                           setFilterData({
                             ...filterData,
                             exact: false,
@@ -498,6 +505,7 @@ const Filter = ({ members, user, projectId }: FilterProps) => {
                             : {}
                         }
                         onClick={() => {
+                          toggleSelect2();
                           setFilterData({
                             ...filterData,
                             exact: true,
@@ -523,14 +531,8 @@ export default Filter;
 
 /*
 
+1) Make sure that only one of (next day, next week, and next month) are chosen at a time
 
-
-
-Select members menu
-  1) Have the select show "1 member selected"
-  2) Check the box if a member is selected
-  3) If checkbox is selected from blank, check all
-  4) If checkbox is selected from all, uncheck all
 
 
 
