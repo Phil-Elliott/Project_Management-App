@@ -79,9 +79,15 @@ const TaskSection = ({
     (state: RootState) => state.project.filterData
   );
 
+  // check to see if any filters have been applied
+  function checkFilter(filter: any) {
+    return (
+      Object.values(filter).some((value: any) => value === true) ||
+      filter.assignedToUsers.length > 0
+    );
+  }
+
   useEffect(() => {
-    // console.log(projectTasks);
-    // console.log(user);
     if (filterData) {
       getFilteredTasks();
     }
@@ -107,7 +113,7 @@ const TaskSection = ({
       const nextMonth = moment(today).add(1, "months").format("YYYY-MM-DD");
       return !isPastDate(date) && moment(date).isBefore(nextMonth);
     }
-    // exact check
+
     const checkExact = (task: TaskProps) => {
       if (
         filterData.watching &&
@@ -168,13 +174,6 @@ const TaskSection = ({
       }
       return true;
     };
-
-    function checkFilter(filter: any) {
-      return (
-        Object.values(filter).some((value: any) => value === true) ||
-        filter.assignedToUsers.length > 0
-      );
-    }
 
     const checkNotExact = (task: TaskProps) => {
       if (!checkFilter(filterData)) {
@@ -252,7 +251,6 @@ const TaskSection = ({
         })
       );
     } else if (!filterData.exact) {
-      console.log("not exact");
       setFilteredTasks(
         projectTasks[index]?.tasks.filter((task) => {
           if (checkNotExact(task)) {
@@ -454,22 +452,44 @@ const TaskSection = ({
                 />
 
                 <div className="taskSection-tasks">
-                  {filteredTasks.map((task: any, i: any) => {
-                    if (
-                      search === "" ||
-                      task.title.toLowerCase().includes(search.toLowerCase())
-                    ) {
-                      return (
-                        <Task
-                          key={task.id}
-                          taskData={task}
-                          index={i}
-                          changeModalDisplay={changeModalDisplay}
-                          sectionId={section.id}
-                        />
-                      );
-                    }
-                  })}
+                  {!checkFilter(filterData)
+                    ? projectTasks[index]?.tasks.map((task: any, i: any) => {
+                        if (
+                          search === "" ||
+                          task.title
+                            .toLowerCase()
+                            .includes(search.toLowerCase())
+                        ) {
+                          return (
+                            <Task
+                              key={task.id}
+                              taskData={task}
+                              index={i}
+                              changeModalDisplay={changeModalDisplay}
+                              sectionId={section.id}
+                            />
+                          );
+                        }
+                      })
+                    : filteredTasks.map((task: any, i: any) => {
+                        if (
+                          search === "" ||
+                          task.title
+                            .toLowerCase()
+                            .includes(search.toLowerCase())
+                        ) {
+                          return (
+                            <Task
+                              key={task.id}
+                              taskData={task}
+                              index={i}
+                              changeModalDisplay={changeModalDisplay}
+                              sectionId={section.id}
+                            />
+                          );
+                        }
+                      })}
+
                   {provided.placeholder}
                 </div>
               </div>
@@ -494,6 +514,6 @@ export default TaskSection;
   Could just set the projectTasks just once when the project first loads
 
 
-
+  Could have a filter array that only displays when something is true in the filterdata
 
   */

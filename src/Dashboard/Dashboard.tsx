@@ -91,26 +91,10 @@ export default Dashboard;
 
 /*
 
- 
-
-
-  1) Take out comments
-  
-  2) Add reply to comment
-  3) Maybe have loader while adding new comments or updating comments
-  4) Work on filter modal
-  5) Get a new logo
-  7) Add forget password
-  8) Figure out why task data taking so long to load (maybe cant do anything)
-
-
-  There is a blur when editing description
-
-
-
-
-
-
-    
+  1) Add reply to comment
+  2) Move or make filter modal responsive
+  3) Have a number and x next to filter bttn
+  4) Add an admin and maybe emails next to members
+  5) Add forget password
 
 */
