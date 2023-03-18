@@ -1,6 +1,6 @@
 # Simple Plan Project Management APP
 
-![PM-Dashboard](https://user-images.githubusercontent.com/89685937/222329912-db0fae68-1fb6-4844-ba9e-a6f42f393296.png)
+![PM-Dashboard](https://user-images.githubusercontent.com/89685937/226085850-74ae4de0-4e38-4546-be30-449108cd648c.png)
 
 This is a React-based application designed for task tracking within a project. It enables users to create projects and tasks, as well as move tasks across various sections using drag-and-drop functionality. Each task includes key details such as its due date, description, a comments section, and the assigned members for streamlined collaboration.
 
