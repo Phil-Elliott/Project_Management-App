@@ -58,6 +58,8 @@ Use the invite button to share the project with other users. This can be done by
 
 ### Filter button - Recently Added
 
+![BoardFilter](https://user-images.githubusercontent.com/89685937/226086356-6039ef9a-531d-44fd-9c7b-c95ea67295e7.gif)
+
 The filter button allows the user to sort through tasks based on their details. Users can specify filtering criteria, and choose whether they want to see tasks that match any of the criteria or only those that match all criteria exactly. This feature helps users quickly locate and manage specific tasks that meet their requirements.
 
 ### Settings button
