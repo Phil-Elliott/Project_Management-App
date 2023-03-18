@@ -56,6 +56,10 @@ Use the search bar to filter the tasks related to your search query.
 
 Use the invite button to share the project with other users. This can be done by entering their email addresses.
 
+### Filter button - Recently Added
+
+The filter button allows the user to sort through tasks based on their details. Users can specify filtering criteria, and choose whether they want to see tasks that match any of the criteria or only those that match all criteria exactly. This feature helps users quickly locate and manage specific tasks that meet their requirements.
+
 ### Settings button
 
 ![Board6](https://user-images.githubusercontent.com/89685937/222661459-f125ab98-c4b9-48fd-b01b-9767bfc5f54e.gif)
