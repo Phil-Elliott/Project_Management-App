@@ -122,7 +122,7 @@ const Filter = ({ members, user, projectId }: FilterProps) => {
                     />
                     <label htmlFor="watching">
                       <AiFillEye className={styles["check-icon"]} />
-                      <p>Only show cards I'm watching</p>
+                      <p>Show cards I'm watching</p>
                     </label>
                   </div>
                 </div>
