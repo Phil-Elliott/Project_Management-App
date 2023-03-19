@@ -14,31 +14,18 @@ import {
 import { BsPerson } from "react-icons/bs";
 import { Avatar, Button, Popup } from "~/shared/components";
 import styles from "./Filter.module.scss";
-import { User } from "~/shared/interfaces/Projects";
+import { FilterData, User } from "~/shared/interfaces/Projects";
+import { useDispatch, useSelector } from "react-redux";
+import { updateFilterData } from "~/ProjectSlice";
+import { RootState } from "~/Store";
 
 type FilterProps = {
   user: User;
   members: User[];
+  projectId: string;
 };
 
-type FilterData = {
-  watching: boolean;
-  noMembers: boolean;
-  assignedToMe: boolean;
-  assignedToUsers: string[];
-  noDates: boolean;
-  overdue: boolean;
-  nextDay: boolean;
-  nextWeek: boolean;
-  nextMonth: boolean;
-  urgent: boolean;
-  high: boolean;
-  normal: boolean;
-  low: boolean;
-  exact: boolean;
-};
-
-const Filter = ({ members, user }: FilterProps) => {
+const Filter = ({ members, user, projectId }: FilterProps) => {
   const [display, setDisplay] = useState<boolean>(false);
   const [showSelect, setShowSelect] = useState<boolean>(false);
   const [showSelect2, setShowSelect2] = useState<boolean>(false);
@@ -60,7 +47,28 @@ const Filter = ({ members, user }: FilterProps) => {
   });
 
   useEffect(() => {
-    console.log(filterData);
+    setFilterData({
+      watching: false,
+      noMembers: false,
+      assignedToMe: false,
+      assignedToUsers: [],
+      noDates: false,
+      overdue: false,
+      nextDay: false,
+      nextWeek: false,
+      nextMonth: false,
+      urgent: false,
+      high: false,
+      normal: false,
+      low: false,
+      exact: false,
+    });
+  }, [projectId]);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(updateFilterData(filterData));
   }, [filterData]);
 
   const toggleSelect = () => {
@@ -114,7 +122,7 @@ const Filter = ({ members, user }: FilterProps) => {
                     />
                     <label htmlFor="watching">
                       <AiFillEye className={styles["check-icon"]} />
-                      <p>Only show cards I'm watching</p>
+                      <p>Show cards I'm watching</p>
                     </label>
                   </div>
                 </div>
@@ -164,13 +172,35 @@ const Filter = ({ members, user }: FilterProps) => {
                       type="checkbox"
                       name="assigned to users"
                       id="assigned to users"
+                      checked={filterData.assignedToUsers.length > 0}
+                      onChange={(e) => {
+                        if (filterData.assignedToUsers.length > 0) {
+                          setFilterData({
+                            ...filterData,
+                            assignedToUsers: [],
+                          });
+                        } else {
+                          setFilterData({
+                            ...filterData,
+                            assignedToUsers: members
+                              .filter((member) => member.id !== user.id)
+                              .map((member) => member.id),
+                          });
+                        }
+                      }}
                     />
                     <div className={styles["select-container"]}>
                       <div
                         className={styles.select}
                         onClick={() => toggleSelect()}
                       >
-                        <p>Select Members</p>
+                        <p>
+                          {filterData.assignedToUsers.length > 1
+                            ? `${filterData.assignedToUsers.length} members selected`
+                            : filterData.assignedToUsers.length === 1
+                            ? `${filterData.assignedToUsers.length} member selected`
+                            : "Select Members"}
+                        </p>
                         <BsChevronDown />
                       </div>
                       <div className={styles.pop}>
@@ -291,6 +321,8 @@ const Filter = ({ members, user }: FilterProps) => {
                         setFilterData({
                           ...filterData,
                           nextDay: e.target.checked,
+                          nextWeek: false,
+                          nextMonth: false,
                         })
                       }
                       checked={filterData.nextDay}
@@ -311,7 +343,9 @@ const Filter = ({ members, user }: FilterProps) => {
                       onChange={(e) =>
                         setFilterData({
                           ...filterData,
+                          nextDay: false,
                           nextWeek: e.target.checked,
+                          nextMonth: false,
                         })
                       }
                       checked={filterData.nextWeek}
@@ -332,6 +366,8 @@ const Filter = ({ members, user }: FilterProps) => {
                       onChange={(e) =>
                         setFilterData({
                           ...filterData,
+                          nextDay: false,
+                          nextWeek: false,
                           nextMonth: e.target.checked,
                         })
                       }
@@ -437,7 +473,7 @@ const Filter = ({ members, user }: FilterProps) => {
 
               <div className={styles.footer}>
                 <div className={styles.select} onClick={() => toggleSelect2()}>
-                  <p>Any match</p>
+                  <p>{filterData.exact ? "Exact matches" : "Any matches"}</p>
                   <BsChevronDown />
                 </div>
                 <div className={styles["pop-bottom"]}>
@@ -451,6 +487,7 @@ const Filter = ({ members, user }: FilterProps) => {
                             : {}
                         }
                         onClick={() => {
+                          toggleSelect2();
                           setFilterData({
                             ...filterData,
                             exact: false,
@@ -468,6 +505,7 @@ const Filter = ({ members, user }: FilterProps) => {
                             : {}
                         }
                         onClick={() => {
+                          toggleSelect2();
                           setFilterData({
                             ...filterData,
                             exact: true,
@@ -493,20 +531,8 @@ export default Filter;
 
 /*
 
-Collect Data
-  Could have a state for each one of these
-  Could also have a state with an object that includes each one of these
-  Work on getting the selects to work last
+1) Make sure that only one of (next day, next week, and next month) are chosen at a time
 
-  Any matches - Just make sure the tasks match at least of of them and include the search in some way
-  Exact match - Make sure the tasks match all of them and include the search in some way
-
-
-Select members menu
-  1) Have the select show "1 member selected"
-  2) Check the box if a member is selected
-  3) If checkbox is selected from blank, check all
-  4) If checkbox is selected from all, uncheck all
 
 
 

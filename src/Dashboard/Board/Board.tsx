@@ -228,7 +228,7 @@ const Board = () => {
         description: "",
         title: name,
         order: 1,
-        priority: "",
+        priority: "Normal",
         due: "",
         comments: [],
         assigned: [],
@@ -403,6 +403,7 @@ const Board = () => {
           addNewTask={addNewTask}
           changeTaskPosition={changeTaskPosition}
           changeModalDisplay={changeModalDisplay}
+          user={user}
         />
         {modalTask && (
           <Modal

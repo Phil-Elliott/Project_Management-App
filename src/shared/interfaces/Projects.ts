@@ -75,7 +75,19 @@ export type User = {
   email: string;
 };
 
-// export type UsersProps = {
-//   attributes: User;
-//   id: string;
-// };
+export type FilterData = {
+  watching: boolean;
+  noMembers: boolean;
+  assignedToMe: boolean;
+  assignedToUsers: string[];
+  noDates: boolean;
+  overdue: boolean;
+  nextDay: boolean;
+  nextWeek: boolean;
+  nextMonth: boolean;
+  urgent: boolean;
+  high: boolean;
+  normal: boolean;
+  low: boolean;
+  exact: boolean;
+};

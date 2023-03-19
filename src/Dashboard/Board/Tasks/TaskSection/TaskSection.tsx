@@ -10,6 +10,8 @@ import Task from "./Task/Task";
 import "./TaskSection.scss";
 import { FaEllipsisH, FaTimes } from "react-icons/fa";
 
+import moment from "moment";
+
 import { AddItem, Popup } from "~/shared/components";
 import { useDebounce } from "usehooks-ts";
 
@@ -36,6 +38,7 @@ type TaskSectionProps = {
   index: number;
   changeModalDisplay: (task: any, id: string, sectionId: string) => void;
   sections: TasksSections[];
+  user: any;
 };
 
 const TaskSection = ({
@@ -44,6 +47,7 @@ const TaskSection = ({
   index,
   changeModalDisplay,
   sections,
+  user,
 }: TaskSectionProps) => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
 
@@ -54,6 +58,8 @@ const TaskSection = ({
 
   const [displayConfirm, setDisplayConfirm] = useState<boolean>(false);
   const [disableCloseModal, setDisableCloseModal] = useState<boolean>(false);
+
+  const [filteredTasks, setFilteredTasks] = useState<TaskProps[]>([]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -69,6 +75,193 @@ const TaskSection = ({
     (state: RootState) => state.project.projectTasks
   );
   const search = useSelector((state: RootState) => state.project.searchQuery);
+  const filterData = useSelector(
+    (state: RootState) => state.project.filterData
+  );
+
+  // check to see if any filters have been applied
+  function checkFilter(filter: any) {
+    return (
+      Object.values(filter).some((value: any) => value === true) ||
+      filter.assignedToUsers.length > 0
+    );
+  }
+
+  useEffect(() => {
+    if (filterData) {
+      getFilteredTasks();
+    }
+  }, [projectTasks, filterData]);
+
+  function getFilteredTasks() {
+    function isPastDate(date: string) {
+      const today = moment().format("YYYY-MM-DD");
+      return moment(date).isBefore(today);
+    }
+    function isNextDay(date: string) {
+      const today = moment().format("YYYY-MM-DD");
+      const tomorrow = moment(today).add(1, "days").format("YYYY-MM-DD");
+      return moment(date).isSame(tomorrow) || moment(date).isSame(today);
+    }
+    function isNextWeek(date: string) {
+      const today = moment().format("YYYY-MM-DD");
+      const nextWeek = moment(today).add(7, "days").format("YYYY-MM-DD");
+      return !isPastDate(date) && moment(date).isBefore(nextWeek);
+    }
+    function isNextMonth(date: string) {
+      const today = moment().format("YYYY-MM-DD");
+      const nextMonth = moment(today).add(1, "months").format("YYYY-MM-DD");
+      return !isPastDate(date) && moment(date).isBefore(nextMonth);
+    }
+
+    const checkExact = (task: TaskProps) => {
+      if (
+        filterData.watching &&
+        task.watching.filter((userWatching: any) => userWatching.id === user.id)
+          .length === 0
+      ) {
+        return false;
+      }
+
+      if (filterData.noMembers && task.assigned.length > 0) {
+        return false;
+      }
+      if (
+        filterData.assignedToMe &&
+        task.assigned.filter((userAssigned: any) => userAssigned.id === user.id)
+          .length === 0
+      ) {
+        return false;
+      }
+      // Wont work for exact showing if any are chosen
+      if (
+        filterData.assignedToUsers.length > 0 &&
+        task.assigned.filter((userAssigned: any) =>
+          filterData.assignedToUsers.includes(userAssigned.id)
+        ).length === 0
+      ) {
+        return false;
+      }
+      // need dates to update when changed ***
+      if (filterData.noDates && task.due !== null) {
+        return false;
+      }
+
+      if (filterData.overdue && !isPastDate(task.due)) {
+        return false;
+      }
+
+      if (filterData.nextDay && !isNextDay(task.due)) {
+        return false;
+      }
+      if (filterData.nextWeek && !isNextWeek(task.due)) {
+        return false;
+      }
+      if (filterData.nextMonth && !isNextMonth(task.due)) {
+        return false;
+      }
+      if (filterData.urgent && task.priority !== "Urgent") {
+        return false;
+      }
+      if (filterData.high && task.priority !== "High") {
+        return false;
+      }
+      if (filterData.normal && task.priority !== "Normal") {
+        return false;
+      }
+      if (filterData.low && task.priority !== "Low") {
+        return false;
+      }
+      return true;
+    };
+
+    const checkNotExact = (task: TaskProps) => {
+      if (!checkFilter(filterData)) {
+        return true;
+      }
+
+      if (
+        filterData.watching &&
+        task.watching.filter((userWatching: any) => userWatching.id === user.id)
+          .length === 1
+      ) {
+        return true;
+      }
+
+      if (filterData.noMembers && task.assigned.length === 0) {
+        return true;
+      }
+      if (
+        filterData.assignedToMe &&
+        task.assigned.filter((userAssigned: any) => userAssigned.id === user.id)
+          .length !== 0
+      ) {
+        return true;
+      }
+      // Wont work for exact showing if any are chosen
+      if (
+        filterData.assignedToUsers.length > 0 &&
+        task.assigned.filter((userAssigned: any) =>
+          filterData.assignedToUsers.includes(userAssigned.id)
+        ).length !== 0
+      ) {
+        return true;
+      }
+      // need dates to update when changed ***
+      if (filterData.noDates && task.due === null) {
+        return true;
+      }
+
+      if (filterData.overdue && isPastDate(task.due)) {
+        return true;
+      }
+
+      if (filterData.nextDay && isNextDay(task.due)) {
+        return true;
+      }
+      if (filterData.nextWeek && isNextWeek(task.due)) {
+        return true;
+      }
+      if (filterData.nextMonth && isNextMonth(task.due)) {
+        return true;
+      }
+      if (filterData.urgent && task.priority === "Urgent") {
+        return true;
+      }
+      if (filterData.high && task.priority === "High") {
+        return true;
+      }
+      if (filterData.normal && task.priority === "Normal") {
+        return true;
+      }
+      if (filterData.low && task.priority === "Low") {
+        return true;
+      }
+      return false;
+    };
+
+    if (filterData.exact) {
+      setFilteredTasks(
+        projectTasks[index]?.tasks.filter((task) => {
+          if (checkExact(task)) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
+    } else if (!filterData.exact) {
+      setFilteredTasks(
+        projectTasks[index]?.tasks.filter((task) => {
+          if (checkNotExact(task)) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
+    }
+  }
 
   const dispatch = useDispatch();
 
@@ -259,22 +452,44 @@ const TaskSection = ({
                 />
 
                 <div className="taskSection-tasks">
-                  {projectTasks[index]?.tasks.map((task: any, i: any) => {
-                    if (
-                      search === "" ||
-                      task.title.toLowerCase().includes(search.toLowerCase())
-                    ) {
-                      return (
-                        <Task
-                          key={task.id}
-                          taskData={task}
-                          index={i}
-                          changeModalDisplay={changeModalDisplay}
-                          sectionId={section.id}
-                        />
-                      );
-                    }
-                  })}
+                  {!checkFilter(filterData)
+                    ? projectTasks[index]?.tasks.map((task: any, i: any) => {
+                        if (
+                          search === "" ||
+                          task.title
+                            .toLowerCase()
+                            .includes(search.toLowerCase())
+                        ) {
+                          return (
+                            <Task
+                              key={task.id}
+                              taskData={task}
+                              index={i}
+                              changeModalDisplay={changeModalDisplay}
+                              sectionId={section.id}
+                            />
+                          );
+                        }
+                      })
+                    : filteredTasks.map((task: any, i: any) => {
+                        if (
+                          search === "" ||
+                          task.title
+                            .toLowerCase()
+                            .includes(search.toLowerCase())
+                        ) {
+                          return (
+                            <Task
+                              key={task.id}
+                              taskData={task}
+                              index={i}
+                              changeModalDisplay={changeModalDisplay}
+                              sectionId={section.id}
+                            />
+                          );
+                        }
+                      })}
+
                   {provided.placeholder}
                 </div>
               </div>
@@ -298,4 +513,7 @@ export default TaskSection;
 
   Could just set the projectTasks just once when the project first loads
 
-*/
+
+  Could have a filter array that only displays when something is true in the filterdata
+
+  */
