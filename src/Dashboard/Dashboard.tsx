@@ -92,7 +92,6 @@ export default Dashboard;
 /*
 
   1) Add reply to comment
-  2) Move or make filter modal responsive
   3) Have a number and x next to filter bttn
   4) Add an admin and maybe emails next to members
   5) Add forget password
