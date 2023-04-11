@@ -2,6 +2,7 @@
 
 .container {
   background-color: white;
+  color: #14358a;
 }
 
 .top {
@@ -30,7 +31,7 @@
   .logo-container {
     width: 100%;
     max-width: 100%;
-    padding-block: 2rem;
+    padding-block: 6rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -38,9 +39,6 @@
     gap: 3rem;
 
     img {
-      // width: 100%;
-      // height: 100%;
-      // object-fit: cover;
     }
   }
 }
