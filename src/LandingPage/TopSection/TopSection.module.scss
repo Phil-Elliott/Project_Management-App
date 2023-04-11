@@ -1,24 +1,24 @@
 @use "src/styles" as *;
 
 .topSection {
-  padding-block: 6rem 16rem;
+  // padding-block: 6rem 3rem;
+  padding-block: clamp(2rem, 14vh, 20rem) clamp(2rem, 33vh, 50rem);
   text-align: center;
-  width: 55%;
+  padding-inline: clamp(1rem, 22vw - 7rem, 30rem);
   margin: 0 auto;
 
   h1 {
     font-size: 3.75rem;
     font-weight: 700;
-    padding-bottom: 1.5rem;
+    padding-bottom: clamp(1rem, 6vh, 30rem);
   }
 
   p {
     font-size: 1.15rem;
     font-weight: 400;
-    padding-bottom: 1.5rem;
+    padding-bottom: clamp(1rem, 6vh, 30rem);
     line-height: 2rem;
-    padding-inline: 5rem;
-    margin-bottom: 1.5rem;
+    // padding-inline: clamp(1rem, 5vw, 30rem);
   }
 
   button {
@@ -33,5 +33,21 @@
     font-size: 1.15rem;
     font-weight: 600;
     cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .topSection {
+    padding-inline: 0;
+
+    h1 {
+    }
+
+    p {
+      // padding-inline: 0rem;
+    }
+
+    button {
+    }
   }
 }
