@@ -1,0 +1,79 @@
+@use "src/styles" as *;
+
+.main {
+  color: white;
+  padding: 1rem clamp(1rem, 11vw, 20rem);
+}
+
+.header {
+  font-size: 3.25rem;
+  font-weight: 700;
+  padding-block: clamp(1rem, 5vh, 30rem);
+  text-align: center;
+}
+
+.top-description {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 2rem;
+  text-align: center;
+  padding-top: 0.5rem;
+}
+
+.plans {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 3rem;
+  padding-block: 5rem 3rem;
+
+  .plan {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: white;
+    color: #14358a;
+    border-radius: 5px;
+    border: 4px solid rgba(172, 95, 230, 1);
+    padding: 2rem 3rem;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      padding-bottom: 1rem;
+    }
+
+    button {
+      background: linear-gradient(
+        90deg,
+        rgba(106, 54, 255, 1) 0%,
+        rgba(172, 95, 230, 1) 100%
+      );
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+  }
+}
+
+.benefits {
+  padding-block: 1.5rem;
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-block: 0.5rem;
+
+    p {
+      font-size: 1.15rem;
+    }
+  }
+}

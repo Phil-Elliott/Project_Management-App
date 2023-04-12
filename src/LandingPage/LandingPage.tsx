@@ -12,6 +12,7 @@ import f5 from "../assets/landing/f5.png";
 import Header from "./Header/Header";
 import TopSection from "./TopSection/TopSection";
 import Features from "./Features/Features";
+import Pricing from "./Pricing/Pricing";
 
 const LandingPage = () => {
   return (
@@ -39,6 +40,7 @@ const LandingPage = () => {
         </div>
       </div>
       <Features />
+      <Pricing />
     </div>
   );
 };
