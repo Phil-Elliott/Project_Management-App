@@ -11,6 +11,11 @@
   color: white;
   padding: 1.25rem clamp(1rem, 11vw, 20rem);
 
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
   h1 {
     font-size: clamp(1.75rem, 1.75vw, 1.75vw);
     font-weight: 700;
@@ -79,10 +84,11 @@
   transition: background-color 0.3s ease, color 0.3s ease;
   box-shadow: $box-shadow-light;
 
-  li {
+  a {
+    color: $primary;
+
     &:hover {
       color: white;
-      background: $primary;
     }
   }
 

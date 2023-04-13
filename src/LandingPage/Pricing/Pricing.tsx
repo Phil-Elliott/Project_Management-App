@@ -29,6 +29,7 @@ const Plans = [
 const Pricing = () => {
   return (
     <div
+      id="pricing"
       className={styles.main}
       style={{
         backgroundImage: `url(${hero})`,

@@ -35,7 +35,7 @@ const FeatureList = [
 
 const Features = () => {
   return (
-    <div className={styles.main}>
+    <div id="features" className={styles.main}>
       <div className={styles.container}>
         <h5>Top Features</h5>
         <h1>Plan projects fast.</h1>

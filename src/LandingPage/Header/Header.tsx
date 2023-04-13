@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
+
 import styles from "./Header.module.scss";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Popup } from "~/shared/components";
@@ -24,17 +26,29 @@ const Header = () => {
   }, []);
 
   return (
-    <div className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
+    <nav className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
       <h1>SimplePlan</h1>
       <ul className={styles.tabs}>
-        <li>About</li>
-        <li>Features</li>
-        <li>Pricing</li>
-        <li>Reviews</li>
+        <a href="#about">
+          <li>About</li>
+        </a>
+        <a href="#features">
+          <li>Features</li>
+        </a>
+        <a href="#pricing">
+          <li>Pricing</li>
+        </a>
+        <a href="#reviews">
+          <li>Reviews</li>
+        </a>
       </ul>
       <div className={styles.buttons}>
-        <button className={styles.inBtn}>Sign In</button>
-        <button className={styles.upBtn}>Sign Up</button>
+        <NavLink to="/signIn">
+          <button className={styles.inBtn}>Sign In</button>
+        </NavLink>
+        <NavLink to="/signIn">
+          <button className={styles.upBtn}>Sign Up</button>
+        </NavLink>
       </div>
       <div className={styles.hamburger} onClick={() => setPopup(true)}>
         <GiHamburgerMenu />
@@ -51,7 +65,7 @@ const Header = () => {
           </div>
         </Popup>
       )}
-    </div>
+    </nav>
   );
 };
 

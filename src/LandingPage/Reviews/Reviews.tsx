@@ -44,7 +44,7 @@ const reviews = [
 
 const Reviews = () => {
   return (
-    <div className={styles.main}>
+    <div id="reviews" className={styles.main}>
       <h1>Loved by many</h1>
       <div className={styles.reviews}>
         {reviews.map((review, i) => (

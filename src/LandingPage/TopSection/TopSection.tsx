@@ -1,5 +1,6 @@
-import React from "react";
 import styles from "./TopSection.module.scss";
+
+import { NavLink } from "react-router-dom";
 
 const TopSection = () => {
   return (
@@ -9,7 +10,9 @@ const TopSection = () => {
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque
         perspiciatis consequatur.
       </p>
-      <button className={styles.btn}>Get Started</button>
+      <NavLink to="/signIn">
+        <button className={styles.btn}>Get Started</button>
+      </NavLink>
     </div>
   );
 };

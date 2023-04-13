@@ -19,7 +19,7 @@ import Footer from "./Footer/Footer";
 
 const LandingPage = () => {
   return (
-    <div className={styles.container}>
+    <div id="about" className={styles.container}>
       <Header />
       <div
         className={styles.top}
