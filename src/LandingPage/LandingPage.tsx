@@ -14,6 +14,7 @@ import TopSection from "./TopSection/TopSection";
 import Features from "./Features/Features";
 import Pricing from "./Pricing/Pricing";
 import Instructions from "./Instructions/Instructions";
+import Reviews from "./Reviews/Reviews";
 
 const LandingPage = () => {
   return (
@@ -43,6 +44,7 @@ const LandingPage = () => {
       {/* <Instructions /> */}
       <Features />
       <Pricing />
+      <Reviews />
     </div>
   );
 };

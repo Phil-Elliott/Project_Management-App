@@ -30,7 +30,7 @@ const Header = () => {
         <li>About</li>
         <li>Features</li>
         <li>Pricing</li>
-        <li>Contact</li>
+        <li>Reviews</li>
       </ul>
       <div className={styles.buttons}>
         <button className={styles.inBtn}>Sign In</button>
