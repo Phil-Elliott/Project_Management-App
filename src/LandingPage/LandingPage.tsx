@@ -15,6 +15,7 @@ import Features from "./Features/Features";
 import Pricing from "./Pricing/Pricing";
 import Instructions from "./Instructions/Instructions";
 import Reviews from "./Reviews/Reviews";
+import Footer from "./Footer/Footer";
 
 const LandingPage = () => {
   return (
@@ -45,6 +46,7 @@ const LandingPage = () => {
       <Features />
       <Pricing />
       <Reviews />
+      <Footer />
     </div>
   );
 };
