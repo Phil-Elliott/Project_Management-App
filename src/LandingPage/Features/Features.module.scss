@@ -7,18 +7,19 @@
     color: rgba(172, 95, 230, 1);
     font-weight: 700;
     font-size: 1rem;
+    font-size: clamp(1rem, 1vw, 1vw);
     // margin: 0;
   }
 
   h1 {
-    font-size: 3.25rem;
+    font-size: clamp(2rem, 3.25vw, 3.25vw);
     font-weight: 700;
     padding-block: clamp(1rem, 5vh, 30rem);
     text-align: center;
   }
 
   .top-description {
-    font-size: 1.5rem;
+    font-size: clamp(1.15rem, 1.5vw, 1.5vw);
     font-weight: 500;
     line-height: 2rem;
     text-align: center;
@@ -80,14 +81,26 @@
   }
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1100px) {
+  .main {
+    padding: 1rem 1.5rem;
+  }
   .features {
-    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
   }
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 870px) {
   .features {
     grid-template-columns: repeat(1, 1fr);
+  }
+  .container {
+    padding: 5rem 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .container {
+    padding: 3rem 1rem;
   }
 }
