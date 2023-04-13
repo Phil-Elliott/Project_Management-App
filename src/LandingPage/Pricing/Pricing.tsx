@@ -11,12 +11,12 @@ const Plans = [
   },
   {
     title: "Advanced Plan",
-    price: "Free",
+    price: "$4.99 / Month",
     benefits: ["30 Projects", "Unlimited Tasks", "100 Users", "100GB Storage"],
   },
   {
     title: "Premium Plan",
-    price: "Free",
+    price: "$9.99 / Month",
     benefits: [
       "Unlimited Projects",
       "Unlimited Tasks",
@@ -32,7 +32,6 @@ const Pricing = () => {
       className={styles.main}
       style={{
         backgroundImage: `url(${hero})`,
-        // backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}

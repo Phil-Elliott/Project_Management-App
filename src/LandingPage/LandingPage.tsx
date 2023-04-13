@@ -13,10 +13,12 @@ import Header from "./Header/Header";
 import TopSection from "./TopSection/TopSection";
 import Features from "./Features/Features";
 import Pricing from "./Pricing/Pricing";
+import Instructions from "./Instructions/Instructions";
 
 const LandingPage = () => {
   return (
     <div className={styles.container}>
+      <Header />
       <div
         className={styles.top}
         style={{
@@ -26,7 +28,6 @@ const LandingPage = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <Header />
         <TopSection />
       </div>
       <div className={styles.topGif}>
@@ -39,6 +40,7 @@ const LandingPage = () => {
           <img src={f5} alt="company logo" />
         </div>
       </div>
+      {/* <Instructions /> */}
       <Features />
       <Pricing />
     </div>
@@ -46,3 +48,13 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
+
+/*
+
+  1) Fix header
+  2) Make everything responsive
+  3) Add another section
+  4) Add footer
+
+
+*/

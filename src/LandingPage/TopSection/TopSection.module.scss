@@ -2,10 +2,11 @@
 
 .topSection {
   // padding-block: 6rem 3rem;
-  padding-block: clamp(2rem, 14vh, 20rem) clamp(2rem, 33vh, 50rem);
+  padding-block: clamp(2rem, 22vh, 20rem) clamp(2rem, 33vh, 50rem);
   text-align: center;
-  padding-inline: clamp(1rem, 22vw - 7rem, 30rem);
+  padding-inline: clamp(1rem, 34vw - 7rem, 30rem);
   margin: 0 auto;
+  // padding: 1rem clamp(1rem, 11vw, 20rem);
 
   h1 {
     font-size: 3.75rem;

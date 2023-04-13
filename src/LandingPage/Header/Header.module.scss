@@ -1,10 +1,15 @@
 @use "src/styles" as *;
 
 .header {
+  z-index: 1000;
+  width: 100%;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // padding: 1rem 10rem;
+  background-color: transparent;
+  color: white;
+  padding: 1rem clamp(1rem, 11vw, 20rem);
 
   h1 {
     font-size: 1.75rem;
@@ -22,7 +27,7 @@
       margin-left: 1rem;
       margin-block: 0.25rem;
       padding: 0.25rem 0.5rem;
-      font-weight: 500;
+      font-weight: 600;
       font-size: 1rem;
 
       border-radius: 5px;
@@ -42,7 +47,7 @@
     background: transparent;
     padding: 0.5rem 1rem;
     border-radius: 5px;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
 
@@ -63,5 +68,31 @@
   .upBtn {
     border: 1px solid white;
     margin-left: 1rem;
+  }
+}
+
+.scrolled {
+  background-color: white;
+  color: $primary;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: $box-shadow;
+
+  li {
+    &:hover {
+      color: white;
+      background: $primary;
+    }
+  }
+
+  .upBtn {
+    border: 1px solid $primary;
+  }
+
+  button {
+    color: $primary;
+
+    &:hover {
+      color: white;
+    }
   }
 }
