@@ -41,12 +41,12 @@ const Pricing = () => {
         Planning a project and creating tasks has never been easier.
       </p>
       <div className={styles.plans}>
-        {Plans.map((plan) => (
-          <div className={styles["plan"]}>
+        {Plans.map((plan, i) => (
+          <div key={i} className={styles["plan"]}>
             <h1>{plan.title}</h1>
             <div className={styles.benefits}>
-              {plan.benefits.map((benefit) => (
-                <div>
+              {plan.benefits.map((benefit, j) => (
+                <div key={j}>
                   <FaCheckCircle />
                   <p>{benefit}</p>
                 </div>

@@ -7,6 +7,7 @@
 
 .top {
   color: white;
+  padding: 1rem clamp(1rem, 11vw, 20rem);
   clip-path: polygon(0 0%, 100% 0, 100% 80%, 0 100%);
 }
 
@@ -39,5 +40,14 @@
 
     img {
     }
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .top {
+    padding: 1rem 1.5rem;
+  }
+  .topGif {
+    padding: 0rem 1.5rem;
   }
 }

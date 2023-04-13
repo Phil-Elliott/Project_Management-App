@@ -43,8 +43,8 @@ const Features = () => {
           Planning a project and creating tasks has never been easier.
         </p>
         <div className={styles.features}>
-          {FeatureList.map((feature) => (
-            <div className={styles["feature"]}>
+          {FeatureList.map((feature, i) => (
+            <div key={i} className={styles["feature"]}>
               <div className={styles["feature-img"]}>{feature.icon}</div>
               <div className={styles["feature-text"]}>
                 <h3>{feature.title}</h3>
