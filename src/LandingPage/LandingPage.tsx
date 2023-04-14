@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./LandingPage.module.scss";
 
 import hero from "../assets/landing/hero2.jpg";
-import Board3 from "../assets/landing/main.png";
+import Board3 from "../assets/landing/main.jpg";
 import f1 from "../assets/landing/f1.png";
 import f2 from "../assets/landing/f2.png";
 import f3 from "../assets/landing/f3.png";
