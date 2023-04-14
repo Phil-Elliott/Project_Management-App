@@ -61,6 +61,7 @@ const Login = ({ handleFormChange }: LoginProps) => {
 
   return (
     <div className={styles.main}>
+      <h2>Welcome back</h2>
       <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="Email">Email</label>
         <input type="email" onChange={handleEmail} value={email} />
@@ -72,10 +73,6 @@ const Login = ({ handleFormChange }: LoginProps) => {
           <button type="submit">Sign in</button>
         </div>
       </form>
-      <p className={styles.signup}>
-        Don't have an account?{" "}
-        <span onClick={() => handleFormChange()}>Sign up</span>
-      </p>
     </div>
   );
 };

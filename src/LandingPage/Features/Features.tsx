@@ -9,27 +9,27 @@ import { AiFillDatabase } from "react-icons/ai";
 const FeatureList = [
   {
     icon: <BsFillPeopleFill />,
-    title: "Project Management",
+    title: "Team Management",
     description:
-      "Manage your projects and tasks with ease. Manage your projects and tasks with ease.",
+      "Collaborate seamlessly with your team using our app's task assignments, shared calendars, and real-time chat.",
   },
   {
     icon: <FaTasks />,
     title: "Task Management",
     description:
-      "Manage your projects and tasks with ease. Manage your projects and tasks with ease.",
+      "Easily assign, prioritize, and track tasks with our app's task management feature. Stay organized with task lists, deadlines, and progress tracking.",
   },
   {
     icon: <MdOutlineDashboardCustomize />,
     title: "Dashboard",
     description:
-      "Manage your projects and tasks with ease. Manage your projects and tasks with ease.",
+      "Get real-time project insights with our customizable dashboard. Widgets for key performance indicators and project timelines keep you informed and ahead of the game.",
   },
   {
     icon: <AiFillDatabase />,
     title: "Database",
     description:
-      "Manage your projects and tasks with ease. Manage your projects and tasks with ease.",
+      "Securely store and access all project details with our app's database. User permissions and automatic backups provide peace of mind for growing your business.",
   },
 ];
 

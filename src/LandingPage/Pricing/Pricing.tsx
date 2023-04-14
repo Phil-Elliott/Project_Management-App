@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Pricing.module.scss";
-import hero from "./../../../public/hero2.jpg";
+// import hero from "./../../../public/hero2.jpg";
+import hero from "../../assets/landing/hero2.jpg";
 import { FaCheckCircle } from "react-icons/fa";
 
 const Plans = [

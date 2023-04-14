@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./LandingPage.module.scss";
 
-import Board3 from "./../../public/Board3.gif";
-import hero from "./../../public/hero2.jpg";
+import hero from "../assets/landing/hero2.jpg";
+import Board3 from "../assets/landing/main.png";
 import f1 from "../assets/landing/f1.png";
 import f2 from "../assets/landing/f2.png";
 import f3 from "../assets/landing/f3.png";
@@ -52,13 +52,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-
-/*
-
-  1) Fix header
-  2) Make everything responsive
-  3) Add another section
-  4) Add footer
-
-
-*/

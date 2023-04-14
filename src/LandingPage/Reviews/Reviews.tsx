@@ -7,31 +7,31 @@ const reviews = [
   {
     name: "Amy Adams",
     review:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
+      "Game changer! Love the real-time dashboard & task tracking. Highly recommend!",
     company: "Google",
   },
   {
     name: "Ethan Hunt",
     review:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
+      "Data-driven decisions made easy! Advanced analytics feature is a lifesaver.",
     company: "Facebook",
   },
   {
     name: "Sandra Fox",
     review:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
+      "Seamless collaboration! Real-time chat has boosted our team productivity.",
     company: "Amazon",
   },
   {
     name: "Loren Smith",
     review:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
+      "Secure storage & user permission controls are top-notch. Very impressed.",
     company: "Netflix",
   },
   {
     name: "Tom Brady",
     review:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
+      "All-in-one project management tool has saved us time & effort. A must-have!",
     company: "Hulu",
   },
   {

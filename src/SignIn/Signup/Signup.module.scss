@@ -3,13 +3,13 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 100%;
 
   form {
     flex-direction: column;
-    padding-top: 10%;
+    // padding-top: 10%;
   }
   .label {
     font-size: 1rem;
@@ -18,21 +18,30 @@
 
   input {
     margin-top: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     width: 100%;
-    border-radius: 3px;
-    border: 1px solid $primary-light;
-    font-size: 1rem;
+    border-radius: $border-radius;
+    border: 1px solid #e0e0e0;
+    font-size: clamp(1rem, 1vw, 1vw);
+    outline: none;
+    resize: none;
+    font-weight: 600;
+    color: black;
+
+    &:hover {
+      background-color: $primary-light;
+    }
 
     &:focus {
       outline: none;
       border: 1px solid $primary;
+      background-color: white;
     }
   }
 }
 
 .buttons {
-  margin-top: 2rem;
+  margin-top: 0.5rem;
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -44,31 +53,17 @@
   button {
     background-color: $primary;
     color: white;
-    margin-bottom: 1rem;
     cursor: pointer;
     border-radius: 3px;
-    font-size: 1rem;
-    font-weight: 500;
     padding: 0.5rem 1rem;
     border: none;
-    font-size: $small-text;
+    font-size: clamp(1rem, 1vw, 1vw);
+    font-weight: 600;
     width: 100%;
 
     &:hover {
-      opacity: 0.8;
+      opacity: 0.9;
     }
-  }
-}
-
-.signup {
-  font-size: 1rem;
-  font-weight: 500;
-  // padding-bottom: 1rem;
-
-  span {
-    // text-decoration: underline;
-    color: $primary;
-    cursor: pointer;
   }
 }
 
@@ -89,12 +84,6 @@
 }
 
 @media only screen and (max-width: 500px) {
-  .main {
-    form {
-      padding-top: 5rem;
-    }
-  }
-
   .buttons {
     flex-direction: column;
 

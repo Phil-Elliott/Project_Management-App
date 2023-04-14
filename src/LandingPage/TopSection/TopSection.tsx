@@ -5,10 +5,11 @@ import { NavLink } from "react-router-dom";
 const TopSection = () => {
   return (
     <div className={styles.topSection}>
-      <h1>Advanced analytics to grow your business</h1>
+      <h1>The Ultimate Project Management App</h1>
       <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque
-        perspiciatis consequatur.
+        Grow your business with advanced analytics in our project management
+        app, featuring customizable dashboards and real-time reporting for
+        optimized performance.
       </p>
       <NavLink to="/signIn">
         <button className={styles.btn}>Get Started</button>
