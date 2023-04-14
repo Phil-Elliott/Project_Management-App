@@ -1,0 +1,46 @@
+@use "src/styles" as *;
+
+.main {
+  padding: 0rem clamp(1rem, 11vw, 20rem);
+  padding-bottom: 6rem;
+
+  h1 {
+    font-size: 3.25rem;
+    font-weight: 700;
+    padding-block: clamp(1rem, 5vh, 30rem);
+    text-align: center;
+  }
+
+  .top-description {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 2rem;
+    text-align: center;
+    padding-top: 0.5rem;
+  }
+}
+
+.instructions-container {
+  padding-block: 2rem;
+}
+
+.instruction-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10rem;
+  padding-block: 2rem;
+}
+
+.image {
+  width: 50vw;
+  height: 50vh;
+  margin-right: 1rem;
+  border-radius: 5px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    // object-fit: cover;
+  }
+}

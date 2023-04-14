@@ -4,11 +4,11 @@ import Login from "./Login/Login";
 import Signup from "./Signup/Signup";
 
 import styles from "./SignIn.module.scss";
-import image from "~/assets/signin.jpg";
+import image from "~/assets/sign.svg";
 
 import { useSelector } from "react-redux";
 import { RootState } from "~/Store";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 const SignIn = () => {
   const [login, setLogin] = useState(true);
@@ -31,16 +31,37 @@ const SignIn = () => {
 
   return (
     <div className={styles.main}>
-      <div className={styles["image-container"]}>
-        <img src={image} alt="post it notes" />
-      </div>
       <div className={styles["form-container"]}>
-        <h1 className={styles.header}>Simple Plan</h1>
+        <NavLink
+          to={"/"}
+          style={{
+            textDecoration: "none",
+            color: "white",
+            width: "100%",
+          }}
+        >
+          <h1 className={styles.header}>Simple Plan</h1>
+        </NavLink>
         {login ? (
           <Login handleFormChange={() => handleFormChange()} />
         ) : (
           <Signup handleFormChange={() => handleFormChange()} />
         )}
+
+        {!login ? (
+          <p className={styles.signup}>
+            Already have an account?{" "}
+            <span onClick={() => handleFormChange()}>Sign in</span>
+          </p>
+        ) : (
+          <p className={styles.signup}>
+            Don't have an account?{" "}
+            <span onClick={() => handleFormChange()}>Sign up</span>
+          </p>
+        )}
+      </div>
+      <div className={styles["image-container"]}>
+        <img src={image} alt="post it notes" />
       </div>
     </div>
   );
@@ -49,5 +70,14 @@ const SignIn = () => {
 export default SignIn;
 
 /*
+
+
+ <p className={styles.signup}>
+        Already have an account?{" "} 
+        <span onClick={() => handleFormChange()}>Sign in</span>
+      </p>
+
+      Don't have an account?{" "}
+          <span onClick={() => handleFormChange()}>Sign up</span>
 
 */

@@ -1,0 +1,105 @@
+@use "src/styles" as *;
+
+.main {
+  padding: 1rem clamp(1rem, 11vw, 20rem);
+
+  h5 {
+    color: rgba(172, 95, 230, 1);
+    font-weight: 700;
+    font-size: 1rem;
+    font-size: clamp(1rem, 1vw, 1vw);
+    // margin: 0;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 3.25vw, 3.25vw);
+    font-weight: 700;
+    padding-block: clamp(1rem, 5vh, 30rem);
+    text-align: center;
+  }
+
+  .top-description {
+    font-size: clamp(1.15rem, 1.5vw, 1.5vw);
+    font-weight: 500;
+    line-height: 2rem;
+    text-align: center;
+    padding-top: 0.5rem;
+  }
+}
+
+.container {
+  background: linear-gradient(190deg, #ebf4fd, hsla(0, 0%, 100%, 0) 45%);
+  border-radius: 5px;
+  padding: 7rem 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 6rem;
+  padding-block: 5rem 0;
+
+  .feature {
+    display: flex;
+    // flex-direction: column;
+    align-items: first baseline;
+    // justify-content: center;
+    // text-align: center;
+
+    .feature-img {
+      // background-color: $primary;
+      background: linear-gradient(
+        90deg,
+        rgba(106, 54, 255, 1) 0%,
+        rgba(172, 95, 230, 1) 100%
+      );
+      color: white;
+      padding: 0.75rem;
+      margin-right: 1rem;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      padding-block: 1rem;
+    }
+
+    p {
+      font-size: 1.15rem;
+      font-weight: 400;
+      line-height: 2rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .main {
+    padding: 1rem 1.5rem;
+  }
+  .features {
+    gap: 3rem;
+  }
+}
+
+@media only screen and (max-width: 870px) {
+  .features {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .container {
+    padding: 5rem 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .container {
+    padding: 3rem 1rem;
+  }
+}

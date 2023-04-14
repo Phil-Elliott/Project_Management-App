@@ -1,0 +1,54 @@
+@use "src/styles" as *;
+
+.topSection {
+  // padding-block: 6rem 3rem;
+  padding-block: clamp(2rem, 22vh, 20rem) clamp(2rem, 33vh, 50rem);
+  text-align: center;
+  padding-inline: clamp(1rem, 24vw - 7rem, 30rem);
+  margin: 0 auto;
+  // padding: 1rem clamp(1rem, 11vw, 20rem);
+
+  h1 {
+    font-size: clamp(2.15rem, 3.75vw, 3.75vw);
+    font-weight: 700;
+    padding-bottom: clamp(1rem, 6vh, 30rem);
+  }
+
+  p {
+    font-size: clamp(1rem, 1.15vw, 1.15vw);
+    font-weight: 400;
+    padding-bottom: clamp(1rem, 6vh, 30rem);
+    line-height: 2rem;
+    // padding-inline: clamp(1rem, 5vw, 30rem);
+  }
+
+  button {
+    color: white;
+    background: linear-gradient(
+      90deg,
+      rgba(106, 54, 255, 1) 0%,
+      rgba(172, 95, 230, 1) 100%
+    );
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    font-size: clamp(1rem, 1.15vw, 1.15vw);
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .topSection {
+    padding-inline: 0;
+
+    h1 {
+    }
+
+    p {
+      // padding-inline: 0rem;
+    }
+
+    button {
+    }
+  }
+}

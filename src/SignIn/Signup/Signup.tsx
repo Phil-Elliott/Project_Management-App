@@ -128,10 +128,6 @@ const Signup = ({ handleFormChange }: SignupProps) => {
           <button type="submit">Sign up</button>
         </div>
       </form>
-      <p className={styles.signup}>
-        Already have an account?{" "}
-        <span onClick={() => handleFormChange()}>Sign in</span>
-      </p>
     </div>
   );
 };
