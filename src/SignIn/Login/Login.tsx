@@ -39,19 +39,21 @@ const Login = ({ handleFormChange }: LoginProps) => {
 
     try {
       const response = await axios.post(
-        "https://strapi-production-7520.up.railway.app/api/auth/local",
+        "http://localhost:3000/api/v1/auth/login",
         {
-          identifier: email,
+          email: email,
           password: password,
         }
       );
-      let jwt = response.data.jwt;
+      console.log(response.data);
+
+      let jwt = response.data.token;
       localStorage.setItem("jwt", jwt);
 
       // Redirect to the dashboard
       if (jwt) {
         dispatch(setJwt(jwt));
-        dispatch(setUser(response.data.user));
+        dispatch(setUser(response.data.data.user));
         navigate("/dashboard/");
       }
     } catch (error: any) {

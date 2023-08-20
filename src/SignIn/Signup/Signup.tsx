@@ -61,24 +61,20 @@ const Signup = ({ handleFormChange }: SignupProps) => {
     }
 
     axios
-      .post(
-        "https://strapi-production-7520.up.railway.app/api/auth/local/register",
-        {
-          username: username,
-          email: email,
-          password: password,
-        }
-      )
+      .post("http://localhost:3000/api/v1/auth/register", {
+        name: username,
+        email: email,
+        password: password,
+        passwordConfirm: confirmPassword,
+      })
       .then((response) => {
-        console.log("User profile", response.data.user);
-        console.log("User token", response.data.jwt);
-        let jwt = response.data.jwt;
+        let jwt = response.data.token;
         localStorage.setItem("jwt", jwt);
 
         // Redirect to the dashboard
         if (jwt) {
           dispatch(setJwt(jwt));
-          dispatch(setUser(response.data.user));
+          dispatch(setUser(response.data.data.user));
           navigate("/dashboard/");
         }
       })

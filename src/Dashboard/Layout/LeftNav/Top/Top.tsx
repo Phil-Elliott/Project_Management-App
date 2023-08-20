@@ -30,7 +30,7 @@ const Top = ({ expand, toggleModal }: TopProps) => {
   const handleSignOut = () => {
     localStorage.removeItem("jwt");
     dispatch(setJwt(""));
-    navigate("/");
+    navigate("/signIn");
   };
 
   return (

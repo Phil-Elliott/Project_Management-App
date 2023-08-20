@@ -23,8 +23,6 @@ const SignIn = () => {
     }
   }, [jwt]);
 
-  console.log(jwt, "signin jwt");
-
   const handleFormChange = () => {
     setLogin(!login);
   };
@@ -61,7 +59,7 @@ const SignIn = () => {
         )}
       </div>
       <div className={styles["image-container"]}>
-        <img src={image} alt="post it notes" />
+        <img src={image} alt="pm app picture" />
       </div>
     </div>
   );

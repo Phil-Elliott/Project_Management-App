@@ -34,11 +34,3 @@ const Button = ({
 };
 
 export default Button;
-
-/*
-   can have different syled buttons
-   Primary
-   Secondary
-
-
-*/
