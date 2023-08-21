@@ -56,6 +56,7 @@ const ProfileModal = ({ closeModal }: ProfileModalProps) => {
   }, [user]);
 
   const handleBackground = (e: any) => {
+    console.log(e.currentTarget.src);
     setAvatarState(e.currentTarget.src);
   };
 

@@ -6,11 +6,7 @@ import styles from "./Login.module.scss";
 import { useDispatch } from "react-redux";
 import { setJwt, setUser } from "~/ProjectSlice";
 
-type LoginProps = {
-  handleFormChange: () => void;
-};
-
-const Login = ({ handleFormChange }: LoginProps) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -43,10 +39,9 @@ const Login = ({ handleFormChange }: LoginProps) => {
         {
           email: email,
           password: password,
-        }
+        },
+        { withCredentials: true }
       );
-      console.log(response.data);
-
       let jwt = response.data.token;
       localStorage.setItem("jwt", jwt);
 

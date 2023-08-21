@@ -6,11 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setJwt, setUser } from "~/ProjectSlice";
 
-type SignupProps = {
-  handleFormChange: () => void;
-};
-
-const Signup = ({ handleFormChange }: SignupProps) => {
+const Signup = () => {
   // States for registration
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -69,6 +65,7 @@ const Signup = ({ handleFormChange }: SignupProps) => {
       })
       .then((response) => {
         let jwt = response.data.token;
+        console.log(response.data.token, jwt, "token dude");
         localStorage.setItem("jwt", jwt);
 
         // Redirect to the dashboard
