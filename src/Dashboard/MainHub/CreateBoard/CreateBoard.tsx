@@ -64,31 +64,31 @@ const CreateBoard = ({ getProjects }: CreateBoardProps) => {
     setActiveBackground(10);
   };
 
-  const handleCreateBoard = () => {
+  async function handleCreateBoard() {
     if (!title || !backgroundState) {
       setAttempted(true);
       return;
     }
-    // post the project here to strapi
-    axios
-      .post("https://strapi-production-7520.up.railway.app/api/projects", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-        data: {
-          title: title,
-          background: backgroundState,
-          users: [user.id],
-        },
-      })
-      .then((res) => {
-        getProjects();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
+    const payload = {
+      title: title,
+      background: backgroundState,
+      users: [user.id],
+    };
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/api/v1/projects`,
+        payload,
+        { withCredentials: true }
+      );
+      console.log(response);
+      getProjects();
+    } catch (error) {
+      console.log(error);
+    }
     reset();
-  };
+  }
 
   const handleLoad = () => {
     setLoading(true);
