@@ -82,7 +82,6 @@ const CreateBoard = ({ getProjects }: CreateBoardProps) => {
         payload,
         { withCredentials: true }
       );
-      console.log(response);
       getProjects();
     } catch (error) {
       console.log(error);

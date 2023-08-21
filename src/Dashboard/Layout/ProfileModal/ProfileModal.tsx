@@ -79,6 +79,18 @@ const ProfileModal = ({ closeModal }: ProfileModalProps) => {
     }
   }, [user]);
 
+  // async function handleDeleteUser() {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:3000/api/v1/users/me`,
+  //       { withCredentials: true }
+  //     );
+  //     dispatch(setUser(response.data.data.data));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
   // deletes the user
   async function handleDeleteUser() {
     try {
@@ -108,30 +120,29 @@ const ProfileModal = ({ closeModal }: ProfileModalProps) => {
 
   // updates the users data
   async function updateUser() {
-    try {
-      const res = await axios.put(
-        `https://strapi-production-7520.up.railway.app/api/users/${user.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
+    const payload = {
+      email: email,
+      name: username,
+      avatar: avatarState,
+    };
 
-          email: email,
-          username: username,
-          avatar: avatarState,
-        }
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/api/v1/users/updateMe`,
+        payload,
+        { withCredentials: true }
       );
       dispatch(
         setUser({
-          id: user.id,
+          _id: user.id,
           email: email,
-          username: username,
+          name: username,
           avatar: avatarState,
         })
       );
       resetChanges();
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   }
 
