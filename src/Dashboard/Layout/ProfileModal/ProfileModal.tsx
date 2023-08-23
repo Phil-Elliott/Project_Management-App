@@ -79,34 +79,18 @@ const ProfileModal = ({ closeModal }: ProfileModalProps) => {
     }
   }, [user]);
 
-  // async function handleDeleteUser() {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:3000/api/v1/users/me`,
-  //       { withCredentials: true }
-  //     );
-  //     dispatch(setUser(response.data.data.data));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   // deletes the user
   async function handleDeleteUser() {
     try {
-      const res = await axios.delete(
-        `https://strapi-production-7520.up.railway.app/api/users/${user.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
+      const response = await axios.delete(
+        `http://localhost:3000/api/v1/users/deleteMe`,
+        { withCredentials: true }
       );
       localStorage.removeItem("jwt");
       dispatch(setJwt(""));
       navigate("/signin");
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   }
 
