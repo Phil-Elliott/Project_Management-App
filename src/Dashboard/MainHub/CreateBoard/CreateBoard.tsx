@@ -73,7 +73,6 @@ const CreateBoard = ({ getProjects }: CreateBoardProps) => {
     const payload = {
       title: title,
       background: backgroundState,
-      users: [user.id],
     };
 
     try {

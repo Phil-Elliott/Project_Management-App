@@ -75,31 +75,50 @@ const Board = () => {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // section functions
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // async function handleCreateBoard() {
+  //   if (!title || !backgroundState) {
+  //     setAttempted(true);
+  //     return;
+  //   }
 
+  //   const payload = {
+  //     title: title,
+  //     background: backgroundState,
+  //   };
+
+  //   try {
+  //     const response = await axios.post(
+  //       `http://localhost:3000/api/v1/projects`,
+  //       payload,
+  //       { withCredentials: true }
+  //     );
+  //     getProjects();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   reset();
+  // }
   // adds a new section to the data - triggered by addList btn
   const addNewSection = async (name: string, orderedArr: number[]) => {
-    // adds the new section to the database
+    const payload = {
+      title: name,
+      order: 1,
+      project: projectData!.id,
+    };
+
     try {
       const res = await axios.post(
-        `https://strapi-production-7520.up.railway.app/api/sections`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            title: name,
-            order: 1,
-            project: projectData!.id,
-          },
-        }
+        `http://localhost:3000/api/v1/sections`,
+        payload,
+        { withCredentials: true }
       );
-      orderedArr.push(res.data.data.id);
+      orderedArr.push(res.data.data.section._id);
       addSectionOrder(orderedArr);
       dispatch(
         addSection({
-          id: res.data.data.id,
-          title: res.data.data.attributes.title,
-          order: res.data.data.attributes.order,
+          id: res.data.data.section._id,
+          title: res.data.data.section.title,
+          order: res.data.data.section.order,
         })
       );
     } catch (err) {
