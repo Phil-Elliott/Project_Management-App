@@ -75,29 +75,7 @@ const Board = () => {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // section functions
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // async function handleCreateBoard() {
-  //   if (!title || !backgroundState) {
-  //     setAttempted(true);
-  //     return;
-  //   }
 
-  //   const payload = {
-  //     title: title,
-  //     background: backgroundState,
-  //   };
-
-  //   try {
-  //     const response = await axios.post(
-  //       `http://localhost:3000/api/v1/projects`,
-  //       payload,
-  //       { withCredentials: true }
-  //     );
-  //     getProjects();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   reset();
-  // }
   // adds a new section to the data - triggered by addList btn
   const addNewSection = async (name: string, orderedArr: number[]) => {
     const payload = {
@@ -113,6 +91,7 @@ const Board = () => {
         { withCredentials: true }
       );
       orderedArr.push(res.data.data.section._id);
+      console.log(orderedArr, "orderedArr");
       addSectionOrder(orderedArr);
       dispatch(
         addSection({
@@ -128,20 +107,21 @@ const Board = () => {
 
   // adds the new section order to the project
   async function addSectionOrder(ordered: number[]) {
+    const payload = {
+      ordered_sections: ordered,
+    };
+
+    console.log(payload, "payload");
+
     try {
-      const res = await axios.put(
-        `https://strapi-production-7520.up.railway.app/api/projects/${
+      const res = await axios.patch(
+        `http://localhost:3000/api/v1/projects/${
           projectData!.id
-        }`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            ordered_sections: ordered,
-          },
-        }
+        }/ordered-sections`,
+        payload,
+        { withCredentials: true }
       );
+      console.log(res);
       // fetchSections();
     } catch (err) {
       console.log(err);
@@ -181,14 +161,17 @@ const Board = () => {
 
   // changes the order of the sections
   const changeSectionOrder = (
-    id: string,
+    id: any,
     destination: number,
     source: number,
     orderedArr: number[]
   ) => {
+    if (id.startsWith("s")) {
+      id = id.slice(1);
+    }
     // change order in the database
     orderedArr.splice(source, 1);
-    orderedArr.splice(destination, 0, parseInt(id.replace(/[^0-9]/g, "")));
+    orderedArr.splice(destination, 0, id);
     addSectionOrder(orderedArr);
 
     // change order in the redux store
