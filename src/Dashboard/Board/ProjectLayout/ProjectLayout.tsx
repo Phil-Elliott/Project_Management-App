@@ -18,45 +18,43 @@ import {
 
 export function ProjectLayout() {
   const { id } = useParams();
+  console.log(id);
 
   const dispatch = useDispatch();
 
   async function fetchProject() {
     try {
       const res = await axios.get(
-        `https://strapi-production-7520.up.railway.app/api/projects/${id}?populate[0]=ordered_sections&populate[1]=users`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
+        `http://localhost:3000/api/v1/projects/${id}`,
+        { withCredentials: true }
       );
+      console.log(res.data.data.project);
       dispatch(
         setProject({
           id: id,
-          title: res.data.data.attributes.title,
-          background: res.data.data.attributes.background,
+          title: res.data.data.project.title,
+          background: res.data.data.project.background,
         } as ProjectDataProps)
       );
 
       dispatch(
         setProjectUsers(
-          res.data.data.attributes.users.data.map((user: any) => {
+          res.data.data.project.users.map((user: any) => {
             return {
-              id: user.id,
-              username: user.attributes.username,
-              avatar: user.attributes.avatar,
+              id: user._id,
+              username: user.name,
+              avatar: user.avatar,
             };
           })
         )
       );
       dispatch(
         setSections(
-          res.data.data.attributes.ordered_sections.data.map((section: any) => {
+          res.data.data.project.ordered_sections.map((section: any) => {
             return {
-              id: section.id,
-              title: section.attributes.title,
-              order: section.attributes.order,
+              id: section._id,
+              title: section.title,
+              order: section.order,
             };
           })
         )

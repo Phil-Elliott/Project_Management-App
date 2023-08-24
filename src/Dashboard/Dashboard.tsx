@@ -50,6 +50,7 @@ const Dashboard = () => {
         `http://localhost:3000/api/v1/projects`,
         { withCredentials: true }
       );
+      console.log(response.data.data.data);
       dispatch(setProjects(response.data.data.data));
     } catch (error) {
       console.log(error);
