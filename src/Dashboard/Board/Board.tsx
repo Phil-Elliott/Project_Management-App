@@ -198,27 +198,26 @@ const Board = () => {
     taskSection: string,
     orderedArr: number[]
   ) => {
+    const payload = {
+      title: name,
+      section: taskSection,
+      order: 1,
+      project: projectData!.id,
+    };
+
     // adds the new task to the database
     try {
       const res = await axios.post(
-        `https://strapi-production-7520.up.railway.app/api/tasks`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            title: name,
-            section: taskSection,
-            order: 1,
-            project: projectData!.id,
-          },
-        }
+        `http://localhost:3000/api/v1/tasks`,
+        payload,
+        { withCredentials: true }
       );
+      console.log(res.data.data.task._id);
       let ordered_task = orderedTasks.find(
         (sectionObj) => sectionObj.section.toString() === taskSection.toString()
       );
       let taskIdArr = [...ordered_task!.tasks];
-      taskIdArr.push(res.data.data.id);
+      taskIdArr.push(res.data.data.task._id);
       addTaskOrder(taskIdArr, taskSection);
 
       let section = projectTasks.find(
@@ -226,7 +225,7 @@ const Board = () => {
       )!;
       let taskSectionArr = [...section.tasks];
       taskSectionArr.push({
-        id: res.data.data.id,
+        id: res.data.data.task._id,
         description: "",
         title: name,
         order: 1,

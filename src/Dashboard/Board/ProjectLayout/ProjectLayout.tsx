@@ -18,7 +18,6 @@ import {
 
 export function ProjectLayout() {
   const { id } = useParams();
-  console.log(id);
 
   const dispatch = useDispatch();
 
@@ -28,7 +27,6 @@ export function ProjectLayout() {
         `http://localhost:3000/api/v1/projects/${id}`,
         { withCredentials: true }
       );
-      console.log(res.data.data.project);
       dispatch(
         setProject({
           id: id,
