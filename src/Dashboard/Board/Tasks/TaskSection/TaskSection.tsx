@@ -296,24 +296,19 @@ const TaskSection = ({
   async function fetchTasks() {
     try {
       const res = await axios.get(
-        `https://strapi-production-7520.up.railway.app/api/sections/${section.id}?populate=ordered_tasks`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
+        `http://localhost:3000/api/v1/tasks/section/${section.id}`,
+        { withCredentials: true }
       );
-      // setTasks(res.data.data.attributes.tasks.data);
-
+      console.log(res.data.data.tasks, "fetched tasks");
       setTasks(
-        res.data.data.attributes.ordered_tasks.data.map((task: any) => {
+        res.data.data.tasks.map((task: any) => {
           return {
-            id: task.id,
-            title: task.attributes.title,
-            description: task.attributes.description,
-            due: task.attributes.due,
-            priority: task.attributes.priority,
-            order: task.attributes.order,
+            id: task._id,
+            title: task.title,
+            description: task.description,
+            due: task.due,
+            priority: task.priority,
+            order: task.order,
             comments: [],
             watching: [],
             assigned: [],
@@ -322,8 +317,8 @@ const TaskSection = ({
       );
       // Gets an array of the order of the tasks by id
       setOrderedArr(
-        res.data.data.attributes.ordered_tasks.data.map((task: any) => {
-          return task.id;
+        res.data.data.tasks.map((task: any) => {
+          return task._id;
         })
       );
     } catch (err) {

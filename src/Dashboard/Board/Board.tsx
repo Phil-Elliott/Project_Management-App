@@ -212,7 +212,6 @@ const Board = () => {
         payload,
         { withCredentials: true }
       );
-      console.log(res.data.data.task._id);
       let ordered_task = orderedTasks.find(
         (sectionObj) => sectionObj.section.toString() === taskSection.toString()
       );
