@@ -340,7 +340,6 @@ const TaskSection = ({
         payload,
         { withCredentials: true }
       );
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
