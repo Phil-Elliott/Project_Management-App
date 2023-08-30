@@ -329,18 +329,18 @@ const TaskSection = ({
   async function updateSectionTitle() {
     if (titleValue === section.title) return;
     if (!titleValue || titleValue === "") return;
+
+    const payload = {
+      title: titleValue,
+    };
+
     try {
-      const res = await axios.put(
-        `https://strapi-production-7520.up.railway.app/api/sections/${section.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            title: titleValue,
-          },
-        }
+      const res = await axios.patch(
+        `http://localhost:3000/api/v1/sections/${section.id}`,
+        payload,
+        { withCredentials: true }
       );
+      console.log(res);
     } catch (err) {
       console.log(err);
     }

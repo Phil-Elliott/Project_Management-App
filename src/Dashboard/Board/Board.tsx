@@ -111,8 +111,6 @@ const Board = () => {
       ordered_sections: ordered,
     };
 
-    console.log(payload, "payload");
-
     try {
       const res = await axios.patch(
         `http://localhost:3000/api/v1/projects/${
@@ -121,7 +119,6 @@ const Board = () => {
         payload,
         { withCredentials: true }
       );
-      console.log(res);
       // fetchSections();
     } catch (err) {
       console.log(err);
