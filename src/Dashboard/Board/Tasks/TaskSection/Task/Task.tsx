@@ -39,40 +39,37 @@ const Task = ({
   async function fetchTask() {
     try {
       const res = await axios.get(
-        `https://strapi-production-7520.up.railway.app/api/tasks/${taskData.id}?populate=*`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
+        `http://localhost:3000/api/v1/tasks/${taskData.id}`,
+        { withCredentials: true }
       );
+
       if (taskTitle !== res.data.data.attributes.title) {
         setTaskTitle(res.data.data.attributes.title);
       }
       setTask(res.data.data.attributes);
-      if (res.data.data.attributes.comments.data.length !== comments) {
-        setComments(res.data.data.attributes.comments.data);
+      if (res.data.data.attributes.comments.length !== comments) {
+        setComments(res.data.data.attributes.comments);
         dispatch(
           updateTask({
             section: sectionId,
             taskId: taskData.id,
             type: "comments",
-            value: res.data.data.attributes.comments.data,
+            value: res.data.data.attributes.comments,
           })
         );
       }
-      if (res.data.data.attributes.watching_users.data !== watching) {
-        setWatching(res.data.data.attributes.watching_users.data);
+      if (res.data.data.attributes.watching_users !== watching) {
+        setWatching(res.data.data.attributes.watching_users);
         dispatch(
           updateTask({
             section: sectionId,
             taskId: taskData.id,
             type: "watching",
-            value: res.data.data.attributes.watching_users.data,
+            value: res.data.data.attributes.watching_users,
           })
         );
       }
-      let assignedUsers = res.data.data.attributes.assigned_users.data.map(
+      let assignedUsers = res.data.data.attributes.assigned_users.map(
         (user: any) => {
           return {
             id: user.id,

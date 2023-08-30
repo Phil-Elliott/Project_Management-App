@@ -141,8 +141,6 @@ export const projectSlice = createSlice({
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setRefresh(state) {
-      console.log("refresh");
-
       state.orderedTasks = [];
       state.projectTasks = [];
       state.sections = [];

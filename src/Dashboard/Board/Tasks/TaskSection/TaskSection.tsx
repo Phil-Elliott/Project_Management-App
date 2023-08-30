@@ -304,7 +304,7 @@ const TaskSection = ({
           return {
             id: task._id,
             title: task.title,
-            description: task.description, 
+            description: task.description,
             due: task.due,
             priority: task.priority,
             order: task.order,
@@ -320,7 +320,7 @@ const TaskSection = ({
           return task._id;
         })
       );
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
     }
   }
