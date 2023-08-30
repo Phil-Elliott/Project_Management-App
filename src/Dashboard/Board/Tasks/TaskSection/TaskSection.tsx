@@ -299,13 +299,12 @@ const TaskSection = ({
         `http://localhost:3000/api/v1/tasks/section/${section.id}`,
         { withCredentials: true }
       );
-      console.log(res.data.data.tasks, "fetched tasks");
       setTasks(
         res.data.data.tasks.map((task: any) => {
           return {
             id: task._id,
             title: task.title,
-            description: task.description,
+            description: task.description, 
             due: task.due,
             priority: task.priority,
             order: task.order,

@@ -257,18 +257,17 @@ const Board = () => {
 
   // adds the new task to the ordered tasks array inside of sections
   async function addTaskOrder(orderedArr: number[], taskSection: string) {
+    const payload = {
+      ordered_tasks: orderedArr,
+    };
+
     try {
-      const res = await axios.put(
-        `https://strapi-production-7520.up.railway.app/api/sections/${taskSection}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            ordered_tasks: orderedArr,
-          },
-        }
+      const res = await axios.patch(
+        `http://localhost:3000/api/v1/sections/${taskSection}/ordered-tasks`,
+        payload,
+        { withCredentials: true }
       );
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -276,12 +275,16 @@ const Board = () => {
 
   // changes the task section and order within the task object - triggered by drag and drop
   const changeTaskPosition = (
-    id: string,
+    id: any,
     movedTo: string,
     movedToOrder: number,
     movedFrom: string,
     movedFromOrder: number
   ) => {
+    if (id.startsWith("t")) {
+      id = id.slice(1);
+    }
+
     const sameSection = movedTo === movedFrom;
     // same section
     if (sameSection) {
@@ -307,9 +310,9 @@ const Board = () => {
       );
       let taskIdArr = [...ordered_task!.tasks];
       taskIdArr.splice(movedFromOrder, 1);
-      taskIdArr.splice(movedToOrder, 0, parseInt(id.replace(/[^0-9]/g, "")));
+      taskIdArr.splice(movedToOrder, 0, id);
       addTaskOrder(taskIdArr, sectionId);
-      // need to also change the ordered takss and dispatch it
+      // need to also change the ordered tasks and dispatch it
       dispatch(
         setOrderedTasks({
           section: sectionId,
@@ -365,7 +368,7 @@ const Board = () => {
         (sectionObj) => sectionObj.section.toString() === movedTo.slice(1)
       );
       taskIdArr = [...ordered_task!.tasks];
-      taskIdArr.splice(movedToOrder, 0, parseInt(id.replace(/[^0-9]/g, "")));
+      taskIdArr.splice(movedToOrder, 0, id);
       addTaskOrder(taskIdArr, newSectionId);
       dispatch(
         setOrderedTasks({
