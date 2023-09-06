@@ -111,10 +111,3 @@ const Priority = ({ updateTaskData, priority, task }: PriorityProps) => {
 };
 
 export default Priority;
-
-/*
-
-- 
-
-
-*/

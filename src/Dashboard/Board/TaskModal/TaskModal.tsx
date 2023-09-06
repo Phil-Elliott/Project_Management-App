@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateTask, deleteTask, setCurrentTask } from "~/ProjectSlice";
 import axios from "axios";
 import { Loader } from "~/shared/components";
-import { RootState } from "~/Store";
 
 type TaskModalProps = {
   user: User;
@@ -94,6 +93,7 @@ const TaskModal = ({
       [type]: value,
     };
 
+    console.log(payload);
     try {
       const res = await axios.patch(
         `http://localhost:3000/api/v1/tasks/${modalTask.id}`,

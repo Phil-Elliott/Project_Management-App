@@ -108,7 +108,7 @@ const Task = ({
   }, [currentTask]);
 
   // checks if the task id is in the user's watched tasks
-  const isWatched = watching.some((member: any) => member.id === user.id);
+  const isWatched = watching.some((member: any) => member._id === user.id);
 
   return (
     <Draggable
