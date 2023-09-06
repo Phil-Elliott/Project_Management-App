@@ -70,13 +70,9 @@ const TaskModal = ({
     deleteTaskCall();
     async function deleteTaskCall() {
       try {
-        const res = await axios.delete(
-          `https://strapi-production-7520.up.railway.app/api/tasks/${modalTask.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-            },
-          }
+        const response = await axios.delete(
+          `http://localhost:3000/api/v1/tasks/${modalTask.id}`,
+          { withCredentials: true }
         );
       } catch (err) {
         console.log(err);
