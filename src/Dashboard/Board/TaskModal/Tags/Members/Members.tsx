@@ -37,8 +37,8 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
       setAssignedUsers(
         taskData.assigned_users.map((user: any) => {
           return {
-            key: user.id,
-            id: user.id,
+            key: user._id,
+            id: user._id,
             username: user.name,
             avatar: user.avatar,
           };
