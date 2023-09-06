@@ -90,18 +90,18 @@ const TaskModal = ({
     type: T,
     value: TaskDataProps[T]
   ) => {
+    const payload = {
+      [type]: value,
+    };
+
     try {
-      const res = await axios.put(
-        `https://strapi-production-7520.up.railway.app/api/tasks/${modalTask.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            [type]: value,
-          },
-        }
+      const res = await axios.patch(
+        `http://localhost:3000/api/v1/tasks/${modalTask.id}`,
+        payload,
+        { withCredentials: true }
       );
+
+      console.log(res, "task modal updated");
 
       if (
         type === "title" ||
@@ -135,13 +135,11 @@ const TaskModal = ({
   async function fetchTask() {
     try {
       const res = await axios.get(
-        `https://strapi-production-7520.up.railway.app/api/tasks/${modalTask.id}?populate=*`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
+        `http://localhost:3000/api/v1/tasks/${modalTask.id}`,
+        { withCredentials: true }
       );
+
+      console.log(res, "task modal comments changed");
       setTaskData(res.data.data.attributes);
     } catch (err) {
       console.log(err);

@@ -296,24 +296,18 @@ const TaskSection = ({
   async function fetchTasks() {
     try {
       const res = await axios.get(
-        `https://strapi-production-7520.up.railway.app/api/sections/${section.id}?populate=ordered_tasks`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
+        `http://localhost:3000/api/v1/tasks/section/${section.id}`,
+        { withCredentials: true }
       );
-      // setTasks(res.data.data.attributes.tasks.data);
-
       setTasks(
-        res.data.data.attributes.ordered_tasks.data.map((task: any) => {
+        res.data.data.tasks.map((task: any) => {
           return {
-            id: task.id,
-            title: task.attributes.title,
-            description: task.attributes.description,
-            due: task.attributes.due,
-            priority: task.attributes.priority,
-            order: task.attributes.order,
+            id: task._id,
+            title: task.title,
+            description: task.description,
+            due: task.due,
+            priority: task.priority,
+            order: task.order,
             comments: [],
             watching: [],
             assigned: [],
@@ -322,11 +316,11 @@ const TaskSection = ({
       );
       // Gets an array of the order of the tasks by id
       setOrderedArr(
-        res.data.data.attributes.ordered_tasks.data.map((task: any) => {
-          return task.id;
+        res.data.data.tasks.map((task: any) => {
+          return task._id;
         })
       );
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
     }
   }
@@ -335,17 +329,16 @@ const TaskSection = ({
   async function updateSectionTitle() {
     if (titleValue === section.title) return;
     if (!titleValue || titleValue === "") return;
+
+    const payload = {
+      title: titleValue,
+    };
+
     try {
-      const res = await axios.put(
-        `https://strapi-production-7520.up.railway.app/api/sections/${section.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            title: titleValue,
-          },
-        }
+      const res = await axios.patch(
+        `http://localhost:3000/api/v1/sections/${section.id}`,
+        payload,
+        { withCredentials: true }
       );
     } catch (err) {
       console.log(err);

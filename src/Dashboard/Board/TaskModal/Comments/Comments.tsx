@@ -54,7 +54,7 @@ const Comments = ({
 
   useEffect(() => {
     if (taskData.comments) {
-      let commentsArr = [...taskData.comments.data];
+      let commentsArr = [...taskData.comments];
 
       setReverseComments(commentsArr.reverse());
     }

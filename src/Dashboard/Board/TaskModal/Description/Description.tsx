@@ -35,14 +35,23 @@ const Description = ({
   };
 
   useEffect(() => {
-    if (descriptionData === "" || descriptionData === null) {
+    if (!descriptionData || typeof descriptionData !== "string") {
       setDescriptionValue("");
       setOpenEditor(true);
     } else {
-      setDescriptionValue(descriptionData);
+      setDescriptionValue(decodeHtmlEntities(descriptionData));
       setOpenEditor(false);
     }
   }, [task]);
+
+  function decodeHtmlEntities(str?: string) {
+    if (typeof str !== "string") return "";
+
+    return str
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&amp;/g, "&");
+  }
 
   return (
     <div className={styles.main}>

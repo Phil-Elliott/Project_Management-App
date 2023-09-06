@@ -78,28 +78,26 @@ const Board = () => {
 
   // adds a new section to the data - triggered by addList btn
   const addNewSection = async (name: string, orderedArr: number[]) => {
-    // adds the new section to the database
+    const payload = {
+      title: name,
+      order: 1,
+      project: projectData!.id,
+    };
+
     try {
       const res = await axios.post(
-        `https://strapi-production-7520.up.railway.app/api/sections`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            title: name,
-            order: 1,
-            project: projectData!.id,
-          },
-        }
+        `http://localhost:3000/api/v1/sections`,
+        payload,
+        { withCredentials: true }
       );
-      orderedArr.push(res.data.data.id);
+      orderedArr.push(res.data.data.section._id);
+      console.log(orderedArr, "orderedArr");
       addSectionOrder(orderedArr);
       dispatch(
         addSection({
-          id: res.data.data.id,
-          title: res.data.data.attributes.title,
-          order: res.data.data.attributes.order,
+          id: res.data.data.section._id,
+          title: res.data.data.section.title,
+          order: res.data.data.section.order,
         })
       );
     } catch (err) {
@@ -109,19 +107,17 @@ const Board = () => {
 
   // adds the new section order to the project
   async function addSectionOrder(ordered: number[]) {
+    const payload = {
+      ordered_sections: ordered,
+    };
+
     try {
-      const res = await axios.put(
-        `https://strapi-production-7520.up.railway.app/api/projects/${
+      const res = await axios.patch(
+        `http://localhost:3000/api/v1/projects/${
           projectData!.id
-        }`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            ordered_sections: ordered,
-          },
-        }
+        }/ordered-sections`,
+        payload,
+        { withCredentials: true }
       );
       // fetchSections();
     } catch (err) {
@@ -162,14 +158,17 @@ const Board = () => {
 
   // changes the order of the sections
   const changeSectionOrder = (
-    id: string,
+    id: any,
     destination: number,
     source: number,
     orderedArr: number[]
   ) => {
+    if (id.startsWith("s")) {
+      id = id.slice(1);
+    }
     // change order in the database
     orderedArr.splice(source, 1);
-    orderedArr.splice(destination, 0, parseInt(id.replace(/[^0-9]/g, "")));
+    orderedArr.splice(destination, 0, id);
     addSectionOrder(orderedArr);
 
     // change order in the redux store
@@ -196,27 +195,25 @@ const Board = () => {
     taskSection: string,
     orderedArr: number[]
   ) => {
+    const payload = {
+      title: name,
+      section: taskSection,
+      order: 1,
+      project: projectData!.id,
+    };
+
     // adds the new task to the database
     try {
       const res = await axios.post(
-        `https://strapi-production-7520.up.railway.app/api/tasks`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            title: name,
-            section: taskSection,
-            order: 1,
-            project: projectData!.id,
-          },
-        }
+        `http://localhost:3000/api/v1/tasks`,
+        payload,
+        { withCredentials: true }
       );
       let ordered_task = orderedTasks.find(
         (sectionObj) => sectionObj.section.toString() === taskSection.toString()
       );
       let taskIdArr = [...ordered_task!.tasks];
-      taskIdArr.push(res.data.data.id);
+      taskIdArr.push(res.data.data.task._id);
       addTaskOrder(taskIdArr, taskSection);
 
       let section = projectTasks.find(
@@ -224,7 +221,7 @@ const Board = () => {
       )!;
       let taskSectionArr = [...section.tasks];
       taskSectionArr.push({
-        id: res.data.data.id,
+        id: res.data.data.task._id,
         description: "",
         title: name,
         order: 1,
@@ -257,18 +254,17 @@ const Board = () => {
 
   // adds the new task to the ordered tasks array inside of sections
   async function addTaskOrder(orderedArr: number[], taskSection: string) {
+    const payload = {
+      ordered_tasks: orderedArr,
+    };
+
     try {
-      const res = await axios.put(
-        `https://strapi-production-7520.up.railway.app/api/sections/${taskSection}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            ordered_tasks: orderedArr,
-          },
-        }
+      const res = await axios.patch(
+        `http://localhost:3000/api/v1/sections/${taskSection}/ordered-tasks`,
+        payload,
+        { withCredentials: true }
       );
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -276,12 +272,16 @@ const Board = () => {
 
   // changes the task section and order within the task object - triggered by drag and drop
   const changeTaskPosition = (
-    id: string,
+    id: any,
     movedTo: string,
     movedToOrder: number,
     movedFrom: string,
     movedFromOrder: number
   ) => {
+    if (id.startsWith("t")) {
+      id = id.slice(1);
+    }
+
     const sameSection = movedTo === movedFrom;
     // same section
     if (sameSection) {
@@ -307,9 +307,9 @@ const Board = () => {
       );
       let taskIdArr = [...ordered_task!.tasks];
       taskIdArr.splice(movedFromOrder, 1);
-      taskIdArr.splice(movedToOrder, 0, parseInt(id.replace(/[^0-9]/g, "")));
+      taskIdArr.splice(movedToOrder, 0, id);
       addTaskOrder(taskIdArr, sectionId);
-      // need to also change the ordered takss and dispatch it
+      // need to also change the ordered tasks and dispatch it
       dispatch(
         setOrderedTasks({
           section: sectionId,
@@ -365,7 +365,7 @@ const Board = () => {
         (sectionObj) => sectionObj.section.toString() === movedTo.slice(1)
       );
       taskIdArr = [...ordered_task!.tasks];
-      taskIdArr.splice(movedToOrder, 0, parseInt(id.replace(/[^0-9]/g, "")));
+      taskIdArr.splice(movedToOrder, 0, id);
       addTaskOrder(taskIdArr, newSectionId);
       dispatch(
         setOrderedTasks({

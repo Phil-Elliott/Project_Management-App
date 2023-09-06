@@ -6,11 +6,7 @@ import styles from "./Login.module.scss";
 import { useDispatch } from "react-redux";
 import { setJwt, setUser } from "~/ProjectSlice";
 
-type LoginProps = {
-  handleFormChange: () => void;
-};
-
-const Login = ({ handleFormChange }: LoginProps) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -39,19 +35,20 @@ const Login = ({ handleFormChange }: LoginProps) => {
 
     try {
       const response = await axios.post(
-        "https://strapi-production-7520.up.railway.app/api/auth/local",
+        "http://localhost:3000/api/v1/auth/login",
         {
-          identifier: email,
+          email: email,
           password: password,
-        }
+        },
+        { withCredentials: true }
       );
-      let jwt = response.data.jwt;
+      let jwt = response.data.token;
       localStorage.setItem("jwt", jwt);
 
       // Redirect to the dashboard
       if (jwt) {
         dispatch(setJwt(jwt));
-        dispatch(setUser(response.data.user));
+        dispatch(setUser(response.data.data.user));
         navigate("/dashboard/");
       }
     } catch (error: any) {

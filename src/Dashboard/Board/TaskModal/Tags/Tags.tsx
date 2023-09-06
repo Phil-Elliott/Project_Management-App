@@ -30,7 +30,7 @@ const Tags = ({ user, taskData, members, updateTaskData }: TagsProps) => {
         updateMembers={updateTaskData}
       />
       <Notifications
-        updateTaskData={updateTaskData}
+        updateTaskData={updateTaskData} 
         user={user}
         taskData={taskData}
       />

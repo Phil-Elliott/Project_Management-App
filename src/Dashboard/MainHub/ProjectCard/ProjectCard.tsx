@@ -11,7 +11,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
     <Link
       className={styles.card}
-      to={`/dashboard/${project.id}`}
+      to={`/dashboard/${project._id}`}
       style={{
         textDecoration: "none",
         backgroundImage: `url(${project.background})`,

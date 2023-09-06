@@ -9,7 +9,7 @@
 // };
 
 export type ProjectDataProps = {
-  id: string;
+  _id: string;
   title: string;
   background: string;
 };

@@ -6,11 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setJwt, setUser } from "~/ProjectSlice";
 
-type SignupProps = {
-  handleFormChange: () => void;
-};
-
-const Signup = ({ handleFormChange }: SignupProps) => {
+const Signup = () => {
   // States for registration
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -61,24 +57,21 @@ const Signup = ({ handleFormChange }: SignupProps) => {
     }
 
     axios
-      .post(
-        "https://strapi-production-7520.up.railway.app/api/auth/local/register",
-        {
-          username: username,
-          email: email,
-          password: password,
-        }
-      )
+      .post("http://localhost:3000/api/v1/auth/register", {
+        name: username,
+        email: email,
+        password: password,
+        passwordConfirm: confirmPassword,
+      })
       .then((response) => {
-        console.log("User profile", response.data.user);
-        console.log("User token", response.data.jwt);
-        let jwt = response.data.jwt;
+        let jwt = response.data.token;
+        console.log(response.data.token, jwt, "token dude");
         localStorage.setItem("jwt", jwt);
 
         // Redirect to the dashboard
         if (jwt) {
           dispatch(setJwt(jwt));
-          dispatch(setUser(response.data.user));
+          dispatch(setUser(response.data.data.user));
           navigate("/dashboard/");
         }
       })

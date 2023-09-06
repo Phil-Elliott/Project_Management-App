@@ -29,7 +29,7 @@ const ResponisveNav = ({ toggleNav, toggleModal }: ResponsiveNavProps) => {
   const handleSignOut = () => {
     localStorage.removeItem("jwt");
     dispatch(setJwt(""));
-    navigate("/");
+    navigate("/signIn");
   };
 
   const changeLogo = (logo: string) => {

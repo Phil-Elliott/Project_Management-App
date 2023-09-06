@@ -22,6 +22,13 @@ type ProjectState = {
   filterData: FilterData;
 };
 
+type userDataProps = {
+  _id: string;
+  name: string;
+  avatar: string | null;
+  email: string;
+};
+
 type updateTaskProps = {
   section: string;
   taskId: string;
@@ -134,8 +141,6 @@ export const projectSlice = createSlice({
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setRefresh(state) {
-      console.log("refresh");
-
       state.orderedTasks = [];
       state.projectTasks = [];
       state.sections = [];
@@ -224,10 +229,10 @@ export const projectSlice = createSlice({
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // user functions
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    setUser: (state, action: PayloadAction<User>) => {
+    setUser: (state, action: PayloadAction<userDataProps>) => {
       state.user = {
-        id: action.payload.id,
-        username: action.payload.username,
+        id: action.payload._id,
+        username: action.payload.name,
         avatar: action.payload.avatar,
         email: action.payload.email,
       };

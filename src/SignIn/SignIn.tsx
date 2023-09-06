@@ -23,8 +23,6 @@ const SignIn = () => {
     }
   }, [jwt]);
 
-  console.log(jwt, "signin jwt");
-
   const handleFormChange = () => {
     setLogin(!login);
   };
@@ -42,11 +40,7 @@ const SignIn = () => {
         >
           <h1 className={styles.header}>Simple Plan</h1>
         </NavLink>
-        {login ? (
-          <Login handleFormChange={() => handleFormChange()} />
-        ) : (
-          <Signup handleFormChange={() => handleFormChange()} />
-        )}
+        {login ? <Login /> : <Signup />}
 
         {!login ? (
           <p className={styles.signup}>
@@ -61,23 +55,10 @@ const SignIn = () => {
         )}
       </div>
       <div className={styles["image-container"]}>
-        <img src={image} alt="post it notes" />
+        <img src={image} alt="pm app picture" />
       </div>
     </div>
   );
 };
 
 export default SignIn;
-
-/*
-
-
- <p className={styles.signup}>
-        Already have an account?{" "} 
-        <span onClick={() => handleFormChange()}>Sign in</span>
-      </p>
-
-      Don't have an account?{" "}
-          <span onClick={() => handleFormChange()}>Sign up</span>
-
-*/

@@ -32,37 +32,28 @@ const Dashboard = () => {
     }
   }, [jwt]);
 
-  function getUser() {
-    axios
-      .get("https://strapi-production-7520.up.railway.app/api/users/me", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      })
-      .then((res) => {
-        dispatch(setUser(res.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  async function getUser() {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/v1/users/me`,
+        { withCredentials: true }
+      );
+      dispatch(setUser(response.data.data.data));
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  function getProjects() {
-    axios
-      .get(
-        `https://strapi-production-7520.up.railway.app/api/users/me?populate=*`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
-      )
-      .then((res) => {
-        dispatch(setProjects(res.data.projects));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  async function getProjects() {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/v1/projects`,
+        { withCredentials: true }
+      );
+      dispatch(setProjects(response.data.data.data));
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

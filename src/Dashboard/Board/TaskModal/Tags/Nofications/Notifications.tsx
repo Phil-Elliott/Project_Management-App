@@ -21,7 +21,7 @@ const Notifications = ({
   const [watching, setWatching] = useState<string>("Watch");
 
   useEffect(() => {
-    const isWatched = taskData.watching_users?.data.some(
+    const isWatched = taskData.watching_users?.some(
       (member: any) => member.id === user.id
     );
     if (isWatched) {
