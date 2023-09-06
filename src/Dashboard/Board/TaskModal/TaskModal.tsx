@@ -101,6 +101,8 @@ const TaskModal = ({
         { withCredentials: true }
       );
 
+      console.log(res, "task modal updated");
+
       if (
         type === "title" ||
         type === "watching_users" ||

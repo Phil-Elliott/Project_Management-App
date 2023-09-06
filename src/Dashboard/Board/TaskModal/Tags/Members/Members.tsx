@@ -17,31 +17,30 @@ type MemberProps = {
 
 type assignedObj = {
   id: string;
-  attributes: {
-    username: string;
-    avatar: string;
-  };
+  username: string;
+  avatar: string;
 };
 
 type assigned = {
-  data: assignedObj[] | undefined;
+  data: assignedObj[];
 };
 
 const Members = ({ taskData, members, updateMembers }: MemberProps) => {
   const [showSelect, setShowSelect] = useState<boolean>(false);
-  const [assigned, setAssigned] = useState<assigned>();
+  const [assigned, setAssigned] = useState<any>();
   const [assignedUsers, setAssignedUsers] = useState<User[]>([]);
   const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
     setAssigned(taskData.assigned_users);
-    if (taskData.assigned_users && taskData.assigned_users.data) {
+    if (taskData.assigned_users) {
       setAssignedUsers(
-        taskData.assigned_users.data.map((user: any) => {
+        taskData.assigned_users.map((user: any) => {
           return {
+            key: user.id,
             id: user.id,
-            username: user.attributes.username,
-            avatar: user.attributes.avatar,
+            username: user.name,
+            avatar: user.avatar,
           };
         })
       );
@@ -66,7 +65,8 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
   }
 
   function addMember(member: any) {
-    let newMembers = assigned && assigned.data;
+    if (assignedUsers.find((m: any) => m.id === member.id)) return;
+    let newMembers = assigned && assigned;
     newMembers?.push(member);
     let newMemberIds = newMembers?.map((m: any) => m.id);
     if (newMemberIds) {

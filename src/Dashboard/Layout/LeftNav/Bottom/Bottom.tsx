@@ -34,7 +34,7 @@ const Bottom = ({ expand }: BottomProps) => {
             return (
               <NavLink
                 key={index}
-                to={`/dashboard/${project.id}`}
+                to={`/dashboard/${project._id}`}
                 style={{
                   textDecoration: "none",
                   color: "white",
