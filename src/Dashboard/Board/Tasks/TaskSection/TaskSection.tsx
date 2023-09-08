@@ -269,17 +269,14 @@ const TaskSection = ({
   async function handleDeleteSection() {
     try {
       const res = await axios.delete(
-        `https://strapi-production-7520.up.railway.app/api/sections/${section.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
+        `http://localhost:3000/api/v1/sections/${section.id}`,
+        { withCredentials: true }
       );
+
       dispatch(
         setSections(
-          sections.filter((section: TasksSections) => {
-            return section.id !== res.data.data.id;
+          sections.filter((s: TasksSections) => {
+            return s.id !== section.id;
           })
         )
       );
