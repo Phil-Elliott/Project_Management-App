@@ -119,40 +119,8 @@ const Board = () => {
         payload,
         { withCredentials: true }
       );
-      // fetchSections();
     } catch (err) {
       console.log(err);
-    }
-
-    // gets the orderedsections from the project
-    async function fetchSections() {
-      try {
-        const res = await axios.get(
-          `https://strapi-production-7520.up.railway.app/api/projects/${
-            projectData!.id
-          }?populate=ordered_sections`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-            },
-          }
-        );
-        dispatch(
-          setSections(
-            res.data.data.attributes.ordered_sections.data.map(
-              (section: any) => {
-                return {
-                  id: section.id,
-                  title: section.attributes.title,
-                  order: section.attributes.order,
-                };
-              }
-            )
-          )
-        );
-      } catch (err) {
-        console.log(err);
-      }
     }
   }
 
@@ -432,3 +400,42 @@ const Board = () => {
 };
 
 export default Board;
+
+/*
+      // fetchSections();
+
+
+// gets the orderedsections from the project
+    async function fetchSections() {
+      try {
+        const res = await axios.get(
+          `https://strapi-production-7520.up.railway.app/api/projects/${
+            projectData!.id
+          }?populate=ordered_sections`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+          }
+        );
+        dispatch(
+          setSections(
+            res.data.data.attributes.ordered_sections.data.map(
+              (section: any) => {
+                return {
+                  id: section.id,
+                  title: section.attributes.title,
+                  order: section.attributes.order,
+                };
+              }
+            )
+          )
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+
+
+*/

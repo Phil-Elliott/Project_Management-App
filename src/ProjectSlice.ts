@@ -126,7 +126,7 @@ export const projectSlice = createSlice({
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setUpdateProjects: (state, action: PayloadAction<ProjectDataProps>) => {
       const projectIndex = state.projects.findIndex(
-        (project) => project.id.toString() === action.payload.id
+        (project) => project._id.toString() === action.payload._id
       );
 
       state.projects[projectIndex] = action.payload;
@@ -134,7 +134,7 @@ export const projectSlice = createSlice({
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setDeleteProject: (state, action: PayloadAction<string>) => {
       const projectIndex = state.projects.findIndex(
-        (project) => project.id.toString() === action.payload
+        (project) => project._id.toString() === action.payload
       );
 
       state.projects.splice(projectIndex, 1);

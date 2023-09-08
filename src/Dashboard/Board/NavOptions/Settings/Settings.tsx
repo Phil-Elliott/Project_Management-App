@@ -98,45 +98,43 @@ const Settings = ({ projectData }: SettingsProps) => {
     setActiveBackground(10);
   };
 
-  const handleUpdateBoard = () => {
+  async function handleUpdateBoard() {
     if (!title || !backgroundState) {
       setAttempted(true);
       return;
     }
-    axios
-      .put(
-        `https://strapi-production-7520.up.railway.app/api/projects/${projectData.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            title: title,
-            background: backgroundState,
-          },
-        }
-      )
-      .then((res) => {
-        dispatch(
-          setProject({
-            id: projectData.id,
-            title: title,
-            background: backgroundState,
-          } as ProjectDataProps)
-        );
-        dispatch(
-          setUpdateProjects({
-            id: projectData.id,
-            title: title,
-            background: backgroundState,
-          })
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
+    const payload = {
+      title: title,
+      background: backgroundState,
+    };
+
+    try {
+      const res = await axios.patch(
+        `http://localhost:3000/api/v1/projects/${projectData.id}`,
+        payload,
+        { withCredentials: true }
+      );
+      dispatch(
+        setProject({
+          _id: projectData.id,
+          title: title,
+          background: backgroundState,
+        } as ProjectDataProps)
+      );
+      dispatch(
+        setUpdateProjects({
+          _id: projectData.id,
+          title: title,
+          background: backgroundState,
+        })
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
     reset();
-  };
+  }
 
   // delete the project here to strapi
   async function handleDeleteBoard() {
@@ -150,7 +148,7 @@ const Settings = ({ projectData }: SettingsProps) => {
         }
       );
       console.log(res);
-      dispatch(setDeleteProject(projectData.id));
+      dispatch(setDeleteProject(projectData._id));
       navigate(`/dashboard/`);
     } catch (err) {
       console.log(err);
@@ -280,6 +278,40 @@ const Settings = ({ projectData }: SettingsProps) => {
 export default Settings;
 
 /*
+
+axios
+      .put(
+        `https://strapi-production-7520.up.railway.app/api/projects/${projectData.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+          data: {
+            title: title,
+            background: backgroundState,
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(
+          setProject({
+            id: projectData.id,
+            title: title,
+            background: backgroundState,
+          } as ProjectDataProps)
+        );
+        dispatch(
+          setUpdateProjects({
+            id: projectData.id,
+            title: title,
+            background: backgroundState,
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   Maybe can you use same confirm modal when deleting
   Make it a shared component
 
