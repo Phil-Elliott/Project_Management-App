@@ -89,7 +89,6 @@ const TaskModal = ({
       [type]: value,
     };
 
-    console.log(payload);
     try {
       const res = await axios.patch(
         `http://localhost:3000/api/v1/tasks/${modalTask.id}`,

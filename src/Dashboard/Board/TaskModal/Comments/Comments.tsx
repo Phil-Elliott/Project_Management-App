@@ -62,20 +62,18 @@ const Comments = ({
 
   // add a comment to the database
   async function addComment() {
+    const payload = {
+      content: comment,
+      project: taskData.project,
+      task: id,
+      users_permissions_user: user!.id,
+    };
+
     try {
       const res = await axios.post(
-        `https://strapi-production-7520.up.railway.app/api/comments`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            content: comment,
-            project: taskData.project.data.id,
-            task: id,
-            users_permissions_user: user!.id,
-          },
-        }
+        `http://localhost:3000/api/v1/comments`,
+        payload,
+        { withCredentials: true }
       );
       handleLoader();
       fetchTask();
@@ -225,7 +223,7 @@ const Comments = ({
           return (
             <CommentData
               comment={comment}
-              key={comment.id}
+              key={comment._id}
               deleteComment={deleteComment}
               updateComment={updateComment}
               userId={user.id}
