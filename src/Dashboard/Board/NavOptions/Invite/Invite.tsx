@@ -7,8 +7,7 @@ import styles from "./Invite.module.scss";
 import { BsFillPeopleFill } from "react-icons/bs";
 import InviteModal from "./InviteModal/InviteModal";
 import { User } from "~/shared/interfaces/Projects";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "~/Store";
+import { useDispatch } from "react-redux";
 import { setProjectUsers } from "~/ProjectSlice";
 
 type InviteProps = {
@@ -31,18 +30,17 @@ const Invite = ({ members, projectId }: InviteProps) => {
   async function getUserDetails(email: string) {
     try {
       const res = await axios.get(
-        `https://strapi-production-7520.up.railway.app/api/users?filters[email][$eq]=${email}`,
+        `http://localhost:3000/api/v1/users/getUserByEmail/${email}`,
         {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
+          withCredentials: true,
         }
       );
-      res.data[0].id &&
+      console.log(res);
+      res.data.data.id &&
         addUserToProject(
-          res.data[0].id,
-          res.data[0].username,
-          res.data[0].avatar
+          res.data.data.id,
+          res.data.data.name,
+          res.data.data.avatar
         );
     } catch (error) {
       console.log(error);
@@ -55,18 +53,17 @@ const Invite = ({ members, projectId }: InviteProps) => {
     usename: string,
     avatar: string | null
   ) {
+    const payload = {
+      userId: userId,
+    };
+
     try {
-      const res = await axios.put(
-        `https://strapi-production-7520.up.railway.app/api/projects/${projectId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            users: [...usersArr, userId],
-          },
-        }
+      const res = await axios.patch(
+        `http://localhost:3000/api/v1/projects/${projectId}/add-user`,
+        payload,
+        { withCredentials: true }
       );
+
       dispatch(
         setProjectUsers([
           ...members,

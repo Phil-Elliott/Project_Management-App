@@ -136,19 +136,14 @@ const Settings = ({ projectData }: SettingsProps) => {
     reset();
   }
 
-  // delete the project here to strapi
+  // delete the project
   async function handleDeleteBoard() {
     try {
       const res = await axios.delete(
-        `https://strapi-production-7520.up.railway.app/api/projects/${projectData.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
+        `http://localhost:3000/api/v1/projects/${projectData.id}`,
+        { withCredentials: true }
       );
-      console.log(res);
-      dispatch(setDeleteProject(projectData._id));
+      dispatch(setDeleteProject(projectData.id));
       navigate(`/dashboard/`);
     } catch (err) {
       console.log(err);
