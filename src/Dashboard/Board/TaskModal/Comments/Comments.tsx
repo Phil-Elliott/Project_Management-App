@@ -5,7 +5,6 @@ import CommentData from "./Comment/Comment";
 import styles from "./Comments.module.scss";
 import { MdInsertComment } from "react-icons/md";
 
-import moment from "moment";
 import { TaskProps, User } from "~/shared/interfaces/Projects";
 import { TaskDataProps } from "../TaskModal";
 import axios from "axios";
@@ -92,17 +91,15 @@ const Comments = ({
 
   // update a user's comment
   async function updateComment(commentId: string, content: string) {
+    const payload = {
+      content: content,
+    };
+
     try {
-      const res = await axios.put(
-        `https://strapi-production-7520.up.railway.app/api/comments/${commentId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            content: content,
-          },
-        }
+      const res = await axios.patch(
+        `http://localhost:3000/api/v1/comments/${commentId}`,
+        payload,
+        { withCredentials: true }
       );
       fetchTask();
 
@@ -123,13 +120,10 @@ const Comments = ({
   async function deleteComment(commentId: string) {
     try {
       const res = await axios.delete(
-        `https://strapi-production-7520.up.railway.app/api/comments/${commentId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
+        `http://localhost:3000/api/v1/comments/${commentId}`,
+        { withCredentials: true }
       );
+
       fetchTask();
       dispatch(
         updateTask({

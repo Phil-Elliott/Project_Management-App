@@ -1,7 +1,7 @@
 import moment from "moment";
 import styles from "./Comment.module.scss";
 import { Avatar, Button, Members } from "~/shared/components";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type CommentDataProps = {
   comment: any;
@@ -18,7 +18,7 @@ const CommentData = ({
 }: CommentDataProps) => {
   const [user, setUser] = useState<any>({});
   const [commentUserId, setCommentUserId] = useState<string>(
-    comment.users_permissions_user
+    comment.users_permissions_user._id
   );
   const [edit, setEdit] = useState<boolean>(false);
   const [commentContent, setCommentContent] = useState<string>(comment.content);
@@ -44,7 +44,6 @@ const CommentData = ({
     setEdit(true);
     setTimeout(() => {
       if (inputRef.current !== null) {
-        console.log("yo");
         inputRef.current.focus();
       }
     }, 200);
@@ -54,7 +53,7 @@ const CommentData = ({
     if (commentContent !== "") {
       setEdit(false);
       if (commentContent !== comment.content) {
-        updateComment(comment.id, commentContent);
+        updateComment(comment._id, commentContent);
       }
     }
   };
@@ -103,7 +102,7 @@ const CommentData = ({
             >
               Edit
             </p>
-            <p onClick={() => deleteComment(comment.id)}>Delete</p>
+            <p onClick={() => deleteComment(comment._id)}>Delete</p>
           </div>
         ) : (
           <div className={styles["bottom-bttns"]}>{/* <p>Reply</p> */}</div>

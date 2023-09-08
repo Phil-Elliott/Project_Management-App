@@ -43,8 +43,6 @@ const Task = ({
         { withCredentials: true }
       );
 
-      console.log(res);
-
       if (taskTitle !== res.data.data.attributes.title) {
         setTaskTitle(res.data.data.attributes.title);
       }
