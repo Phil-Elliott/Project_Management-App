@@ -1,8 +1,7 @@
 import moment from "moment";
 import styles from "./Comment.module.scss";
 import { Avatar, Button, Members } from "~/shared/components";
-import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 type CommentDataProps = {
   comment: any;
