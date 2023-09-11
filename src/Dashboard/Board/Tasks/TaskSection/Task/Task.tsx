@@ -69,12 +69,14 @@ const Task = ({
           })
         );
       }
+
       let assignedUsers = res.data.data.attributes.assigned_users.map(
-        (user: any) => {
+        (aUser: any) => {
+          console.log(aUser, "aUser");
           return {
-            id: user.id,
-            username: user.attributes.username,
-            avatar: user.attributes.avatar,
+            id: aUser._id,
+            username: aUser.username,
+            avatar: aUser.avatar,
           };
         }
       );
