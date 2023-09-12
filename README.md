@@ -82,7 +82,7 @@ To enable drag and drop functionality, I utilized the popular library, React Bea
 
 For styling, I chose SCSS, a popular CSS preprocessor that allowed me to create beautiful and consistent styles throughout the app.
 
-Finally, I built my server with Strapi API, providing robust and secure backend functionality to ensure smooth and seamless operation of the app.
+Finally, I built my server with Node.js, Express, and MongoDB, providing robust and secure backend functionality to ensure smooth and seamless operation of the app.
 
 ## What I learned
 
