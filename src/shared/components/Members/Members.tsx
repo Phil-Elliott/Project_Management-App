@@ -11,7 +11,7 @@ const Members = ({ members, size }: MembersProps) => {
     <div className={styles["members-container"]}>
       {members.map((member: any, i: number) => {
         let image = member.avatar;
-        if (image === null) {
+        if (image === null || image === "") {
           image = member.username[0].toUpperCase();
         }
         return (

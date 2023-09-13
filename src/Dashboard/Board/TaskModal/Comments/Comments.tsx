@@ -157,7 +157,7 @@ const Comments = ({
   }, [display]);
 
   let image = user.avatar;
-  if (image === null) {
+  if (image === null || image === "") {
     image = user.username[0].toUpperCase();
   }
 

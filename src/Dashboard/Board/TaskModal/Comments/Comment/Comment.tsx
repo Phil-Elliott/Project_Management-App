@@ -26,7 +26,7 @@ const CommentData = ({
   const inputRef = useRef<HTMLInputElement>(null);
 
   let image = comment.users_permissions_user.avatar;
-  if (image === null) {
+  if (image === null || image === "") {
     image = comment.users_permissions_user.name[0].toUpperCase();
   }
 

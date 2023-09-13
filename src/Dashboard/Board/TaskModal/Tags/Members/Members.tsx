@@ -93,7 +93,7 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
           {assignedUsers &&
             assignedUsers.map((member: any) => {
               let image = member.avatar;
-              if (image === null) {
+              if (image === null || image === "") {
                 image = member.username[0].toUpperCase();
               }
               return (
@@ -135,7 +135,7 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
                 member.username.toLowerCase().includes(search.toLowerCase())
               ) {
                 let image = member.avatar;
-                if (image === null) {
+                if (image === null || image === "") {
                   image = member.username[0].toUpperCase();
                 }
                 return (

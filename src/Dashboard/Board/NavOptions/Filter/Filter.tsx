@@ -80,7 +80,7 @@ const Filter = ({ members, user, projectId }: FilterProps) => {
   };
 
   let userImage = user.avatar;
-  if (userImage === null) {
+  if (userImage === null || userImage === "") {
     userImage = user.username[0].toUpperCase();
   }
 
