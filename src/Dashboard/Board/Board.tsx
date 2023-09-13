@@ -44,7 +44,7 @@ const Board = () => {
     setLoading(false);
     setTimeout(() => {
       setLoading(true);
-    }, 1500);
+    }, 2500);
   }, [id]);
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -361,7 +361,7 @@ const Board = () => {
         <NavOptions
           user={user}
           members={users}
-          projectId={projectData.id}
+          projectId={projectData.id ? projectData.id : ""}
           projectData={projectData}
         />
         <Tasks

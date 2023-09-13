@@ -87,4 +87,6 @@ export default Dashboard;
   4) Add an admin and maybe emails next to members
   5) Add forget password
 
+  http://localhost:3000/
+
 */

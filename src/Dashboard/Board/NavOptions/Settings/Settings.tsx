@@ -143,7 +143,7 @@ const Settings = ({ projectData }: SettingsProps) => {
         `http://localhost:3000/api/v1/projects/${projectData.id}`,
         { withCredentials: true }
       );
-      dispatch(setDeleteProject(projectData.id));
+      dispatch(setDeleteProject(projectData.id as string));
       navigate(`/dashboard/`);
     } catch (err) {
       console.log(err);

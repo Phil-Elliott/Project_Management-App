@@ -72,7 +72,6 @@ const Task = ({
 
       let assignedUsers = res.data.data.attributes.assigned_users.map(
         (aUser: any) => {
-          console.log(aUser, "aUser");
           return {
             id: aUser._id,
             username: aUser.username,
