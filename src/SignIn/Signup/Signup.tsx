@@ -56,28 +56,29 @@ const Signup = () => {
       return;
     }
 
-    axios
-      .post("http://localhost:3000/api/v1/auth/register", {
-        name: username,
-        email: email,
-        password: password,
-        passwordConfirm: confirmPassword,
-      })
-      .then((response) => {
-        let jwt = response.data.token;
-        console.log(response.data.token, jwt, "token dude");
-        localStorage.setItem("jwt", jwt);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/auth/register",
+        {
+          name: username,
+          email: email,
+          password: password,
+          passwordConfirm: confirmPassword,
+        },
+        { withCredentials: true }
+      );
+      let jwt = response.data.token;
+      localStorage.setItem("jwt", jwt);
 
-        // Redirect to the dashboard
-        if (jwt) {
-          dispatch(setJwt(jwt));
-          dispatch(setUser(response.data.data.user));
-          navigate("/dashboard/");
-        }
-      })
-      .catch((error) => {
-        console.log("An error occurred:", error.response);
-      });
+      // Redirect to the dashboard
+      if (jwt) {
+        dispatch(setJwt(jwt));
+        dispatch(setUser(response.data.data.user));
+        navigate("/dashboard/");
+      }
+    } catch (error: any) {
+      setError("error");
+    }
   };
 
   return (
@@ -130,7 +131,28 @@ export default Signup;
 /*
   
 
+axios
+      .post("http://localhost:3000/api/v1/auth/register", {
+        name: username,
+        email: email,
+        password: password,
+        passwordConfirm: confirmPassword,
+      })
+      .then((response) => {
+        let jwt = response.data.token;
+        console.log(jwt);
+        localStorage.setItem("jwt", jwt);
 
+        // Redirect to the dashboard
+        if (jwt) {
+          dispatch(setJwt(jwt));
+          dispatch(setUser(response.data.data.user));
+          navigate("/dashboard/");
+        }
+      })
+      .catch((error) => {
+        console.log("An error occurred:", error.response);
+      });
   
 
 

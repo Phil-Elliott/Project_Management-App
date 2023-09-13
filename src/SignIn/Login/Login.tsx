@@ -11,10 +11,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();

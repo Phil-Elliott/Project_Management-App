@@ -8,7 +8,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import styles from "./Top.module.scss";
 
 import { useDispatch } from "react-redux";
-import { setJwt } from "~/ProjectSlice";
+import { setJwt, clearAllStates } from "~/ProjectSlice";
 
 type TopProps = {
   expand: boolean;
@@ -30,6 +30,7 @@ const Top = ({ expand, toggleModal }: TopProps) => {
   const handleSignOut = () => {
     localStorage.removeItem("jwt");
     dispatch(setJwt(""));
+    dispatch(clearAllStates);
     navigate("/signIn");
   };
 

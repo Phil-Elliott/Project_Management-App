@@ -91,7 +91,7 @@ const Board = () => {
         { withCredentials: true }
       );
       orderedArr.push(res.data.data.section._id);
-      console.log(orderedArr, "orderedArr");
+
       addSectionOrder(orderedArr);
       dispatch(
         addSection({
