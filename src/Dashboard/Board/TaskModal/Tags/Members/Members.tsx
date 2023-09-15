@@ -52,7 +52,7 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
   };
 
   function removeMember(member: any) {
-    let newMembers = assignedUsers && assignedUsers;
+    let newMembers = [...assignedUsers];
     newMembers = newMembers?.filter((m: any) => m.id !== member.id);
     // make a number array with the ids of the members
     let newMemberIds = newMembers?.map((m: any) => m.id);
@@ -66,7 +66,7 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
 
   function addMember(member: any) {
     if (assignedUsers.find((m: any) => m.id === member.id)) return;
-    let newMembers = assigned && assigned;
+    let newMembers = [...assignedUsers];
     newMembers?.push(member);
     let newMemberIds = newMembers?.map((m: any) => m.id);
     if (newMemberIds) {
