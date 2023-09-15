@@ -95,23 +95,33 @@ const TaskSection = ({
 
   function getFilteredTasks() {
     function isPastDate(date: string) {
-      const today = moment().format("YYYY-MM-DD");
+      if (!date) return false;
+      const today = moment().startOf("day");
       return moment(date).isBefore(today);
     }
     function isNextDay(date: string) {
-      const today = moment().format("YYYY-MM-DD");
-      const tomorrow = moment(today).add(1, "days").format("YYYY-MM-DD");
-      return moment(date).isSame(tomorrow) || moment(date).isSame(today);
+      if (!date) return false;
+      const today = moment().startOf("day");
+      const tomorrow = moment().startOf("day").add(1, "days");
+      return (
+        moment(date).isSameOrAfter(today) && moment(date).isBefore(tomorrow)
+      );
     }
     function isNextWeek(date: string) {
-      const today = moment().format("YYYY-MM-DD");
-      const nextWeek = moment(today).add(7, "days").format("YYYY-MM-DD");
-      return !isPastDate(date) && moment(date).isBefore(nextWeek);
+      if (!date) return false;
+      const today = moment().startOf("day");
+      const nextWeek = moment().startOf("day").add(7, "days");
+      return (
+        moment(date).isSameOrAfter(today) && moment(date).isBefore(nextWeek)
+      );
     }
     function isNextMonth(date: string) {
-      const today = moment().format("YYYY-MM-DD");
-      const nextMonth = moment(today).add(1, "months").format("YYYY-MM-DD");
-      return !isPastDate(date) && moment(date).isBefore(nextMonth);
+      if (!date) return false;
+      const today = moment().startOf("day");
+      const nextMonth = moment().startOf("day").add(1, "months");
+      return (
+        moment(date).isSameOrAfter(today) && moment(date).isBefore(nextMonth)
+      );
     }
 
     const checkExact = (task: TaskProps) => {
@@ -143,7 +153,7 @@ const TaskSection = ({
         return false;
       }
       // need dates to update when changed ***
-      if (filterData.noDates && task.due !== null) {
+      if ((filterData.noDates && task.due !== null) || task.due === undefined) {
         return false;
       }
 
@@ -208,7 +218,7 @@ const TaskSection = ({
         return true;
       }
       // need dates to update when changed ***
-      if (filterData.noDates && task.due === null) {
+      if (filterData.noDates && task.due === undefined) {
         return true;
       }
 
