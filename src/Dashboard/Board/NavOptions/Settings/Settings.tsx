@@ -6,10 +6,6 @@ import { ProjectDataProps } from "~/shared/interfaces/Projects";
 import axios from "axios";
 import { FaTimes } from "react-icons/fa";
 
-import flowers from "~/assets/backgrounds/flowers.jpg";
-import mountains from "~/assets/backgrounds/mountains.jpg";
-import nightSky from "~/assets/backgrounds/nightSky.jpg";
-import scenicNight from "~/assets/backgrounds/scenicNight.jpg";
 import {
   setDeleteProject,
   setProject,
@@ -23,7 +19,12 @@ type SettingsProps = {
   projectData: ProjectDataProps;
 };
 
-const backgrounds = [flowers, mountains, nightSky, scenicNight];
+const backgrounds = [
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903633/PM-App/backgrounds/scenicNight_gouxdc.jpg",
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903633/PM-App/backgrounds/nightSky_bhcwuc.jpg",
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903632/PM-App/backgrounds/mountains_iew4p2.jpg",
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903632/PM-App/backgrounds/flowers_hokxfs.jpg",
+];
 const colors = [
   "rgb(255, 140, 0)",
   "rgb(70, 130, 180)",
@@ -51,7 +52,7 @@ const Settings = ({ projectData }: SettingsProps) => {
     setDisableCloseModal(disable);
   };
 
-  // get the name of the background from this http://localhost:5173/src/assets/backgrounds/scenicNight.jpg
+  // get the name of the background from this
   useEffect(() => {
     if (backgroundState) {
       const name = backgroundState.split("/").pop();
@@ -111,7 +112,7 @@ const Settings = ({ projectData }: SettingsProps) => {
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/api/v1/projects/${projectData.id}`,
+        `https://pm-server-production.up.railway.app/api/v1/projects/${projectData.id}`,
         payload,
         { withCredentials: true }
       );
@@ -140,7 +141,7 @@ const Settings = ({ projectData }: SettingsProps) => {
   async function handleDeleteBoard() {
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/v1/projects/${projectData.id}`,
+        `https://pm-server-production.up.railway.app/api/v1/projects/${projectData.id}`,
         { withCredentials: true }
       );
       dispatch(setDeleteProject(projectData.id as string));
@@ -271,61 +272,3 @@ const Settings = ({ projectData }: SettingsProps) => {
 };
 
 export default Settings;
-
-/*
-
-axios
-      .put(
-        `https://strapi-production-7520.up.railway.app/api/projects/${projectData.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            title: title,
-            background: backgroundState,
-          },
-        }
-      )
-      .then((res) => {
-        dispatch(
-          setProject({
-            id: projectData.id,
-            title: title,
-            background: backgroundState,
-          } as ProjectDataProps)
-        );
-        dispatch(
-          setUpdateProjects({
-            id: projectData.id,
-            title: title,
-            background: backgroundState,
-          })
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-  Maybe can you use same confirm modal when deleting
-  Make it a shared component
-
-
-
-
-  1) Get update board to work
-  2) Get delete board to work
-  3) Have the image highlight if active
-  4) Do the same for the one in the main hub
-
-
-
-  Options
-  1) Change background
-  2) Change board name
-  3) Delete board
-
-  Use same as mainhub add a card
-  - Have a delete button on the bottom of the card
-
-*/

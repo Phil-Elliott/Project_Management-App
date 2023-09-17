@@ -279,7 +279,7 @@ const TaskSection = ({
   async function handleDeleteSection() {
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/v1/sections/${section.id}`,
+        `https://pm-server-production.up.railway.app/api/v1/sections/${section.id}`,
         { withCredentials: true }
       );
 
@@ -303,7 +303,7 @@ const TaskSection = ({
   async function fetchTasks() {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/tasks/section/${section.id}`,
+        `https://pm-server-production.up.railway.app/api/v1/tasks/section/${section.id}`,
         { withCredentials: true }
       );
       setTasks(
@@ -343,7 +343,7 @@ const TaskSection = ({
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/api/v1/sections/${section.id}`,
+        `https://pm-server-production.up.railway.app/api/v1/sections/${section.id}`,
         payload,
         { withCredentials: true }
       );

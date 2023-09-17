@@ -10,24 +10,15 @@ import { useNavigate } from "react-router-dom";
 import ConfirmModal from "~/shared/components/ConfirmModal/ConfirmModal";
 import { setJwt, setUser } from "~/ProjectSlice";
 
-import apple from "~/assets/avatars/apple.jpg";
-import cat from "~/assets/avatars/cat.jpg";
-import coffee from "~/assets/avatars/coffee.jpg";
-import dog from "~/assets/avatars/dog.jpg";
-import lightbulb from "~/assets/avatars/lightbulb.jpg";
-import puzzle from "~/assets/avatars/puzzle.jpg";
-import road from "~/assets/avatars/road.jpg";
-import tea from "~/assets/avatars/tea.jpg";
-
 const availableAvatars = [
-  apple,
-  cat,
-  coffee,
-  dog,
-  lightbulb,
-  puzzle,
-  road,
-  tea,
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903616/PM-App/avatars/tea_kkkgqj.jpg",
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903616/PM-App/avatars/road_ns8aej.jpg",
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903615/PM-App/avatars/puzzle_caw0nr.jpg",
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903615/PM-App/avatars/lightbulb_ko0ghd.jpg",
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903594/PM-App/avatars/dog_djb8qa.jpg",
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903584/PM-App/avatars/coffee_dbcz5s.jpg",
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903577/PM-App/avatars/cat_ylli7r.jpg",
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903561/PM-App/avatars/apple_td8fjk.jpg",
 ];
 
 type ProfileModalProps = {
@@ -83,7 +74,7 @@ const ProfileModal = ({ closeModal }: ProfileModalProps) => {
   async function handleDeleteUser() {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/api/v1/users/deleteMe`,
+        `https://pm-server-production.up.railway.app/api/v1/users/deleteMe`,
         { withCredentials: true }
       );
       localStorage.removeItem("jwt");
@@ -112,7 +103,7 @@ const ProfileModal = ({ closeModal }: ProfileModalProps) => {
 
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/v1/users/updateMe`,
+        `https://pm-server-production.up.railway.app/api/v1/users/updateMe`,
         payload,
         { withCredentials: true }
       );

@@ -35,8 +35,10 @@ const Dashboard = () => {
   async function getUser() {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/v1/users/me`,
-        { withCredentials: true }
+        `https://pm-server-production.up.railway.app/api/v1/users/me`,
+        {
+          withCredentials: true,
+        }
       );
       dispatch(setUser(response.data.data.data));
     } catch (error) {
@@ -47,14 +49,18 @@ const Dashboard = () => {
   async function getProjects() {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/v1/projects`,
-        { withCredentials: true }
+        `https://pm-server-production.up.railway.app/api/v1/projects`,
+        {
+          withCredentials: true,
+        }
       );
       dispatch(setProjects(response.data.data.data));
     } catch (error) {
       console.log(error);
     }
   }
+
+  // pm-server-production.up.railway.app
 
   return (
     <div className="dashboard-container">
@@ -82,11 +88,18 @@ export default Dashboard;
 
 /*
 
+
   1) Add reply to comment
   3) Have a number and x next to filter bttn
   4) Add an admin and maybe emails next to members
   5) Add forget password
 
-  http://localhost:3000/
+  
+
+
+
+http://localhost:3000/
+
+https://pm-server-production.up.railway.app/
 
 */

@@ -24,7 +24,7 @@ export function ProjectLayout() {
   async function fetchProject() {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/projects/${id}`,
+        `https://pm-server-production.up.railway.app/api/v1/projects/${id}`,
         { withCredentials: true }
       );
       dispatch(

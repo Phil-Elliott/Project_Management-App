@@ -58,7 +58,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/auth/register",
+        "https://pm-server-production.up.railway.app/api/v1/auth/register",
         {
           name: username,
           email: email,
@@ -132,7 +132,7 @@ export default Signup;
   
 
 axios
-      .post("http://localhost:3000/api/v1/auth/register", {
+      .post("https://pm-server-production.up.railway.app/api/v1/auth/register", {
         name: username,
         email: email,
         password: password,

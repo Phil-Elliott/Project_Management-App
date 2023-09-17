@@ -39,7 +39,7 @@ const Task = ({
   async function fetchTask() {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/tasks/${taskData.id}`,
+        `https://pm-server-production.up.railway.app/api/v1/tasks/${taskData.id}`,
         { withCredentials: true }
       );
 

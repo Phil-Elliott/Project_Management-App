@@ -86,7 +86,7 @@ const Board = () => {
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/v1/sections`,
+        `https://pm-server-production.up.railway.app/api/v1/sections`,
         payload,
         { withCredentials: true }
       );
@@ -113,7 +113,7 @@ const Board = () => {
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/api/v1/projects/${
+        `https://pm-server-production.up.railway.app/api/v1/projects/${
           projectData!.id
         }/ordered-sections`,
         payload,
@@ -173,7 +173,7 @@ const Board = () => {
     // adds the new task to the database
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/v1/tasks`,
+        `https://pm-server-production.up.railway.app/api/v1/tasks`,
         payload,
         { withCredentials: true }
       );
@@ -228,7 +228,7 @@ const Board = () => {
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/api/v1/sections/${taskSection}/ordered-tasks`,
+        `https://pm-server-production.up.railway.app/api/v1/sections/${taskSection}/ordered-tasks`,
         payload,
         { withCredentials: true }
       );

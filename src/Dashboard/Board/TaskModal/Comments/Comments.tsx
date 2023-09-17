@@ -70,7 +70,7 @@ const Comments = ({
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/v1/comments`,
+        `https://pm-server-production.up.railway.app/api/v1/comments`,
         payload,
         { withCredentials: true }
       );
@@ -97,7 +97,7 @@ const Comments = ({
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/api/v1/comments/${commentId}`,
+        `https://pm-server-production.up.railway.app/api/v1/comments/${commentId}`,
         payload,
         { withCredentials: true }
       );
@@ -120,7 +120,7 @@ const Comments = ({
   async function deleteComment(commentId: string) {
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/v1/comments/${commentId}`,
+        `https://pm-server-production.up.railway.app/api/v1/comments/${commentId}`,
         { withCredentials: true }
       );
 

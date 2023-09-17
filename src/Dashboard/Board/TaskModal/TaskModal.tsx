@@ -71,7 +71,7 @@ const TaskModal = ({
     async function deleteTaskCall() {
       try {
         const response = await axios.delete(
-          `http://localhost:3000/api/v1/tasks/${modalTask.id}`,
+          `https://pm-server-production.up.railway.app/api/v1/tasks/${modalTask.id}`,
           { withCredentials: true }
         );
       } catch (err) {
@@ -91,7 +91,7 @@ const TaskModal = ({
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/api/v1/tasks/${modalTask.id}`,
+        `https://pm-server-production.up.railway.app/api/v1/tasks/${modalTask.id}`,
         payload,
         { withCredentials: true }
       );
@@ -128,7 +128,7 @@ const TaskModal = ({
   async function fetchTask() {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/tasks/${modalTask.id}`,
+        `https://pm-server-production.up.railway.app/api/v1/tasks/${modalTask.id}`,
         { withCredentials: true }
       );
 

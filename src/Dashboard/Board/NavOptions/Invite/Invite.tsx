@@ -30,7 +30,7 @@ const Invite = ({ members, projectId }: InviteProps) => {
   async function getUserDetails(email: string) {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/users/getUserByEmail/${email}`,
+        `https://pm-server-production.up.railway.app/api/v1/users/getUserByEmail/${email}`,
         {
           withCredentials: true,
         }
@@ -59,7 +59,7 @@ const Invite = ({ members, projectId }: InviteProps) => {
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/api/v1/projects/${projectId}/add-user`,
+        `https://pm-server-production.up.railway.app/api/v1/projects/${projectId}/add-user`,
         payload,
         { withCredentials: true }
       );

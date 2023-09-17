@@ -4,7 +4,6 @@ import Login from "./Login/Login";
 import Signup from "./Signup/Signup";
 
 import styles from "./SignIn.module.scss";
-import image from "~/assets/sign.svg";
 
 import { useSelector } from "react-redux";
 import { RootState } from "~/Store";
@@ -55,7 +54,10 @@ const SignIn = () => {
         )}
       </div>
       <div className={styles["image-container"]}>
-        <img src={image} alt="pm app picture" />
+        <img
+          src="https://res.cloudinary.com/djdxd5akb/image/upload/v1694904454/PM-App/sign_hmxnd6.svg"
+          alt="pm app picture"
+        />
       </div>
     </div>
   );
