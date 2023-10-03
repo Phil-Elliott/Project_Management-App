@@ -56,7 +56,7 @@ const InviteModal = ({
       <div className={styles.users}>
         {members.map((member) => {
           let image = member.avatar;
-          if (image === null) {
+          if (image === null || image === "") {
             image = member.username[0].toUpperCase();
           }
           return (

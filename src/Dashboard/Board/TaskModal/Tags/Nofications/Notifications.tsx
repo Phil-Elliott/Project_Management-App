@@ -22,7 +22,7 @@ const Notifications = ({
 
   useEffect(() => {
     const isWatched = taskData.watching_users?.some(
-      (member: any) => member.id === user.id
+      (member: any) => member._id === user.id
     );
     if (isWatched) {
       setWatching("Watching");
@@ -33,16 +33,13 @@ const Notifications = ({
 
   const toggleWatching = () => {
     if (watching === "Watch") {
-      updateTaskData("watching_users", [
-        ...taskData.watching_users.data,
-        user.id,
-      ]);
+      updateTaskData("watching_users", [...taskData.watching_users, user.id]);
       setWatching("Watching");
     } else {
       updateTaskData(
         "watching_users",
-        taskData.watching_users?.data.filter(
-          (watcher: any) => watcher.id !== user.id
+        taskData.watching_users.filter(
+          (watcher: any) => watcher._id !== user.id
         )
       );
       setWatching("Watch");

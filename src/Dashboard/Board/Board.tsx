@@ -44,7 +44,7 @@ const Board = () => {
     setLoading(false);
     setTimeout(() => {
       setLoading(true);
-    }, 1500);
+    }, 2500);
   }, [id]);
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,12 +86,12 @@ const Board = () => {
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/v1/sections`,
+        `https://pm-server-production.up.railway.app/api/v1/sections`,
         payload,
         { withCredentials: true }
       );
       orderedArr.push(res.data.data.section._id);
-      console.log(orderedArr, "orderedArr");
+
       addSectionOrder(orderedArr);
       dispatch(
         addSection({
@@ -113,46 +113,14 @@ const Board = () => {
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/api/v1/projects/${
+        `https://pm-server-production.up.railway.app/api/v1/projects/${
           projectData!.id
         }/ordered-sections`,
         payload,
         { withCredentials: true }
       );
-      // fetchSections();
     } catch (err) {
       console.log(err);
-    }
-
-    // gets the orderedsections from the project
-    async function fetchSections() {
-      try {
-        const res = await axios.get(
-          `https://strapi-production-7520.up.railway.app/api/projects/${
-            projectData!.id
-          }?populate=ordered_sections`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-            },
-          }
-        );
-        dispatch(
-          setSections(
-            res.data.data.attributes.ordered_sections.data.map(
-              (section: any) => {
-                return {
-                  id: section.id,
-                  title: section.attributes.title,
-                  order: section.attributes.order,
-                };
-              }
-            )
-          )
-        );
-      } catch (err) {
-        console.log(err);
-      }
     }
   }
 
@@ -205,7 +173,7 @@ const Board = () => {
     // adds the new task to the database
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/v1/tasks`,
+        `https://pm-server-production.up.railway.app/api/v1/tasks`,
         payload,
         { withCredentials: true }
       );
@@ -260,7 +228,7 @@ const Board = () => {
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/api/v1/sections/${taskSection}/ordered-tasks`,
+        `https://pm-server-production.up.railway.app/api/v1/sections/${taskSection}/ordered-tasks`,
         payload,
         { withCredentials: true }
       );
@@ -393,7 +361,7 @@ const Board = () => {
         <NavOptions
           user={user}
           members={users}
-          projectId={projectData.id}
+          projectId={projectData.id ? projectData.id : ""}
           projectData={projectData}
         />
         <Tasks
@@ -432,3 +400,42 @@ const Board = () => {
 };
 
 export default Board;
+
+/*
+      // fetchSections();
+
+
+// gets the orderedsections from the project
+    async function fetchSections() {
+      try {
+        const res = await axios.get(
+          `https://strapi-production-7520.up.railway.app/api/projects/${
+            projectData!.id
+          }?populate=ordered_sections`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+          }
+        );
+        dispatch(
+          setSections(
+            res.data.data.attributes.ordered_sections.data.map(
+              (section: any) => {
+                return {
+                  id: section.id,
+                  title: section.attributes.title,
+                  order: section.attributes.order,
+                };
+              }
+            )
+          )
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+
+
+*/

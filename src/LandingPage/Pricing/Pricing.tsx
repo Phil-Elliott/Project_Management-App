@@ -1,7 +1,4 @@
-import React from "react";
 import styles from "./Pricing.module.scss";
-// import hero from "./../../../public/hero2.jpg";
-import hero from "../../assets/landing/hero2.jpg";
 import { FaCheckCircle } from "react-icons/fa";
 
 const Plans = [
@@ -33,7 +30,7 @@ const Pricing = () => {
       id="pricing"
       className={styles.main}
       style={{
-        backgroundImage: `url(${hero})`,
+        backgroundImage: `url(data:image/svg+xml,%3Csvg%20width%3D%221%22%20height%3D%221%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Crect%20width%3D%221%22%20height%3D%221%22%20fill%3D%22%23000%22/%3E%3C/svg%3E), url(https://res.cloudinary.com/djdxd5akb/image/upload/v1694903795/PM-App/landing/hero2_vxqxzu.jpg)`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}

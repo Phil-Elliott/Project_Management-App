@@ -15,7 +15,15 @@ const DueDate = ({ taskData, updateTaskData }: DueDateProps) => {
   const [date, setDate] = useState<string>("");
 
   useEffect(() => {
-    setDate(taskData.due);
+    if (taskData.due) {
+      const d = new Date(taskData.due);
+      const formattedDate = `${d.getFullYear()}-${String(
+        d.getMonth() + 1
+      ).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      setDate(formattedDate);
+    } else {
+      setDate("");
+    }
   }, [taskData]);
 
   const handleDateChange = (e: any) => {

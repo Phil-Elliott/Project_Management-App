@@ -17,7 +17,6 @@ import styles from "./Filter.module.scss";
 import { FilterData, User } from "~/shared/interfaces/Projects";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFilterData } from "~/ProjectSlice";
-import { RootState } from "~/Store";
 
 type FilterProps = {
   user: User;
@@ -80,8 +79,12 @@ const Filter = ({ members, user, projectId }: FilterProps) => {
   };
 
   let userImage = user.avatar;
-  if (userImage === null) {
-    userImage = user.username[0].toUpperCase();
+  if (userImage === null || userImage === "") {
+    if (user.username !== "") {
+      userImage = user.username[0].toUpperCase();
+    } else {
+      userImage = "U";
+    }
   }
 
   return (

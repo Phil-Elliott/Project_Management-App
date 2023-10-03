@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Button, Popup, Loader } from "~/shared/components";
-
 import styles from "./CreateBoard.module.scss";
 import { FaTimes } from "react-icons/fa";
-
-import flowers from "~/assets/backgrounds/flowers.jpg";
-import mountains from "~/assets/backgrounds/mountains.jpg";
-import nightSky from "~/assets/backgrounds/nightSky.jpg";
-import scenicNight from "~/assets/backgrounds/scenicNight.jpg";
-
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { RootState } from "~/Store";
 
-const backgrounds = [flowers, mountains, nightSky, scenicNight];
+const backgrounds = [
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903633/PM-App/backgrounds/scenicNight_gouxdc.jpg",
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903633/PM-App/backgrounds/nightSky_bhcwuc.jpg",
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903632/PM-App/backgrounds/mountains_iew4p2.jpg",
+  "https://res.cloudinary.com/djdxd5akb/image/upload/v1694903632/PM-App/backgrounds/flowers_hokxfs.jpg",
+];
 const colors = [
   "rgb(255, 140, 0)",
   "rgb(70, 130, 180)",
@@ -32,8 +28,6 @@ const CreateBoard = ({ getProjects }: CreateBoardProps) => {
   const [title, setTitle] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [attempted, setAttempted] = useState<boolean>(false);
-
-  const user = useSelector((state: RootState) => state.project.user);
 
   useEffect(() => {
     if (backgroundState) {
@@ -77,7 +71,7 @@ const CreateBoard = ({ getProjects }: CreateBoardProps) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/v1/projects`,
+        `https://pm-server-production.up.railway.app/api/v1/projects`,
         payload,
         { withCredentials: true }
       );
@@ -190,14 +184,3 @@ const CreateBoard = ({ getProjects }: CreateBoardProps) => {
 };
 
 export default CreateBoard;
-
-/*
-
-  1) Download all possible images and put in assets 
-  2) Show the images on the background part
-  3) Make sure that the input is grabbing the text for the name
-  4) Have it add a new board once the button is clicked
-
-
-
-*/

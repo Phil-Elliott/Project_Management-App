@@ -11,10 +11,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -35,7 +31,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/auth/login",
+        "https://pm-server-production.up.railway.app/api/v1/auth/login",
         {
           email: email,
           password: password,

@@ -5,7 +5,6 @@ import CommentData from "./Comment/Comment";
 import styles from "./Comments.module.scss";
 import { MdInsertComment } from "react-icons/md";
 
-import moment from "moment";
 import { TaskProps, User } from "~/shared/interfaces/Projects";
 import { TaskDataProps } from "../TaskModal";
 import axios from "axios";
@@ -62,20 +61,18 @@ const Comments = ({
 
   // add a comment to the database
   async function addComment() {
+    const payload = {
+      content: comment,
+      project: taskData.project,
+      task: id,
+      users_permissions_user: user!.id,
+    };
+
     try {
       const res = await axios.post(
-        `https://strapi-production-7520.up.railway.app/api/comments`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            content: comment,
-            project: taskData.project.data.id,
-            task: id,
-            users_permissions_user: user!.id,
-          },
-        }
+        `https://pm-server-production.up.railway.app/api/v1/comments`,
+        payload,
+        { withCredentials: true }
       );
       handleLoader();
       fetchTask();
@@ -94,17 +91,15 @@ const Comments = ({
 
   // update a user's comment
   async function updateComment(commentId: string, content: string) {
+    const payload = {
+      content: content,
+    };
+
     try {
-      const res = await axios.put(
-        `https://strapi-production-7520.up.railway.app/api/comments/${commentId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-          data: {
-            content: content,
-          },
-        }
+      const res = await axios.patch(
+        `https://pm-server-production.up.railway.app/api/v1/comments/${commentId}`,
+        payload,
+        { withCredentials: true }
       );
       fetchTask();
 
@@ -125,13 +120,10 @@ const Comments = ({
   async function deleteComment(commentId: string) {
     try {
       const res = await axios.delete(
-        `https://strapi-production-7520.up.railway.app/api/comments/${commentId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
+        `https://pm-server-production.up.railway.app/api/v1/comments/${commentId}`,
+        { withCredentials: true }
       );
+
       fetchTask();
       dispatch(
         updateTask({
@@ -165,7 +157,7 @@ const Comments = ({
   }, [display]);
 
   let image = user.avatar;
-  if (image === null) {
+  if (image === null || image === "") {
     image = user.username[0].toUpperCase();
   }
 
@@ -225,7 +217,7 @@ const Comments = ({
           return (
             <CommentData
               comment={comment}
-              key={comment.id}
+              key={comment._id}
               deleteComment={deleteComment}
               updateComment={updateComment}
               userId={user.id}

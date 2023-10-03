@@ -125,16 +125,16 @@ export const projectSlice = createSlice({
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setUpdateProjects: (state, action: PayloadAction<ProjectDataProps>) => {
-      const projectIndex = state.projects.findIndex(
-        (project) => project.id.toString() === action.payload.id
+      const projectIndex = state.projects.findIndex((project) =>
+        project._id ? project._id.toString() === action.payload._id : false
       );
 
       state.projects[projectIndex] = action.payload;
     },
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     setDeleteProject: (state, action: PayloadAction<string>) => {
-      const projectIndex = state.projects.findIndex(
-        (project) => project.id.toString() === action.payload
+      const projectIndex = state.projects.findIndex((project) =>
+        project._id ? project._id.toString() === action.payload : false
       );
 
       state.projects.splice(projectIndex, 1);
@@ -396,6 +396,49 @@ export const projectSlice = createSlice({
     updateFilterData: (state, action: PayloadAction<FilterData>) => {
       state.filterData = action.payload;
     },
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Clear all states
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    clearAllStates: (state) => {
+      state.projects = [];
+      state.user = {
+        id: "",
+        username: "",
+        avatar: "",
+        email: "",
+      };
+      state.searchQuery = "";
+      state.jwt = "";
+      state.project = {
+        id: "",
+        title: "",
+        background: "",
+      };
+      state.projectUsers = [];
+      state.sections = [];
+      state.orderedTasks = [];
+      state.projectTasks = [];
+      state.currentTask = {
+        id: "",
+        closed: false,
+      };
+      state.filterData = {
+        watching: false,
+        noMembers: false,
+        assignedToMe: false,
+        assignedToUsers: [],
+        noDates: false,
+        overdue: false,
+        nextDay: false,
+        nextWeek: false,
+        nextMonth: false,
+        urgent: false,
+        high: false,
+        normal: false,
+        low: false,
+        exact: false,
+      };
+    },
   },
 });
 
@@ -426,6 +469,7 @@ export const {
   removeWatchingTask,
   changeSearchQuery,
   updateFilterData,
+  clearAllStates,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

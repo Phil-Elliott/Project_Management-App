@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateTask, deleteTask, setCurrentTask } from "~/ProjectSlice";
 import axios from "axios";
 import { Loader } from "~/shared/components";
-import { RootState } from "~/Store";
 
 type TaskModalProps = {
   user: User;
@@ -71,13 +70,9 @@ const TaskModal = ({
     deleteTaskCall();
     async function deleteTaskCall() {
       try {
-        const res = await axios.delete(
-          `https://strapi-production-7520.up.railway.app/api/tasks/${modalTask.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-            },
-          }
+        const response = await axios.delete(
+          `https://pm-server-production.up.railway.app/api/v1/tasks/${modalTask.id}`,
+          { withCredentials: true }
         );
       } catch (err) {
         console.log(err);
@@ -96,12 +91,10 @@ const TaskModal = ({
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/api/v1/tasks/${modalTask.id}`,
+        `https://pm-server-production.up.railway.app/api/v1/tasks/${modalTask.id}`,
         payload,
         { withCredentials: true }
       );
-
-      console.log(res, "task modal updated");
 
       if (
         type === "title" ||
@@ -127,7 +120,7 @@ const TaskModal = ({
         );
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
@@ -135,7 +128,7 @@ const TaskModal = ({
   async function fetchTask() {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/tasks/${modalTask.id}`,
+        `https://pm-server-production.up.railway.app/api/v1/tasks/${modalTask.id}`,
         { withCredentials: true }
       );
 

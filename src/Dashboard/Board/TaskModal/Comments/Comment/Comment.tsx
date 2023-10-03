@@ -1,7 +1,6 @@
 import moment from "moment";
 import styles from "./Comment.module.scss";
 import { Avatar, Button, Members } from "~/shared/components";
-import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 
 type CommentDataProps = {
@@ -18,48 +17,24 @@ const CommentData = ({
   userId,
 }: CommentDataProps) => {
   const [user, setUser] = useState<any>({});
-  const [commentUserId, setCommentUserId] = useState<string>("");
-  const [edit, setEdit] = useState<boolean>(false);
-  const [commentContent, setCommentContent] = useState<string>(
-    comment.attributes.content
+  const [commentUserId, setCommentUserId] = useState<string>(
+    comment.users_permissions_user._id
   );
+  const [edit, setEdit] = useState<boolean>(false);
+  const [commentContent, setCommentContent] = useState<string>(comment.content);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const fetchComment = async () => {
-    try {
-      const res = await axios.get(
-        `https://strapi-production-7520.up.railway.app/api/comments/${comment.id}?populate=*`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        }
-      );
-      setUser(res.data.data.attributes.users_permissions_user.data.attributes);
-      setCommentUserId(res.data.data.attributes.users_permissions_user.data.id);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchComment();
-  }, [comment]);
-
-  let image = user.avatar;
-  if (image === null) {
-    image = user.username[0].toUpperCase();
+  let image = comment.users_permissions_user.avatar;
+  if (image === null || image === "") {
+    image = comment.users_permissions_user.name[0].toUpperCase();
   }
 
   // convert the date to a mm/dd/yyyy format and show the time it was done from this 2023-02-16T04:19:40.734Z
-  // const date = moment(comment.attributes.publishedAt).format("MMM Do YYYY");
-  let date = moment(comment.attributes.createdAt).fromNow();
+  let date = moment(comment.createdAt).fromNow();
 
   // checks if the createdAt date is older than the publishedAt date
-  let wasEdited =
-    moment(comment.attributes.publishedAt) >
-    moment(comment.attributes.createdAt);
+  let wasEdited = moment(comment.publishedAt) > moment(comment.createdAt);
 
   if (wasEdited) {
     date = `${date} (edited)`;
@@ -69,7 +44,6 @@ const CommentData = ({
     setEdit(true);
     setTimeout(() => {
       if (inputRef.current !== null) {
-        console.log("yo");
         inputRef.current.focus();
       }
     }, 200);
@@ -78,15 +52,15 @@ const CommentData = ({
   const handleSave = () => {
     if (commentContent !== "") {
       setEdit(false);
-      if (commentContent !== comment.attributes.content) {
-        updateComment(comment.id, commentContent);
+      if (commentContent !== comment.content) {
+        updateComment(comment._id, commentContent);
       }
     }
   };
 
   const handleCancel = () => {
     setEdit(false);
-    setCommentContent(comment.attributes.content);
+    setCommentContent(comment.content);
   };
 
   function handleKeyDown(e: React.KeyboardEvent) {
@@ -103,7 +77,7 @@ const CommentData = ({
       <div className={styles.user}>{image && <Avatar avatar={image} />}</div>
       <div className={styles["comment-container"]}>
         <div className={styles["comment-header"]}>
-          <p className={styles.name}>{user.username}</p>
+          <p className={styles.name}>{comment.users_permissions_user.name}</p>
           <p className={styles.date}>{date} </p>
         </div>
         {!edit ? (
@@ -128,7 +102,7 @@ const CommentData = ({
             >
               Edit
             </p>
-            <p onClick={() => deleteComment(comment.id)}>Delete</p>
+            <p onClick={() => deleteComment(comment._id)}>Delete</p>
           </div>
         ) : (
           <div className={styles["bottom-bttns"]}>{/* <p>Reply</p> */}</div>
@@ -166,7 +140,28 @@ export default CommentData;
 
 
 
+console.log(comment);
 
+  // const fetchComment = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       `https://strapi-production-7520.up.railway.app/api/comments/${comment.id}?populate=*`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+  //         },
+  //       }
+  //     );
+  //     setUser(res.data.data.attributes.users_permissions_user.data.attributes);
+  //     setCommentUserId(res.data.data.attributes.users_permissions_user.data.id);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchComment();
+  // }, [comment]);
 
 
 

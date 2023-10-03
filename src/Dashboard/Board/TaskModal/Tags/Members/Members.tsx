@@ -37,8 +37,8 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
       setAssignedUsers(
         taskData.assigned_users.map((user: any) => {
           return {
-            key: user.id,
-            id: user.id,
+            key: user._id,
+            id: user._id,
             username: user.name,
             avatar: user.avatar,
           };
@@ -52,7 +52,7 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
   };
 
   function removeMember(member: any) {
-    let newMembers = assignedUsers && assignedUsers;
+    let newMembers = [...assignedUsers];
     newMembers = newMembers?.filter((m: any) => m.id !== member.id);
     // make a number array with the ids of the members
     let newMemberIds = newMembers?.map((m: any) => m.id);
@@ -66,7 +66,7 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
 
   function addMember(member: any) {
     if (assignedUsers.find((m: any) => m.id === member.id)) return;
-    let newMembers = assigned && assigned;
+    let newMembers = [...assignedUsers];
     newMembers?.push(member);
     let newMemberIds = newMembers?.map((m: any) => m.id);
     if (newMemberIds) {
@@ -93,7 +93,7 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
           {assignedUsers &&
             assignedUsers.map((member: any) => {
               let image = member.avatar;
-              if (image === null) {
+              if (image === null || image === "") {
                 image = member.username[0].toUpperCase();
               }
               return (
@@ -135,7 +135,7 @@ const Members = ({ taskData, members, updateMembers }: MemberProps) => {
                 member.username.toLowerCase().includes(search.toLowerCase())
               ) {
                 let image = member.avatar;
-                if (image === null) {
+                if (image === null || image === "") {
                   image = member.username[0].toUpperCase();
                 }
                 return (

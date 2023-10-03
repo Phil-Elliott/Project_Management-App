@@ -39,7 +39,7 @@ const Task = ({
   async function fetchTask() {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/tasks/${taskData.id}`,
+        `https://pm-server-production.up.railway.app/api/v1/tasks/${taskData.id}`,
         { withCredentials: true }
       );
 
@@ -69,12 +69,13 @@ const Task = ({
           })
         );
       }
+
       let assignedUsers = res.data.data.attributes.assigned_users.map(
-        (user: any) => {
+        (aUser: any) => {
           return {
-            id: user.id,
-            username: user.attributes.username,
-            avatar: user.attributes.avatar,
+            id: aUser._id,
+            username: aUser.username,
+            avatar: aUser.avatar,
           };
         }
       );
@@ -91,7 +92,7 @@ const Task = ({
         );
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   }
 
@@ -108,7 +109,7 @@ const Task = ({
   }, [currentTask]);
 
   // checks if the task id is in the user's watched tasks
-  const isWatched = watching.some((member: any) => member.id === user.id);
+  const isWatched = watching.some((member: any) => member._id === user.id);
 
   return (
     <Draggable
