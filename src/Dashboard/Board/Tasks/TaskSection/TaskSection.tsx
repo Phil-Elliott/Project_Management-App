@@ -127,8 +127,9 @@ const TaskSection = ({
     const checkExact = (task: TaskProps) => {
       if (
         filterData.watching &&
-        task.watching.filter((userWatching: any) => userWatching.id === user.id)
-          .length === 0
+        task.watching.filter(
+          (userWatching: any) => userWatching._id === user.id
+        ).length === 0
       ) {
         return false;
       }
@@ -143,17 +144,17 @@ const TaskSection = ({
       ) {
         return false;
       }
-      // Wont work for exact showing if any are chosen
+
       if (
         filterData.assignedToUsers.length > 0 &&
-        task.assigned.filter((userAssigned: any) =>
-          filterData.assignedToUsers.includes(userAssigned.id)
-        ).length === 0
+        !filterData.assignedToUsers.every((userId) =>
+          task.assigned.some((userAssigned: any) => userAssigned.id === userId)
+        )
       ) {
         return false;
       }
-      // need dates to update when changed ***
-      if ((filterData.noDates && task.due !== null) || task.due === undefined) {
+
+      if (filterData.noDates && task.due !== undefined) {
         return false;
       }
 
@@ -192,8 +193,9 @@ const TaskSection = ({
 
       if (
         filterData.watching &&
-        task.watching.filter((userWatching: any) => userWatching.id === user.id)
-          .length === 1
+        task.watching.filter(
+          (userWatching: any) => userWatching._id === user.id
+        ).length === 1
       ) {
         return true;
       }
@@ -208,7 +210,7 @@ const TaskSection = ({
       ) {
         return true;
       }
-      // Wont work for exact showing if any are chosen
+
       if (
         filterData.assignedToUsers.length > 0 &&
         task.assigned.filter((userAssigned: any) =>
@@ -217,7 +219,7 @@ const TaskSection = ({
       ) {
         return true;
       }
-      // need dates to update when changed ***
+
       if (filterData.noDates && task.due === undefined) {
         return true;
       }

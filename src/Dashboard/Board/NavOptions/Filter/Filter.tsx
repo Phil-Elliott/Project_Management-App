@@ -17,7 +17,6 @@ import styles from "./Filter.module.scss";
 import { FilterData, User } from "~/shared/interfaces/Projects";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFilterData } from "~/ProjectSlice";
-import { RootState } from "~/Store";
 
 type FilterProps = {
   user: User;
